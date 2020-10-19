@@ -12,6 +12,7 @@ namespace Recording
 {
     public partial class RecordingForm : Form
     {
+
         public RecordingForm()
         {
             InitializeComponent();
