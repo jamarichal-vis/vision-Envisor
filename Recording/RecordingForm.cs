@@ -15,6 +15,7 @@ namespace Recording
         public RecordingForm()
         {
             InitializeComponent();
+
         }
     }
 }
