@@ -7,3 +7,9 @@ C:\Users\Alejandro Marichal\source\repos\Recording\Recording\obj\x64\Debug\Recor
 C:\Users\Alejandro Marichal\source\repos\Recording\Recording\obj\x64\Debug\Recording.csproj.GenerateResource.cache
 C:\Users\Alejandro Marichal\source\repos\Recording\Recording\obj\x64\Debug\Recording.exe
 C:\Users\Alejandro Marichal\source\repos\Recording\Recording\obj\x64\Debug\Recording.pdb
+C:\Users\Alejandro Marichal\source\repos\Recording\Recording\bin\x64\Debug\Matrox.MatroxImagingLibrary.dll
+C:\Users\Alejandro Marichal\source\repos\Recording\Recording\bin\x64\Debug\MilLibrary.dll
+C:\Users\Alejandro Marichal\source\repos\Recording\Recording\bin\x64\Debug\Emgu.CV.World.dll
+C:\Users\Alejandro Marichal\source\repos\Recording\Recording\bin\x64\Debug\Matrox.MatroxImagingLibrary.xml
+C:\Users\Alejandro Marichal\source\repos\Recording\Recording\bin\x64\Debug\MilLibrary.pdb
+C:\Users\Alejandro Marichal\source\repos\Recording\Recording\obj\x64\Debug\Recording.csproj.CopyComplete

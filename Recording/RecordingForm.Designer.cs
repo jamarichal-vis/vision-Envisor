@@ -215,12 +215,12 @@
             this.tableLayoutPanel3.Controls.Add(this.tableLayoutPanel5, 0, 0);
             this.tableLayoutPanel3.Controls.Add(this.trackBarExposure, 0, 1);
             this.tableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel3.Location = new System.Drawing.Point(4, 179);
+            this.tableLayoutPanel3.Location = new System.Drawing.Point(4, 217);
             this.tableLayoutPanel3.Name = "tableLayoutPanel3";
             this.tableLayoutPanel3.RowCount = 2;
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel3.Size = new System.Drawing.Size(239, 58);
+            this.tableLayoutPanel3.Size = new System.Drawing.Size(239, 74);
             this.tableLayoutPanel3.TabIndex = 3;
             // 
             // tableLayoutPanel5
@@ -275,7 +275,7 @@
             this.trackBarExposure.Dock = System.Windows.Forms.DockStyle.Fill;
             this.trackBarExposure.Location = new System.Drawing.Point(3, 33);
             this.trackBarExposure.Name = "trackBarExposure";
-            this.trackBarExposure.Size = new System.Drawing.Size(233, 22);
+            this.trackBarExposure.Size = new System.Drawing.Size(233, 38);
             this.trackBarExposure.TabIndex = 1;
             // 
             // lbParameter
@@ -303,7 +303,7 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 10F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(239, 72);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(239, 94);
             this.tableLayoutPanel1.TabIndex = 1;
             // 
             // tableLayoutPanel2
@@ -321,8 +321,8 @@
             this.tableLayoutPanel2.Location = new System.Drawing.Point(3, 48);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 1;
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 10F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(233, 21);
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 43F));
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(233, 43);
             this.tableLayoutPanel2.TabIndex = 3;
             // 
             // lbImageFormatX
@@ -331,7 +331,7 @@
             this.lbImageFormatX.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lbImageFormatX.Location = new System.Drawing.Point(96, 0);
             this.lbImageFormatX.Name = "lbImageFormatX";
-            this.lbImageFormatX.Size = new System.Drawing.Size(17, 21);
+            this.lbImageFormatX.Size = new System.Drawing.Size(17, 43);
             this.lbImageFormatX.TabIndex = 0;
             this.lbImageFormatX.Text = "x";
             this.lbImageFormatX.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -339,7 +339,7 @@
             // numericUpDownImageFormatPixelX
             // 
             this.numericUpDownImageFormatPixelX.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.numericUpDownImageFormatPixelX.Location = new System.Drawing.Point(3, 3);
+            this.numericUpDownImageFormatPixelX.Location = new System.Drawing.Point(3, 11);
             this.numericUpDownImageFormatPixelX.Name = "numericUpDownImageFormatPixelX";
             this.numericUpDownImageFormatPixelX.Size = new System.Drawing.Size(87, 20);
             this.numericUpDownImageFormatPixelX.TabIndex = 1;
@@ -347,7 +347,7 @@
             // numericUpDown1
             // 
             this.numericUpDown1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.numericUpDown1.Location = new System.Drawing.Point(119, 3);
+            this.numericUpDown1.Location = new System.Drawing.Point(119, 11);
             this.numericUpDown1.Name = "numericUpDown1";
             this.numericUpDown1.Size = new System.Drawing.Size(87, 20);
             this.numericUpDown1.TabIndex = 2;
@@ -358,7 +358,7 @@
             this.lbImageFormatY.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lbImageFormatY.Location = new System.Drawing.Point(212, 0);
             this.lbImageFormatY.Name = "lbImageFormatY";
-            this.lbImageFormatY.Size = new System.Drawing.Size(18, 21);
+            this.lbImageFormatY.Size = new System.Drawing.Size(18, 43);
             this.lbImageFormatY.TabIndex = 3;
             this.lbImageFormatY.Text = "y";
             this.lbImageFormatY.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -390,12 +390,12 @@
             this.tbLayoutPanelFrameRate.Controls.Add(this.tableLayoutPanel4, 0, 0);
             this.tbLayoutPanelFrameRate.Controls.Add(this.s, 0, 1);
             this.tbLayoutPanelFrameRate.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tbLayoutPanelFrameRate.Location = new System.Drawing.Point(4, 114);
+            this.tbLayoutPanelFrameRate.Location = new System.Drawing.Point(4, 136);
             this.tbLayoutPanelFrameRate.Name = "tbLayoutPanelFrameRate";
             this.tbLayoutPanelFrameRate.RowCount = 2;
             this.tbLayoutPanelFrameRate.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
             this.tbLayoutPanelFrameRate.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tbLayoutPanelFrameRate.Size = new System.Drawing.Size(239, 58);
+            this.tbLayoutPanelFrameRate.Size = new System.Drawing.Size(239, 74);
             this.tbLayoutPanelFrameRate.TabIndex = 2;
             // 
             // tableLayoutPanel4
@@ -450,7 +450,7 @@
             this.s.Dock = System.Windows.Forms.DockStyle.Fill;
             this.s.Location = new System.Drawing.Point(3, 33);
             this.s.Name = "s";
-            this.s.Size = new System.Drawing.Size(233, 22);
+            this.s.Size = new System.Drawing.Size(233, 38);
             this.s.TabIndex = 1;
             // 
             // tbLayoutPanelSequence
@@ -460,12 +460,12 @@
             this.tbLayoutPanelSequence.Controls.Add(this.trackBarSequence, 0, 1);
             this.tbLayoutPanelSequence.Controls.Add(this.tbLayoutPanelSequenceContent, 0, 0);
             this.tbLayoutPanelSequence.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tbLayoutPanelSequence.Location = new System.Drawing.Point(4, 244);
+            this.tbLayoutPanelSequence.Location = new System.Drawing.Point(4, 298);
             this.tbLayoutPanelSequence.Name = "tbLayoutPanelSequence";
             this.tbLayoutPanelSequence.RowCount = 2;
             this.tbLayoutPanelSequence.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 80F));
             this.tbLayoutPanelSequence.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tbLayoutPanelSequence.Size = new System.Drawing.Size(239, 107);
+            this.tbLayoutPanelSequence.Size = new System.Drawing.Size(239, 114);
             this.tbLayoutPanelSequence.TabIndex = 4;
             // 
             // trackBarSequence
@@ -473,7 +473,7 @@
             this.trackBarSequence.Dock = System.Windows.Forms.DockStyle.Fill;
             this.trackBarSequence.Location = new System.Drawing.Point(3, 83);
             this.trackBarSequence.Name = "trackBarSequence";
-            this.trackBarSequence.Size = new System.Drawing.Size(233, 21);
+            this.trackBarSequence.Size = new System.Drawing.Size(233, 28);
             this.trackBarSequence.TabIndex = 2;
             // 
             // tbLayoutPanelSequenceContent
@@ -505,9 +505,9 @@
             // 
             this.lbSequencePositionTriggerUnits.AutoSize = true;
             this.lbSequencePositionTriggerUnits.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lbSequencePositionTriggerUnits.Location = new System.Drawing.Point(207, 40);
+            this.lbSequencePositionTriggerUnits.Location = new System.Drawing.Point(207, 50);
             this.lbSequencePositionTriggerUnits.Name = "lbSequencePositionTriggerUnits";
-            this.lbSequencePositionTriggerUnits.Size = new System.Drawing.Size(23, 27);
+            this.lbSequencePositionTriggerUnits.Size = new System.Drawing.Size(23, 25);
             this.lbSequencePositionTriggerUnits.TabIndex = 8;
             this.lbSequencePositionTriggerUnits.Text = "%";
             this.lbSequencePositionTriggerUnits.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -516,9 +516,9 @@
             // 
             this.lbSequencePreTriggerUnits.AutoSize = true;
             this.lbSequencePreTriggerUnits.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lbSequencePreTriggerUnits.Location = new System.Drawing.Point(207, 20);
+            this.lbSequencePreTriggerUnits.Location = new System.Drawing.Point(207, 25);
             this.lbSequencePreTriggerUnits.Name = "lbSequencePreTriggerUnits";
-            this.lbSequencePreTriggerUnits.Size = new System.Drawing.Size(23, 20);
+            this.lbSequencePreTriggerUnits.Size = new System.Drawing.Size(23, 25);
             this.lbSequencePreTriggerUnits.TabIndex = 5;
             this.lbSequencePreTriggerUnits.Text = "frm";
             this.lbSequencePreTriggerUnits.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -529,7 +529,7 @@
             this.lbSequence.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lbSequence.Location = new System.Drawing.Point(3, 0);
             this.lbSequence.Name = "lbSequence";
-            this.lbSequence.Size = new System.Drawing.Size(96, 20);
+            this.lbSequence.Size = new System.Drawing.Size(96, 25);
             this.lbSequence.TabIndex = 0;
             this.lbSequence.Text = "Sequence";
             this.lbSequence.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -545,7 +545,7 @@
             // numericUpDownPreTrigger
             // 
             this.numericUpDownPreTrigger.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.numericUpDownPreTrigger.Location = new System.Drawing.Point(105, 23);
+            this.numericUpDownPreTrigger.Location = new System.Drawing.Point(105, 28);
             this.numericUpDownPreTrigger.Name = "numericUpDownPreTrigger";
             this.numericUpDownPreTrigger.Size = new System.Drawing.Size(96, 20);
             this.numericUpDownPreTrigger.TabIndex = 2;
@@ -554,7 +554,7 @@
             // 
             this.cbBoxSequence.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.cbBoxSequence.FormattingEnabled = true;
-            this.cbBoxSequence.Location = new System.Drawing.Point(3, 23);
+            this.cbBoxSequence.Location = new System.Drawing.Point(3, 28);
             this.cbBoxSequence.Name = "cbBoxSequence";
             this.cbBoxSequence.Size = new System.Drawing.Size(96, 21);
             this.cbBoxSequence.TabIndex = 3;
@@ -565,7 +565,7 @@
             this.lbSequenceTriggerUnits.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lbSequenceTriggerUnits.Location = new System.Drawing.Point(207, 0);
             this.lbSequenceTriggerUnits.Name = "lbSequenceTriggerUnits";
-            this.lbSequenceTriggerUnits.Size = new System.Drawing.Size(23, 20);
+            this.lbSequenceTriggerUnits.Size = new System.Drawing.Size(23, 25);
             this.lbSequenceTriggerUnits.TabIndex = 4;
             this.lbSequenceTriggerUnits.Text = "frm";
             this.lbSequenceTriggerUnits.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -574,9 +574,9 @@
             // 
             this.lbPositinTrigger.AutoSize = true;
             this.lbPositinTrigger.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lbPositinTrigger.Location = new System.Drawing.Point(3, 40);
+            this.lbPositinTrigger.Location = new System.Drawing.Point(3, 50);
             this.lbPositinTrigger.Name = "lbPositinTrigger";
-            this.lbPositinTrigger.Size = new System.Drawing.Size(96, 27);
+            this.lbPositinTrigger.Size = new System.Drawing.Size(96, 25);
             this.lbPositinTrigger.TabIndex = 6;
             this.lbPositinTrigger.Text = "Posición Trigger";
             this.lbPositinTrigger.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -584,7 +584,7 @@
             // numericUpDownPositionTrigger
             // 
             this.numericUpDownPositionTrigger.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.numericUpDownPositionTrigger.Location = new System.Drawing.Point(105, 43);
+            this.numericUpDownPositionTrigger.Location = new System.Drawing.Point(105, 53);
             this.numericUpDownPositionTrigger.Name = "numericUpDownPositionTrigger";
             this.numericUpDownPositionTrigger.Size = new System.Drawing.Size(96, 20);
             this.numericUpDownPositionTrigger.TabIndex = 7;
@@ -596,14 +596,14 @@
             this.tableLayoutPanel6.Controls.Add(this.lbStorage, 0, 0);
             this.tableLayoutPanel6.Controls.Add(this.cbBoxStorage, 0, 1);
             this.tableLayoutPanel6.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel6.Location = new System.Drawing.Point(4, 358);
+            this.tableLayoutPanel6.Location = new System.Drawing.Point(4, 419);
             this.tableLayoutPanel6.Name = "tableLayoutPanel6";
             this.tableLayoutPanel6.RowCount = 4;
             this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel6.Size = new System.Drawing.Size(239, 127);
+            this.tableLayoutPanel6.Size = new System.Drawing.Size(239, 94);
             this.tableLayoutPanel6.TabIndex = 5;
             // 
             // lbStorage

@@ -55,6 +55,13 @@
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Matrox.MatroxImagingLibrary, Version=6.1.320.0, Culture=neutral, PublicKeyToken=726f03a4652993c7, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\millibrary\MilLibrary\bin\x64\Debug\net461\Matrox.MatroxImagingLibrary.dll</HintPath>
+    </Reference>
+    <Reference Include="MilLibrary">
+      <HintPath>..\..\millibrary\MilLibrary\bin\x64\Debug\net461\MilLibrary.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -68,6 +75,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CameraManager.cs" />
     <Compile Include="RecordingForm.cs">
       <SubType>Form</SubType>
     </Compile>
