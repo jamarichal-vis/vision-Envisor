@@ -34,6 +34,8 @@ namespace Recording
         /// </summary>
         private CameraManager cameraManager;
 
+        private FrameRateManager frameRateManager;
+
         /// <summary>
         /// Esta variable almacenará los datos necesarios para identificar una cámara en <see cref="MilLibrary">MilLibrary</see>/>.
         /// Donde siempre se almacenará la cámara que se encuentre seleccionada en <see cref="cameraManager">cameraManager</see>/>.
@@ -49,6 +51,8 @@ namespace Recording
             InitMilLibrary();
 
             InitCameraManager();
+
+            InitFrameRateManager();
         }
 
         /// <summary>
@@ -103,6 +107,11 @@ namespace Recording
             cameraManager.selectedCamEvent += new CameraManager.selectedCamDelegate(SelectedCamera);
 
             cameraManager.ShowCamerasConnected();
+        }
+
+        public void InitFrameRateManager()
+        {
+            frameRateManager = new FrameRateManager(ref milApp, ref numericUpDownFrameRate, ref trBarFrameRate, ref idCam);
         }
 
         /// <summary>

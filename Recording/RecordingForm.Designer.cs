@@ -55,7 +55,7 @@
             this.lbFrameRate = new System.Windows.Forms.Label();
             this.numericUpDownFrameRate = new System.Windows.Forms.NumericUpDown();
             this.lbFrameRateUnits = new System.Windows.Forms.Label();
-            this.s = new System.Windows.Forms.TrackBar();
+            this.trBarFrameRate = new System.Windows.Forms.TrackBar();
             this.tbLayoutPanelSequence = new System.Windows.Forms.TableLayoutPanel();
             this.trackBarSequence = new System.Windows.Forms.TrackBar();
             this.tbLayoutPanelSequenceContent = new System.Windows.Forms.TableLayoutPanel();
@@ -92,7 +92,7 @@
             this.tbLayoutPanelFrameRate.SuspendLayout();
             this.tableLayoutPanel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownFrameRate)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.s)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trBarFrameRate)).BeginInit();
             this.tbLayoutPanelSequence.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarSequence)).BeginInit();
             this.tbLayoutPanelSequenceContent.SuspendLayout();
@@ -388,7 +388,7 @@
             this.tbLayoutPanelFrameRate.ColumnCount = 1;
             this.tbLayoutPanelFrameRate.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tbLayoutPanelFrameRate.Controls.Add(this.tableLayoutPanel4, 0, 0);
-            this.tbLayoutPanelFrameRate.Controls.Add(this.s, 0, 1);
+            this.tbLayoutPanelFrameRate.Controls.Add(this.trBarFrameRate, 0, 1);
             this.tbLayoutPanelFrameRate.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tbLayoutPanelFrameRate.Location = new System.Drawing.Point(4, 136);
             this.tbLayoutPanelFrameRate.Name = "tbLayoutPanelFrameRate";
@@ -445,13 +445,13 @@
             this.lbFrameRateUnits.Text = "fps";
             this.lbFrameRateUnits.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // s
+            // trBarFrameRate
             // 
-            this.s.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.s.Location = new System.Drawing.Point(3, 33);
-            this.s.Name = "s";
-            this.s.Size = new System.Drawing.Size(233, 38);
-            this.s.TabIndex = 1;
+            this.trBarFrameRate.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.trBarFrameRate.Location = new System.Drawing.Point(3, 33);
+            this.trBarFrameRate.Name = "trBarFrameRate";
+            this.trBarFrameRate.Size = new System.Drawing.Size(233, 38);
+            this.trBarFrameRate.TabIndex = 1;
             // 
             // tbLayoutPanelSequence
             // 
@@ -719,7 +719,7 @@
             this.tableLayoutPanel4.ResumeLayout(false);
             this.tableLayoutPanel4.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownFrameRate)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.s)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trBarFrameRate)).EndInit();
             this.tbLayoutPanelSequence.ResumeLayout(false);
             this.tbLayoutPanelSequence.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarSequence)).EndInit();
@@ -761,7 +761,7 @@
         private System.Windows.Forms.Label lbFrameRate;
         private System.Windows.Forms.NumericUpDown numericUpDownFrameRate;
         private System.Windows.Forms.Label lbFrameRateUnits;
-        private System.Windows.Forms.TrackBar s;
+        private System.Windows.Forms.TrackBar trBarFrameRate;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel5;
         private System.Windows.Forms.Label lbExposure;

@@ -75,7 +75,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CameraManager.cs" />
+    <Compile Include="CameraManager\CameraManager.cs" />
+    <Compile Include="FrameRateManager.cs" />
     <Compile Include="Id.cs" />
     <Compile Include="RecordingForm.cs">
       <SubType>Form</SubType>
@@ -110,5 +111,6 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
