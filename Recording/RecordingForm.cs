@@ -29,10 +29,33 @@ namespace Recording
         /// </summary>
         private MIL_INT devSysGigeVision;
 
+        /// <summary>
+        /// Esta variable contiene todas las funciones necesarias para controlar el objeto <see cref="treeViewCameras">treeViewCameras</see>/>.
+        /// </summary>
+        private CameraManager cameraManager;
+
+        /// <summary>
+        /// Esta variable almacenará los datos necesarios para identificar una cámara en <see cref="MilLibrary">MilLibrary</see>/>.
+        /// Donde siempre se almacenará la cámara que se encuentre seleccionada en <see cref="cameraManager">cameraManager</see>/>.
+        /// </summary>
+        private Id idCam;
+
         public RecordingForm()
         {
             InitializeComponent();
 
+            idCam = new Id();
+
+            InitMilLibrary();
+
+            InitCameraManager();
+        }
+
+        /// <summary>
+        /// Esta función contiene todas las funciones necesarias para inicializar <see cref="MilLibrary">MilLibrary</see>/> en este programa.
+        /// </summary>
+        public void InitMilLibrary()
+        {
             milApp = new MilApp("Recording", isTest: true);
 
             /*** SISTEMAS AÑADIDOS ***/
@@ -66,9 +89,20 @@ namespace Recording
 
             for (MIL_INT devDig = MIL.M_DEV0; devDig < NbcamerasInGigeVisionSystem; devDig++)
                 ConnectedCameraInSystem(devSysGigeVision, devDig);
-            
+
             for (MIL_INT devDig = MIL.M_DEV0; devDig < NbcamerasInUsb3Vision; devDig++)
                 ConnectedCameraInSystem(devSysUsb3Vision, devDig);
+        }
+
+        /// <summary>
+        /// Este método contiene todas las funciones necesarias para inicializar el objeto <see cref="cameraManager">cameraManager</see>/>.
+        /// </summary>
+        public void InitCameraManager()
+        {
+            cameraManager = new CameraManager(ref milApp, ref devSysGigeVision, ref devSysUsb3Vision, ref treeViewCameras, ref idCam);
+            cameraManager.selectedCamEvent += new CameraManager.selectedCamDelegate(SelectedCamera);
+
+            cameraManager.ShowCamerasConnected();
         }
 
         /// <summary>
@@ -129,9 +163,9 @@ namespace Recording
             /********************** PROCESSING FUNCTION ********************/
 
             /*Indicamos el processing function que debe ejecutarse cuando se ejecute el hilo de la cámara correspondiente.*/
-            milApp.CamSetProcessingFunction(devSys, devDig, "Uco");
+            milApp.CamSetProcessingFunction(devSys, devDig, "Recording");
 
-            milApp.StartGrab(devSys, devDig);
+            //milApp.StartGrab(devSys, devDig);
         }
 
         /// <summary>
@@ -144,6 +178,22 @@ namespace Recording
         public void ProcessingFunction(MIL_ID milSys, MIL_INT dev, string name, string ip)
         {
 
+        }
+
+        /// <summary>
+        /// Esta función se ejecuta cuando se selecciona una cámara en <see cref="cameraManager">cameraManager</see>/>.
+        /// Ver, <see cref="CameraManager.selectedCamEvent">CameraManager.selectedCamEvent</see>/>.
+        /// La variable <see cref="idCam">idCam</see>/> se actualiza en el interior del objeto <see cref="cameraManager"/>.
+        /// Ver, <see cref="CameraManager.treeViewCameras_AfterSelect(object, TreeViewEventArgs)">CameraManager.treeViewCameras_AfterSelect(object, TreeViewEventArgs)</see>/>.
+        /// </summary>
+        public void SelectedCamera()
+        {
+            string h = "";
+        }
+
+        private void RecordingForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            milApp.Destroy();
         }
     }
 }

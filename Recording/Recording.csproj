@@ -76,6 +76,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CameraManager.cs" />
+    <Compile Include="Id.cs" />
     <Compile Include="RecordingForm.cs">
       <SubType>Form</SubType>
     </Compile>

@@ -694,6 +694,7 @@
             this.Controls.Add(this.tbLayoutPanelMain);
             this.Name = "RecordingForm";
             this.Text = "Recording";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.RecordingForm_FormClosing);
             this.tbLayoutPanelMain.ResumeLayout(false);
             this.tbLayoutPanelSettings.ResumeLayout(false);
             this.tbLayoutPanelCameras.ResumeLayout(false);
