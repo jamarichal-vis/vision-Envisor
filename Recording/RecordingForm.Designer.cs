@@ -38,9 +38,9 @@
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
             this.lbExposure = new System.Windows.Forms.Label();
-            this.numericUpDownExposure = new System.Windows.Forms.NumericUpDown();
+            this.numericUpDownExposureTime = new System.Windows.Forms.NumericUpDown();
             this.lbExposureUnits = new System.Windows.Forms.Label();
-            this.trackBarExposure = new System.Windows.Forms.TrackBar();
+            this.trackBarExposureTime = new System.Windows.Forms.TrackBar();
             this.lbParameter = new System.Windows.Forms.Label();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
@@ -83,8 +83,8 @@
             this.tbLayoutPanelParameter.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
             this.tableLayoutPanel5.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownExposure)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBarExposure)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownExposureTime)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBarExposureTime)).BeginInit();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownImageFormatPixelX)).BeginInit();
@@ -213,7 +213,7 @@
             this.tableLayoutPanel3.ColumnCount = 1;
             this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel3.Controls.Add(this.tableLayoutPanel5, 0, 0);
-            this.tableLayoutPanel3.Controls.Add(this.trackBarExposure, 0, 1);
+            this.tableLayoutPanel3.Controls.Add(this.trackBarExposureTime, 0, 1);
             this.tableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel3.Location = new System.Drawing.Point(4, 217);
             this.tableLayoutPanel3.Name = "tableLayoutPanel3";
@@ -230,7 +230,7 @@
             this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 15F));
             this.tableLayoutPanel5.Controls.Add(this.lbExposure, 0, 0);
-            this.tableLayoutPanel5.Controls.Add(this.numericUpDownExposure, 1, 0);
+            this.tableLayoutPanel5.Controls.Add(this.numericUpDownExposureTime, 1, 0);
             this.tableLayoutPanel5.Controls.Add(this.lbExposureUnits, 2, 0);
             this.tableLayoutPanel5.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel5.Location = new System.Drawing.Point(3, 3);
@@ -251,13 +251,13 @@
             this.lbExposure.Text = "Exposición";
             this.lbExposure.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // numericUpDownExposure
+            // numericUpDownExposureTime
             // 
-            this.numericUpDownExposure.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.numericUpDownExposure.Location = new System.Drawing.Point(84, 3);
-            this.numericUpDownExposure.Name = "numericUpDownExposure";
-            this.numericUpDownExposure.Size = new System.Drawing.Size(110, 20);
-            this.numericUpDownExposure.TabIndex = 1;
+            this.numericUpDownExposureTime.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.numericUpDownExposureTime.Location = new System.Drawing.Point(84, 3);
+            this.numericUpDownExposureTime.Name = "numericUpDownExposureTime";
+            this.numericUpDownExposureTime.Size = new System.Drawing.Size(110, 20);
+            this.numericUpDownExposureTime.TabIndex = 1;
             // 
             // lbExposureUnits
             // 
@@ -270,13 +270,13 @@
             this.lbExposureUnits.Text = "us";
             this.lbExposureUnits.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // trackBarExposure
+            // trackBarExposureTime
             // 
-            this.trackBarExposure.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.trackBarExposure.Location = new System.Drawing.Point(3, 33);
-            this.trackBarExposure.Name = "trackBarExposure";
-            this.trackBarExposure.Size = new System.Drawing.Size(233, 38);
-            this.trackBarExposure.TabIndex = 1;
+            this.trackBarExposureTime.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.trackBarExposureTime.Location = new System.Drawing.Point(3, 33);
+            this.trackBarExposureTime.Name = "trackBarExposureTime";
+            this.trackBarExposureTime.Size = new System.Drawing.Size(233, 38);
+            this.trackBarExposureTime.TabIndex = 1;
             // 
             // lbParameter
             // 
@@ -706,8 +706,8 @@
             this.tableLayoutPanel3.PerformLayout();
             this.tableLayoutPanel5.ResumeLayout(false);
             this.tableLayoutPanel5.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownExposure)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBarExposure)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownExposureTime)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBarExposureTime)).EndInit();
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
             this.tableLayoutPanel2.ResumeLayout(false);
@@ -765,9 +765,9 @@
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel5;
         private System.Windows.Forms.Label lbExposure;
-        private System.Windows.Forms.NumericUpDown numericUpDownExposure;
+        private System.Windows.Forms.NumericUpDown numericUpDownExposureTime;
         private System.Windows.Forms.Label lbExposureUnits;
-        private System.Windows.Forms.TrackBar trackBarExposure;
+        private System.Windows.Forms.TrackBar trackBarExposureTime;
         private System.Windows.Forms.TableLayoutPanel tbLayoutPanelSequence;
         private System.Windows.Forms.TrackBar trackBarSequence;
         private System.Windows.Forms.TableLayoutPanel tbLayoutPanelSequenceContent;

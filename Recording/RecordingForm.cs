@@ -34,7 +34,15 @@ namespace Recording
         /// </summary>
         private CameraManager cameraManager;
 
+        /// <summary>
+        /// Esta variable contiene todas las funciones necesarias para controlar la sección de frame rate de las cámaras.
+        /// </summary>
         private FrameRateManager frameRateManager;
+        
+        /// <summary>
+        /// Esta variable contiene todas las funciones necesarias para controlar la sección de exposure time de las cámaras.
+        /// </summary>
+        private ExposureTimeManager exposureTimeManager;
 
         /// <summary>
         /// Esta variable almacenará los datos necesarios para identificar una cámara en <see cref="MilLibrary">MilLibrary</see>/>.
@@ -53,6 +61,8 @@ namespace Recording
             InitCameraManager();
 
             InitFrameRateManager();
+
+            InitExposureTimeManager();
         }
 
         /// <summary>
@@ -109,9 +119,20 @@ namespace Recording
             cameraManager.ShowCamerasConnected();
         }
 
+        /// <summary>
+        /// Este método contiene todas las funciones necesarias para inicializar el objeto <see cref="frameRateManager">frameRateManager</see>/>.
+        /// </summary>
         public void InitFrameRateManager()
         {
             frameRateManager = new FrameRateManager(ref milApp, ref numericUpDownFrameRate, ref trBarFrameRate, ref idCam);
+        }
+
+        /// <summary>
+        /// Este método contiene todas las funciones necesarias para inicializar el objeto <see cref="exposureTimeManager">exposureTimeManager</see>/>.
+        /// </summary>
+        public void InitExposureTimeManager()
+        {
+            exposureTimeManager = new ExposureTimeManager(ref milApp, ref numericUpDownExposureTime, ref trackBarExposureTime, ref idCam);
         }
 
         /// <summary>

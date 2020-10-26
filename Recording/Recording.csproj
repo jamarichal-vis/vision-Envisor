@@ -76,7 +76,20 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CameraManager\CameraManager.cs" />
-    <Compile Include="FrameRateManager.cs" />
+    <Compile Include="Display Cameras\Forms\DisplayCameraBasler.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Display Cameras\Forms\DisplayCameraBasler.Designer.cs">
+      <DependentUpon>DisplayCameraBasler.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Display Cameras\Forms\DisplayCameraFlir.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Display Cameras\Forms\DisplayCameraFlir.Designer.cs">
+      <DependentUpon>DisplayCameraFlir.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Parameters\ExposureTimeManager.cs" />
+    <Compile Include="Parameters\FrameRateManager.cs" />
     <Compile Include="Id.cs" />
     <Compile Include="RecordingForm.cs">
       <SubType>Form</SubType>
@@ -86,6 +99,12 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Display Cameras\Forms\DisplayCameraBasler.resx">
+      <DependentUpon>DisplayCameraBasler.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Display Cameras\Forms\DisplayCameraFlir.resx">
+      <DependentUpon>DisplayCameraFlir.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
