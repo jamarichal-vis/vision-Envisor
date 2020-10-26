@@ -76,6 +76,7 @@
             this.btnDelete = new System.Windows.Forms.Button();
             this.btnSave = new System.Windows.Forms.Button();
             this.btnRecord = new System.Windows.Forms.Button();
+            this.pnlCams = new System.Windows.Forms.Panel();
             this.tbLayoutPanelMain.SuspendLayout();
             this.tbLayoutPanelSettings.SuspendLayout();
             this.tbLayoutPanelCameras.SuspendLayout();
@@ -629,6 +630,7 @@
             this.tbLayoutPanelVisualization.ColumnCount = 1;
             this.tbLayoutPanelVisualization.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tbLayoutPanelVisualization.Controls.Add(this.tbLayoutPanelTitleVisualization, 0, 0);
+            this.tbLayoutPanelVisualization.Controls.Add(this.pnlCams, 0, 1);
             this.tbLayoutPanelVisualization.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tbLayoutPanelVisualization.Location = new System.Drawing.Point(262, 3);
             this.tbLayoutPanelVisualization.Name = "tbLayoutPanelVisualization";
@@ -685,6 +687,14 @@
             this.btnRecord.TabIndex = 0;
             this.btnRecord.Text = "Record";
             this.btnRecord.UseVisualStyleBackColor = true;
+            // 
+            // pnlCams
+            // 
+            this.pnlCams.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnlCams.Location = new System.Drawing.Point(3, 38);
+            this.pnlCams.Name = "pnlCams";
+            this.pnlCams.Size = new System.Drawing.Size(1025, 665);
+            this.pnlCams.TabIndex = 1;
             // 
             // RecordingForm
             // 
@@ -786,6 +796,7 @@
         private System.Windows.Forms.Button btnDelete;
         private System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.Button btnRecord;
+        private System.Windows.Forms.Panel pnlCams;
     }
 }
 

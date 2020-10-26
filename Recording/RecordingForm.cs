@@ -44,6 +44,9 @@ namespace Recording
         /// </summary>
         private ExposureTimeManager exposureTimeManager;
 
+        private DisplayCameraBaslerForm displayCameraBaslerForm;
+        private DisplayCameraFlirForm displayCameraFlirForm;
+
         /// <summary>
         /// Esta variable almacenará los datos necesarios para identificar una cámara en <see cref="MilLibrary">MilLibrary</see>/>.
         /// Donde siempre se almacenará la cámara que se encuentre seleccionada en <see cref="cameraManager">cameraManager</see>/>.
@@ -63,6 +66,17 @@ namespace Recording
             InitFrameRateManager();
 
             InitExposureTimeManager();
+
+            Id idTest = new Id();
+            idTest.Set(devSysUsb3Vision, MIL.M_DEV0);
+
+            displayCameraBaslerForm = new DisplayCameraBaslerForm(ref milApp, idTest);
+
+            idTest.Set(devSysGigeVision, MIL.M_DEV0);
+
+            displayCameraFlirForm = new DisplayCameraFlirForm(ref milApp, idTest);
+
+            AddFormInPanel(displayCameraFlirForm, pnlCams);
         }
 
         /// <summary>
@@ -221,9 +235,33 @@ namespace Recording
             string h = "";
         }
 
+        /// <summary>
+        /// Función para añadir un formulario dentro de un panel
+        /// </summary>
+        /// <param name="fh"></param>
+        /// <param name="panel"></param>
+        public void AddFormInPanel(Form fh, Panel panel) /*(MetroForm fh)*/
+        {
+            if (panel.Controls.Count > 0)
+                panel.Controls.RemoveAt(0);
+
+            fh.TopLevel = false;
+            fh.FormBorderStyle = FormBorderStyle.None;
+            fh.ControlBox = false;
+            //fh.ShadowType = MetroFormShadowType.None;
+            fh.Dock = DockStyle.Fill;
+
+            panel.Controls.Add(fh);
+            panel.Tag = fh;
+            panel.AutoSize = true;
+            fh.Show();
+        }
+
         private void RecordingForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            milApp.Destroy();
+            displayCameraBaslerForm.DisconnectPanel();
+
+            milApp.FreeRecourse();
         }
     }
 }

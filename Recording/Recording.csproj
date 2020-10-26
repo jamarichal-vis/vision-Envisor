@@ -90,6 +90,7 @@
     </Compile>
     <Compile Include="DisplayCamera.cs" />
     <Compile Include="DisplayCameraBasler.cs" />
+    <Compile Include="DisplayCameraFlir.cs" />
     <Compile Include="Parameters\ExposureTimeManager.cs" />
     <Compile Include="Parameters\FrameRateManager.cs" />
     <Compile Include="Id.cs" />
