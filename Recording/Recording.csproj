@@ -76,18 +76,20 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CameraManager\CameraManager.cs" />
-    <Compile Include="Display Cameras\Forms\DisplayCameraBasler.cs">
+    <Compile Include="Display Cameras\Forms\DisplayCameraBaslerForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Display Cameras\Forms\DisplayCameraBasler.Designer.cs">
-      <DependentUpon>DisplayCameraBasler.cs</DependentUpon>
+    <Compile Include="Display Cameras\Forms\DisplayCameraBaslerForm.Designer.cs">
+      <DependentUpon>DisplayCameraBaslerForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Display Cameras\Forms\DisplayCameraFlir.cs">
+    <Compile Include="Display Cameras\Forms\DisplayCameraFlirForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Display Cameras\Forms\DisplayCameraFlir.Designer.cs">
-      <DependentUpon>DisplayCameraFlir.cs</DependentUpon>
+    <Compile Include="Display Cameras\Forms\DisplayCameraFlirForm.Designer.cs">
+      <DependentUpon>DisplayCameraFlirForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="DisplayCamera.cs" />
+    <Compile Include="DisplayCameraBasler.cs" />
     <Compile Include="Parameters\ExposureTimeManager.cs" />
     <Compile Include="Parameters\FrameRateManager.cs" />
     <Compile Include="Id.cs" />
@@ -99,11 +101,11 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Display Cameras\Forms\DisplayCameraBasler.resx">
-      <DependentUpon>DisplayCameraBasler.cs</DependentUpon>
+    <EmbeddedResource Include="Display Cameras\Forms\DisplayCameraBaslerForm.resx">
+      <DependentUpon>DisplayCameraBaslerForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Display Cameras\Forms\DisplayCameraFlir.resx">
-      <DependentUpon>DisplayCameraFlir.cs</DependentUpon>
+    <EmbeddedResource Include="Display Cameras\Forms\DisplayCameraFlirForm.resx">
+      <DependentUpon>DisplayCameraFlirForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

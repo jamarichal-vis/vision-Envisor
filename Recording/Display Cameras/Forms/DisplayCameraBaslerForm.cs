@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace Recording
 {
-    public partial class DisplayCameraBasler : Form
+    public partial class DisplayCameraBaslerForm : Form
     {
-        public DisplayCameraBasler()
+        public DisplayCameraBaslerForm()
         {
             InitializeComponent();
         }

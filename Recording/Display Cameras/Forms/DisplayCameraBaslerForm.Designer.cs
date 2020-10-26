@@ -1,6 +1,6 @@
 ﻿namespace Recording
 {
-    partial class DisplayCameraBasler
+    partial class DisplayCameraBaslerForm
     {
         /// <summary>
         /// Required designer variable.
