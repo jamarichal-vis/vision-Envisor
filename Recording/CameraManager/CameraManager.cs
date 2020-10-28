@@ -147,7 +147,6 @@ namespace Recording
                 if (selectedCamEvent != null)
                     selectedCamEvent.Invoke();
             }
-
         }
 
         /// <summary>

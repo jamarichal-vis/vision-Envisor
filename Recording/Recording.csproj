@@ -76,6 +76,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CameraManager\CameraManager.cs" />
+    <Compile Include="DinamicPanels.cs" />
     <Compile Include="Display Cameras\Forms\DisplayCameraBaslerForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -88,9 +89,10 @@
     <Compile Include="Display Cameras\Forms\DisplayCameraFlirForm.Designer.cs">
       <DependentUpon>DisplayCameraFlirForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="DisplayCamera.cs" />
-    <Compile Include="DisplayCameraBasler.cs" />
-    <Compile Include="DisplayCameraFlir.cs" />
+    <Compile Include="Display Cameras\Code\DisplayCamera.cs" />
+    <Compile Include="Display Cameras\Code\DisplayCameraBasler.cs" />
+    <Compile Include="Display Cameras\Code\DisplayCameraFlir.cs" />
+    <Compile Include="PanelManager.cs" />
     <Compile Include="Parameters\ExposureTimeManager.cs" />
     <Compile Include="Parameters\FrameRateManager.cs" />
     <Compile Include="Id.cs" />
@@ -133,6 +135,8 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Display Cameras\PanelManager\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

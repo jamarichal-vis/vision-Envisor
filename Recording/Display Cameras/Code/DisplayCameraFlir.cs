@@ -42,6 +42,8 @@ namespace Recording
         {
             milApp.AllocPanelToCam(idCam.DevNSys, idCam.DevNCam, pnlCam);
 
+            milApp.CamAddImage(idCam.DevNSys, idCam.DevNCam, "Lut", band: 1, sizeX: pnlLut.Width, sizeY: pnlLut.Height, show: false);
+
             milApp.ShowPallet(idCam.DevNSys, idCam.DevNCam, "Lut");
             milApp.AllocPanelToCam(idCam.DevNSys, idCam.DevNCam, pnlLut, "Lut");
 

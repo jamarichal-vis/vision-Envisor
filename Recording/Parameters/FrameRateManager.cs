@@ -30,6 +30,11 @@ namespace Recording
         Id idCam;
 
         /// <summary>
+        /// Este atributo contiene el control TableLayout que pretende controlar esta clase.
+        /// </summary>
+        TableLayoutPanel tbLayoutPanel;
+
+        /// <summary>
         /// Esta variable almacena el control NumericUpDown que se quiere controlar en esta clase.
         /// </summary>
         NumericUpDown numUpDownFrameRate;
@@ -39,9 +44,11 @@ namespace Recording
         /// </summary>
         TrackBar trBarFrameRate;
 
-        public FrameRateManager(ref MilApp milApp, ref NumericUpDown numUpDown, ref TrackBar trBar, ref Id idCam)
+        public FrameRateManager(ref MilApp milApp, ref TableLayoutPanel tableLayoutPanel, ref NumericUpDown numUpDown, ref TrackBar trBar, ref Id idCam)
         {
             this.milApp = milApp;
+            
+            tbLayoutPanel = tableLayoutPanel;
             numUpDownFrameRate = numUpDown;
             trBarFrameRate = trBar;
 
@@ -54,6 +61,22 @@ namespace Recording
             trBar.Maximum = VALUE_MAX_FRAMERATE;
 
             Events();
+        }
+
+        /// <summary>
+        /// Este método habilita las funcionalidades de todos los controles de esta clase.
+        /// </summary>
+        public void Enable()
+        {
+            tbLayoutPanel.Enabled = true;
+        }
+
+        /// <summary>
+        /// Este método deshabilita las funcionalidades de todos los controles de esta clase.
+        /// </summary>
+        public void Disable()
+        {
+            tbLayoutPanel.Enabled = false;
         }
 
         /// <summary>
@@ -101,7 +124,11 @@ namespace Recording
         {
             if(idCam.DevNSys != -1 && idCam.DevNCam != -1)
             {
+                //milApp.StopGrab(idCam.DevNSys, idCam.DevNCam, MIL.M_WAIT);
+
                 milApp.CamFrameRate(idCam.DevNSys, idCam.DevNCam, value);
+
+                //milApp.StartGrab(idCam.DevNSys, idCam.DevNCam);
             }
         }
 

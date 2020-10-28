@@ -25,6 +25,11 @@ namespace Recording
         Id idCam;
 
         /// <summary>
+        /// Este atributo contiene el control TableLayout que pretende controlar esta clase.
+        /// </summary>
+        TableLayoutPanel tbLayoutPanel;
+
+        /// <summary>
         /// Esta variable almacena el control NumericUpDown que se quiere controlar en esta clase.
         /// </summary>
         NumericUpDown numUpDownExposureTime;
@@ -34,9 +39,11 @@ namespace Recording
         /// </summary>
         TrackBar trBarExposureTime;
 
-        public ExposureTimeManager(ref MilApp milApp, ref NumericUpDown numUpDown, ref TrackBar trBar, ref Id idCam)
+        public ExposureTimeManager(ref MilApp milApp, ref TableLayoutPanel tableLayoutPanel, ref NumericUpDown numUpDown, ref TrackBar trBar, ref Id idCam)
         {
             this.milApp = milApp;
+
+            tbLayoutPanel = tableLayoutPanel;
             numUpDownExposureTime = numUpDown;
             trBarExposureTime = trBar;
 
@@ -49,6 +56,22 @@ namespace Recording
             trBar.Maximum = VALUE_MAX_EXPOSURETIME;
 
             Events();
+        }
+
+        /// <summary>
+        /// Este método habilita las funcionalidades de todos los controles de esta clase.
+        /// </summary>
+        public void Enable()
+        {
+            tbLayoutPanel.Enabled = true;
+        }
+
+        /// <summary>
+        /// Este método deshabilita las funcionalidades de todos los controles de esta clase.
+        /// </summary>
+        public void Disable()
+        {
+            tbLayoutPanel.Enabled = false;
         }
 
         /// <summary>

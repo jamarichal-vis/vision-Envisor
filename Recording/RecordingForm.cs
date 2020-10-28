@@ -44,6 +44,11 @@ namespace Recording
         /// </summary>
         private ExposureTimeManager exposureTimeManager;
 
+        /// <summary>
+        /// Esta variable contiene todas las funciones para controlar todos los paneles que se muestren en <see cref="pnlCams">pnlCams</see>/>.
+        /// </summary>
+        private PanelManager panelManager;
+
         private DisplayCameraBaslerForm displayCameraBaslerForm;
         private DisplayCameraFlirForm displayCameraFlirForm;
 
@@ -66,6 +71,8 @@ namespace Recording
             InitFrameRateManager();
 
             InitExposureTimeManager();
+
+            InitPanelManager();
 
             Id idTest = new Id();
             idTest.Set(devSysUsb3Vision, MIL.M_DEV0);
@@ -138,7 +145,9 @@ namespace Recording
         /// </summary>
         public void InitFrameRateManager()
         {
-            frameRateManager = new FrameRateManager(ref milApp, ref numericUpDownFrameRate, ref trBarFrameRate, ref idCam);
+            frameRateManager = new FrameRateManager(ref milApp, ref tbLayoutPanelFrameRate, ref numericUpDownFrameRate, ref trBarFrameRate, ref idCam);
+
+
         }
 
         /// <summary>
@@ -146,7 +155,17 @@ namespace Recording
         /// </summary>
         public void InitExposureTimeManager()
         {
-            exposureTimeManager = new ExposureTimeManager(ref milApp, ref numericUpDownExposureTime, ref trackBarExposureTime, ref idCam);
+            exposureTimeManager = new ExposureTimeManager(ref milApp, ref tableLayoutPanelExposureTime, ref numericUpDownExposureTime, ref trackBarExposureTime, ref idCam);
+        }
+
+        public void InitPanelManager()
+        {
+            MIL_INT NbcamerasInGigeVisionSystem = milApp.GetNCameraInSystem(devSysGigeVision);
+            MIL_INT NbcamerasInUsb3Vision = milApp.GetNCameraInSystem(devSysUsb3Vision);
+
+            int numCams = (int)NbcamerasInGigeVisionSystem + (int)NbcamerasInUsb3Vision;
+
+            panelManager = new PanelManager(numCams, ref pnlCams);
         }
 
         /// <summary>
@@ -204,12 +223,14 @@ namespace Recording
             EventPresentCameraInfo eventProcessingFunction = (EventPresentCameraInfo)milApp.CamEvent(devSys, devDig, "ProcessingFunctionInformation");
             eventProcessingFunction._event += new EventPresentCameraInfo._eventDelagete(ProcessingFunction);
 
+            /********************* AÑADIR IMAGENES *************************/
+            /* Activamos las imagenes en la cámara devDig */
+            milApp.CamActivateImages(devSys, devDig);
+
             /********************** PROCESSING FUNCTION ********************/
 
             /*Indicamos el processing function que debe ejecutarse cuando se ejecute el hilo de la cámara correspondiente.*/
             milApp.CamSetProcessingFunction(devSys, devDig, "Recording");
-
-            //milApp.StartGrab(devSys, devDig);
         }
 
         /// <summary>

@@ -35,7 +35,7 @@
             this.lbCamera = new System.Windows.Forms.Label();
             this.treeViewCameras = new System.Windows.Forms.TreeView();
             this.tbLayoutPanelParameter = new System.Windows.Forms.TableLayoutPanel();
-            this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
+            this.tableLayoutPanelExposureTime = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
             this.lbExposure = new System.Windows.Forms.Label();
             this.numericUpDownExposureTime = new System.Windows.Forms.NumericUpDown();
@@ -82,7 +82,7 @@
             this.tbLayoutPanelCameras.SuspendLayout();
             this.tbLayoutPanelTitleCamera.SuspendLayout();
             this.tbLayoutPanelParameter.SuspendLayout();
-            this.tableLayoutPanel3.SuspendLayout();
+            this.tableLayoutPanelExposureTime.SuspendLayout();
             this.tableLayoutPanel5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownExposureTime)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarExposureTime)).BeginInit();
@@ -190,7 +190,7 @@
             this.tbLayoutPanelParameter.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.Single;
             this.tbLayoutPanelParameter.ColumnCount = 1;
             this.tbLayoutPanelParameter.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tbLayoutPanelParameter.Controls.Add(this.tableLayoutPanel3, 0, 3);
+            this.tbLayoutPanelParameter.Controls.Add(this.tableLayoutPanelExposureTime, 0, 3);
             this.tbLayoutPanelParameter.Controls.Add(this.lbParameter, 0, 0);
             this.tbLayoutPanelParameter.Controls.Add(this.tableLayoutPanel1, 0, 1);
             this.tbLayoutPanelParameter.Controls.Add(this.tbLayoutPanelFrameRate, 0, 2);
@@ -209,20 +209,20 @@
             this.tbLayoutPanelParameter.Size = new System.Drawing.Size(247, 489);
             this.tbLayoutPanelParameter.TabIndex = 1;
             // 
-            // tableLayoutPanel3
+            // tableLayoutPanelExposureTime
             // 
-            this.tableLayoutPanel3.ColumnCount = 1;
-            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel3.Controls.Add(this.tableLayoutPanel5, 0, 0);
-            this.tableLayoutPanel3.Controls.Add(this.trackBarExposureTime, 0, 1);
-            this.tableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel3.Location = new System.Drawing.Point(4, 217);
-            this.tableLayoutPanel3.Name = "tableLayoutPanel3";
-            this.tableLayoutPanel3.RowCount = 2;
-            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
-            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel3.Size = new System.Drawing.Size(239, 74);
-            this.tableLayoutPanel3.TabIndex = 3;
+            this.tableLayoutPanelExposureTime.ColumnCount = 1;
+            this.tableLayoutPanelExposureTime.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanelExposureTime.Controls.Add(this.tableLayoutPanel5, 0, 0);
+            this.tableLayoutPanelExposureTime.Controls.Add(this.trackBarExposureTime, 0, 1);
+            this.tableLayoutPanelExposureTime.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanelExposureTime.Location = new System.Drawing.Point(4, 217);
+            this.tableLayoutPanelExposureTime.Name = "tableLayoutPanelExposureTime";
+            this.tableLayoutPanelExposureTime.RowCount = 2;
+            this.tableLayoutPanelExposureTime.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            this.tableLayoutPanelExposureTime.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanelExposureTime.Size = new System.Drawing.Size(239, 74);
+            this.tableLayoutPanelExposureTime.TabIndex = 3;
             // 
             // tableLayoutPanel5
             // 
@@ -712,8 +712,8 @@
             this.tbLayoutPanelTitleCamera.PerformLayout();
             this.tbLayoutPanelParameter.ResumeLayout(false);
             this.tbLayoutPanelParameter.PerformLayout();
-            this.tableLayoutPanel3.ResumeLayout(false);
-            this.tableLayoutPanel3.PerformLayout();
+            this.tableLayoutPanelExposureTime.ResumeLayout(false);
+            this.tableLayoutPanelExposureTime.PerformLayout();
             this.tableLayoutPanel5.ResumeLayout(false);
             this.tableLayoutPanel5.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownExposureTime)).EndInit();
@@ -772,7 +772,7 @@
         private System.Windows.Forms.NumericUpDown numericUpDownFrameRate;
         private System.Windows.Forms.Label lbFrameRateUnits;
         private System.Windows.Forms.TrackBar trBarFrameRate;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanelExposureTime;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel5;
         private System.Windows.Forms.Label lbExposure;
         private System.Windows.Forms.NumericUpDown numericUpDownExposureTime;

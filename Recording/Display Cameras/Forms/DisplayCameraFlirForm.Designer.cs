@@ -158,7 +158,9 @@
             // 
             // pnlCam
             // 
+            this.pnlCam.BackColor = System.Drawing.Color.Transparent;
             this.pnlCam.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnlCam.ForeColor = System.Drawing.Color.Transparent;
             this.pnlCam.Location = new System.Drawing.Point(3, 3);
             this.pnlCam.Name = "pnlCam";
             this.pnlCam.Size = new System.Drawing.Size(406, 327);
