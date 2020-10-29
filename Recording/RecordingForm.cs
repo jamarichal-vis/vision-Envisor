@@ -76,16 +76,16 @@ namespace Recording
 
             CheckCameras();
 
-            Id idTest = new Id();
-            idTest.Set(devSysUsb3Vision, MIL.M_DEV0);
+            //Id idTest = new Id();
+            //idTest.Set(devSysUsb3Vision, MIL.M_DEV0);
 
-            displayCameraBaslerForm = new DisplayCameraBaslerForm(ref milApp, idTest);
+            //displayCameraBaslerForm = new DisplayCameraBaslerForm(ref milApp, idTest);
 
-            idTest.Set(devSysGigeVision, MIL.M_DEV0);
+            //idTest.Set(devSysGigeVision, MIL.M_DEV0);
 
-            displayCameraFlirForm = new DisplayCameraFlirForm(ref milApp, idTest);
+            //displayCameraFlirForm = new DisplayCameraFlirForm(ref milApp, idTest);
 
-            AddFormInPanel(displayCameraFlirForm, pnlCams);
+            //AddFormInPanel(displayCameraFlirForm, pnlCams);
         }
 
         /// <summary>
@@ -170,7 +170,7 @@ namespace Recording
 
             int numCams = (int)NbcamerasInGigeVisionSystem + (int)NbcamerasInUsb3Vision;
 
-            panelManager = new PanelManager(numCams, ref pnlCams);
+            panelManager = new PanelManager(ref milApp, ref devSysGigeVision, ref devSysUsb3Vision, numCams, ref pnlCams);
         }
 
         /// <summary>
@@ -302,7 +302,7 @@ namespace Recording
 
         private void RecordingForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            displayCameraBaslerForm.DisconnectPanel();
+            //displayCameraBaslerForm.DisconnectPanel();
 
             milApp.FreeRecourse();
         }

@@ -52,18 +52,19 @@
             // 
             // tableLayoutPanelMain
             // 
-            this.tableLayoutPanelMain.ColumnCount = 2;
-            this.tableLayoutPanelMain.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 60F));
+            this.tableLayoutPanelMain.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.Single;
+            this.tableLayoutPanelMain.ColumnCount = 1;
             this.tableLayoutPanelMain.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanelMain.Controls.Add(this.tableLayoutPanelLabels, 1, 0);
-            this.tableLayoutPanelMain.Controls.Add(this.tableLayoutPanelCam, 1, 1);
+            this.tableLayoutPanelMain.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanelMain.Controls.Add(this.tableLayoutPanelLabels, 0, 0);
+            this.tableLayoutPanelMain.Controls.Add(this.tableLayoutPanelCam, 0, 1);
             this.tableLayoutPanelMain.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanelMain.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanelMain.Name = "tableLayoutPanelMain";
             this.tableLayoutPanelMain.RowCount = 2;
             this.tableLayoutPanelMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 71F));
             this.tableLayoutPanelMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanelMain.Size = new System.Drawing.Size(478, 450);
+            this.tableLayoutPanelMain.Size = new System.Drawing.Size(484, 431);
             this.tableLayoutPanelMain.TabIndex = 1;
             // 
             // tableLayoutPanelLabels
@@ -80,21 +81,21 @@
             this.tableLayoutPanelLabels.Controls.Add(this.lbMinTemperature, 1, 0);
             this.tableLayoutPanelLabels.Controls.Add(this.lbMaxTemperature, 2, 0);
             this.tableLayoutPanelLabels.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanelLabels.Location = new System.Drawing.Point(63, 3);
+            this.tableLayoutPanelLabels.Location = new System.Drawing.Point(4, 4);
             this.tableLayoutPanelLabels.Name = "tableLayoutPanelLabels";
             this.tableLayoutPanelLabels.RowCount = 2;
             this.tableLayoutPanelLabels.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
             this.tableLayoutPanelLabels.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanelLabels.Size = new System.Drawing.Size(412, 65);
+            this.tableLayoutPanelLabels.Size = new System.Drawing.Size(476, 65);
             this.tableLayoutPanelLabels.TabIndex = 0;
             // 
             // lbPosY
             // 
             this.lbPosY.AutoSize = true;
             this.lbPosY.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lbPosY.Location = new System.Drawing.Point(140, 32);
+            this.lbPosY.Location = new System.Drawing.Point(162, 32);
             this.lbPosY.Name = "lbPosY";
-            this.lbPosY.Size = new System.Drawing.Size(130, 32);
+            this.lbPosY.Size = new System.Drawing.Size(151, 32);
             this.lbPosY.TabIndex = 14;
             this.lbPosY.Text = "Pos. Y:";
             this.lbPosY.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -105,7 +106,7 @@
             this.lbPosX.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lbPosX.Location = new System.Drawing.Point(4, 32);
             this.lbPosX.Name = "lbPosX";
-            this.lbPosX.Size = new System.Drawing.Size(129, 32);
+            this.lbPosX.Size = new System.Drawing.Size(151, 32);
             this.lbPosX.TabIndex = 13;
             this.lbPosX.Text = "Pos. X:";
             this.lbPosX.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -114,9 +115,9 @@
             // 
             this.lbFps.AutoSize = true;
             this.lbFps.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lbFps.Location = new System.Drawing.Point(277, 32);
+            this.lbFps.Location = new System.Drawing.Point(320, 32);
             this.lbFps.Name = "lbFps";
-            this.lbFps.Size = new System.Drawing.Size(131, 32);
+            this.lbFps.Size = new System.Drawing.Size(152, 32);
             this.lbFps.TabIndex = 9;
             this.lbFps.Text = "Fps:";
             this.lbFps.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -127,7 +128,7 @@
             this.lbTemperature.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lbTemperature.Location = new System.Drawing.Point(4, 1);
             this.lbTemperature.Name = "lbTemperature";
-            this.lbTemperature.Size = new System.Drawing.Size(129, 30);
+            this.lbTemperature.Size = new System.Drawing.Size(151, 30);
             this.lbTemperature.TabIndex = 0;
             this.lbTemperature.Text = "Temperatura:";
             this.lbTemperature.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -136,9 +137,9 @@
             // 
             this.lbMinTemperature.AutoSize = true;
             this.lbMinTemperature.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lbMinTemperature.Location = new System.Drawing.Point(140, 1);
+            this.lbMinTemperature.Location = new System.Drawing.Point(162, 1);
             this.lbMinTemperature.Name = "lbMinTemperature";
-            this.lbMinTemperature.Size = new System.Drawing.Size(130, 30);
+            this.lbMinTemperature.Size = new System.Drawing.Size(151, 30);
             this.lbMinTemperature.TabIndex = 7;
             this.lbMinTemperature.Text = "Min:";
             this.lbMinTemperature.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -147,9 +148,9 @@
             // 
             this.lbMaxTemperature.AutoSize = true;
             this.lbMaxTemperature.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lbMaxTemperature.Location = new System.Drawing.Point(277, 1);
+            this.lbMaxTemperature.Location = new System.Drawing.Point(320, 1);
             this.lbMaxTemperature.Name = "lbMaxTemperature";
-            this.lbMaxTemperature.Size = new System.Drawing.Size(131, 30);
+            this.lbMaxTemperature.Size = new System.Drawing.Size(152, 30);
             this.lbMaxTemperature.TabIndex = 8;
             this.lbMaxTemperature.Text = "Max:";
             this.lbMaxTemperature.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -162,12 +163,12 @@
             this.tableLayoutPanelCam.Controls.Add(this.tableLayoutPanel1, 0, 1);
             this.tableLayoutPanelCam.Controls.Add(this.pnlCam, 0, 0);
             this.tableLayoutPanelCam.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanelCam.Location = new System.Drawing.Point(63, 74);
+            this.tableLayoutPanelCam.Location = new System.Drawing.Point(4, 76);
             this.tableLayoutPanelCam.Name = "tableLayoutPanelCam";
             this.tableLayoutPanelCam.RowCount = 2;
             this.tableLayoutPanelCam.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanelCam.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
-            this.tableLayoutPanelCam.Size = new System.Drawing.Size(412, 373);
+            this.tableLayoutPanelCam.Size = new System.Drawing.Size(476, 351);
             this.tableLayoutPanelCam.TabIndex = 1;
             // 
             // tableLayoutPanel1
@@ -180,11 +181,11 @@
             this.tableLayoutPanel1.Controls.Add(this.numericUpDownLutLow, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.numericUpDownLutHight, 2, 0);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(3, 336);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(3, 314);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 1;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(406, 34);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(470, 34);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // pnlLut
@@ -192,7 +193,7 @@
             this.pnlLut.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlLut.Location = new System.Drawing.Point(73, 3);
             this.pnlLut.Name = "pnlLut";
-            this.pnlLut.Size = new System.Drawing.Size(260, 28);
+            this.pnlLut.Size = new System.Drawing.Size(324, 28);
             this.pnlLut.TabIndex = 0;
             // 
             // numericUpDownLutLow
@@ -206,7 +207,7 @@
             // numericUpDownLutHight
             // 
             this.numericUpDownLutHight.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.numericUpDownLutHight.Location = new System.Drawing.Point(339, 7);
+            this.numericUpDownLutHight.Location = new System.Drawing.Point(403, 7);
             this.numericUpDownLutHight.Name = "numericUpDownLutHight";
             this.numericUpDownLutHight.Size = new System.Drawing.Size(64, 20);
             this.numericUpDownLutHight.TabIndex = 2;
@@ -218,14 +219,14 @@
             this.pnlCam.ForeColor = System.Drawing.Color.Transparent;
             this.pnlCam.Location = new System.Drawing.Point(3, 3);
             this.pnlCam.Name = "pnlCam";
-            this.pnlCam.Size = new System.Drawing.Size(406, 327);
+            this.pnlCam.Size = new System.Drawing.Size(470, 305);
             this.pnlCam.TabIndex = 1;
             // 
             // DisplayCameraFlirForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(478, 450);
+            this.ClientSize = new System.Drawing.Size(484, 431);
             this.Controls.Add(this.tableLayoutPanelMain);
             this.Name = "DisplayCameraFlirForm";
             this.Text = "DisplayCameraFlir";

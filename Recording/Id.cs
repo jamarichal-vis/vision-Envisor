@@ -31,6 +31,12 @@ namespace Recording
             DevNSys = -1;
             DevNCam = -1;
         }
+        
+        public Id(MIL_INT devSys, MIL_INT devCam)
+        {
+            DevNSys = devSys;
+            DevNCam = devCam;
+        }
 
         /// <summary>
         /// Esta función establece los parámetros necesarios para identificar una cñamara en MilApp.
