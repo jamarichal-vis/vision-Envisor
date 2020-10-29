@@ -32,11 +32,6 @@ namespace Recording
         /// </summary>
         FlowLayoutPanel pnlCams;
 
-        /// <summary>
-        /// Esta variable contiene todas las funciones necesarias para crear multiples panales en un panel.
-        /// </summary>
-        DinamicPanels dinamicPanels;
-
         public PanelManager(ref MilApp milApp, ref MIL_INT devSysGigeVision, ref MIL_INT devSysUsb3Vision, int numCams, ref FlowLayoutPanel pnl)
         {
             this.milApp = milApp;

@@ -29,13 +29,19 @@ namespace Recording
         /// </summary>
         Label lbMaxTemperature;
 
-        public DisplayCameraFlir(ref MilApp milApp, Id id, ref Panel pnlBorder, ref Panel pnlCam, ref Panel pnlLut, ref Label lbTemperature, ref Label lbMinTemperature, ref Label lbMaxTemperature, ref Label lbPosX, ref Label lbPosY, ref Label lbFps)
+        public DisplayCameraFlir(ref MilApp milApp, Id id, ref Panel pnlBorder, ref Label lbModel, ref Label lbName, ref Label lbIp,
+            ref Panel pnlCam, ref Panel pnlLut, 
+            ref Label lbTemperature, ref Label lbMinTemperature, ref Label lbMaxTemperature, 
+            ref Label lbPosX, ref Label lbPosY, ref Label lbFps)
         {
             this.milApp = milApp;
 
             this.idCam = id;
 
             this.pnlBorder = pnlBorder;
+            this.lbModel = lbModel;
+            this.lbName = lbName;
+            this.lbIp = lbIp;
 
             this.pnlCam = pnlCam;
             this.pnlLut = pnlLut;
@@ -62,6 +68,9 @@ namespace Recording
             ConnectMouseEvent();
             ConnectTemperatureEvent();
             ConnectFpsEvent();
+
+            /* Info Cam. */
+            ShowInfoCam();
 
             /* GRAB */
             StartGrab();
@@ -107,14 +116,6 @@ namespace Recording
         {
             SetControlPropertyThreadSafe(lbMinTemperature, "Text", "Min: " + ((minValue * 0.04) - 273.15).ToString("#.## °C"));
             SetControlPropertyThreadSafe(lbMaxTemperature, "Text", "Max: " + ((maxValue * 0.04) - 273.15).ToString("#.## °C"));
-        }
-
-        /// <summary>
-        /// Este método hace el reset del zoom que se ha aplicado a la imagen que se esta visualizando.
-        /// </summary>
-        public void Zoom()
-        {
-            milApp.Zoom(idCam.DevNSys, idCam.DevNCam);
         }
 
         /// <summary>

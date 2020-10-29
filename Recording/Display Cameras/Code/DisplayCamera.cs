@@ -45,6 +45,21 @@ namespace Recording
         protected Panel pnlCam;
 
         /// <summary>
+        /// Esta variable almacena el label referido a mostrar el modelo de la cámara que se conecte a este objeto.
+        /// </summary>
+        protected Label lbModel;
+
+        /// <summary>
+        /// Esta variable almacena el label referido a mostrar el nombre de la cámara que se conecte a este objeto.
+        /// </summary>
+        protected Label lbName;
+        
+        /// <summary>
+        /// Esta variable almacena el label referido a mostrar la ip de la cámara que se conecte a este objeto.
+        /// </summary>
+        protected Label lbIp;
+
+        /// <summary>
         /// Label donde se muestra la el valor de la imagen dependiendo la posición del ratón.
         /// En el caso de cámaras basler, mostrarán la intensidad de la imagen. En caso de una flir, mostrarán el valor de temperatura.
         /// </summary>
@@ -117,6 +132,17 @@ namespace Recording
             milApp.AllocPanelToCam(idCam.DevNSys, idCam.DevNCam, panel: null);
         }
 
+        public void ShowInfoCam()
+        {
+            Dictionary<string, string> camInfo = milApp.CamInfo(idCam.DevNSys, idCam.DevNCam);
+
+            string model = camInfo["Vendor"] + " " + camInfo["Model"] + string.Format(" (DEV{0}", idCam.DevNCam) + ")";
+            lbModel.Text = model;
+
+            lbName.Text = "Nombre: " + camInfo["Name"];
+            lbIp.Text = (camInfo["IpAddress"] != null) ? ("Ip: " + camInfo["IpAddress"]) : "";
+        } 
+
         /// <summary>
         /// Esta función actualiza la información del mouse en la imagen. Se mostrará la intensidad de la imagen en la posición del ratón y 
         /// además, se mostrará la posición del ratón.
@@ -168,6 +194,14 @@ namespace Recording
         public void DeselectCamera()
         {
             pnlBorder.BackColor = colorDeselected;
+        }
+
+        /// <summary>
+        /// Este método hace el reset del zoom que se ha aplicado a la imagen que se esta visualizando.
+        /// </summary>
+        public void Zoom()
+        {
+            milApp.Zoom(idCam.DevNSys, idCam.DevNCam);
         }
 
         public virtual void AllocCamera() { }

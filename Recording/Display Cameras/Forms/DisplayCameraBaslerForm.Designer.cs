@@ -37,7 +37,7 @@
             this.lbPosX = new System.Windows.Forms.Label();
             this.pnlCam = new System.Windows.Forms.Panel();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.label2 = new System.Windows.Forms.Label();
+            this.lbIp = new System.Windows.Forms.Label();
             this.lbName = new System.Windows.Forms.Label();
             this.lbModel = new System.Windows.Forms.Label();
             this.pnlBorder.SuspendLayout();
@@ -92,7 +92,7 @@
             this.tableLayoutPanelLabels.Name = "tableLayoutPanelLabels";
             this.tableLayoutPanelLabels.RowCount = 1;
             this.tableLayoutPanelLabels.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanelLabels.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 24F));
+            this.tableLayoutPanelLabels.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 23F));
             this.tableLayoutPanelLabels.Size = new System.Drawing.Size(468, 24);
             this.tableLayoutPanelLabels.TabIndex = 0;
             // 
@@ -152,10 +152,10 @@
             // 
             this.tableLayoutPanel1.BackColor = System.Drawing.Color.ForestGreen;
             this.tableLayoutPanel1.ColumnCount = 3;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.tableLayoutPanel1.Controls.Add(this.label2, 2, 0);
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 43.33433F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 28.33283F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 28.33283F));
+            this.tableLayoutPanel1.Controls.Add(this.lbIp, 2, 0);
             this.tableLayoutPanel1.Controls.Add(this.lbName, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.lbModel, 0, 0);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -166,28 +166,28 @@
             this.tableLayoutPanel1.Size = new System.Drawing.Size(468, 34);
             this.tableLayoutPanel1.TabIndex = 2;
             // 
-            // label2
+            // lbIp
             // 
-            this.label2.AutoSize = true;
-            this.label2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label2.ForeColor = System.Drawing.SystemColors.Control;
-            this.label2.Location = new System.Drawing.Point(313, 0);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(152, 34);
-            this.label2.TabIndex = 2;
-            this.label2.Text = "Ip:";
-            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.lbIp.AutoSize = true;
+            this.lbIp.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lbIp.ForeColor = System.Drawing.SystemColors.Control;
+            this.lbIp.Location = new System.Drawing.Point(337, 0);
+            this.lbIp.Name = "lbIp";
+            this.lbIp.Size = new System.Drawing.Size(128, 34);
+            this.lbIp.TabIndex = 2;
+            this.lbIp.Text = "Ip:";
+            this.lbIp.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // lbName
             // 
             this.lbName.AutoSize = true;
             this.lbName.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lbName.ForeColor = System.Drawing.SystemColors.Control;
-            this.lbName.Location = new System.Drawing.Point(158, 0);
+            this.lbName.Location = new System.Drawing.Point(205, 0);
             this.lbName.Name = "lbName";
-            this.lbName.Size = new System.Drawing.Size(149, 34);
+            this.lbName.Size = new System.Drawing.Size(126, 34);
             this.lbName.TabIndex = 1;
-            this.lbName.Text = "Nombre";
+            this.lbName.Text = "Nombre:";
             this.lbName.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // lbModel
@@ -197,7 +197,7 @@
             this.lbModel.ForeColor = System.Drawing.SystemColors.Control;
             this.lbModel.Location = new System.Drawing.Point(3, 0);
             this.lbModel.Name = "lbModel";
-            this.lbModel.Size = new System.Drawing.Size(149, 34);
+            this.lbModel.Size = new System.Drawing.Size(196, 34);
             this.lbModel.TabIndex = 0;
             this.lbModel.Text = "Modelo:";
             this.lbModel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -231,7 +231,7 @@
         private System.Windows.Forms.Label lbPosX;
         private System.Windows.Forms.Panel pnlCam;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
-        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label lbIp;
         private System.Windows.Forms.Label lbName;
         private System.Windows.Forms.Label lbModel;
     }

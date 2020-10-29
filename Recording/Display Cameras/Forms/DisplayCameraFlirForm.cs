@@ -19,7 +19,8 @@ namespace Recording
         {
             InitializeComponent();
 
-            displayCamera = new DisplayCameraFlir(ref milApp, id, ref pnlBorder, ref pnlCam, ref pnlLut, 
+            displayCamera = new DisplayCameraFlir(ref milApp, id, ref pnlBorder, ref lbModel, ref lbName, ref lbIp,
+                ref pnlCam, ref pnlLut, 
                 ref lbTemperature, ref lbMinTemperature, ref lbMaxTemperature,
                 ref lbPosX, ref lbPosY, ref lbFps);
             displayCamera.AllocCamera();

@@ -12,11 +12,17 @@ namespace Recording
 {
     class DisplayCameraBasler : DisplayCamera
     {
-        public DisplayCameraBasler(ref MilApp milApp, Id id, ref Panel pnlCam, ref Label lbIntensity, ref Label lbPosX, ref Label lbPosY, ref Label lbFps)
+        public DisplayCameraBasler(ref MilApp milApp, Id id, ref Panel pnlBorder, ref Label lbModel, ref Label lbName, ref Label lbIp,
+            ref Panel pnlCam, ref Label lbIntensity, ref Label lbPosX, ref Label lbPosY, ref Label lbFps)
         {
             this.milApp = milApp;
 
             this.idCam = id;
+
+            this.pnlBorder = pnlBorder;
+            this.lbModel = lbModel;
+            this.lbName = lbName;
+            this.lbIp = lbIp;
 
             this.pnlCam = pnlCam;
             
@@ -34,6 +40,9 @@ namespace Recording
             /* EVENTS */
             ConnectMouseEvent();
             ConnectFpsEvent();
+
+            /* Info Cam. */
+            ShowInfoCam();
 
             /* GRAB */
             StartGrab();
