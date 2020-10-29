@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -13,6 +14,16 @@ namespace Recording
     class DisplayCamera
     {
         /// <summary>
+        /// Esta variable es utilizada para definir el color que se utiliza para seleccionar una cámara (Bordes del formulario).
+        /// </summary>
+        protected Color colorSelected = Color.Blue;
+
+        /// <summary>
+        /// Esta variable es utilizada para definir el color que se utiliza para deseleccionar una cámara (Bordes del formulario).
+        /// </summary>
+        protected Color colorDeselected = Color.ForestGreen;
+
+        /// <summary>
         /// Variable que contiene toda la estructura del control de las cámaras del sistema.
         /// </summary>
         protected MilApp milApp;
@@ -22,6 +33,15 @@ namespace Recording
         /// </summary>
         protected Id idCam;
 
+        /// <summary>
+        /// Esta variable contiene el panel que se utiliza para aplicar un borde a los formularios donde se visualizando las cámaras.
+        /// Ver, <see cref="DisplayCameraBaslerForm">DisplayCameraBaslerForm</see>/> y ver también <seealso cref="DisplayCameraFlirForm">DisplayCameraFlirForm</seealso>/>.
+        /// </summary>
+        protected Panel pnlBorder;
+
+        /// <summary>
+        /// Este atributo almacena el panel donde se visualiza la cámara.
+        /// </summary>
         protected Panel pnlCam;
 
         /// <summary>
@@ -129,6 +149,25 @@ namespace Recording
         public void Fps(MIL_ID milSys, MIL_ID milDig, Dictionary<string, double> data)
         {
             SetControlPropertyThreadSafe(lbFps, "Text", "Fps: " + Math.Truncate(data["FPS"]).ToString());
+        }
+
+        /// <summary>
+        /// Esta función es utilizada para seleccionar esta cámara.
+        /// Es decir, se modificará el color del borde del formulario.
+        /// Ver, <see cref="DisplayCamera.colorSelected">DisplayCamera.colorSelected</see>/>.
+        /// </summary>
+        public void SelectCamera()
+        {
+            pnlBorder.BackColor = colorSelected;
+        }
+
+        /// <summary>
+        /// Esta función es utilizada para seleccionar esta cámara.
+        /// Es decir, se modificará el color del borde del formulario.
+        /// </summary>
+        public void DeselectCamera()
+        {
+            pnlBorder.BackColor = colorDeselected;
         }
 
         public virtual void AllocCamera() { }
