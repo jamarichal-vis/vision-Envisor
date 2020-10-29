@@ -128,6 +128,19 @@ namespace Recording
 
             foreach (TreeNode treeNode in treeViewCam.Nodes)
                 treeNode.Expand();
+
+            SelectedFirstCam(NbcamerasInGigeVisionSystem, NbcamerasInUsb3Vision);
+        }
+
+        /// <summary>
+        /// Esta función selecciona la primera cámara que se ha conectado.
+        /// </summary>
+        private void SelectedFirstCam(MIL_INT NbCamerasInGigeVision, MIL_INT NbCamerasInUsb3Vision)
+        {
+            if (NbCamerasInGigeVision > 0)
+                treeViewCam.SelectedNode = treeViewCam.Nodes[INDEX_GIGEVISION_TREEVIEW].Nodes[0];
+            else if(NbCamerasInGigeVision > 0)
+                treeViewCam.SelectedNode = treeViewCam.Nodes[INDEX_USB3VISION_TREEVIEW].Nodes[0];
         }
 
         /// <summary>

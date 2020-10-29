@@ -74,6 +74,8 @@ namespace Recording
 
             InitPanelManager();
 
+            CheckCameras();
+
             Id idTest = new Id();
             idTest.Set(devSysUsb3Vision, MIL.M_DEV0);
 
@@ -158,6 +160,9 @@ namespace Recording
             exposureTimeManager = new ExposureTimeManager(ref milApp, ref tableLayoutPanelExposureTime, ref numericUpDownExposureTime, ref trackBarExposureTime, ref idCam);
         }
 
+        /// <summary>
+        /// Este método contiene todas las funciones necesarias para inicializar el objeto <see cref="panelManager">panelManager</see>/>.
+        /// </summary>
         public void InitPanelManager()
         {
             MIL_INT NbcamerasInGigeVisionSystem = milApp.GetNCameraInSystem(devSysGigeVision);
@@ -166,6 +171,23 @@ namespace Recording
             int numCams = (int)NbcamerasInGigeVisionSystem + (int)NbcamerasInUsb3Vision;
 
             panelManager = new PanelManager(numCams, ref pnlCams);
+        }
+
+        /// <summary>
+        /// Esta función se encargará de comprobar si se han conectado cámaras.
+        /// En caso de que no hayan cámaras conectadas se deshabilitarán los controles de las secciones del rpograma que requieran la conexión de
+        /// cámaras.
+        /// </summary>
+        public void CheckCameras()
+        {
+            MIL_INT NbcamerasInGigeVisionSystem = milApp.GetNCameraInSystem(devSysGigeVision);
+            MIL_INT NbcamerasInUsb3Vision = milApp.GetNCameraInSystem(devSysUsb3Vision);
+
+            if(NbcamerasInGigeVisionSystem == 0 && NbcamerasInUsb3Vision == 0)
+            {
+                exposureTimeManager.Disable();
+                frameRateManager.Disable();
+            }
         }
 
         /// <summary>

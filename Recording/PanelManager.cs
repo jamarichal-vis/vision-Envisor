@@ -30,10 +30,15 @@ namespace Recording
         {
             dinamicPanels = new DinamicPanels(numCams);
 
+            dinamicPanels.ClickEvent += new DinamicPanels.getEvent(ClickEvent);
+
             dinamicPanels.CreatePanelGrid();
             dinamicPanels.FillGrid(pnl);
         }
 
+        private void ClickEvent(object sender, EventArgs e)
+        {
 
+        }
     }
 }

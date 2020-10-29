@@ -127,13 +127,13 @@
             this.pnlCam.Size = new System.Drawing.Size(472, 414);
             this.pnlCam.TabIndex = 1;
             // 
-            // DisplayCameraBasler
+            // DisplayCameraBaslerForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(478, 450);
             this.Controls.Add(this.tableLayoutPanelMain);
-            this.Name = "DisplayCameraBasler";
+            this.Name = "DisplayCameraBaslerForm";
             this.Text = "DisplayCamera";
             this.tableLayoutPanelMain.ResumeLayout(false);
             this.tableLayoutPanelLabels.ResumeLayout(false);
