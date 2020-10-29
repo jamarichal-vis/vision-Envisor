@@ -76,7 +76,7 @@
             this.btnDelete = new System.Windows.Forms.Button();
             this.btnSave = new System.Windows.Forms.Button();
             this.btnRecord = new System.Windows.Forms.Button();
-            this.pnlCams = new System.Windows.Forms.Panel();
+            this.pnlCams = new System.Windows.Forms.FlowLayoutPanel();
             this.tbLayoutPanelMain.SuspendLayout();
             this.tbLayoutPanelSettings.SuspendLayout();
             this.tbLayoutPanelCameras.SuspendLayout();
@@ -690,6 +690,7 @@
             // 
             // pnlCams
             // 
+            this.pnlCams.AutoScroll = true;
             this.pnlCams.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlCams.Location = new System.Drawing.Point(3, 38);
             this.pnlCams.Name = "pnlCams";
@@ -796,7 +797,7 @@
         private System.Windows.Forms.Button btnDelete;
         private System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.Button btnRecord;
-        private System.Windows.Forms.Panel pnlCams;
+        private System.Windows.Forms.FlowLayoutPanel pnlCams;
     }
 }
 
