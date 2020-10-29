@@ -29,12 +29,12 @@
         private void InitializeComponent()
         {
             this.tableLayoutPanelMain = new System.Windows.Forms.TableLayoutPanel();
-            this.tableLayoutPanelLabels = new System.Windows.Forms.TableLayoutPanel();
-            this.lbFps = new System.Windows.Forms.Label();
-            this.lbPosY = new System.Windows.Forms.Label();
-            this.lbIntensity = new System.Windows.Forms.Label();
-            this.lbPosX = new System.Windows.Forms.Label();
             this.pnlCam = new System.Windows.Forms.Panel();
+            this.lbPosX = new System.Windows.Forms.Label();
+            this.lbIntensity = new System.Windows.Forms.Label();
+            this.lbPosY = new System.Windows.Forms.Label();
+            this.lbFps = new System.Windows.Forms.Label();
+            this.tableLayoutPanelLabels = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanelMain.SuspendLayout();
             this.tableLayoutPanelLabels.SuspendLayout();
             this.SuspendLayout();
@@ -55,6 +55,58 @@
             this.tableLayoutPanelMain.Size = new System.Drawing.Size(478, 450);
             this.tableLayoutPanelMain.TabIndex = 0;
             // 
+            // pnlCam
+            // 
+            this.pnlCam.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnlCam.Location = new System.Drawing.Point(3, 33);
+            this.pnlCam.Name = "pnlCam";
+            this.pnlCam.Size = new System.Drawing.Size(472, 414);
+            this.pnlCam.TabIndex = 1;
+            // 
+            // lbPosX
+            // 
+            this.lbPosX.AutoSize = true;
+            this.lbPosX.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lbPosX.Location = new System.Drawing.Point(121, 0);
+            this.lbPosX.Name = "lbPosX";
+            this.lbPosX.Size = new System.Drawing.Size(112, 24);
+            this.lbPosX.TabIndex = 1;
+            this.lbPosX.Text = "Pos. X:";
+            this.lbPosX.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // lbIntensity
+            // 
+            this.lbIntensity.AutoSize = true;
+            this.lbIntensity.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lbIntensity.Location = new System.Drawing.Point(3, 0);
+            this.lbIntensity.Name = "lbIntensity";
+            this.lbIntensity.Size = new System.Drawing.Size(112, 24);
+            this.lbIntensity.TabIndex = 0;
+            this.lbIntensity.Text = "Intensidad:";
+            this.lbIntensity.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // lbPosY
+            // 
+            this.lbPosY.AutoSize = true;
+            this.lbPosY.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lbPosY.Location = new System.Drawing.Point(239, 0);
+            this.lbPosY.Name = "lbPosY";
+            this.lbPosY.Size = new System.Drawing.Size(112, 24);
+            this.lbPosY.TabIndex = 2;
+            this.lbPosY.Text = "Pos. Y:";
+            this.lbPosY.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // lbFps
+            // 
+            this.lbFps.AutoSize = true;
+            this.lbFps.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lbFps.Location = new System.Drawing.Point(357, 0);
+            this.lbFps.Name = "lbFps";
+            this.lbFps.Size = new System.Drawing.Size(112, 24);
+            this.lbFps.TabIndex = 3;
+            this.lbFps.Text = "Fps:";
+            this.lbFps.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
             // tableLayoutPanelLabels
             // 
             this.tableLayoutPanelLabels.ColumnCount = 4;
@@ -74,58 +126,6 @@
             this.tableLayoutPanelLabels.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 24F));
             this.tableLayoutPanelLabels.Size = new System.Drawing.Size(472, 24);
             this.tableLayoutPanelLabels.TabIndex = 0;
-            // 
-            // lbFps
-            // 
-            this.lbFps.AutoSize = true;
-            this.lbFps.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lbFps.Location = new System.Drawing.Point(357, 0);
-            this.lbFps.Name = "lbFps";
-            this.lbFps.Size = new System.Drawing.Size(112, 24);
-            this.lbFps.TabIndex = 3;
-            this.lbFps.Text = "Fps:";
-            this.lbFps.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // lbPosY
-            // 
-            this.lbPosY.AutoSize = true;
-            this.lbPosY.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lbPosY.Location = new System.Drawing.Point(239, 0);
-            this.lbPosY.Name = "lbPosY";
-            this.lbPosY.Size = new System.Drawing.Size(112, 24);
-            this.lbPosY.TabIndex = 2;
-            this.lbPosY.Text = "Pos. Y:";
-            this.lbPosY.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // lbIntensity
-            // 
-            this.lbIntensity.AutoSize = true;
-            this.lbIntensity.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lbIntensity.Location = new System.Drawing.Point(3, 0);
-            this.lbIntensity.Name = "lbIntensity";
-            this.lbIntensity.Size = new System.Drawing.Size(112, 24);
-            this.lbIntensity.TabIndex = 0;
-            this.lbIntensity.Text = "Intensidad:";
-            this.lbIntensity.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // lbPosX
-            // 
-            this.lbPosX.AutoSize = true;
-            this.lbPosX.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lbPosX.Location = new System.Drawing.Point(121, 0);
-            this.lbPosX.Name = "lbPosX";
-            this.lbPosX.Size = new System.Drawing.Size(112, 24);
-            this.lbPosX.TabIndex = 1;
-            this.lbPosX.Text = "Pos. X:";
-            this.lbPosX.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // pnlCam
-            // 
-            this.pnlCam.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlCam.Location = new System.Drawing.Point(3, 33);
-            this.pnlCam.Name = "pnlCam";
-            this.pnlCam.Size = new System.Drawing.Size(472, 414);
-            this.pnlCam.TabIndex = 1;
             // 
             // DisplayCameraBaslerForm
             // 

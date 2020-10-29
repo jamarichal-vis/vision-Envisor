@@ -30,18 +30,18 @@
         {
             this.tableLayoutPanelMain = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanelLabels = new System.Windows.Forms.TableLayoutPanel();
+            this.lbPosY = new System.Windows.Forms.Label();
+            this.lbPosX = new System.Windows.Forms.Label();
+            this.lbFps = new System.Windows.Forms.Label();
             this.lbTemperature = new System.Windows.Forms.Label();
+            this.lbMinTemperature = new System.Windows.Forms.Label();
+            this.lbMaxTemperature = new System.Windows.Forms.Label();
             this.tableLayoutPanelCam = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.pnlLut = new System.Windows.Forms.Panel();
             this.numericUpDownLutLow = new System.Windows.Forms.NumericUpDown();
             this.numericUpDownLutHight = new System.Windows.Forms.NumericUpDown();
             this.pnlCam = new System.Windows.Forms.Panel();
-            this.lbMinTemperature = new System.Windows.Forms.Label();
-            this.lbMaxTemperature = new System.Windows.Forms.Label();
-            this.lbFps = new System.Windows.Forms.Label();
-            this.lbPosX = new System.Windows.Forms.Label();
-            this.lbPosY = new System.Windows.Forms.Label();
             this.tableLayoutPanelMain.SuspendLayout();
             this.tableLayoutPanelLabels.SuspendLayout();
             this.tableLayoutPanelCam.SuspendLayout();
@@ -88,6 +88,39 @@
             this.tableLayoutPanelLabels.Size = new System.Drawing.Size(412, 65);
             this.tableLayoutPanelLabels.TabIndex = 0;
             // 
+            // lbPosY
+            // 
+            this.lbPosY.AutoSize = true;
+            this.lbPosY.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lbPosY.Location = new System.Drawing.Point(140, 32);
+            this.lbPosY.Name = "lbPosY";
+            this.lbPosY.Size = new System.Drawing.Size(130, 32);
+            this.lbPosY.TabIndex = 14;
+            this.lbPosY.Text = "Pos. Y:";
+            this.lbPosY.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // lbPosX
+            // 
+            this.lbPosX.AutoSize = true;
+            this.lbPosX.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lbPosX.Location = new System.Drawing.Point(4, 32);
+            this.lbPosX.Name = "lbPosX";
+            this.lbPosX.Size = new System.Drawing.Size(129, 32);
+            this.lbPosX.TabIndex = 13;
+            this.lbPosX.Text = "Pos. X:";
+            this.lbPosX.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // lbFps
+            // 
+            this.lbFps.AutoSize = true;
+            this.lbFps.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lbFps.Location = new System.Drawing.Point(277, 32);
+            this.lbFps.Name = "lbFps";
+            this.lbFps.Size = new System.Drawing.Size(131, 32);
+            this.lbFps.TabIndex = 9;
+            this.lbFps.Text = "Fps:";
+            this.lbFps.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
             // lbTemperature
             // 
             this.lbTemperature.AutoSize = true;
@@ -98,6 +131,28 @@
             this.lbTemperature.TabIndex = 0;
             this.lbTemperature.Text = "Temperatura:";
             this.lbTemperature.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // lbMinTemperature
+            // 
+            this.lbMinTemperature.AutoSize = true;
+            this.lbMinTemperature.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lbMinTemperature.Location = new System.Drawing.Point(140, 1);
+            this.lbMinTemperature.Name = "lbMinTemperature";
+            this.lbMinTemperature.Size = new System.Drawing.Size(130, 30);
+            this.lbMinTemperature.TabIndex = 7;
+            this.lbMinTemperature.Text = "Min:";
+            this.lbMinTemperature.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // lbMaxTemperature
+            // 
+            this.lbMaxTemperature.AutoSize = true;
+            this.lbMaxTemperature.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lbMaxTemperature.Location = new System.Drawing.Point(277, 1);
+            this.lbMaxTemperature.Name = "lbMaxTemperature";
+            this.lbMaxTemperature.Size = new System.Drawing.Size(131, 30);
+            this.lbMaxTemperature.TabIndex = 8;
+            this.lbMaxTemperature.Text = "Max:";
+            this.lbMaxTemperature.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // tableLayoutPanelCam
             // 
@@ -165,61 +220,6 @@
             this.pnlCam.Name = "pnlCam";
             this.pnlCam.Size = new System.Drawing.Size(406, 327);
             this.pnlCam.TabIndex = 1;
-            // 
-            // lbMinTemperature
-            // 
-            this.lbMinTemperature.AutoSize = true;
-            this.lbMinTemperature.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lbMinTemperature.Location = new System.Drawing.Point(140, 1);
-            this.lbMinTemperature.Name = "lbMinTemperature";
-            this.lbMinTemperature.Size = new System.Drawing.Size(130, 30);
-            this.lbMinTemperature.TabIndex = 7;
-            this.lbMinTemperature.Text = "Min:";
-            this.lbMinTemperature.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // lbMaxTemperature
-            // 
-            this.lbMaxTemperature.AutoSize = true;
-            this.lbMaxTemperature.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lbMaxTemperature.Location = new System.Drawing.Point(277, 1);
-            this.lbMaxTemperature.Name = "lbMaxTemperature";
-            this.lbMaxTemperature.Size = new System.Drawing.Size(131, 30);
-            this.lbMaxTemperature.TabIndex = 8;
-            this.lbMaxTemperature.Text = "Max:";
-            this.lbMaxTemperature.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // lbFps
-            // 
-            this.lbFps.AutoSize = true;
-            this.lbFps.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lbFps.Location = new System.Drawing.Point(277, 32);
-            this.lbFps.Name = "lbFps";
-            this.lbFps.Size = new System.Drawing.Size(131, 32);
-            this.lbFps.TabIndex = 9;
-            this.lbFps.Text = "Fps:";
-            this.lbFps.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // lbPosX
-            // 
-            this.lbPosX.AutoSize = true;
-            this.lbPosX.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lbPosX.Location = new System.Drawing.Point(4, 32);
-            this.lbPosX.Name = "lbPosX";
-            this.lbPosX.Size = new System.Drawing.Size(129, 32);
-            this.lbPosX.TabIndex = 13;
-            this.lbPosX.Text = "Pos. X:";
-            this.lbPosX.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // lbPosY
-            // 
-            this.lbPosY.AutoSize = true;
-            this.lbPosY.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lbPosY.Location = new System.Drawing.Point(140, 32);
-            this.lbPosY.Name = "lbPosY";
-            this.lbPosY.Size = new System.Drawing.Size(130, 32);
-            this.lbPosY.TabIndex = 14;
-            this.lbPosY.Text = "Pos. Y:";
-            this.lbPosY.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // DisplayCameraFlirForm
             // 
