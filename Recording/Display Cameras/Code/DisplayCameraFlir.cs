@@ -133,7 +133,11 @@ namespace Recording
         /// </summary>
         public void ChangeLut()
         {
+            milApp.ModeLUT(idCam.DevNSys, idCam.DevNCam, mode: false);
 
+            milApp.UpdateManualLut(idCam.DevNSys, idCam.DevNCam, (double)numUpDownMinLut.Value, (double)numUpDownMaxLut.Value);
+
+            ChangeTrackBarMaxLut((double)numUpDownMaxLut.Value);
         }
 
         /// <summary>
