@@ -15,3 +15,4 @@ C:\Users\Alejandro Marichal\source\repos\Recording\Recording\bin\x64\Debug\Matro
 C:\Users\Alejandro Marichal\source\repos\Recording\Recording\bin\x64\Debug\MilLibrary.dll
 C:\Users\Alejandro Marichal\source\repos\Recording\Recording\bin\x64\Debug\Matrox.MatroxImagingLibrary.xml
 C:\Users\Alejandro Marichal\source\repos\Recording\Recording\obj\x64\Debug\Recording.DisplayCameraForm.resources
+C:\Users\Alejandro Marichal\source\repos\Recording\Recording\obj\x64\Debug\Recording.csprojAssemblyReference.cache

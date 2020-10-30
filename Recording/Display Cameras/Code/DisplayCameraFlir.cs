@@ -29,10 +29,28 @@ namespace Recording
         /// </summary>
         Label lbMaxTemperature;
 
+        /// <summary>
+        /// Este atributo almacena el botón para establecer el modo automático de la paleta de colores.
+        /// </summary>
+        Button btnAuto;
+
+        /// <summary>
+        /// Esta variable almacena el control numericUpDown de la temperatura baja.
+        /// </summary>
+        NumericUpDown numericUpDownTemperatureLow;
+
+        /// <summary>
+        /// Esta variable almacena el control numericUpDown de la temperatura alta.
+        /// </summary>
+        NumericUpDown numericUpDownTemperatureHight;
+
+        private bool firstLoop;
+
         public DisplayCameraFlir(ref MilApp milApp, Id id, ref Panel pnlBorder, ref Label lbModel, ref Label lbName, ref Label lbIp,
             ref Panel pnlCam, ref Panel pnlLut, 
             ref Label lbTemperature, ref Label lbMinTemperature, ref Label lbMaxTemperature, 
-            ref Label lbPosX, ref Label lbPosY, ref Label lbFps)
+            ref Label lbPosX, ref Label lbPosY, ref Label lbFps,
+            ref Button btnAuto, ref NumericUpDown numericUpDownManualLutLow, ref NumericUpDown numericUpDownManualLutHight)
         {
             this.milApp = milApp;
 
@@ -53,6 +71,12 @@ namespace Recording
             this.lbPosX = lbPosX;
             this.lbPosY = lbPosY;
             this.lbFps = lbFps;
+
+            this.btnAuto = btnAuto;
+            this.numericUpDownTemperatureLow = numericUpDownManualLutLow;
+            this.numericUpDownTemperatureHight = numericUpDownManualLutHight;
+
+            firstLoop = true;
         }
 
         public override void AllocCamera()
@@ -65,15 +89,25 @@ namespace Recording
             milApp.AllocPanelToCam(idCam.DevNSys, idCam.DevNCam, pnlLut, NAME_IMAGE_LUT);
 
             /* EVENTS */
-            ConnectMouseEvent();
-            ConnectTemperatureEvent();
-            ConnectFpsEvent();
+            Events();
 
             /* Info Cam. */
             ShowInfoCam();
 
             /* GRAB */
             StartGrab();
+        }
+
+        /// <summary>
+        /// Esta función contiene todos los eventos de esta clase.
+        /// </summary>
+        private void Events()
+        {
+            ConnectMouseEvent();
+            ConnectTemperatureEvent();
+            ConnectFpsEvent();
+
+            ConnectLut();
         }
 
         /// <summary>
@@ -98,6 +132,13 @@ namespace Recording
             eventTemperature._event += new EventTemperature._eventDelagete(ShowTemperature);
         }
 
+        private void ConnectLut()
+        {
+            this.btnAuto.Click += new System.EventHandler(this.btnAuto_Click);
+            numericUpDownTemperatureLow.ValueChanged += new System.EventHandler(numUpDownChangeLutManual_ValueChanged);
+            numericUpDownTemperatureHight.ValueChanged += new System.EventHandler(numUpDownChangeLutManual_ValueChanged);
+        }
+
         /// <summary>
         /// Esta función actualiza la información del mouse en la imagen. Se mostrará la intensidad de la imagen en la posición del ratón y 
         /// además, se mostrará la posición del ratón.
@@ -116,6 +157,15 @@ namespace Recording
         {
             SetControlPropertyThreadSafe(lbMinTemperature, "Text", "Min: " + ((minValue * 0.04) - 273.15).ToString("#.## °C"));
             SetControlPropertyThreadSafe(lbMaxTemperature, "Text", "Max: " + ((maxValue * 0.04) - 273.15).ToString("#.## °C"));
+            
+            //if(!numericUpDownTemperatureLow.Focused && !numericUpDownTemperatureHight.Focused)
+            if(firstLoop)
+            {
+                SetControlPropertyThreadSafe(numericUpDownTemperatureLow, "Value", (decimal)((minValue * 0.04) - 273.15));
+                SetControlPropertyThreadSafe(numericUpDownTemperatureHight, "Value", (decimal)((maxValue * 0.04) - 273.15));
+
+                firstLoop = false;
+            }
         }
 
         /// <summary>
@@ -131,13 +181,16 @@ namespace Recording
         /// <summary>
         /// Esta función modifica el Lut de la cámara que se esta visualizando en este momento.
         /// </summary>
-        public void ChangeLut()
+        public void numUpDownChangeLutManual_ValueChanged(object sender, EventArgs e)
         {
             milApp.ModeLUT(idCam.DevNSys, idCam.DevNCam, mode: false);
 
-            milApp.UpdateManualLut(idCam.DevNSys, idCam.DevNCam, (double)numUpDownMinLut.Value, (double)numUpDownMaxLut.Value);
+            milApp.UpdateManualLut(idCam.DevNSys, idCam.DevNCam, (double)numericUpDownTemperatureLow.Value, (double)numericUpDownTemperatureHight.Value);
+        }
 
-            ChangeTrackBarMaxLut((double)numUpDownMaxLut.Value);
+        private void btnAuto_Click(object sender, EventArgs e)
+        {
+            milApp.ModeLUT(idCam.DevNSys, idCam.DevNCam, mode: true);
         }
 
         /// <summary>
