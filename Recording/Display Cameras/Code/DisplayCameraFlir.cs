@@ -127,6 +127,15 @@ namespace Recording
             milApp.ChangePalletLut(idCam.DevNSys, idCam.DevNCam, palleta);
             milApp.ShowPallet(idCam.DevNSys, idCam.DevNCam, NAME_IMAGE_LUT);
         }
+
+        /// <summary>
+        /// Esta función modifica el Lut de la cámara que se esta visualizando en este momento.
+        /// </summary>
+        public void ChangeLut()
+        {
+
+        }
+
         /// <summary>
         /// Esta función desconecta el panel de <see cref="MilLibrary">MilLibrary</see>/>.
         /// </summary>
