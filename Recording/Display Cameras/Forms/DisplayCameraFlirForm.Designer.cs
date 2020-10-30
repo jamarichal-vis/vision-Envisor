@@ -37,6 +37,10 @@
             this.lbTemperature = new System.Windows.Forms.Label();
             this.lbMinTemperature = new System.Windows.Forms.Label();
             this.lbMaxTemperature = new System.Windows.Forms.Label();
+            this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
+            this.lbIp = new System.Windows.Forms.Label();
+            this.lbName = new System.Windows.Forms.Label();
+            this.lbModel = new System.Windows.Forms.Label();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanelCam = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanelCamLut = new System.Windows.Forms.TableLayoutPanel();
@@ -44,26 +48,25 @@
             this.numericUpDownLutLow = new System.Windows.Forms.NumericUpDown();
             this.numericUpDownLutHight = new System.Windows.Forms.NumericUpDown();
             this.pnlCam = new System.Windows.Forms.Panel();
+            this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.toolStripMenuItemZoom = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemPalleta = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemPalletaIron = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemPalletaRainbow = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemPalletaGray = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItemZoom = new System.Windows.Forms.ToolStripMenuItem();
-            this.lbModel = new System.Windows.Forms.Label();
-            this.lbName = new System.Windows.Forms.Label();
-            this.lbIp = new System.Windows.Forms.Label();
-            this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
+            this.btnAuto = new System.Windows.Forms.Button();
             this.pnlBorder.SuspendLayout();
             this.tableLayoutPanelMain.SuspendLayout();
             this.tableLayoutPanelLabels.SuspendLayout();
+            this.tableLayoutPanel2.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanelCam.SuspendLayout();
             this.tableLayoutPanelCamLut.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownLutLow)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownLutHight)).BeginInit();
+            this.tableLayoutPanel3.SuspendLayout();
             this.menuStrip1.SuspendLayout();
-            this.tableLayoutPanel2.SuspendLayout();
             this.SuspendLayout();
             // 
             // pnlBorder
@@ -184,13 +187,67 @@
             this.lbMaxTemperature.Text = "Max:";
             this.lbMaxTemperature.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
+            // tableLayoutPanel2
+            // 
+            this.tableLayoutPanel2.BackColor = System.Drawing.Color.ForestGreen;
+            this.tableLayoutPanel2.ColumnCount = 3;
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 43.33433F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 28.33283F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 28.33283F));
+            this.tableLayoutPanel2.Controls.Add(this.lbIp, 2, 0);
+            this.tableLayoutPanel2.Controls.Add(this.lbName, 1, 0);
+            this.tableLayoutPanel2.Controls.Add(this.lbModel, 0, 0);
+            this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(4, 4);
+            this.tableLayoutPanel2.Name = "tableLayoutPanel2";
+            this.tableLayoutPanel2.RowCount = 1;
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(466, 34);
+            this.tableLayoutPanel2.TabIndex = 2;
+            // 
+            // lbIp
+            // 
+            this.lbIp.AutoSize = true;
+            this.lbIp.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lbIp.ForeColor = System.Drawing.SystemColors.Control;
+            this.lbIp.Location = new System.Drawing.Point(336, 0);
+            this.lbIp.Name = "lbIp";
+            this.lbIp.Size = new System.Drawing.Size(127, 34);
+            this.lbIp.TabIndex = 2;
+            this.lbIp.Text = "Ip:";
+            this.lbIp.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // lbName
+            // 
+            this.lbName.AutoSize = true;
+            this.lbName.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lbName.ForeColor = System.Drawing.SystemColors.Control;
+            this.lbName.Location = new System.Drawing.Point(204, 0);
+            this.lbName.Name = "lbName";
+            this.lbName.Size = new System.Drawing.Size(126, 34);
+            this.lbName.TabIndex = 1;
+            this.lbName.Text = "Nombre: ";
+            this.lbName.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // lbModel
+            // 
+            this.lbModel.AutoSize = true;
+            this.lbModel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lbModel.ForeColor = System.Drawing.SystemColors.Control;
+            this.lbModel.Location = new System.Drawing.Point(3, 0);
+            this.lbModel.Name = "lbModel";
+            this.lbModel.Size = new System.Drawing.Size(195, 34);
+            this.lbModel.TabIndex = 0;
+            this.lbModel.Text = "Modelo:";
+            this.lbModel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
             // tableLayoutPanel1
             // 
             this.tableLayoutPanel1.ColumnCount = 2;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 30F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.Controls.Add(this.tableLayoutPanelCam, 1, 0);
-            this.tableLayoutPanel1.Controls.Add(this.menuStrip1, 0, 0);
+            this.tableLayoutPanel1.Controls.Add(this.tableLayoutPanel3, 0, 0);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(4, 116);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -266,6 +323,21 @@
             this.pnlCam.Size = new System.Drawing.Size(424, 279);
             this.pnlCam.TabIndex = 1;
             // 
+            // tableLayoutPanel3
+            // 
+            this.tableLayoutPanel3.ColumnCount = 1;
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel3.Controls.Add(this.menuStrip1, 0, 0);
+            this.tableLayoutPanel3.Controls.Add(this.btnAuto, 0, 1);
+            this.tableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel3.Location = new System.Drawing.Point(3, 3);
+            this.tableLayoutPanel3.Name = "tableLayoutPanel3";
+            this.tableLayoutPanel3.RowCount = 2;
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
+            this.tableLayoutPanel3.Size = new System.Drawing.Size(24, 325);
+            this.tableLayoutPanel3.TabIndex = 3;
+            // 
             // menuStrip1
             // 
             this.menuStrip1.BackColor = System.Drawing.Color.Transparent;
@@ -275,9 +347,15 @@
             this.toolStripMenuItemPalleta});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(30, 331);
-            this.menuStrip1.TabIndex = 3;
+            this.menuStrip1.Size = new System.Drawing.Size(24, 285);
+            this.menuStrip1.TabIndex = 4;
             this.menuStrip1.Text = "menuStrip1";
+            // 
+            // toolStripMenuItemZoom
+            // 
+            this.toolStripMenuItemZoom.Name = "toolStripMenuItemZoom";
+            this.toolStripMenuItemZoom.Size = new System.Drawing.Size(19, 19);
+            this.toolStripMenuItemZoom.Text = "Z";
             // 
             // toolStripMenuItemPalleta
             // 
@@ -292,84 +370,30 @@
             // toolStripMenuItemPalletaIron
             // 
             this.toolStripMenuItemPalletaIron.Name = "toolStripMenuItemPalletaIron";
-            this.toolStripMenuItemPalletaIron.Size = new System.Drawing.Size(180, 22);
+            this.toolStripMenuItemPalletaIron.Size = new System.Drawing.Size(120, 22);
             this.toolStripMenuItemPalletaIron.Text = "Iron";
-            this.toolStripMenuItemPalletaIron.Click += new System.EventHandler(this.toolStripMenuItemPalletaIron_Click);
             // 
             // toolStripMenuItemPalletaRainbow
             // 
             this.toolStripMenuItemPalletaRainbow.Name = "toolStripMenuItemPalletaRainbow";
-            this.toolStripMenuItemPalletaRainbow.Size = new System.Drawing.Size(180, 22);
+            this.toolStripMenuItemPalletaRainbow.Size = new System.Drawing.Size(120, 22);
             this.toolStripMenuItemPalletaRainbow.Text = "Rainbow";
-            this.toolStripMenuItemPalletaRainbow.Click += new System.EventHandler(this.toolStripMenuItemPalletaRainbow_Click);
             // 
             // toolStripMenuItemPalletaGray
             // 
             this.toolStripMenuItemPalletaGray.Name = "toolStripMenuItemPalletaGray";
-            this.toolStripMenuItemPalletaGray.Size = new System.Drawing.Size(180, 22);
+            this.toolStripMenuItemPalletaGray.Size = new System.Drawing.Size(120, 22);
             this.toolStripMenuItemPalletaGray.Text = "Gray";
-            this.toolStripMenuItemPalletaGray.Click += new System.EventHandler(this.toolStripMenuItemPalletaGray_Click);
             // 
-            // toolStripMenuItemZoom
+            // btnAuto
             // 
-            this.toolStripMenuItemZoom.Name = "toolStripMenuItemZoom";
-            this.toolStripMenuItemZoom.Size = new System.Drawing.Size(19, 19);
-            this.toolStripMenuItemZoom.Text = "Z";
-            this.toolStripMenuItemZoom.Click += new System.EventHandler(this.toolStripMenuItemZoom_Click);
-            // 
-            // lbModel
-            // 
-            this.lbModel.AutoSize = true;
-            this.lbModel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lbModel.ForeColor = System.Drawing.SystemColors.Control;
-            this.lbModel.Location = new System.Drawing.Point(3, 0);
-            this.lbModel.Name = "lbModel";
-            this.lbModel.Size = new System.Drawing.Size(195, 34);
-            this.lbModel.TabIndex = 0;
-            this.lbModel.Text = "Modelo:";
-            this.lbModel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // lbName
-            // 
-            this.lbName.AutoSize = true;
-            this.lbName.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lbName.ForeColor = System.Drawing.SystemColors.Control;
-            this.lbName.Location = new System.Drawing.Point(204, 0);
-            this.lbName.Name = "lbName";
-            this.lbName.Size = new System.Drawing.Size(126, 34);
-            this.lbName.TabIndex = 1;
-            this.lbName.Text = "Nombre: ";
-            this.lbName.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // lbIp
-            // 
-            this.lbIp.AutoSize = true;
-            this.lbIp.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lbIp.ForeColor = System.Drawing.SystemColors.Control;
-            this.lbIp.Location = new System.Drawing.Point(336, 0);
-            this.lbIp.Name = "lbIp";
-            this.lbIp.Size = new System.Drawing.Size(127, 34);
-            this.lbIp.TabIndex = 2;
-            this.lbIp.Text = "Ip:";
-            this.lbIp.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // tableLayoutPanel2
-            // 
-            this.tableLayoutPanel2.BackColor = System.Drawing.Color.ForestGreen;
-            this.tableLayoutPanel2.ColumnCount = 3;
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 43.33433F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 28.33283F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 28.33283F));
-            this.tableLayoutPanel2.Controls.Add(this.lbIp, 2, 0);
-            this.tableLayoutPanel2.Controls.Add(this.lbName, 1, 0);
-            this.tableLayoutPanel2.Controls.Add(this.lbModel, 0, 0);
-            this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(4, 4);
-            this.tableLayoutPanel2.Name = "tableLayoutPanel2";
-            this.tableLayoutPanel2.RowCount = 1;
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(466, 34);
-            this.tableLayoutPanel2.TabIndex = 2;
+            this.btnAuto.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnAuto.Location = new System.Drawing.Point(3, 288);
+            this.btnAuto.Name = "btnAuto";
+            this.btnAuto.Size = new System.Drawing.Size(18, 34);
+            this.btnAuto.TabIndex = 5;
+            this.btnAuto.Text = "A";
+            this.btnAuto.UseVisualStyleBackColor = true;
             // 
             // DisplayCameraFlirForm
             // 
@@ -378,23 +402,23 @@
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(484, 461);
             this.Controls.Add(this.pnlBorder);
-            this.MainMenuStrip = this.menuStrip1;
             this.Name = "DisplayCameraFlirForm";
             this.Text = "DisplayCameraFlir";
             this.pnlBorder.ResumeLayout(false);
             this.tableLayoutPanelMain.ResumeLayout(false);
             this.tableLayoutPanelLabels.ResumeLayout(false);
             this.tableLayoutPanelLabels.PerformLayout();
+            this.tableLayoutPanel2.ResumeLayout(false);
+            this.tableLayoutPanel2.PerformLayout();
             this.tableLayoutPanel1.ResumeLayout(false);
-            this.tableLayoutPanel1.PerformLayout();
             this.tableLayoutPanelCam.ResumeLayout(false);
             this.tableLayoutPanelCamLut.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownLutLow)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownLutHight)).EndInit();
+            this.tableLayoutPanel3.ResumeLayout(false);
+            this.tableLayoutPanel3.PerformLayout();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
-            this.tableLayoutPanel2.ResumeLayout(false);
-            this.tableLayoutPanel2.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -417,15 +441,17 @@
         private System.Windows.Forms.NumericUpDown numericUpDownLutLow;
         private System.Windows.Forms.NumericUpDown numericUpDownLutHight;
         private System.Windows.Forms.Panel pnlCam;
-        private System.Windows.Forms.MenuStrip menuStrip1;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemPalleta;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemPalletaIron;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemPalletaRainbow;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemPalletaGray;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemZoom;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
         private System.Windows.Forms.Label lbIp;
         private System.Windows.Forms.Label lbName;
         private System.Windows.Forms.Label lbModel;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
+        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemZoom;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemPalleta;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemPalletaIron;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemPalletaRainbow;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemPalletaGray;
+        private System.Windows.Forms.Button btnAuto;
     }
 }

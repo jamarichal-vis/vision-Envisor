@@ -12,7 +12,7 @@ using MilLibrary;
 
 namespace Recording
 {
-    public partial class DisplayCameraFlirForm : DisplayCameraForm
+    public partial class DisplayCameraFlirForm : /*Form*/ DisplayCameraForm
     {
         public DisplayCameraFlirForm(ref MilApp milApp, Id id)
         {
@@ -21,7 +21,8 @@ namespace Recording
             DisplayCamera = new DisplayCameraFlir(ref milApp, id, ref pnlBorder, ref lbModel, ref lbName, ref lbIp,
                 ref pnlCam, ref pnlLut, 
                 ref lbTemperature, ref lbMinTemperature, ref lbMaxTemperature,
-                ref lbPosX, ref lbPosY, ref lbFps);
+                ref lbPosX, ref lbPosY, ref lbFps,
+                ref btnAuto, ref numericUpDownLutLow, ref numericUpDownLutHight);
             DisplayCamera.AllocCamera();
         }
 
