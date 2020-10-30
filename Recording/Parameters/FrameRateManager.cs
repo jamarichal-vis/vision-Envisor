@@ -64,6 +64,14 @@ namespace Recording
         }
 
         /// <summary>
+        /// Este evento se ejecuta cuando se selecciona una cámara.
+        /// </summary>
+        public void SelectCam()
+        {
+            InitValue();
+        }
+
+        /// <summary>
         /// Este método habilita las funcionalidades de todos los controles de esta clase.
         /// </summary>
         public void Enable()
@@ -84,6 +92,26 @@ namespace Recording
         /// </summary>
         private void Events()
         {
+            ConnectNumUpDownFrameRate();
+            ConnectTrBarFrameRate();
+        }
+
+        /// <summary>
+        /// Este método inicializa los valores de frame rate de la cámara que se conecta.
+        /// </summary>
+        private void InitValue()
+        {
+            DisconnectNumUpDownFrameRate();
+            DisconnectTrBarFrameRate();
+
+            double frameRate = milApp.CamFrameRate(idCam.DevNSys, idCam.DevNCam);
+
+            double value = VALUE_MIN_FRAMERATE > frameRate ? VALUE_MIN_FRAMERATE : frameRate;
+            value = VALUE_MAX_FRAMERATE < value ? VALUE_MAX_FRAMERATE : value;
+
+            numUpDownFrameRate.Value = (decimal)value;
+            trBarFrameRate.Value = (int)value;
+
             ConnectNumUpDownFrameRate();
             ConnectTrBarFrameRate();
         }

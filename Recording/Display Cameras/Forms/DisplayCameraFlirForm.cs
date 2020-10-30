@@ -12,18 +12,17 @@ using MilLibrary;
 
 namespace Recording
 {
-    public partial class DisplayCameraFlirForm : Form
+    public partial class DisplayCameraFlirForm : DisplayCameraForm
     {
-        DisplayCameraFlir displayCamera;
         public DisplayCameraFlirForm(ref MilApp milApp, Id id)
         {
             InitializeComponent();
 
-            displayCamera = new DisplayCameraFlir(ref milApp, id, ref pnlBorder, ref lbModel, ref lbName, ref lbIp,
+            DisplayCamera = new DisplayCameraFlir(ref milApp, id, ref pnlBorder, ref lbModel, ref lbName, ref lbIp,
                 ref pnlCam, ref pnlLut, 
                 ref lbTemperature, ref lbMinTemperature, ref lbMaxTemperature,
                 ref lbPosX, ref lbPosY, ref lbFps);
-            displayCamera.AllocCamera();
+            DisplayCamera.AllocCamera();
         }
 
         /// <summary>
@@ -33,7 +32,7 @@ namespace Recording
         /// <param name="e"></param>
         private void toolStripMenuItemZoom_Click(object sender, EventArgs e)
         {
-            displayCamera.Zoom();
+            DisplayCamera.Zoom();
         }
 
         /// <summary>
@@ -44,7 +43,7 @@ namespace Recording
         /// <param name="e"></param>
         private void toolStripMenuItemPalletaIron_Click(object sender, EventArgs e)
         {
-            displayCamera.ChangePalleta("Iron");
+            DisplayCamera.ChangePalleta("Iron");
         }
 
         /// <summary>
@@ -55,7 +54,7 @@ namespace Recording
         /// <param name="e"></param>
         private void toolStripMenuItemPalletaRainbow_Click(object sender, EventArgs e)
         {
-            displayCamera.ChangePalleta("Rainbow");
+            DisplayCamera.ChangePalleta("Rainbow");
         }
 
         /// <summary>
@@ -66,7 +65,7 @@ namespace Recording
         /// <param name="e"></param>
         private void toolStripMenuItemPalletaGray_Click(object sender, EventArgs e)
         {
-            displayCamera.ChangePalleta("Gray");
+            DisplayCamera.ChangePalleta("Gray");
         }
     }
 }

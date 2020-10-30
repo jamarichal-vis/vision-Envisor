@@ -32,7 +32,23 @@ namespace Recording
         /// </summary>
         FlowLayoutPanel flowLayoutPanelCameras;
 
+        /// <summary>
+        /// Este diccionario contiene todos los paneles que se han introducido en <see cref="flowLayoutPanelCameras">flowLayoutPanelCameras</see>/>.
+        /// Ver, <see cref="AddPanelToDict(Id, Panel, DisplayCameraForm)">AddPanelToDict(Id, Panel, DisplayCameraForm)</see>/>.
+        /// 
+        /// Es utilizado para eliminar los paneles del control <see cref="flowLayoutPanelCameras">flowLayoutPanelCameras</see>/>, 
+        /// ver <see cref="Remove(Id)">Remove(Id)</see>/>.
+        /// </summary>
         Dictionary<Id, Panel> pnlCameras;
+
+        /// <summary>
+        /// Este diccionario contiene todos los formularios correspondientes a cada panel.
+        /// Con ello, se podrá acceder a cada formulario para poder modificarlo si fuera necesario.
+        /// Ver, <see cref="SelectCamera(Id)">SelectCamera(Id)</see>/>.
+        /// </summary>
+        Dictionary<Id, DisplayCameraForm> camerasForm;
+
+        Id idSelected;
 
         public PanelManager(ref MilApp milApp, ref MIL_INT devSysGigeVision, ref MIL_INT devSysUsb3Vision, int numCams, ref FlowLayoutPanel pnl)
         {
@@ -42,14 +58,20 @@ namespace Recording
 
             flowLayoutPanelCameras = pnl;
 
-            pnlCameras = new Dictionary<Id, Panel>();
+            pnlCameras = new Dictionary<Id, Panel>(new IdEqualityComparer());
+            camerasForm = new Dictionary<Id, DisplayCameraForm>(new IdEqualityComparer());
+
+            idSelected = null;
 
             ShowCams();
         }
 
+        /// <summary>
+        /// Este método se encarga de mostrar todas las cámaras en diferentes panel del control <see cref="flowLayoutPanelCameras">flowLayoutPanelCameras</see>/>.
+        /// </summary>
         public void ShowCams()
         {
-            Form displayCameraForm = null;
+            DisplayCameraForm displayCameraForm = null;
 
             MIL_INT NbcamerasInGigeVisionSystem = milApp.GetNCameraInSystem(devSysGigeVision);
             MIL_INT NbcamerasInUsb3Vision = milApp.GetNCameraInSystem(devSysUsb3Vision);
@@ -60,9 +82,9 @@ namespace Recording
 
                 Dictionary<string, string> camInfo = milApp.CamInfo(id.DevNSys, id.DevNCam);
 
-                if(camInfo["Vendor"] == "Basler")
+                if (camInfo["Vendor"] == "Basler")
                     displayCameraForm = new DisplayCameraBaslerForm(ref milApp, id: id);
-                else if(camInfo["Vendor"] == "FLIR" || camInfo["Vendor"].Contains("FLIR"))
+                else if (camInfo["Vendor"] == "FLIR" || camInfo["Vendor"].Contains("FLIR"))
                     displayCameraForm = new DisplayCameraFlirForm(ref milApp, id: id);
 
                 AddPanel(id, displayCameraForm);
@@ -77,9 +99,27 @@ namespace Recording
             }
         }
 
-        public void Remove()
+        /// <summary>
+        /// Esta función elimina un panel del control <see cref="flowLayoutPanelCameras">flowLayoutPanelCameras</see>/> por el id de la cámara.
+        /// </summary>
+        /// <param name="id">Id de la cámara que quieres eliminar. </param>
+        public void Remove(Id id)
         {
+            flowLayoutPanelCameras.Controls.Remove(pnlCameras[id]);
+        }
 
+        /* Se necesita tener un diccionario con los formularios y acceder a su atributo pnlBorder. */
+        public void SelectCamera(Id id)
+        {
+            if (idSelected != null)
+                camerasForm[idSelected].DisplayCamera.DeselectCamera();
+
+            idSelected = new Id();
+
+            idSelected.DevNSys = id.DevNSys;
+            idSelected.DevNCam = id.DevNCam;
+
+            camerasForm[idSelected].DisplayCamera.SelectCamera();
         }
 
         /// <summary>
@@ -88,9 +128,10 @@ namespace Recording
         /// </summary>
         /// <param name="id">Id de la cámara que se esta conectando al panel.</param>
         /// <param name="pnl">Panel que se quiere añadir.</param>
-        private void AddPanelToDict(Id id, Panel pnl)
+        private void AddPanelToDict(Id id, Panel pnl, DisplayCameraForm displayCamera)
         {
             pnlCameras.Add(id, pnl);
+            camerasForm.Add(id, displayCamera);
         }
 
         /// <summary>
@@ -98,12 +139,12 @@ namespace Recording
         /// </summary>
         /// <param name="id"></param>
         /// <param name="displayCameraFlirForm"></param>
-        public void AddPanel(Id id, Form displayCameraFlirForm)
+        public void AddPanel(Id id, DisplayCameraForm displayCameraFlirForm)
         {
             Panel panel = new Panel();
             panel.Size = displayCameraFlirForm.Size;
 
-            AddPanelToDict(id, panel);
+            AddPanelToDict(id, panel, displayCameraFlirForm);
 
             AddFormInPanel(displayCameraFlirForm, panel);
 
@@ -116,7 +157,7 @@ namespace Recording
         /// </summary>
         /// <param name="fh"></param>
         /// <param name="panel"></param>
-        public void AddFormInPanel(Form fh, Panel panel) /*(MetroForm fh)*/
+        public void AddFormInPanel(DisplayCameraForm fh, Panel panel) /*(MetroForm fh)*/
         {
             if (panel.Controls.Count > 0)
                 panel.Controls.RemoveAt(0);

@@ -15,16 +15,16 @@ namespace Recording
         /// <summary>
         /// Posición del sistema dentro de MilLibrary.
         /// </summary>
-        private MIL_INT devNSys;
+        private MIL_INT? devNSys;
 
         /// <summary>
         /// Posición de la cámara dentro de MilLibrary.
         /// </summary>
-        private MIL_INT devNCam;
+        private MIL_INT? devNCam;
 
         /* ACCESS */
-        public MIL_INT DevNSys { get => devNSys; set => devNSys = value; }
-        public MIL_INT DevNCam { get => devNCam; set => devNCam = value; }
+        public MIL_INT DevNSys { get => devNSys.Value; set => devNSys = value; }
+        public MIL_INT DevNCam { get => devNCam.Value; set => devNCam = value; }
 
         public Id()
         {
@@ -50,6 +50,12 @@ namespace Recording
             this.DevNCam = devNCam;
         }
 
+        public void Copy(Id id)
+        {
+            this.DevNSys = id.DevNSys;
+            this.DevNCam = id.DevNCam;
+        }
+
         /// <summary>
         /// Esta función establece los valores por defecto.
         /// </summary>
@@ -58,5 +64,23 @@ namespace Recording
             DevNSys = -1;
             DevNCam = -1;
         }
+    }
+
+    class IdEqualityComparer : IEqualityComparer<Id>
+    {
+        #region IEqualityComparer<Customer> Members
+
+        public bool Equals(Id x, Id y)
+        {
+            return ((x.DevNSys == y.DevNSys) & (x.DevNCam == y.DevNCam));
+        }
+
+        public int GetHashCode(Id obj)
+        {
+            string combined = obj.DevNSys + "|" + obj.DevNCam;
+            return (combined.GetHashCode());
+        }
+
+        #endregion
     }
 }

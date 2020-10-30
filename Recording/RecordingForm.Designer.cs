@@ -268,7 +268,7 @@
             this.lbExposureUnits.Name = "lbExposureUnits";
             this.lbExposureUnits.Size = new System.Drawing.Size(30, 24);
             this.lbExposureUnits.TabIndex = 2;
-            this.lbExposureUnits.Text = "us";
+            this.lbExposureUnits.Text = "ms";
             this.lbExposureUnits.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // trackBarExposureTime
@@ -555,6 +555,9 @@
             // 
             this.cbBoxSequence.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.cbBoxSequence.FormattingEnabled = true;
+            this.cbBoxSequence.Items.AddRange(new object[] {
+            "Pre-Trigger",
+            "Post-Trigger"});
             this.cbBoxSequence.Location = new System.Drawing.Point(3, 28);
             this.cbBoxSequence.Name = "cbBoxSequence";
             this.cbBoxSequence.Size = new System.Drawing.Size(96, 21);

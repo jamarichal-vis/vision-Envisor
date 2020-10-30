@@ -11,22 +11,20 @@ using MilLibrary;
 
 namespace Recording
 {
-    public partial class DisplayCameraBaslerForm : Form
+    public partial class DisplayCameraBaslerForm : DisplayCameraForm
     {
-        DisplayCameraBasler displayCamera;
-
         public DisplayCameraBaslerForm(ref MilApp milApp, Id id)
         {
             InitializeComponent();
 
-            displayCamera = new DisplayCameraBasler(ref milApp, id, ref pnlBorder, ref lbModel, ref lbName, ref lbIp,
+            DisplayCamera = new DisplayCameraBasler(ref milApp, id, ref pnlBorder, ref lbModel, ref lbName, ref lbIp,
                 ref pnlCam, ref lbIntensity, ref lbPosX, ref lbPosY, ref lbFps);
-            displayCamera.AllocCamera();
+            DisplayCamera.AllocCamera();
         }
 
         public void DisconnectPanel()
         {
-            displayCamera.DisconnectPanel();
+            DisplayCamera.DisconnectPanel();
         }
     }
 }

@@ -11,8 +11,8 @@ namespace Recording
 {
     class ExposureTimeManager
     {
-        private const int VALUE_MIN_EXPOSURETIME = 1000;
-        private const int VALUE_MAX_EXPOSURETIME = 5000;
+        private const int VALUE_MIN_EXPOSURETIME = 0;
+        private const int VALUE_MAX_EXPOSURETIME = 5000; /*ms*/
 
         /// <summary>
         /// Variable que contiene toda la estructura del control de las cámaras del sistema.
@@ -59,6 +59,14 @@ namespace Recording
         }
 
         /// <summary>
+        /// Este evento se ejecuta cuando se selecciona una cámara.
+        /// </summary>
+        public void SelectCam()
+        {
+            InitValue();
+        }
+
+        /// <summary>
         /// Este método habilita las funcionalidades de todos los controles de esta clase.
         /// </summary>
         public void Enable()
@@ -75,6 +83,20 @@ namespace Recording
         }
 
         /// <summary>
+        /// This method set the values to 0.
+        /// </summary>
+        public void Reset()
+        {
+            DisconnectnumUpDownExposureTime();
+            DisconnecttrBarExposureTime();
+
+            numUpDownExposureTime.Value = 0;
+
+            ConnectnumUpDownExposureTime();
+            ConnecttrBarExposureTime();
+        }
+
+        /// <summary>
         /// Esta función almacenará todos los eventos de los controles que controle esta clase.
         /// </summary>
         private void Events()
@@ -83,6 +105,25 @@ namespace Recording
             ConnecttrBarExposureTime();
         }
 
+        /// <summary>
+        /// Este método inicializa los valores de frame rate de la cámara que se conecta.
+        /// </summary>
+        private void InitValue()
+        {
+            DisconnectnumUpDownExposureTime();
+            DisconnecttrBarExposureTime();
+
+            double exposureTime = milApp.CamExposureTime(idCam.DevNSys, idCam.DevNCam);
+            exposureTime = exposureTime / 1000000;
+            double value = VALUE_MIN_EXPOSURETIME > exposureTime ? VALUE_MIN_EXPOSURETIME : exposureTime;
+            value = VALUE_MAX_EXPOSURETIME < value ? VALUE_MAX_EXPOSURETIME : value;
+
+            numUpDownExposureTime.Value = (decimal)value;
+            trBarExposureTime.Value = (int)value;
+
+            ConnectnumUpDownExposureTime();
+            ConnecttrBarExposureTime();
+        }
 
         /// <summary>
         /// Este evento se ejecuta cuando se modifica el valor del control <see cref="numUpDownFrameRate">numUpDownFrameRate</see>/>.
@@ -120,7 +161,7 @@ namespace Recording
         {
             if (idCam.DevNSys != -1 && idCam.DevNCam != -1)
             {
-                milApp.CamExposureTime(idCam.DevNSys, idCam.DevNCam, value);
+                milApp.CamExposureTime(idCam.DevNSys, idCam.DevNCam, value < 35 ? 35 : value * 1000);
             }
         }
 

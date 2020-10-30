@@ -75,17 +75,6 @@ namespace Recording
             InitPanelManager();
 
             CheckCameras();
-
-            //Id idTest = new Id();
-            //idTest.Set(devSysUsb3Vision, MIL.M_DEV0);
-
-            //displayCameraBaslerForm = new DisplayCameraBaslerForm(ref milApp, idTest);
-
-            //idTest.Set(devSysGigeVision, MIL.M_DEV0);
-
-            //displayCameraFlirForm = new DisplayCameraFlirForm(ref milApp, idTest);
-
-            //AddFormInPanel(displayCameraFlirForm, pnlCams);
         }
 
         /// <summary>
@@ -275,7 +264,22 @@ namespace Recording
         /// </summary>
         public void SelectedCamera()
         {
-            string h = "";
+            Dictionary<string, string> camInfo = milApp.CamInfo(idCam.DevNSys, idCam.DevNCam);
+
+            panelManager.SelectCamera(idCam);
+
+            frameRateManager.SelectCam();
+
+            if (camInfo["Vendor"] == "FLIR" || camInfo["Vendor"].Contains("FLIR"))
+            {
+                exposureTimeManager.Reset();
+                exposureTimeManager.Disable();
+            }
+            else
+            {
+                exposureTimeManager.Enable();
+                exposureTimeManager.SelectCam();
+            }
         }
 
         /// <summary>

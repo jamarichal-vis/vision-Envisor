@@ -122,7 +122,7 @@ namespace Recording
         /// Esta función modifica la paleta de colores de la cámara que este visualizando en esta clase.
         /// </summary>
         /// <param name="palleta">Paleta que quieres seleccionar.</param>
-        public void ChangePalleta(string palleta)
+        public override void ChangePalleta(string palleta)
         {
             milApp.ChangePalletLut(idCam.DevNSys, idCam.DevNCam, palleta);
             milApp.ShowPallet(idCam.DevNSys, idCam.DevNCam, NAME_IMAGE_LUT);

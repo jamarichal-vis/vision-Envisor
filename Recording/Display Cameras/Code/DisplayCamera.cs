@@ -11,7 +11,7 @@ using MilLibrary;
 
 namespace Recording
 {
-    class DisplayCamera
+    public class DisplayCamera
     {
         /// <summary>
         /// Esta variable es utilizada para definir el color que se utiliza para seleccionar una cámara (Bordes del formulario).
@@ -207,5 +207,7 @@ namespace Recording
         public virtual void AllocCamera() { }
 
         public virtual void ConnectMouseEvent() { }
+
+        public virtual void ChangePalleta(string palleta) { }
     }
 }
