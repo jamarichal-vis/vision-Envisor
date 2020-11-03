@@ -18,7 +18,8 @@ namespace Recording
         {
             InitializeComponent();
 
-            DisplayCamera = new DisplayCameraFlir(ref milApp, id, ref pnlBorder, ref lbModel, ref lbName, ref lbIp,
+            DisplayCamera = new DisplayCameraFlir(ref milApp, id, this,
+                ref pnlBorder, ref lbModel, ref lbName, ref lbIp,
                 ref pnlCam, ref pnlLut, 
                 ref lbTemperature, ref lbMinTemperature, ref lbMaxTemperature,
                 ref lbPosX, ref lbPosY, ref lbFps,

@@ -234,6 +234,15 @@ namespace Recording
             EventPresentCameraInfo eventProcessingFunction = (EventPresentCameraInfo)milApp.CamEvent(devSys, devDig, "ProcessingFunctionInformation");
             eventProcessingFunction._event += new EventPresentCameraInfo._eventDelagete(ProcessingFunction);
 
+            /********************** VIDEO ********************/
+
+            //EventVideo eventEndVideo = (EventVideo)milApp.CamEvent(devSys, devDig, "EndVideo");
+            //eventEndVideo._event += new EventVideo._eventDelagete(EndVideo);
+
+            //milApp.AddVideo(devSysUsb3Vision, devDig, "VIDEO", MIL.M_AVI_MJPEG, timePretrigger: 15, timeStop: 15);
+
+            //milApp.CamStartGrabInDisk(devSysUsb3Vision, devDig, "VIDEO", @"C:\Uco\video.avi");
+
             /********************* AÑADIR IMAGENES *************************/
             /* Activamos las imagenes en la cámara devDig */
             milApp.CamActivateImages(devSys, devDig);

@@ -14,6 +14,8 @@ namespace Recording
     {
         private const string NAME_IMAGE_LUT = "Lut";
 
+        Form form;
+
         /// <summary>
         /// Esta variable almacena el panel donde se visualiza el lut de la cámara.
         /// </summary>
@@ -46,7 +48,13 @@ namespace Recording
 
         private bool firstLoop;
 
-        public DisplayCameraFlir(ref MilApp milApp, Id id, ref Panel pnlBorder, ref Label lbModel, ref Label lbName, ref Label lbIp,
+        private delegate bool FocuseDelegate(Control control);
+        
+        private FocuseDelegate focuseEvent;
+
+
+        public DisplayCameraFlir(ref MilApp milApp, Id id, Form form,
+            ref Panel pnlBorder, ref Label lbModel, ref Label lbName, ref Label lbIp,
             ref Panel pnlCam, ref Panel pnlLut, 
             ref Label lbTemperature, ref Label lbMinTemperature, ref Label lbMaxTemperature, 
             ref Label lbPosX, ref Label lbPosY, ref Label lbFps,
@@ -55,6 +63,7 @@ namespace Recording
             this.milApp = milApp;
 
             this.idCam = id;
+            this.form = form;
 
             this.pnlBorder = pnlBorder;
             this.lbModel = lbModel;
@@ -77,6 +86,8 @@ namespace Recording
             this.numericUpDownTemperatureHight = numericUpDownManualLutHight;
 
             firstLoop = true;
+
+            focuseEvent = new FocuseDelegate(FocuseSafe);
         }
 
         public override void AllocCamera()
@@ -157,15 +168,22 @@ namespace Recording
         {
             SetControlPropertyThreadSafe(lbMinTemperature, "Text", "Min: " + ((minValue * 0.04) - 273.15).ToString("#.## °C"));
             SetControlPropertyThreadSafe(lbMaxTemperature, "Text", "Max: " + ((maxValue * 0.04) - 273.15).ToString("#.## °C"));
-            
-            //if(!numericUpDownTemperatureLow.Focused && !numericUpDownTemperatureHight.Focused)
-            if(firstLoop)
+
+            bool focusedLow = (bool)form.Invoke(focuseEvent, new object[] { numericUpDownTemperatureLow });
+            bool focusedHight = (bool)form.Invoke(focuseEvent, new object[] { numericUpDownTemperatureHight });
+
+            if(!focusedLow && !focusedHight)
             {
                 SetControlPropertyThreadSafe(numericUpDownTemperatureLow, "Value", (decimal)((minValue * 0.04) - 273.15));
                 SetControlPropertyThreadSafe(numericUpDownTemperatureHight, "Value", (decimal)((maxValue * 0.04) - 273.15));
 
                 firstLoop = false;
             }
+        }
+
+        private bool FocuseSafe(Control control)
+        {
+            return control.Focused;
         }
 
         /// <summary>
