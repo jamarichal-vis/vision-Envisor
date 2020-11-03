@@ -100,6 +100,25 @@ namespace Recording
         }
 
         /// <summary>
+        /// Este método añade una cámara al control <see cref="flowLayoutPanelCameras">flowLayoutPanelCameras</see>/> en función
+        /// del id que se pasa por parámetro.
+        /// </summary>
+        /// <param name="id">Id de la cámara que quieres conectar.</param>
+        public void ShowCams(Id id)
+        {
+            DisplayCameraForm displayCameraForm = null;
+
+            Dictionary<string, string> camInfo = milApp.CamInfo(id.DevNSys, id.DevNCam);
+
+            if (camInfo["Vendor"] == "Basler")
+                displayCameraForm = new DisplayCameraBaslerForm(ref milApp, id: id);
+            else if (camInfo["Vendor"] == "FLIR" || camInfo["Vendor"].Contains("FLIR"))
+                displayCameraForm = new DisplayCameraFlirForm(ref milApp, id: id);
+
+            AddPanel(id, displayCameraForm);
+        }
+
+        /// <summary>
         /// Esta función elimina un panel del control <see cref="flowLayoutPanelCameras">flowLayoutPanelCameras</see>/> por el id de la cámara.
         /// </summary>
         /// <param name="id">Id de la cámara que quieres eliminar. </param>

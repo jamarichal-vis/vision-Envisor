@@ -176,8 +176,6 @@ namespace Recording
             panelManager = new PanelManager(ref milApp, ref devSysGigeVision, ref devSysUsb3Vision, numCams, ref pnlCams);
         }
 
-
-
         /// <summary>
         /// Esta función se encargará de comprobar si se han conectado cámaras.
         /// En caso de que no hayan cámaras conectadas se deshabilitarán los controles de las secciones del rpograma que requieran la conexión de
@@ -214,6 +212,12 @@ namespace Recording
 
             /*Indice de la cámara en el sistema que ha ejecutado este evento.*/
             MIL_INT devDig = milApp.GetIndexCamByDevN(devSysGigeVision, devMatrox);
+
+            Id id = new Id(devSys, devDig);
+
+            ConnectedCameraInSystem(id.DevNSys, id.DevNCam);
+
+            panelManager.ShowCams(id);
         }
 
         /// <summary>
@@ -226,7 +230,12 @@ namespace Recording
         /// <param name="disconnectedCameraIp">Ip de la cámara.</param>
         public void DisconnectedCameraEvent(MIL_ID milSys, MIL_INT devN, string disconnectedCameraName, string disconnectedCameraIp)
         {
-           
+            /*Obtenemos el indice del sistema en la arquitenctura de MilApp a partir del MIL_ID del sistema que ha activado este evento.*/
+            MIL_INT devSys = milApp.GetIndexSystemByID(milSys);
+
+            Id id = new Id(devSys, devN);
+
+            panelManager.Remove(id);
         }
 
         /// <summary>
@@ -355,6 +364,11 @@ namespace Recording
             panel.Tag = fh;
             panel.AutoSize = true;
             fh.Show();
+        }
+
+        public void MouseDown(string nameControl)
+        {
+
         }
 
         private void RecordingForm_FormClosing(object sender, FormClosingEventArgs e)

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -51,6 +52,8 @@ namespace Recording
         /// </summary>
         TreeView treeViewCam;
 
+        TreeNode treeNodeSelected;
+
         /// <summary>
         /// Este objeto almacena la identificación de la cámara que esta seleccionada en el programa.
         /// </summary>
@@ -83,6 +86,8 @@ namespace Recording
         public void Events()
         {
             treeViewCam.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeViewCameras_AfterSelect);
+
+            treeViewCam.Leave += new System.EventHandler(this.treeViewCameras_Leave);
         }
 
         private void ImagesInTreeView()
@@ -139,7 +144,7 @@ namespace Recording
         {
             if (NbCamerasInGigeVision > 0)
                 treeViewCam.SelectedNode = treeViewCam.Nodes[INDEX_GIGEVISION_TREEVIEW].Nodes[0];
-            else if(NbCamerasInGigeVision > 0)
+            else if (NbCamerasInGigeVision > 0)
                 treeViewCam.SelectedNode = treeViewCam.Nodes[INDEX_USB3VISION_TREEVIEW].Nodes[0];
         }
 
@@ -159,6 +164,14 @@ namespace Recording
 
                 if (selectedCamEvent != null)
                     selectedCamEvent.Invoke();
+
+                if (treeNodeSelected != null)
+                {
+                    treeNodeSelected.BackColor = Color.Transparent;
+                    treeNodeSelected.ForeColor = Color.Black;
+                }
+
+                treeNodeSelected = treeViewCam.SelectedNode;
             }
         }
 
@@ -273,6 +286,13 @@ namespace Recording
             }
 
             return Convert.ToInt16(num);
+        }
+
+        private void treeViewCameras_Leave(object sender, EventArgs e)
+        {
+            treeViewCam.SelectedNode.BackColor = Color.FromArgb(93, 169, 229);
+            treeViewCam.SelectedNode.ForeColor = Color.White;
+
         }
     }
 }

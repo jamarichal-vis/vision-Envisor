@@ -69,5 +69,10 @@ namespace Recording
         {
             DisplayCamera.ChangePalleta("Gray");
         }
+
+        private void toolStripMenuItemPalletaIron_Click_1(object sender, EventArgs e)
+        {
+
+        }
     }
 }

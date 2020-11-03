@@ -244,7 +244,7 @@
             // tableLayoutPanel1
             // 
             this.tableLayoutPanel1.ColumnCount = 2;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.Controls.Add(this.tableLayoutPanelCam, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.tableLayoutPanel3, 0, 0);
@@ -264,12 +264,12 @@
             this.tableLayoutPanelCam.Controls.Add(this.tableLayoutPanelCamLut, 0, 1);
             this.tableLayoutPanelCam.Controls.Add(this.pnlCam, 0, 0);
             this.tableLayoutPanelCam.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanelCam.Location = new System.Drawing.Point(33, 3);
+            this.tableLayoutPanelCam.Location = new System.Drawing.Point(43, 3);
             this.tableLayoutPanelCam.Name = "tableLayoutPanelCam";
             this.tableLayoutPanelCam.RowCount = 2;
             this.tableLayoutPanelCam.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanelCam.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
-            this.tableLayoutPanelCam.Size = new System.Drawing.Size(430, 325);
+            this.tableLayoutPanelCam.Size = new System.Drawing.Size(420, 325);
             this.tableLayoutPanelCam.TabIndex = 2;
             // 
             // tableLayoutPanelCamLut
@@ -286,7 +286,7 @@
             this.tableLayoutPanelCamLut.Name = "tableLayoutPanelCamLut";
             this.tableLayoutPanelCamLut.RowCount = 1;
             this.tableLayoutPanelCamLut.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanelCamLut.Size = new System.Drawing.Size(424, 34);
+            this.tableLayoutPanelCamLut.Size = new System.Drawing.Size(414, 34);
             this.tableLayoutPanelCamLut.TabIndex = 0;
             // 
             // pnlLut
@@ -294,7 +294,7 @@
             this.pnlLut.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlLut.Location = new System.Drawing.Point(73, 3);
             this.pnlLut.Name = "pnlLut";
-            this.pnlLut.Size = new System.Drawing.Size(278, 28);
+            this.pnlLut.Size = new System.Drawing.Size(268, 28);
             this.pnlLut.TabIndex = 0;
             // 
             // numericUpDownLutLow
@@ -308,7 +308,7 @@
             // numericUpDownLutHight
             // 
             this.numericUpDownLutHight.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.numericUpDownLutHight.Location = new System.Drawing.Point(357, 7);
+            this.numericUpDownLutHight.Location = new System.Drawing.Point(347, 7);
             this.numericUpDownLutHight.Name = "numericUpDownLutHight";
             this.numericUpDownLutHight.Size = new System.Drawing.Size(64, 20);
             this.numericUpDownLutHight.TabIndex = 2;
@@ -320,7 +320,7 @@
             this.pnlCam.ForeColor = System.Drawing.Color.Transparent;
             this.pnlCam.Location = new System.Drawing.Point(3, 3);
             this.pnlCam.Name = "pnlCam";
-            this.pnlCam.Size = new System.Drawing.Size(424, 279);
+            this.pnlCam.Size = new System.Drawing.Size(414, 279);
             this.pnlCam.TabIndex = 1;
             // 
             // tableLayoutPanel3
@@ -335,7 +335,7 @@
             this.tableLayoutPanel3.RowCount = 2;
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
-            this.tableLayoutPanel3.Size = new System.Drawing.Size(24, 325);
+            this.tableLayoutPanel3.Size = new System.Drawing.Size(34, 325);
             this.tableLayoutPanel3.TabIndex = 3;
             // 
             // menuStrip1
@@ -347,7 +347,7 @@
             this.toolStripMenuItemPalleta});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(24, 285);
+            this.menuStrip1.Size = new System.Drawing.Size(32, 285);
             this.menuStrip1.TabIndex = 4;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -356,6 +356,7 @@
             this.toolStripMenuItemZoom.Name = "toolStripMenuItemZoom";
             this.toolStripMenuItemZoom.Size = new System.Drawing.Size(19, 19);
             this.toolStripMenuItemZoom.Text = "Z";
+            this.toolStripMenuItemZoom.Click += new System.EventHandler(this.toolStripMenuItemZoom_Click);
             // 
             // toolStripMenuItemPalleta
             // 
@@ -370,27 +371,30 @@
             // toolStripMenuItemPalletaIron
             // 
             this.toolStripMenuItemPalletaIron.Name = "toolStripMenuItemPalletaIron";
-            this.toolStripMenuItemPalletaIron.Size = new System.Drawing.Size(120, 22);
+            this.toolStripMenuItemPalletaIron.Size = new System.Drawing.Size(180, 22);
             this.toolStripMenuItemPalletaIron.Text = "Iron";
+            this.toolStripMenuItemPalletaIron.Click += new System.EventHandler(this.toolStripMenuItemPalletaIron_Click);
             // 
             // toolStripMenuItemPalletaRainbow
             // 
             this.toolStripMenuItemPalletaRainbow.Name = "toolStripMenuItemPalletaRainbow";
-            this.toolStripMenuItemPalletaRainbow.Size = new System.Drawing.Size(120, 22);
+            this.toolStripMenuItemPalletaRainbow.Size = new System.Drawing.Size(180, 22);
             this.toolStripMenuItemPalletaRainbow.Text = "Rainbow";
+            this.toolStripMenuItemPalletaRainbow.Click += new System.EventHandler(this.toolStripMenuItemPalletaRainbow_Click);
             // 
             // toolStripMenuItemPalletaGray
             // 
             this.toolStripMenuItemPalletaGray.Name = "toolStripMenuItemPalletaGray";
-            this.toolStripMenuItemPalletaGray.Size = new System.Drawing.Size(120, 22);
+            this.toolStripMenuItemPalletaGray.Size = new System.Drawing.Size(180, 22);
             this.toolStripMenuItemPalletaGray.Text = "Gray";
+            this.toolStripMenuItemPalletaGray.Click += new System.EventHandler(this.toolStripMenuItemPalletaGray_Click);
             // 
             // btnAuto
             // 
             this.btnAuto.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnAuto.Location = new System.Drawing.Point(3, 288);
             this.btnAuto.Name = "btnAuto";
-            this.btnAuto.Size = new System.Drawing.Size(18, 34);
+            this.btnAuto.Size = new System.Drawing.Size(28, 34);
             this.btnAuto.TabIndex = 5;
             this.btnAuto.Text = "A";
             this.btnAuto.UseVisualStyleBackColor = true;
