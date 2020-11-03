@@ -22,6 +22,11 @@ namespace Recording
         /// Esta variable es utilizada para definir el color que se utiliza para deseleccionar una cámara (Bordes del formulario).
         /// </summary>
         protected Color colorDeselected = Color.ForestGreen;
+        
+        /// <summary>
+        /// Esta variable es utilizada para definir el color que se utiliza para deseleccionar una cámara (Bordes del formulario).
+        /// </summary>
+        protected Color colorGrab = Color.Red;
 
         /// <summary>
         /// Variable que contiene toda la estructura del control de las cámaras del sistema.
@@ -188,12 +193,21 @@ namespace Recording
         }
 
         /// <summary>
-        /// Esta función es utilizada para seleccionar esta cámara.
+        /// Esta función es utilizada para deseleccionar esta cámara.
         /// Es decir, se modificará el color del borde del formulario.
         /// </summary>
         public void DeselectCamera()
         {
             pnlBorder.BackColor = colorDeselected;
+        }
+
+        /// <summary>
+        /// Este método es utilizado para indicar que la cámara esta grabando por medio de la interface.
+        /// Se modificará el color del borde del <see cref="pnlBorder">pnlBorder</see>/>.
+        /// </summary>
+        public void GrabCamera()
+        {
+            pnlBorder.BackColor = colorGrab;
         }
 
         /// <summary>

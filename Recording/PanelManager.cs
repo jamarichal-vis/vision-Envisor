@@ -123,6 +123,24 @@ namespace Recording
         }
 
         /// <summary>
+        /// Esta función es utilizada pra deseleccionar una cámara mediante el id que se pasa por parámetro.
+        /// </summary>
+        /// <param name="id">Id de la cámara que quiere deseleccionar.</param>
+        public void DeselectCamera(Id id)
+        {
+            camerasForm[id].DisplayCamera.DeselectCamera();
+        }
+
+        /// <summary>
+        /// Esta función es utilizada para indicar que se esta grabando en la cámara indicada mediante el id que se pasa por parámetro.
+        /// </summary>
+        /// <param name="id">Ide de la cámara que quiere idicar que se esta grabando.</param>
+        public void GrabCamera(Id id)
+        {
+            camerasForm[id].DisplayCamera.GrabCamera();
+        }
+
+        /// <summary>
         /// Esta función añade un panel a <see cref="pnlCameras">pnlCameras</see>/>.
         /// Además, se añade la identificación del panel a través de su <see cref="Id">Id</see>/>.
         /// </summary>

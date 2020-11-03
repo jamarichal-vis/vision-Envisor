@@ -43,6 +43,11 @@ namespace Recording
         /// Esta variable contiene todas las funciones necesarias para controlar la sección de exposure time de las cámaras.
         /// </summary>
         private ExposureTimeManager exposureTimeManager;
+        
+        /// <summary>
+        /// Esta variable contiene todas las funciones necesarias para controlar la sección de secuencias de imágenes en una cámara.
+        /// </summary>
+        private SequenceManager sequenceManager;
 
         /// <summary>
         /// Esta variable contiene todas las funciones para controlar todos los paneles que se muestren en <see cref="pnlCams">pnlCams</see>/>.
@@ -71,6 +76,8 @@ namespace Recording
             InitFrameRateManager();
 
             InitExposureTimeManager();
+
+            InitSequenceManager();
 
             InitPanelManager();
 
@@ -149,6 +156,13 @@ namespace Recording
             exposureTimeManager = new ExposureTimeManager(ref milApp, ref tableLayoutPanelExposureTime, ref numericUpDownExposureTime, ref trackBarExposureTime, ref idCam);
         }
 
+        private void InitSequenceManager()
+        {
+            sequenceManager = new SequenceManager(ref milApp, ref devSysGigeVision, ref devSysUsb3Vision, ref idCam, ref btnRecord);
+
+            sequenceManager.startGrabEvent += new SequenceManager.startGrabDelegate(StartGrabVideo);
+        }
+
         /// <summary>
         /// Este método contiene todas las funciones necesarias para inicializar el objeto <see cref="panelManager">panelManager</see>/>.
         /// </summary>
@@ -161,6 +175,8 @@ namespace Recording
 
             panelManager = new PanelManager(ref milApp, ref devSysGigeVision, ref devSysUsb3Vision, numCams, ref pnlCams);
         }
+
+
 
         /// <summary>
         /// Esta función se encargará de comprobar si se han conectado cámaras.
@@ -236,12 +252,8 @@ namespace Recording
 
             /********************** VIDEO ********************/
 
-            //EventVideo eventEndVideo = (EventVideo)milApp.CamEvent(devSys, devDig, "EndVideo");
-            //eventEndVideo._event += new EventVideo._eventDelagete(EndVideo);
-
-            //milApp.AddVideo(devSysUsb3Vision, devDig, "VIDEO", MIL.M_AVI_MJPEG, timePretrigger: 15, timeStop: 15);
-
-            //milApp.CamStartGrabInDisk(devSysUsb3Vision, devDig, "VIDEO", @"C:\Uco\video.avi");
+            EventVideo eventEndVideo = (EventVideo)milApp.CamEvent(devSys, devDig, "EndVideo");
+            eventEndVideo._event += new EventVideo._eventDelagete(EndVideo);
 
             /********************* AÑADIR IMAGENES *************************/
             /* Activamos las imagenes en la cámara devDig */
@@ -289,6 +301,38 @@ namespace Recording
                 exposureTimeManager.Enable();
                 exposureTimeManager.SelectCam();
             }
+        }
+
+        /// <summary>
+        /// Esta función esta conectada con el evento <see cref="SequenceManager.startGrabEvent">"SequenceManager.startGrabEvent</see>/>.
+        /// 
+        /// Se ejecutará cuando se ejecute el evento click de <see cref="btnRecord">btnRecord</see>/>, 
+        /// definido en <see cref="SequenceManager.btnRecord_Click(object, EventArgs)">SequenceManager.btnRecord_Click(object, EventArgs)</see>/>
+        /// </summary>
+        private void StartGrabVideo()
+        {
+            panelManager.GrabCamera(idCam);
+        }
+
+        /// <summary>
+        /// Esta función se ejecuta cuando se termina la grabación de un vídeo o secuencia de imágenes.
+        /// </summary>
+        /// <param name="milSys">Dev del sistema en MilLibrary.</param>
+        /// <param name="CameraName">Nombre de la cámara que ha lanzado este evento.</param>
+        /// <param name="CameraIp">Ip de la cámara que ha lanzado este evento.</param>
+        /// <param name="path">Path del vídeo que se ha grabado.</param>
+        /// <param name="fps">Fps de la cámara.</param>
+        private void EndVideo(MIL_ID milSys, MIL_INT matroxDevDig, string CameraName, string CameraIp, string path, double fps)
+        {
+            MIL_INT devSys = milApp.GetIndexSystemByID(milSys);
+            MIL_INT devCam = milApp.GetIndexCamByDevN(devSys, matroxDevDig);
+
+            Id id = new Id(devSys, devCam);
+
+            if (idCam == id)
+                panelManager.SelectCamera(id);
+            else
+                panelManager.DeselectCamera(id);
         }
 
         /// <summary>

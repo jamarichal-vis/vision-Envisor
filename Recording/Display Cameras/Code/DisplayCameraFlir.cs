@@ -85,8 +85,6 @@ namespace Recording
             this.numericUpDownTemperatureLow = numericUpDownManualLutLow;
             this.numericUpDownTemperatureHight = numericUpDownManualLutHight;
 
-            firstLoop = true;
-
             focuseEvent = new FocuseDelegate(FocuseSafe);
         }
 
@@ -176,8 +174,6 @@ namespace Recording
             {
                 SetControlPropertyThreadSafe(numericUpDownTemperatureLow, "Value", (decimal)((minValue * 0.04) - 273.15));
                 SetControlPropertyThreadSafe(numericUpDownTemperatureHight, "Value", (decimal)((maxValue * 0.04) - 273.15));
-
-                firstLoop = false;
             }
         }
 
