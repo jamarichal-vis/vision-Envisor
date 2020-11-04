@@ -67,6 +67,14 @@ namespace Recording
         public delegate void selectedCamDelegate();
         public event selectedCamDelegate selectedCamEvent;
 
+        /// <summary>
+        /// Este evento es ejecutado cuando se libera una cámara mediante la función <see cref="btnFreeCamera_Click(object, EventArgs)">btnFreeCamera_Click(object, EventArgs)</see>/>. 
+        /// </summary>
+        /// <param name="id">Id de la cámara que se ha liberado.</param>
+        public delegate void FreeCamDelegate();
+        public event FreeCamDelegate freeCamCamEvent;
+
+
         public CameraManager(ref MilApp milApp, ref MIL_INT devSysGigeVision, ref MIL_INT devSysUsb3Vision, ref TreeView treeView, ref Id id)
         {
             this.milApp = milApp;
@@ -76,6 +84,12 @@ namespace Recording
             treeViewCam = treeView;
 
             this.id = id;
+
+            ImageList imageList = new ImageList();
+            imageList.Images.Add(Properties.Resources.camera);
+            treeViewCam.ImageList = imageList;
+
+            ImagesInTreeView();
 
             Events();
         }
@@ -93,9 +107,7 @@ namespace Recording
         private void ImagesInTreeView()
         {
             ImageList imageList = new ImageList();
-            //imageList.Images.Add(Properties.Resources.icon_system);
-            //imageList.Images.Add(Properties.Resources.icon_camera_connected);
-            //imageList.Images.Add(Properties.Resources.icon_camera_disconnected);
+            imageList.Images.Add(Properties.Resources.camera);
             treeViewCam.ImageList = imageList;
         }
 
@@ -119,7 +131,7 @@ namespace Recording
 
                 string name = camInfo["Vendor"] + " " + camInfo["Model"] + string.Format(" (DEV{0}", devDig) + ")";
 
-                ConnectCameraToTreeView(indexSystem: 0, name);
+                ConnectCameraToTreeView(indexSystem: INDEX_GIGEVISION_TREEVIEW, name);
             }
 
             for (MIL_INT devDig = MIL.M_DEV0; devDig < NbcamerasInUsb3Vision; devDig++)
@@ -128,13 +140,29 @@ namespace Recording
 
                 string name = camInfo["Vendor"] + " " + camInfo["Model"] + string.Format(" (DEV{0}", devDig) + ")";
 
-                ConnectCameraToTreeView(1, name);
+                ConnectCameraToTreeView(indexSystem: INDEX_USB3VISION_TREEVIEW, name);
             }
 
             foreach (TreeNode treeNode in treeViewCam.Nodes)
                 treeNode.Expand();
 
             SelectedFirstCam(NbcamerasInGigeVisionSystem, NbcamerasInUsb3Vision);
+        }
+
+        /// <summary>
+        /// Esta función muestra una cámara en el control <see cref="treeViewCam">treeViewCam</see>/>.
+        /// </summary>
+        /// <param name="id">Id de la cámara que quieres mostrar.</param>
+        public void ShowCamerasConnected(Id id)
+        {
+            Dictionary<string, string> camInfo = milApp.CamInfo(id.DevNSys, id.DevNCam);
+
+            string name = camInfo["Vendor"] + " " + camInfo["Model"] + string.Format(" (DEV{0}", id.DevNCam) + ")";
+
+            if (id.DevNSys == milApp.GetIndexSystemByType(MIL.M_SYSTEM_GIGE_VISION))
+                ConnectCameraToTreeView(indexSystem: INDEX_GIGEVISION_TREEVIEW, name);
+            else if (id.DevNSys == milApp.GetIndexSystemByType(MIL.M_SYSTEM_USB3_VISION))
+                ConnectCameraToTreeView(indexSystem: INDEX_USB3VISION_TREEVIEW, name);
         }
 
         /// <summary>
@@ -182,7 +210,7 @@ namespace Recording
         /// <param name="index">Indice donde quieres añadir el sistema.</param>
         private void ConnectSystemToTreeView(string system, int index)
         {
-            TreeNode node = new TreeNode(system, 0, 0);
+            TreeNode node = new TreeNode(system, 1, 1);
 
             treeViewCam.Nodes.Insert(index, node);
         }
@@ -195,7 +223,8 @@ namespace Recording
         /// <param name="name">Nombre de la cámara que quieres añadir.</param>
         private void ConnectCameraToTreeView(int indexSystem, string name)
         {
-            treeViewCam.Nodes[indexSystem].Nodes.Add(name, name, 1, 1);
+            treeViewCam.Nodes[indexSystem].Nodes.Add(name, name, 0, 0);
+            //treeViewCam.Nodes[indexSystem].Nodes[treeViewCam.Nodes[indexSystem].Nodes.Count - 1].ContextMenuStrip = ContextMenuStripToCamera();
         }
 
         /// <summary>
@@ -290,9 +319,40 @@ namespace Recording
 
         private void treeViewCameras_Leave(object sender, EventArgs e)
         {
-            treeViewCam.SelectedNode.BackColor = Color.FromArgb(93, 169, 229);
-            treeViewCam.SelectedNode.ForeColor = Color.White;
+            treeNodeSelected.BackColor = Color.FromArgb(93, 169, 229);
+            treeNodeSelected.ForeColor = Color.White;
 
+        }
+
+        public void RemoveCamera(Id id)
+        {
+            int index = -1;
+
+            if (id.DevNSys == milApp.GetIndexSystemByType(MIL.M_SYSTEM_GIGE_VISION))
+                index = INDEX_GIGEVISION_TREEVIEW;
+            else if (id.DevNSys == milApp.GetIndexSystemByType(MIL.M_SYSTEM_USB3_VISION))
+                index = INDEX_USB3VISION_TREEVIEW;
+
+            if (index != -1)
+                treeViewCam.Nodes[index].Nodes[(int)IdentifyCamera(id.DevNSys)].Remove();
+        }
+
+        private ContextMenuStrip ContextMenuStripToCamera()
+        {
+            ContextMenuStrip contextMenuStrip = new ContextMenuStrip();
+
+            contextMenuStrip.Items.Add("Free", null, btnFreeCamera_Click);
+
+            return contextMenuStrip;
+        }
+
+        private void btnFreeCamera_Click(object sender, EventArgs e)
+        {
+            RemoveCamera(id);
+
+            freeCamCamEvent.Invoke();
+
+            milApp.FreeRecourse(id.DevNSys, id.DevNCam);
         }
     }
 }

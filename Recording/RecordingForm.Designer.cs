@@ -647,10 +647,10 @@
             // tbLayoutPanelTitleVisualization
             // 
             this.tbLayoutPanelTitleVisualization.ColumnCount = 4;
-            this.tbLayoutPanelTitleVisualization.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 10F));
-            this.tbLayoutPanelTitleVisualization.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 5F));
-            this.tbLayoutPanelTitleVisualization.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 5F));
-            this.tbLayoutPanelTitleVisualization.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 80F));
+            this.tbLayoutPanelTitleVisualization.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 10.88688F));
+            this.tbLayoutPanelTitleVisualization.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40F));
+            this.tbLayoutPanelTitleVisualization.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40F));
+            this.tbLayoutPanelTitleVisualization.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 89.11312F));
             this.tbLayoutPanelTitleVisualization.Controls.Add(this.btnDelete, 2, 0);
             this.tbLayoutPanelTitleVisualization.Controls.Add(this.btnSave, 1, 0);
             this.tbLayoutPanelTitleVisualization.Controls.Add(this.btnRecord, 0, 0);
@@ -664,22 +664,28 @@
             // 
             // btnDelete
             // 
+            this.btnDelete.BackgroundImage = global::Recording.Properties.Resources.Remove;
+            this.btnDelete.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.btnDelete.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnDelete.Location = new System.Drawing.Point(156, 3);
+            this.btnDelete.FlatAppearance.BorderSize = 0;
+            this.btnDelete.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnDelete.Location = new System.Drawing.Point(148, 3);
             this.btnDelete.Name = "btnDelete";
-            this.btnDelete.Size = new System.Drawing.Size(45, 23);
+            this.btnDelete.Size = new System.Drawing.Size(34, 23);
             this.btnDelete.TabIndex = 2;
-            this.btnDelete.Text = "Borrar";
             this.btnDelete.UseVisualStyleBackColor = true;
             // 
             // btnSave
             // 
+            this.btnSave.BackgroundImage = global::Recording.Properties.Resources.Save;
+            this.btnSave.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.btnSave.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnSave.FlatAppearance.BorderSize = 0;
+            this.btnSave.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSave.Location = new System.Drawing.Point(105, 3);
             this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(45, 23);
+            this.btnSave.Size = new System.Drawing.Size(37, 23);
             this.btnSave.TabIndex = 1;
-            this.btnSave.Text = "Guardar";
             this.btnSave.UseVisualStyleBackColor = true;
             // 
             // btnRecord

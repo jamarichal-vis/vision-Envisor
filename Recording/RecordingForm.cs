@@ -133,7 +133,9 @@ namespace Recording
         public void InitCameraManager()
         {
             cameraManager = new CameraManager(ref milApp, ref devSysGigeVision, ref devSysUsb3Vision, ref treeViewCameras, ref idCam);
+            
             cameraManager.selectedCamEvent += new CameraManager.selectedCamDelegate(SelectedCamera);
+            cameraManager.freeCamCamEvent += new CameraManager.FreeCamDelegate(FreeCamera);
 
             cameraManager.ShowCamerasConnected();
         }
@@ -217,6 +219,8 @@ namespace Recording
 
             ConnectedCameraInSystem(id.DevNSys, id.DevNCam);
 
+            cameraManager.ShowCamerasConnected(id);
+
             panelManager.ShowCams(id);
         }
 
@@ -236,6 +240,8 @@ namespace Recording
             Id id = new Id(devSys, devN);
 
             panelManager.Remove(id);
+
+            cameraManager.RemoveCamera(id);
         }
 
         /// <summary>
@@ -312,6 +318,11 @@ namespace Recording
             }
         }
 
+        public void FreeCamera()
+        {
+            panelManager.Remove(idCam);
+        }
+
         /// <summary>
         /// Esta función esta conectada con el evento <see cref="SequenceManager.startGrabEvent">"SequenceManager.startGrabEvent</see>/>.
         /// 
@@ -364,11 +375,6 @@ namespace Recording
             panel.Tag = fh;
             panel.AutoSize = true;
             fh.Show();
-        }
-
-        public void MouseDown(string nameControl)
-        {
-
         }
 
         private void RecordingForm_FormClosing(object sender, FormClosingEventArgs e)
