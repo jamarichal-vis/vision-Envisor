@@ -88,23 +88,54 @@ namespace Recording
         /// <param name="e"></param>
         private void btnRecord_Click(object sender, EventArgs e)
         {
-            Dictionary<string, string> camInfo = milApp.CamInfo(id.DevNSys, id.DevNCam);
+            //Dictionary<string, string> camInfo = milApp.CamInfo(id.DevNSys, id.DevNCam);
 
-            string pathFolder = System.IO.Path.Combine(@"C:\Recording\Records",
-                (camInfo["Vendor"] != "" ? (camInfo["Vendor"] + " -") : "") +
-                (camInfo["Model"] != "" ? (camInfo["Model"]) : "") +
-                (camInfo["Name"] != "" ? (" -" + camInfo["Name"]) : (id.DevNSys.ToString() + id.DevNCam.ToString())) +
-                (camInfo["IpAddress"] != "" ? (" -" + camInfo["IpAddress"]) : "") +
-                DateTime.Now.ToString(" (dd-MM-yyyy HH-mm-ss-fff)"));
+            //string pathFolder = System.IO.Path.Combine(@"C:\Recording\Records",
+            //    (camInfo["Vendor"] != "" ? (camInfo["Vendor"] + " -") : "") +
+            //    (camInfo["Model"] != "" ? (camInfo["Model"]) : "") +
+            //    (camInfo["Name"] != "" ? (" -" + camInfo["Name"]) : (id.DevNSys.ToString() + id.DevNCam.ToString())) +
+            //    (camInfo["IpAddress"] != "" ? (" -" + camInfo["IpAddress"]) : "") +
+            //    DateTime.Now.ToString(" (dd-MM-yyyy HH-mm-ss-fff)"));
 
-            if (!Directory.Exists(pathFolder))
-                Directory.CreateDirectory(pathFolder);
+            //if (!Directory.Exists(pathFolder))
+            //    Directory.CreateDirectory(pathFolder);
 
-            string pathFile = System.IO.Path.Combine(pathFolder, NAME_VIDEO_FILE + EXTENSION_VIDEO);
+            //string pathFile = System.IO.Path.Combine(pathFolder, NAME_VIDEO_FILE + EXTENSION_VIDEO);
 
-            milApp.AddVideo(id.DevNSys, id.DevNCam, NAME_VIDEO_MILLIBRARY, MIL.M_AVI_MJPEG, timePretrigger: 15, timeStop: 15);
+            //milApp.AddVideo(id.DevNSys, id.DevNCam, NAME_VIDEO_MILLIBRARY, MIL.M_AVI_MJPEG, timePretrigger: 15, timeStop: 15);
 
-            milApp.CamStartGrabInDisk(id.DevNSys, id.DevNCam, NAME_VIDEO_MILLIBRARY, pathFile);
+            //milApp.CamStartGrabInDisk(id.DevNSys, id.DevNCam, NAME_VIDEO_MILLIBRARY, pathFile);
+
+            //if (startGrabEvent != null)
+            //    startGrabEvent.Invoke();
+
+            RecordAllCamera();
+        }
+
+        private void RecordAllCamera()
+        {
+            MIL_INT NbcamerasInUsb3Vision = milApp.GetNCameraInSystem(devSysUsb3Vision);
+
+            for (MIL_INT devDig = MIL.M_DEV0; devDig < NbcamerasInUsb3Vision; devDig++)
+            {
+                Dictionary<string, string> camInfo = milApp.CamInfo(devSysUsb3Vision, devDig);
+
+                string pathFolder = System.IO.Path.Combine(@"C:\Recording\Records",
+                    (camInfo["Vendor"] != "" ? (camInfo["Vendor"] + " -") : "") +
+                    (camInfo["Model"] != "" ? (camInfo["Model"]) : "") +
+                    (camInfo["Name"] != "" ? (" -" + camInfo["Name"]) : (id.DevNSys.ToString() + devDig.ToString())) +
+                    (camInfo["IpAddress"] != "" ? (" -" + camInfo["IpAddress"]) : "") +
+                    DateTime.Now.ToString(" (dd-MM-yyyy HH-mm-ss-fff)"));
+
+                if (!Directory.Exists(pathFolder))
+                    Directory.CreateDirectory(pathFolder);
+
+                string pathFile = System.IO.Path.Combine(pathFolder, NAME_VIDEO_FILE + EXTENSION_VIDEO);
+
+                milApp.AddVideo(devSysUsb3Vision, devDig, NAME_VIDEO_MILLIBRARY, MIL.M_AVI_MJPEG, timePretrigger: -1, timeStop: 15);
+
+                milApp.CamStartGrabInDisk(devSysUsb3Vision, devDig, NAME_VIDEO_MILLIBRARY, pathFile);
+            }
 
             if (startGrabEvent != null)
                 startGrabEvent.Invoke();

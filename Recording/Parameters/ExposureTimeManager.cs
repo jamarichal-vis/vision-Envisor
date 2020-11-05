@@ -114,7 +114,7 @@ namespace Recording
             DisconnecttrBarExposureTime();
 
             double exposureTime = milApp.CamExposureTime(idCam.DevNSys, idCam.DevNCam);
-            exposureTime = exposureTime / 1000000;
+            exposureTime = exposureTime / 1000;
             double value = VALUE_MIN_EXPOSURETIME > exposureTime ? VALUE_MIN_EXPOSURETIME : exposureTime;
             value = VALUE_MAX_EXPOSURETIME < value ? VALUE_MAX_EXPOSURETIME : value;
 
