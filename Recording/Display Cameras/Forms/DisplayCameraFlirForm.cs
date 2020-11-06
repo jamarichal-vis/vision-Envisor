@@ -23,7 +23,8 @@ namespace Recording
                 ref pnlCam, ref pnlLut, 
                 ref lbTemperature, ref lbMinTemperature, ref lbMaxTemperature,
                 ref lbPosX, ref lbPosY, ref lbFps,
-                ref btnAuto, ref numericUpDownLutLow, ref numericUpDownLutHight);
+                ref btnAuto, ref numericUpDownLutLow, ref numericUpDownLutHight,
+                ref txBoxName);
             DisplayCamera.AllocCamera();
         }
 
@@ -73,6 +74,11 @@ namespace Recording
         private void toolStripMenuItemPalletaIron_Click_1(object sender, EventArgs e)
         {
 
+        }
+
+        private void numericUpDownLutLow_Enter(object sender, EventArgs e)
+        {
+            
         }
     }
 }

@@ -122,8 +122,11 @@ namespace Recording
             MIL_INT NbcamerasInGigeVisionSystem = milApp.GetNCameraInSystem(devSysGigeVision);
             MIL_INT NbcamerasInUsb3Vision = milApp.GetNCameraInSystem(devSysUsb3Vision);
 
-            ConnectSystemToTreeView(NAME_GIGEVISION_TREEVIEW, INDEX_GIGEVISION_TREEVIEW);
-            ConnectSystemToTreeView(NAME_USB3VISION_TREEVIEW, INDEX_USB3VISION_TREEVIEW);
+            //if (NbcamerasInGigeVisionSystem > 0)
+                ConnectSystemToTreeView(NAME_GIGEVISION_TREEVIEW, INDEX_GIGEVISION_TREEVIEW);
+
+            //if (NbcamerasInUsb3Vision > 0)
+                ConnectSystemToTreeView(NAME_USB3VISION_TREEVIEW, INDEX_USB3VISION_TREEVIEW);
 
             for (MIL_INT devDig = MIL.M_DEV0; devDig < NbcamerasInGigeVisionSystem; devDig++)
             {
@@ -319,9 +322,11 @@ namespace Recording
 
         private void treeViewCameras_Leave(object sender, EventArgs e)
         {
-            treeNodeSelected.BackColor = Color.FromArgb(93, 169, 229);
-            treeNodeSelected.ForeColor = Color.White;
-
+            if (treeNodeSelected != null)
+            {
+                treeNodeSelected.BackColor = Color.FromArgb(93, 169, 229);
+                treeNodeSelected.ForeColor = Color.White;
+            }
         }
 
         public void RemoveCamera(Id id)

@@ -58,7 +58,8 @@ namespace Recording
             ref Panel pnlCam, ref Panel pnlLut, 
             ref Label lbTemperature, ref Label lbMinTemperature, ref Label lbMaxTemperature, 
             ref Label lbPosX, ref Label lbPosY, ref Label lbFps,
-            ref Button btnAuto, ref NumericUpDown numericUpDownManualLutLow, ref NumericUpDown numericUpDownManualLutHight)
+            ref Button btnAuto, ref NumericUpDown numericUpDownManualLutLow, ref NumericUpDown numericUpDownManualLutHight,
+            ref TextBox textBox)
         {
             this.milApp = milApp;
 
@@ -84,6 +85,8 @@ namespace Recording
             this.btnAuto = btnAuto;
             this.numericUpDownTemperatureLow = numericUpDownManualLutLow;
             this.numericUpDownTemperatureHight = numericUpDownManualLutHight;
+
+            this.txBoxName = textBox;
 
             focuseEvent = new FocuseDelegate(FocuseSafe);
         }
@@ -117,6 +120,8 @@ namespace Recording
             ConnectFpsEvent();
 
             ConnectLut();
+
+            ConnectTxBoxName();
         }
 
         /// <summary>

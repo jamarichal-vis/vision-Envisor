@@ -22,7 +22,7 @@ namespace Recording
         /// Esta variable es utilizada para definir el color que se utiliza para deseleccionar una cámara (Bordes del formulario).
         /// </summary>
         protected Color colorDeselected = Color.ForestGreen;
-        
+
         /// <summary>
         /// Esta variable es utilizada para definir el color que se utiliza para deseleccionar una cámara (Bordes del formulario).
         /// </summary>
@@ -58,7 +58,7 @@ namespace Recording
         /// Esta variable almacena el label referido a mostrar el nombre de la cámara que se conecte a este objeto.
         /// </summary>
         protected Label lbName;
-        
+
         /// <summary>
         /// Esta variable almacena el label referido a mostrar la ip de la cámara que se conecte a este objeto.
         /// </summary>
@@ -69,7 +69,7 @@ namespace Recording
         /// En el caso de cámaras basler, mostrarán la intensidad de la imagen. En caso de una flir, mostrarán el valor de temperatura.
         /// </summary>
         protected Label lbValue;
-        
+
         /// <summary>
         /// Label donde se muestra la posición x del mouse en la imagen.
         /// </summary>
@@ -84,6 +84,8 @@ namespace Recording
         /// Label donde se muestran los fps de la cámara.
         /// </summary>
         protected Label lbFps;
+
+        protected TextBox txBoxName;
 
         /// <summary>
         /// Función para cambiar los controles en threads separados de forma segura (Invoke)
@@ -144,9 +146,21 @@ namespace Recording
             string model = camInfo["Vendor"] + " " + camInfo["Model"] + string.Format(" (DEV{0}", idCam.DevNCam) + ")";
             lbModel.Text = model;
 
-            lbName.Text = "Nombre: " + camInfo["Name"];
+            txBoxName.Text = camInfo["Name"];
             lbIp.Text = (camInfo["IpAddress"] != null) ? ("Ip: " + camInfo["IpAddress"]) : "";
-        } 
+        }
+
+        public void ConnectTxBoxName()
+        {
+            txBoxName.KeyPress += new System.Windows.Forms.KeyPressEventHandler(ChangeName);
+        }
+
+        public void ChangeName(object sender, KeyPressEventArgs e)
+        {
+            if ((int)e.KeyChar == (int)Keys.Enter)
+                if (txBoxName.Text != "")
+                    milApp.CamName(idCam.DevNSys, idCam.DevNCam, txBoxName.Text);
+        }
 
         /// <summary>
         /// Esta función actualiza la información del mouse en la imagen. Se mostrará la intensidad de la imagen en la posición del ratón y 

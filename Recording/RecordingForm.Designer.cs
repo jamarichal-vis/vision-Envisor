@@ -72,11 +72,17 @@
             this.lbStorage = new System.Windows.Forms.Label();
             this.cbBoxStorage = new System.Windows.Forms.ComboBox();
             this.tbLayoutPanelVisualization = new System.Windows.Forms.TableLayoutPanel();
-            this.tbLayoutPanelTitleVisualization = new System.Windows.Forms.TableLayoutPanel();
-            this.btnDelete = new System.Windows.Forms.Button();
-            this.btnSave = new System.Windows.Forms.Button();
-            this.btnRecord = new System.Windows.Forms.Button();
             this.pnlCams = new System.Windows.Forms.FlowLayoutPanel();
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.btnSingleShot = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnContinuousShot = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnPause = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnRecord = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnZoomPlus = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnZoomLess = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnResetZoom = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnOneCamera = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnMosaic = new System.Windows.Forms.ToolStripMenuItem();
             this.tbLayoutPanelMain.SuspendLayout();
             this.tbLayoutPanelSettings.SuspendLayout();
             this.tbLayoutPanelCameras.SuspendLayout();
@@ -102,7 +108,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPositionTrigger)).BeginInit();
             this.tableLayoutPanel6.SuspendLayout();
             this.tbLayoutPanelVisualization.SuspendLayout();
-            this.tbLayoutPanelTitleVisualization.SuspendLayout();
+            this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // tbLayoutPanelMain
@@ -269,7 +275,7 @@
             this.lbExposureUnits.Name = "lbExposureUnits";
             this.lbExposureUnits.Size = new System.Drawing.Size(30, 24);
             this.lbExposureUnits.TabIndex = 2;
-            this.lbExposureUnits.Text = "ms";
+            this.lbExposureUnits.Text = "us";
             this.lbExposureUnits.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // trackBarExposureTime
@@ -633,8 +639,8 @@
             // 
             this.tbLayoutPanelVisualization.ColumnCount = 1;
             this.tbLayoutPanelVisualization.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tbLayoutPanelVisualization.Controls.Add(this.tbLayoutPanelTitleVisualization, 0, 0);
             this.tbLayoutPanelVisualization.Controls.Add(this.pnlCams, 0, 1);
+            this.tbLayoutPanelVisualization.Controls.Add(this.menuStrip1, 0, 0);
             this.tbLayoutPanelVisualization.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tbLayoutPanelVisualization.Location = new System.Drawing.Point(262, 3);
             this.tbLayoutPanelVisualization.Name = "tbLayoutPanelVisualization";
@@ -643,60 +649,6 @@
             this.tbLayoutPanelVisualization.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tbLayoutPanelVisualization.Size = new System.Drawing.Size(1031, 706);
             this.tbLayoutPanelVisualization.TabIndex = 1;
-            // 
-            // tbLayoutPanelTitleVisualization
-            // 
-            this.tbLayoutPanelTitleVisualization.ColumnCount = 4;
-            this.tbLayoutPanelTitleVisualization.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 10.88688F));
-            this.tbLayoutPanelTitleVisualization.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40F));
-            this.tbLayoutPanelTitleVisualization.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40F));
-            this.tbLayoutPanelTitleVisualization.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 89.11312F));
-            this.tbLayoutPanelTitleVisualization.Controls.Add(this.btnDelete, 2, 0);
-            this.tbLayoutPanelTitleVisualization.Controls.Add(this.btnSave, 1, 0);
-            this.tbLayoutPanelTitleVisualization.Controls.Add(this.btnRecord, 0, 0);
-            this.tbLayoutPanelTitleVisualization.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tbLayoutPanelTitleVisualization.Location = new System.Drawing.Point(3, 3);
-            this.tbLayoutPanelTitleVisualization.Name = "tbLayoutPanelTitleVisualization";
-            this.tbLayoutPanelTitleVisualization.RowCount = 1;
-            this.tbLayoutPanelTitleVisualization.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tbLayoutPanelTitleVisualization.Size = new System.Drawing.Size(1025, 29);
-            this.tbLayoutPanelTitleVisualization.TabIndex = 0;
-            // 
-            // btnDelete
-            // 
-            this.btnDelete.BackgroundImage = global::Recording.Properties.Resources.Remove;
-            this.btnDelete.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnDelete.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnDelete.FlatAppearance.BorderSize = 0;
-            this.btnDelete.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnDelete.Location = new System.Drawing.Point(148, 3);
-            this.btnDelete.Name = "btnDelete";
-            this.btnDelete.Size = new System.Drawing.Size(34, 23);
-            this.btnDelete.TabIndex = 2;
-            this.btnDelete.UseVisualStyleBackColor = true;
-            // 
-            // btnSave
-            // 
-            this.btnSave.BackgroundImage = global::Recording.Properties.Resources.Save;
-            this.btnSave.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnSave.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnSave.FlatAppearance.BorderSize = 0;
-            this.btnSave.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnSave.Location = new System.Drawing.Point(105, 3);
-            this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(37, 23);
-            this.btnSave.TabIndex = 1;
-            this.btnSave.UseVisualStyleBackColor = true;
-            // 
-            // btnRecord
-            // 
-            this.btnRecord.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnRecord.Location = new System.Drawing.Point(3, 3);
-            this.btnRecord.Name = "btnRecord";
-            this.btnRecord.Size = new System.Drawing.Size(96, 23);
-            this.btnRecord.TabIndex = 0;
-            this.btnRecord.Text = "Record";
-            this.btnRecord.UseVisualStyleBackColor = true;
             // 
             // pnlCams
             // 
@@ -707,12 +659,86 @@
             this.pnlCams.Size = new System.Drawing.Size(1025, 665);
             this.pnlCams.TabIndex = 1;
             // 
+            // menuStrip1
+            // 
+            this.menuStrip1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.btnSingleShot,
+            this.btnContinuousShot,
+            this.btnPause,
+            this.btnRecord,
+            this.btnZoomPlus,
+            this.btnZoomLess,
+            this.btnResetZoom,
+            this.btnOneCamera,
+            this.btnMosaic});
+            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Size = new System.Drawing.Size(1031, 35);
+            this.menuStrip1.TabIndex = 2;
+            this.menuStrip1.Text = "menuStrip1";
+            // 
+            // btnSingleShot
+            // 
+            this.btnSingleShot.Name = "btnSingleShot";
+            this.btnSingleShot.Size = new System.Drawing.Size(75, 31);
+            this.btnSingleShot.Text = "SingleShot";
+            // 
+            // btnContinuousShot
+            // 
+            this.btnContinuousShot.Name = "btnContinuousShot";
+            this.btnContinuousShot.Size = new System.Drawing.Size(108, 31);
+            this.btnContinuousShot.Text = "Continuous Shot";
+            // 
+            // btnPause
+            // 
+            this.btnPause.Name = "btnPause";
+            this.btnPause.Size = new System.Drawing.Size(50, 31);
+            this.btnPause.Text = "Pause";
+            // 
+            // btnRecord
+            // 
+            this.btnRecord.Name = "btnRecord";
+            this.btnRecord.Size = new System.Drawing.Size(56, 31);
+            this.btnRecord.Text = "Record";
+            // 
+            // btnZoomPlus
+            // 
+            this.btnZoomPlus.Name = "btnZoomPlus";
+            this.btnZoomPlus.Size = new System.Drawing.Size(62, 31);
+            this.btnZoomPlus.Text = "Zoom +";
+            // 
+            // btnZoomLess
+            // 
+            this.btnZoomLess.Name = "btnZoomLess";
+            this.btnZoomLess.Size = new System.Drawing.Size(59, 31);
+            this.btnZoomLess.Text = "Zoom -";
+            // 
+            // btnResetZoom
+            // 
+            this.btnResetZoom.Name = "btnResetZoom";
+            this.btnResetZoom.Size = new System.Drawing.Size(82, 31);
+            this.btnResetZoom.Text = "Reset Zoom";
+            // 
+            // btnOneCamera
+            // 
+            this.btnOneCamera.Name = "btnOneCamera";
+            this.btnOneCamera.Size = new System.Drawing.Size(102, 31);
+            this.btnOneCamera.Text = "Pantalla Grande";
+            // 
+            // btnMosaic
+            // 
+            this.btnMosaic.Name = "btnMosaic";
+            this.btnMosaic.Size = new System.Drawing.Size(64, 31);
+            this.btnMosaic.Text = "Mosaico";
+            // 
             // RecordingForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1296, 712);
             this.Controls.Add(this.tbLayoutPanelMain);
+            this.MainMenuStrip = this.menuStrip1;
             this.Name = "RecordingForm";
             this.Text = "Recording";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.RecordingForm_FormClosing);
@@ -752,7 +778,9 @@
             this.tableLayoutPanel6.ResumeLayout(false);
             this.tableLayoutPanel6.PerformLayout();
             this.tbLayoutPanelVisualization.ResumeLayout(false);
-            this.tbLayoutPanelTitleVisualization.ResumeLayout(false);
+            this.tbLayoutPanelVisualization.PerformLayout();
+            this.menuStrip1.ResumeLayout(false);
+            this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -765,7 +793,6 @@
         private System.Windows.Forms.TableLayoutPanel tbLayoutPanelTitleCamera;
         private System.Windows.Forms.TableLayoutPanel tbLayoutPanelParameter;
         private System.Windows.Forms.TableLayoutPanel tbLayoutPanelVisualization;
-        private System.Windows.Forms.TableLayoutPanel tbLayoutPanelTitleVisualization;
         private System.Windows.Forms.Label lbCamera;
         private System.Windows.Forms.TreeView treeViewCameras;
         private System.Windows.Forms.Label lbParameter;
@@ -804,10 +831,17 @@
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel6;
         private System.Windows.Forms.Label lbStorage;
         private System.Windows.Forms.ComboBox cbBoxStorage;
-        private System.Windows.Forms.Button btnDelete;
-        private System.Windows.Forms.Button btnSave;
-        private System.Windows.Forms.Button btnRecord;
         private System.Windows.Forms.FlowLayoutPanel pnlCams;
+        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem btnSingleShot;
+        private System.Windows.Forms.ToolStripMenuItem btnContinuousShot;
+        private System.Windows.Forms.ToolStripMenuItem btnPause;
+        private System.Windows.Forms.ToolStripMenuItem btnRecord;
+        private System.Windows.Forms.ToolStripMenuItem btnZoomPlus;
+        private System.Windows.Forms.ToolStripMenuItem btnZoomLess;
+        private System.Windows.Forms.ToolStripMenuItem btnResetZoom;
+        private System.Windows.Forms.ToolStripMenuItem btnOneCamera;
+        private System.Windows.Forms.ToolStripMenuItem btnMosaic;
     }
 }
 

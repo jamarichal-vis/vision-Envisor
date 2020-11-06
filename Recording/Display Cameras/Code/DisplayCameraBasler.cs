@@ -12,8 +12,12 @@ namespace Recording
 {
     class DisplayCameraBasler : DisplayCamera
     {
-        public DisplayCameraBasler(ref MilApp milApp, Id id, ref Panel pnlBorder, ref Label lbModel, ref Label lbName, ref Label lbIp,
-            ref Panel pnlCam, ref Label lbIntensity, ref Label lbPosX, ref Label lbPosY, ref Label lbFps)
+        public DisplayCameraBasler(ref MilApp milApp, Id id, 
+            ref Panel pnlBorder, 
+            ref Label lbModel, ref Label lbName, ref Label lbIp,
+            ref Panel pnlCam, 
+            ref Label lbIntensity, ref Label lbPosX, ref Label lbPosY, ref Label lbFps,
+            ref TextBox textBox)
         {
             this.milApp = milApp;
 
@@ -31,6 +35,8 @@ namespace Recording
             this.lbPosX = lbPosX;
             this.lbPosY = lbPosY;
             this.lbFps = lbFps;
+
+            this.txBoxName = textBox;
         }
 
         public override void AllocCamera()
@@ -40,6 +46,7 @@ namespace Recording
             /* EVENTS */
             ConnectMouseEvent();
             ConnectFpsEvent();
+            ConnectTxBoxName();
 
             /* Info Cam. */
             ShowInfoCam();

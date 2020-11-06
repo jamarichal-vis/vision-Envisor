@@ -12,7 +12,7 @@ namespace Recording
     class ExposureTimeManager
     {
         private const int VALUE_MIN_EXPOSURETIME = 0;
-        private const int VALUE_MAX_EXPOSURETIME = 5000; /*ms*/
+        private const int VALUE_MAX_EXPOSURETIME = 5000; /*us*/
 
         /// <summary>
         /// Variable que contiene toda la estructura del control de las cámaras del sistema.

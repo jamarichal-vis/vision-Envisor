@@ -125,6 +125,8 @@ namespace Recording
 
             for (MIL_INT devDig = MIL.M_DEV0; devDig < NbcamerasInUsb3Vision; devDig++)
                 ConnectedCameraInSystem(devSysUsb3Vision, devDig);
+
+
         }
 
         /// <summary>

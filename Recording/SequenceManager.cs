@@ -50,7 +50,7 @@ namespace Recording
         /// <summary>
         /// This atribute stores the button to record.
         /// </summary>
-        Button btnRecord;
+        ToolStripMenuItem btnRecord;
 
         /// <summary>
         /// Este evento es ejecutado cuando se selecciona una cámara. 
@@ -60,7 +60,7 @@ namespace Recording
         public delegate void startGrabDelegate();
         public event startGrabDelegate startGrabEvent;
 
-        public SequenceManager(ref MilApp milApp, ref MIL_INT devSysGigeVision, ref MIL_INT devSysUsb3Vision, ref Id id, ref Button btnRecord)
+        public SequenceManager(ref MilApp milApp, ref MIL_INT devSysGigeVision, ref MIL_INT devSysUsb3Vision, ref Id id, ref ToolStripMenuItem btnRecord)
         {
             this.milApp = milApp;
             this.devSysGigeVision = devSysGigeVision;

@@ -37,13 +37,16 @@
             this.lbPosX = new System.Windows.Forms.Label();
             this.pnlCam = new System.Windows.Forms.Panel();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.lbIp = new System.Windows.Forms.Label();
+            this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
             this.lbName = new System.Windows.Forms.Label();
+            this.txBoxName = new System.Windows.Forms.TextBox();
+            this.lbIp = new System.Windows.Forms.Label();
             this.lbModel = new System.Windows.Forms.Label();
             this.pnlBorder.SuspendLayout();
             this.tableLayoutPanelMain.SuspendLayout();
             this.tableLayoutPanelLabels.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
+            this.tableLayoutPanel4.SuspendLayout();
             this.SuspendLayout();
             // 
             // pnlBorder
@@ -152,11 +155,11 @@
             // 
             this.tableLayoutPanel1.BackColor = System.Drawing.Color.ForestGreen;
             this.tableLayoutPanel1.ColumnCount = 3;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 43.33433F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 28.33283F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 28.33283F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 40F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 30F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 30F));
+            this.tableLayoutPanel1.Controls.Add(this.tableLayoutPanel4, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.lbIp, 2, 0);
-            this.tableLayoutPanel1.Controls.Add(this.lbName, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.lbModel, 0, 0);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(3, 3);
@@ -166,29 +169,54 @@
             this.tableLayoutPanel1.Size = new System.Drawing.Size(468, 34);
             this.tableLayoutPanel1.TabIndex = 2;
             // 
-            // lbIp
+            // tableLayoutPanel4
             // 
-            this.lbIp.AutoSize = true;
-            this.lbIp.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lbIp.ForeColor = System.Drawing.SystemColors.Control;
-            this.lbIp.Location = new System.Drawing.Point(337, 0);
-            this.lbIp.Name = "lbIp";
-            this.lbIp.Size = new System.Drawing.Size(128, 34);
-            this.lbIp.TabIndex = 2;
-            this.lbIp.Text = "Ip:";
-            this.lbIp.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.tableLayoutPanel4.ColumnCount = 2;
+            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 40F));
+            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 60F));
+            this.tableLayoutPanel4.Controls.Add(this.lbName, 0, 0);
+            this.tableLayoutPanel4.Controls.Add(this.txBoxName, 1, 0);
+            this.tableLayoutPanel4.Location = new System.Drawing.Point(190, 3);
+            this.tableLayoutPanel4.Name = "tableLayoutPanel4";
+            this.tableLayoutPanel4.RowCount = 1;
+            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel4.Size = new System.Drawing.Size(133, 28);
+            this.tableLayoutPanel4.TabIndex = 4;
             // 
             // lbName
             // 
             this.lbName.AutoSize = true;
             this.lbName.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lbName.ForeColor = System.Drawing.SystemColors.Control;
-            this.lbName.Location = new System.Drawing.Point(205, 0);
+            this.lbName.ForeColor = System.Drawing.Color.White;
+            this.lbName.Location = new System.Drawing.Point(3, 0);
             this.lbName.Name = "lbName";
-            this.lbName.Size = new System.Drawing.Size(126, 34);
-            this.lbName.TabIndex = 1;
+            this.lbName.Size = new System.Drawing.Size(47, 28);
+            this.lbName.TabIndex = 0;
             this.lbName.Text = "Nombre:";
             this.lbName.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // txBoxName
+            // 
+            this.txBoxName.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.txBoxName.BackColor = System.Drawing.Color.ForestGreen;
+            this.txBoxName.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txBoxName.ForeColor = System.Drawing.Color.White;
+            this.txBoxName.Location = new System.Drawing.Point(56, 7);
+            this.txBoxName.Name = "txBoxName";
+            this.txBoxName.Size = new System.Drawing.Size(74, 13);
+            this.txBoxName.TabIndex = 1;
+            // 
+            // lbIp
+            // 
+            this.lbIp.AutoSize = true;
+            this.lbIp.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lbIp.ForeColor = System.Drawing.SystemColors.Control;
+            this.lbIp.Location = new System.Drawing.Point(330, 0);
+            this.lbIp.Name = "lbIp";
+            this.lbIp.Size = new System.Drawing.Size(135, 34);
+            this.lbIp.TabIndex = 2;
+            this.lbIp.Text = "Ip:";
+            this.lbIp.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // lbModel
             // 
@@ -197,7 +225,7 @@
             this.lbModel.ForeColor = System.Drawing.SystemColors.Control;
             this.lbModel.Location = new System.Drawing.Point(3, 0);
             this.lbModel.Name = "lbModel";
-            this.lbModel.Size = new System.Drawing.Size(196, 34);
+            this.lbModel.Size = new System.Drawing.Size(181, 34);
             this.lbModel.TabIndex = 0;
             this.lbModel.Text = "Modelo:";
             this.lbModel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -210,12 +238,15 @@
             this.Controls.Add(this.pnlBorder);
             this.Name = "DisplayCameraBaslerForm";
             this.Text = "DisplayCamera";
+            this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.DisplayCameraBaslerForm_MouseDown);
             this.pnlBorder.ResumeLayout(false);
             this.tableLayoutPanelMain.ResumeLayout(false);
             this.tableLayoutPanelLabels.ResumeLayout(false);
             this.tableLayoutPanelLabels.PerformLayout();
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
+            this.tableLayoutPanel4.ResumeLayout(false);
+            this.tableLayoutPanel4.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -232,7 +263,9 @@
         private System.Windows.Forms.Panel pnlCam;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.Label lbIp;
-        private System.Windows.Forms.Label lbName;
         private System.Windows.Forms.Label lbModel;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel4;
+        private System.Windows.Forms.Label lbName;
+        private System.Windows.Forms.TextBox txBoxName;
     }
 }
