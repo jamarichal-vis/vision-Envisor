@@ -17,7 +17,9 @@ namespace Recording
         {
             InitializeComponent();
 
-            DisplayCamera = new DisplayCameraBasler(ref milApp, id, ref pnlBorder, ref lbModel, ref lbName, ref lbIp,
+            DisplayCamera = new DisplayCameraBasler(ref milApp, id, 
+                this,
+                ref pnlBorder, ref lbModel, ref lbName, ref lbIp,
                 ref pnlCam, ref lbIntensity, ref lbPosX, ref lbPosY, ref lbFps, ref txBoxName);
 
             DisplayCamera.AllocCamera();

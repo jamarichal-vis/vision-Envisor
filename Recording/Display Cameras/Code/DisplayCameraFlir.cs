@@ -14,8 +14,6 @@ namespace Recording
     {
         private const string NAME_IMAGE_LUT = "Lut";
 
-        Form form;
-
         /// <summary>
         /// Esta variable almacena el panel donde se visualiza el lut de la cámara.
         /// </summary>
@@ -118,6 +116,7 @@ namespace Recording
             ConnectMouseEvent();
             ConnectTemperatureEvent();
             ConnectFpsEvent();
+            ConnectMouseDown();
 
             ConnectLut();
 
@@ -219,6 +218,18 @@ namespace Recording
         {
             base.DisconnectPanel();
             milApp.AllocPanelToCam(idCam.DevNSys, idCam.DevNCam, panel: null, NAME_IMAGE_LUT);
+        }
+
+        protected override void ConnectMouseDown()
+        {
+            base.ConnectMouseDown();
+
+            pnlLut.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Form_MouseDown);
+            lbMinTemperature.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Form_MouseDown);
+            lbMaxTemperature.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Form_MouseDown);
+            btnAuto.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Form_MouseDown);
+            numericUpDownTemperatureLow.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Form_MouseDown);
+            numericUpDownTemperatureHight.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Form_MouseDown);
         }
     }
 }

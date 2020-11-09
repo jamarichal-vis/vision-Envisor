@@ -57,7 +57,7 @@ namespace Recording
         /// <summary>
         /// Este objeto almacena la identificación de la cámara que esta seleccionada en el programa.
         /// </summary>
-        Id id;
+        Id idCam;
 
         /// <summary>
         /// Este evento es ejecutado cuando se selecciona una cámara. 
@@ -83,7 +83,7 @@ namespace Recording
 
             treeViewCam = treeView;
 
-            this.id = id;
+            this.idCam = id;
 
             ImageList imageList = new ImageList();
             imageList.Images.Add(Properties.Resources.camera);
@@ -123,10 +123,10 @@ namespace Recording
             MIL_INT NbcamerasInUsb3Vision = milApp.GetNCameraInSystem(devSysUsb3Vision);
 
             //if (NbcamerasInGigeVisionSystem > 0)
-                ConnectSystemToTreeView(NAME_GIGEVISION_TREEVIEW, INDEX_GIGEVISION_TREEVIEW);
+            ConnectSystemToTreeView(NAME_GIGEVISION_TREEVIEW, INDEX_GIGEVISION_TREEVIEW);
 
             //if (NbcamerasInUsb3Vision > 0)
-                ConnectSystemToTreeView(NAME_USB3VISION_TREEVIEW, INDEX_USB3VISION_TREEVIEW);
+            ConnectSystemToTreeView(NAME_USB3VISION_TREEVIEW, INDEX_USB3VISION_TREEVIEW);
 
             for (MIL_INT devDig = MIL.M_DEV0; devDig < NbcamerasInGigeVisionSystem; devDig++)
             {
@@ -168,6 +168,25 @@ namespace Recording
                 ConnectCameraToTreeView(indexSystem: INDEX_USB3VISION_TREEVIEW, name);
         }
 
+        public void SelectCamera(Id id)
+        {
+            int indexSystem = -1;
+
+            int indexCam = -1;
+
+            if (id.DevNSys == milApp.GetIndexSystemByType(MIL.M_SYSTEM_GIGE_VISION))
+                indexSystem = INDEX_GIGEVISION_TREEVIEW;
+            else if (id.DevNSys == milApp.GetIndexSystemByType(MIL.M_SYSTEM_USB3_VISION))
+                indexSystem = INDEX_USB3VISION_TREEVIEW;
+
+            indexCam = IndexCamera(treeViewCam.Nodes[indexSystem], id);
+
+            if (indexSystem != -1 && indexCam != -1)
+            {
+                treeViewCam.SelectedNode = treeViewCam.Nodes[indexSystem].Nodes[indexCam];
+            }
+        }
+
         /// <summary>
         /// Esta función selecciona la primera cámara que se ha conectado.
         /// </summary>
@@ -191,7 +210,7 @@ namespace Recording
                 MIL_INT devSys = IdentifySystem();
                 MIL_INT devCam = IdentifyCamera(devSys);
 
-                id.Set(devSys, devCam);
+                idCam.Set(devSys, devCam);
 
                 if (selectedCamEvent != null)
                     selectedCamEvent.Invoke();
@@ -265,6 +284,32 @@ namespace Recording
             }
 
             return MIL.M_NULL;
+        }
+
+        /// <summary>
+        /// Este método devuelve el índice de la cámara que tu has indicado a través del parámetro id y en el nodo "node".
+        /// </summary>
+        /// <param name="node">Nodo donde quieres buscar la cámara.</param>
+        /// <param name="id">Id de la cñamara que quieres seleccionar.</param>
+        /// <returns>Índice de la cámara dentro de node.</returns>
+        private int IndexCamera(TreeNode node, Id id)
+        {
+            if (node.Nodes.Count > 0)
+            {
+                for (int i = 0; i < node.Nodes.Count; i++)
+                {
+                    MIL_INT devCam = MIL.M_NULL;
+
+                    int dev = FindDev(node.Nodes[i].Text);
+
+                    devCam = milApp.GetIndexCamByDevN(id.DevNSys, dev);
+
+                    if (id.DevNCam == devCam)
+                        return i;
+                }
+            }
+
+            return -1;
         }
 
         /// <summary>
@@ -353,11 +398,11 @@ namespace Recording
 
         private void btnFreeCamera_Click(object sender, EventArgs e)
         {
-            RemoveCamera(id);
+            RemoveCamera(idCam);
 
             freeCamCamEvent.Invoke();
 
-            milApp.FreeRecourse(id.DevNSys, id.DevNCam);
+            milApp.FreeRecourse(idCam.DevNSys, idCam.DevNCam);
         }
     }
 }

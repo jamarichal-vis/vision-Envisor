@@ -742,6 +742,7 @@
             this.Name = "RecordingForm";
             this.Text = "Recording";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.RecordingForm_FormClosing);
+            this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.RecordingForm_MouseDown);
             this.tbLayoutPanelMain.ResumeLayout(false);
             this.tbLayoutPanelSettings.ResumeLayout(false);
             this.tbLayoutPanelCameras.ResumeLayout(false);

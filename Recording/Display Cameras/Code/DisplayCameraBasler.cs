@@ -13,6 +13,7 @@ namespace Recording
     class DisplayCameraBasler : DisplayCamera
     {
         public DisplayCameraBasler(ref MilApp milApp, Id id, 
+            Form form,
             ref Panel pnlBorder, 
             ref Label lbModel, ref Label lbName, ref Label lbIp,
             ref Panel pnlCam, 
@@ -22,6 +23,8 @@ namespace Recording
             this.milApp = milApp;
 
             this.idCam = id;
+
+            this.form = form;
 
             this.pnlBorder = pnlBorder;
             this.lbModel = lbModel;
@@ -47,6 +50,7 @@ namespace Recording
             ConnectMouseEvent();
             ConnectFpsEvent();
             ConnectTxBoxName();
+            ConnectMouseDown();
 
             /* Info Cam. */
             ShowInfoCam();

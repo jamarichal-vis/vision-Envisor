@@ -50,6 +50,13 @@ namespace Recording
 
         Id idSelected;
 
+        /// <summary>
+        /// This event is used to notify which camera has been selected.
+        /// </summary>
+        /// <param name="id">Id of the camera selected.</param>
+        public delegate void notifyMouseDownDelegate(Id id);
+        public event notifyMouseDownDelegate notifyMouseDownEvent;
+
         public PanelManager(ref MilApp milApp, ref MIL_INT devSysGigeVision, ref MIL_INT devSysUsb3Vision, int numCams, ref FlowLayoutPanel pnl)
         {
             this.milApp = milApp;
@@ -86,6 +93,8 @@ namespace Recording
                     displayCameraForm = new DisplayCameraBaslerForm(ref milApp, id: id);
                 else if (camInfo["Vendor"] == "FLIR" || camInfo["Vendor"].Contains("FLIR"))
                     displayCameraForm = new DisplayCameraFlirForm(ref milApp, id: id);
+                
+                displayCameraForm.DisplayCamera.notifyMouseDownEvent += new DisplayCamera.notifyMouseDownDelegate(NotifyCameraSelected);
 
                 AddPanel(id, displayCameraForm);
             }
@@ -94,6 +103,8 @@ namespace Recording
             {
                 Id id = new Id(devSysUsb3Vision, devDig);
                 displayCameraForm = new DisplayCameraBaslerForm(ref milApp, id: id);
+                
+                displayCameraForm.DisplayCamera.notifyMouseDownEvent += new DisplayCamera.notifyMouseDownDelegate(NotifyCameraSelected);
 
                 AddPanel(id, displayCameraForm);
             }
@@ -114,6 +125,8 @@ namespace Recording
                 displayCameraForm = new DisplayCameraBaslerForm(ref milApp, id: id);
             else if (camInfo["Vendor"] == "FLIR" || camInfo["Vendor"].Contains("FLIR"))
                 displayCameraForm = new DisplayCameraFlirForm(ref milApp, id: id);
+
+            displayCameraForm.DisplayCamera.notifyMouseDownEvent += new DisplayCamera.notifyMouseDownDelegate(NotifyCameraSelected);
 
             AddPanel(id, displayCameraForm);
         }
@@ -181,12 +194,22 @@ namespace Recording
             Panel panel = new Panel();
             panel.Size = displayCameraFlirForm.Size;
 
-            AddPanelToDict(id, panel, displayCameraFlirForm);
+            AddPanelToDict(new Id(id.DevNSys, id.DevNCam), panel, displayCameraFlirForm);
 
             AddFormInPanel(displayCameraFlirForm, panel);
 
             flowLayoutPanelCameras.Controls.Add(panel);
             flowLayoutPanelCameras.ResumeLayout(false);
+        }
+
+        /// <summary>
+        /// Esta función notifica la cámara que quieres seleccionar.
+        /// </summary>
+        /// <param name="id">El id de la cñamara que quieres seleccionar.</param>
+        public void NotifyCameraSelected(Id id)
+        {
+            if (notifyMouseDownEvent != null)
+                notifyMouseDownEvent.Invoke(id);
         }
 
         /// <summary>

@@ -178,6 +178,8 @@ namespace Recording
             int numCams = (int)NbcamerasInGigeVisionSystem + (int)NbcamerasInUsb3Vision;
 
             panelManager = new PanelManager(ref milApp, ref devSysGigeVision, ref devSysUsb3Vision, numCams, ref pnlCams);
+
+            panelManager.notifyMouseDownEvent += new PanelManager.notifyMouseDownDelegate(SelectCameraInCameraManager);
         }
 
         /// <summary>
@@ -320,6 +322,15 @@ namespace Recording
             }
         }
 
+        /// <summary>
+        /// This function is used to select a camera in <see cref="cameraManager">cameraManager</see>/>.
+        /// </summary>
+        /// <param name="id">Id of the camera you want to select.</param>
+        public void SelectCameraInCameraManager(Id id)
+        {
+            cameraManager.SelectCamera(id);
+        }
+
         public void FreeCamera()
         {
             panelManager.Remove(idCam);
@@ -384,6 +395,11 @@ namespace Recording
             //displayCameraBaslerForm.DisconnectPanel();
 
             milApp.FreeRecourse();
+        }
+
+        private void RecordingForm_MouseDown(object sender, MouseEventArgs e)
+        {
+
         }
     }
 }

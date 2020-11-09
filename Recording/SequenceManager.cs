@@ -120,7 +120,7 @@ namespace Recording
             {
                 Dictionary<string, string> camInfo = milApp.CamInfo(devSysUsb3Vision, devDig);
 
-                string pathFolder = System.IO.Path.Combine(@"C:\Recording\Records",
+                string pathFolder = System.IO.Path.Combine(@"I:\\Recording\Records",
                     (camInfo["Vendor"] != "" ? (camInfo["Vendor"] + " -") : "") +
                     (camInfo["Model"] != "" ? (camInfo["Model"]) : "") +
                     (camInfo["Name"] != "" ? (" -" + camInfo["Name"]) : (id.DevNSys.ToString() + devDig.ToString())) +
@@ -132,7 +132,7 @@ namespace Recording
 
                 string pathFile = System.IO.Path.Combine(pathFolder, NAME_VIDEO_FILE + EXTENSION_VIDEO);
 
-                milApp.AddVideo(devSysUsb3Vision, devDig, NAME_VIDEO_MILLIBRARY, MIL.M_AVI_MJPEG, timePretrigger: -1, timeStop: 15);
+                milApp.AddVideo(devSysUsb3Vision, devDig, NAME_VIDEO_MILLIBRARY, MIL.M_AVI_MJPG, timePretrigger: -1, timeStop: 15);
 
                 milApp.CamStartGrabInDisk(devSysUsb3Vision, devDig, NAME_VIDEO_MILLIBRARY, pathFile);
             }

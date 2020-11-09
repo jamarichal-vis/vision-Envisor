@@ -14,6 +14,11 @@ namespace Recording
     public class DisplayCamera
     {
         /// <summary>
+        /// This variable stores the form.
+        /// </summary>
+        protected Form form;
+
+        /// <summary>
         /// Esta variable es utilizada para definir el color que se utiliza para seleccionar una cámara (Bordes del formulario).
         /// </summary>
         protected Color colorSelected = Color.Blue;
@@ -85,7 +90,17 @@ namespace Recording
         /// </summary>
         protected Label lbFps;
 
+        /// <summary>
+        /// This atribute stores the text box of the name camera.
+        /// </summary>
         protected TextBox txBoxName;
+
+        /// <summary>
+        /// This event is used to notify which camera has been selected.
+        /// </summary>
+        /// <param name="id">Id of the camera selected.</param>
+        public delegate void notifyMouseDownDelegate(Id id);
+        public event notifyMouseDownDelegate notifyMouseDownEvent;
 
         /// <summary>
         /// Función para cambiar los controles en threads separados de forma segura (Invoke)
@@ -194,6 +209,32 @@ namespace Recording
         public void Fps(MIL_ID milSys, MIL_ID milDig, Dictionary<string, double> data)
         {
             SetControlPropertyThreadSafe(lbFps, "Text", "Fps: " + Math.Truncate(data["FPS"]).ToString());
+        }
+
+        protected virtual void ConnectMouseDown()
+        {
+            form.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Form_MouseDown);
+            pnlBorder.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Form_MouseDown);
+            pnlCam.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Form_MouseDown);
+            lbModel.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Form_MouseDown);
+            lbName.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Form_MouseDown);
+            lbIp.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Form_MouseDown);
+            lbValue.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Form_MouseDown);
+            lbPosX.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Form_MouseDown);
+            lbPosY.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Form_MouseDown);
+            lbFps.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Form_MouseDown);
+            txBoxName.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Form_MouseDown);
+        }
+
+        /// <summary>
+        /// This function is used to notify that the mouse it is in the <see cref="form">form</see>/>.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void Form_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (notifyMouseDownEvent != null)
+                notifyMouseDownEvent.Invoke(idCam);
         }
 
         /// <summary>
