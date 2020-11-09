@@ -51,6 +51,21 @@ namespace Recording
         Id idSelected;
 
         /// <summary>
+        /// Esta variable almacena el botón de pause.
+        /// </summary>
+        ToolStripMenuItem btnPause;
+
+        /// <summary>
+        /// Esta variable almacena el botón de grab continuo.
+        /// </summary>
+        ToolStripMenuItem btnGrabContinuous;
+
+        /// <summary>
+        /// Esta variable almacena el botón de reset zoom.
+        /// </summary>
+        ToolStripMenuItem btnResetZoom;
+
+        /// <summary>
         /// This event is used to notify which camera has been selected.
         /// </summary>
         /// <param name="id">Id of the camera selected.</param>
@@ -70,7 +85,26 @@ namespace Recording
 
             idSelected = null;
 
-            ShowCams();
+            //ShowCams();
+        }
+
+        public void AddControl(ref ToolStripMenuItem btnGrabContinuous, ref ToolStripMenuItem btnPause, ref ToolStripMenuItem btnResetZoom)
+        {
+            this.btnGrabContinuous = btnGrabContinuous;
+            this.btnPause = btnPause;
+            this.btnResetZoom = btnResetZoom;
+
+            ConnectBtns();
+        }
+
+        /// <summary>
+        /// Esta función es utilizada pra conectar todos los controles utilizados en la función <see cref="AddControl(ref ToolStripMenuItem, ref ToolStripMenuItem)">AddControl(ref ToolStripMenuItem, ref ToolStripMenuItem)</see>/>.
+        /// </summary>
+        public void ConnectBtns()
+        {
+            this.btnGrabContinuous.Click += new System.EventHandler(this.BtnGrabContinuous_Click);
+            this.btnPause.Click += new System.EventHandler(this.BtnPause_Click);
+            this.btnResetZoom.Click += new System.EventHandler(this.BtnResetZoom_Click);
         }
 
         /// <summary>
@@ -93,7 +127,7 @@ namespace Recording
                     displayCameraForm = new DisplayCameraBaslerForm(ref milApp, id: id);
                 else if (camInfo["Vendor"] == "FLIR" || camInfo["Vendor"].Contains("FLIR"))
                     displayCameraForm = new DisplayCameraFlirForm(ref milApp, id: id);
-                
+
                 displayCameraForm.DisplayCamera.notifyMouseDownEvent += new DisplayCamera.notifyMouseDownDelegate(NotifyCameraSelected);
 
                 AddPanel(id, displayCameraForm);
@@ -103,7 +137,7 @@ namespace Recording
             {
                 Id id = new Id(devSysUsb3Vision, devDig);
                 displayCameraForm = new DisplayCameraBaslerForm(ref milApp, id: id);
-                
+
                 displayCameraForm.DisplayCamera.notifyMouseDownEvent += new DisplayCamera.notifyMouseDownDelegate(NotifyCameraSelected);
 
                 AddPanel(id, displayCameraForm);
@@ -117,18 +151,21 @@ namespace Recording
         /// <param name="id">Id de la cámara que quieres conectar.</param>
         public void ShowCams(Id id)
         {
-            DisplayCameraForm displayCameraForm = null;
+            if (!pnlCameras.ContainsKey(id))
+            {
+                DisplayCameraForm displayCameraForm = null;
 
-            Dictionary<string, string> camInfo = milApp.CamInfo(id.DevNSys, id.DevNCam);
+                Dictionary<string, string> camInfo = milApp.CamInfo(id.DevNSys, id.DevNCam);
 
-            if (camInfo["Vendor"] == "Basler")
-                displayCameraForm = new DisplayCameraBaslerForm(ref milApp, id: id);
-            else if (camInfo["Vendor"] == "FLIR" || camInfo["Vendor"].Contains("FLIR"))
-                displayCameraForm = new DisplayCameraFlirForm(ref milApp, id: id);
+                if (camInfo["Vendor"] == "Basler")
+                    displayCameraForm = new DisplayCameraBaslerForm(ref milApp, id: id);
+                else if (camInfo["Vendor"] == "FLIR" || camInfo["Vendor"].Contains("FLIR"))
+                    displayCameraForm = new DisplayCameraFlirForm(ref milApp, id: id);
 
-            displayCameraForm.DisplayCamera.notifyMouseDownEvent += new DisplayCamera.notifyMouseDownDelegate(NotifyCameraSelected);
+                displayCameraForm.DisplayCamera.notifyMouseDownEvent += new DisplayCamera.notifyMouseDownDelegate(NotifyCameraSelected);
 
-            AddPanel(id, displayCameraForm);
+                AddPanel(id, displayCameraForm);
+            }
         }
 
         /// <summary>
@@ -180,8 +217,11 @@ namespace Recording
         /// <param name="pnl">Panel que se quiere añadir.</param>
         private void AddPanelToDict(Id id, Panel pnl, DisplayCameraForm displayCamera)
         {
-            pnlCameras.Add(id, pnl);
-            camerasForm.Add(id, displayCamera);
+            if (!pnlCameras.ContainsKey(id))
+                pnlCameras.Add(id, pnl);
+
+            if (!camerasForm.ContainsKey(id))
+                camerasForm.Add(id, displayCamera);
         }
 
         /// <summary>
@@ -191,6 +231,7 @@ namespace Recording
         /// <param name="displayCameraFlirForm"></param>
         public void AddPanel(Id id, DisplayCameraForm displayCameraFlirForm)
         {
+
             Panel panel = new Panel();
             panel.Size = displayCameraFlirForm.Size;
 
@@ -200,6 +241,7 @@ namespace Recording
 
             flowLayoutPanelCameras.Controls.Add(panel);
             flowLayoutPanelCameras.ResumeLayout(false);
+
         }
 
         /// <summary>
@@ -233,5 +275,22 @@ namespace Recording
             panel.AutoSize = true;
             fh.Show();
         }
+
+        private void BtnGrabContinuous_Click(object sender, EventArgs e)
+        {
+            camerasForm[idSelected].DisplayCamera.StartGrab();
+        }
+
+        private void BtnPause_Click(object sender, EventArgs e)
+        {
+            camerasForm[idSelected].DisplayCamera.Pause();
+        }
+
+        private void BtnResetZoom_Click(object sender, EventArgs e)
+        {
+            camerasForm[idSelected].DisplayCamera.Zoom();
+        }
+
+
     }
 }

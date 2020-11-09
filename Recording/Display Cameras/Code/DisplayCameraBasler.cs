@@ -22,7 +22,7 @@ namespace Recording
         {
             this.milApp = milApp;
 
-            this.idCam = id;
+            this.idCam = new Id(id.DevNSys, id.DevNCam);
 
             this.form = form;
 

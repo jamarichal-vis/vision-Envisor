@@ -54,8 +54,10 @@ namespace Recording
         /// </summary>
         private PanelManager panelManager;
 
-        private DisplayCameraBaslerForm displayCameraBaslerForm;
-        private DisplayCameraFlirForm displayCameraFlirForm;
+        /// <summary>
+        /// Esta variable almacena toda la configuración para poder grabar un vídeo o una secuencia con una cámara.
+        /// </summary>
+        private RecordSettings recordSettings;
 
         /// <summary>
         /// Esta variable almacenará los datos necesarios para identificar una cámara en <see cref="MilLibrary">MilLibrary</see>/>.
@@ -165,6 +167,8 @@ namespace Recording
             sequenceManager = new SequenceManager(ref milApp, ref devSysGigeVision, ref devSysUsb3Vision, ref idCam, ref btnRecord);
 
             sequenceManager.startGrabEvent += new SequenceManager.startGrabDelegate(StartGrabVideo);
+
+            recordSettings = new RecordSettings();
         }
 
         /// <summary>
@@ -178,6 +182,7 @@ namespace Recording
             int numCams = (int)NbcamerasInGigeVisionSystem + (int)NbcamerasInUsb3Vision;
 
             panelManager = new PanelManager(ref milApp, ref devSysGigeVision, ref devSysUsb3Vision, numCams, ref pnlCams);
+            panelManager.AddControl(ref btnContinuousShot, ref btnPause, ref btnResetZoom);
 
             panelManager.notifyMouseDownEvent += new PanelManager.notifyMouseDownDelegate(SelectCameraInCameraManager);
         }
@@ -306,6 +311,7 @@ namespace Recording
         {
             Dictionary<string, string> camInfo = milApp.CamInfo(idCam.DevNSys, idCam.DevNCam);
 
+            panelManager.ShowCams(idCam);
             panelManager.SelectCamera(idCam);
 
             frameRateManager.SelectCam();
@@ -400,6 +406,13 @@ namespace Recording
         private void RecordingForm_MouseDown(object sender, MouseEventArgs e)
         {
 
+        }
+
+        private void grabarConfiguraciónToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            RecordSettingsForm recordSettingsForm = new RecordSettingsForm(ref recordSettings);
+
+            recordSettingsForm.ShowDialog();
         }
     }
 }

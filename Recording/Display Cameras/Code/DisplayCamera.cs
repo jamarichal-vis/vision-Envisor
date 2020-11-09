@@ -141,9 +141,20 @@ namespace Recording
 
         }
 
+        /// <summary>
+        /// Esta función activa el hilo de la cámara seleccionada en <see cref="idCam">idCam</see>/>.
+        /// </summary>
         public void StartGrab()
         {
             milApp.StartGrab(idCam.DevNSys, idCam.DevNCam);
+        }
+
+        /// <summary>
+        /// Esta función detiene el hilo de la cámara seleccionada mediante <see cref="idCam">idCam</see>/>.
+        /// </summary>
+        public void Pause()
+        {
+            milApp.StopGrab(idCam.DevNSys, idCam.DevNCam);
         }
 
         /// <summary>
@@ -272,6 +283,8 @@ namespace Recording
         {
             milApp.Zoom(idCam.DevNSys, idCam.DevNCam);
         }
+
+        
 
         public virtual void AllocCamera() { }
 

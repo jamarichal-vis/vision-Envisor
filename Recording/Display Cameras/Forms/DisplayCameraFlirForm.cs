@@ -25,6 +25,7 @@ namespace Recording
                 ref lbPosX, ref lbPosY, ref lbFps,
                 ref btnAuto, ref numericUpDownLutLow, ref numericUpDownLutHight,
                 ref txBoxName);
+
             DisplayCamera.AllocCamera();
         }
 
