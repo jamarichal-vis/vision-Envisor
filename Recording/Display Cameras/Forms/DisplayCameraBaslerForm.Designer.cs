@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.panel1 = new System.Windows.Forms.Panel();
             this.pnlBorder = new System.Windows.Forms.Panel();
             this.tableLayoutPanelMain = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanelLabels = new System.Windows.Forms.TableLayoutPanel();
@@ -42,6 +43,8 @@
             this.txBoxName = new System.Windows.Forms.TextBox();
             this.lbIp = new System.Windows.Forms.Label();
             this.lbModel = new System.Windows.Forms.Label();
+            this.btnClose = new System.Windows.Forms.Button();
+            this.panel1.SuspendLayout();
             this.pnlBorder.SuspendLayout();
             this.tableLayoutPanelMain.SuspendLayout();
             this.tableLayoutPanelLabels.SuspendLayout();
@@ -49,16 +52,27 @@
             this.tableLayoutPanel4.SuspendLayout();
             this.SuspendLayout();
             // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.btnClose);
+            this.panel1.Controls.Add(this.pnlBorder);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel1.Location = new System.Drawing.Point(0, 0);
+            this.panel1.Name = "panel1";
+            this.panel1.Padding = new System.Windows.Forms.Padding(0, 20, 0, 0);
+            this.panel1.Size = new System.Drawing.Size(484, 461);
+            this.panel1.TabIndex = 0;
+            // 
             // pnlBorder
             // 
             this.pnlBorder.BackColor = System.Drawing.Color.Green;
             this.pnlBorder.Controls.Add(this.tableLayoutPanelMain);
             this.pnlBorder.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlBorder.Location = new System.Drawing.Point(0, 0);
+            this.pnlBorder.Location = new System.Drawing.Point(0, 20);
             this.pnlBorder.Name = "pnlBorder";
             this.pnlBorder.Padding = new System.Windows.Forms.Padding(5);
-            this.pnlBorder.Size = new System.Drawing.Size(484, 461);
-            this.pnlBorder.TabIndex = 0;
+            this.pnlBorder.Size = new System.Drawing.Size(484, 441);
+            this.pnlBorder.TabIndex = 1;
             // 
             // tableLayoutPanelMain
             // 
@@ -75,7 +89,7 @@
             this.tableLayoutPanelMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
             this.tableLayoutPanelMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
             this.tableLayoutPanelMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanelMain.Size = new System.Drawing.Size(474, 451);
+            this.tableLayoutPanelMain.Size = new System.Drawing.Size(474, 431);
             this.tableLayoutPanelMain.TabIndex = 1;
             // 
             // tableLayoutPanelLabels
@@ -148,7 +162,7 @@
             this.pnlCam.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlCam.Location = new System.Drawing.Point(3, 73);
             this.pnlCam.Name = "pnlCam";
-            this.pnlCam.Size = new System.Drawing.Size(468, 375);
+            this.pnlCam.Size = new System.Drawing.Size(468, 355);
             this.pnlCam.TabIndex = 1;
             // 
             // tableLayoutPanel1
@@ -230,15 +244,30 @@
             this.lbModel.Text = "Modelo:";
             this.lbModel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
+            // btnClose
+            // 
+            this.btnClose.BackColor = System.Drawing.Color.ForestGreen;
+            this.btnClose.FlatAppearance.BorderSize = 0;
+            this.btnClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnClose.Location = new System.Drawing.Point(453, 0);
+            this.btnClose.Margin = new System.Windows.Forms.Padding(0);
+            this.btnClose.Name = "btnClose";
+            this.btnClose.Size = new System.Drawing.Size(31, 19);
+            this.btnClose.TabIndex = 3;
+            this.btnClose.Text = "X";
+            this.btnClose.UseVisualStyleBackColor = false;
+            this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
+            // 
             // DisplayCameraBaslerForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(484, 461);
-            this.Controls.Add(this.pnlBorder);
+            this.Controls.Add(this.panel1);
             this.Name = "DisplayCameraBaslerForm";
             this.Text = "DisplayCamera";
             this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.DisplayCameraBaslerForm_MouseDown);
+            this.panel1.ResumeLayout(false);
             this.pnlBorder.ResumeLayout(false);
             this.tableLayoutPanelMain.ResumeLayout(false);
             this.tableLayoutPanelLabels.ResumeLayout(false);
@@ -253,6 +282,7 @@
 
         #endregion
 
+        private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Panel pnlBorder;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanelMain;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanelLabels;
@@ -262,10 +292,11 @@
         private System.Windows.Forms.Label lbPosX;
         private System.Windows.Forms.Panel pnlCam;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
-        private System.Windows.Forms.Label lbIp;
-        private System.Windows.Forms.Label lbModel;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel4;
         private System.Windows.Forms.Label lbName;
         private System.Windows.Forms.TextBox txBoxName;
+        private System.Windows.Forms.Label lbIp;
+        private System.Windows.Forms.Label lbModel;
+        private System.Windows.Forms.Button btnClose;
     }
 }

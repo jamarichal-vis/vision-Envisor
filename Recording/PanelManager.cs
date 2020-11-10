@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,6 +13,21 @@ namespace Recording
 {
     class PanelManager
     {
+        /// <summary>
+        /// Nombre del video en la libraria <see cref="MilLibrary">MilLibrary</see>/>.
+        /// </summary>
+        private const string NAME_VIDEO_MILLIBRARY = "VIDEO";
+
+        /// <summary>
+        /// Nombre del archivo con el que se guardará el vídeo.
+        /// </summary>
+        private const string NAME_VIDEO_FILE = "video";
+
+        /// <summary>
+        /// Extensión del vídeo que se guardará.
+        /// </summary>
+        private const string EXTENSION_VIDEO = ".avi";
+
         /// <summary>
         /// Variable que contiene toda la estructura del control de las cámaras del sistema.
         /// </summary>
@@ -66,11 +82,30 @@ namespace Recording
         ToolStripMenuItem btnResetZoom;
 
         /// <summary>
+        /// Esta variable almacena el botón de grab continuo.
+        /// </summary>
+        ToolStripMenuItem btnRecord;
+
+        /// <summary>
+        /// Esta variable contiene todas las funciones para cambiar el estado de la barra de herramientas.
+        /// </summary>
+        private StateTools stateTools;
+
+        public StateTools StateTools { get => stateTools; set => stateTools = value; }
+
+        /// <summary>
         /// This event is used to notify which camera has been selected.
         /// </summary>
         /// <param name="id">Id of the camera selected.</param>
         public delegate void notifyMouseDownDelegate(Id id);
         public event notifyMouseDownDelegate notifyMouseDownEvent;
+
+        /// <summary>
+        /// Este evento es utilizado para indicar que un formulario se va a cerrar.
+        /// </summary>
+        /// <param name="id">Id del visualizador que se quiere cerrar.</param>
+        public delegate void notifyCloseDelegate(Id id);
+        public event notifyCloseDelegate notifyCloseEvent;
 
         public PanelManager(ref MilApp milApp, ref MIL_INT devSysGigeVision, ref MIL_INT devSysUsb3Vision, int numCams, ref FlowLayoutPanel pnl)
         {
@@ -88,11 +123,13 @@ namespace Recording
             //ShowCams();
         }
 
-        public void AddControl(ref ToolStripMenuItem btnGrabContinuous, ref ToolStripMenuItem btnPause, ref ToolStripMenuItem btnResetZoom)
+        public void AddControl(ref ToolStripMenuItem btnGrabContinuous, ref ToolStripMenuItem btnPause, ref ToolStripMenuItem btnResetZoom,
+            ref ToolStripMenuItem btnRecord)
         {
             this.btnGrabContinuous = btnGrabContinuous;
             this.btnPause = btnPause;
             this.btnResetZoom = btnResetZoom;
+            this.btnRecord = btnRecord;
 
             ConnectBtns();
         }
@@ -105,6 +142,7 @@ namespace Recording
             this.btnGrabContinuous.Click += new System.EventHandler(this.BtnGrabContinuous_Click);
             this.btnPause.Click += new System.EventHandler(this.BtnPause_Click);
             this.btnResetZoom.Click += new System.EventHandler(this.BtnResetZoom_Click);
+            this.btnRecord.Click += new System.EventHandler(this.BtnRecord_Click);
         }
 
         /// <summary>
@@ -142,6 +180,11 @@ namespace Recording
 
                 AddPanel(id, displayCameraForm);
             }
+
+            /* STATE TOOLS */
+            stateTools.SingleShot();
+            stateTools.Pause();
+            stateTools.ResetZoom();
         }
 
         /// <summary>
@@ -163,9 +206,17 @@ namespace Recording
                     displayCameraForm = new DisplayCameraFlirForm(ref milApp, id: id);
 
                 displayCameraForm.DisplayCamera.notifyMouseDownEvent += new DisplayCamera.notifyMouseDownDelegate(NotifyCameraSelected);
+                displayCameraForm.notifyCloseDownEvent += new DisplayCameraForm.notifyCloseDelegate(Remove);
 
                 AddPanel(id, displayCameraForm);
             }
+
+            /* STATE TOOLS */
+            stateTools.SingleShot();
+            stateTools.GrabContinuous(state: false);
+            stateTools.Record();
+            stateTools.Pause();
+            stateTools.ResetZoom();
         }
 
         /// <summary>
@@ -175,20 +226,41 @@ namespace Recording
         public void Remove(Id id)
         {
             flowLayoutPanelCameras.Controls.Remove(pnlCameras[id]);
+            RemovePanelToDict(id);
+
+            /* STATE TOOLS */
+            if (pnlCameras.Keys.Count > 0)
+                stateTools.Record();
+            else
+            {
+                stateTools.Record(state: false);
+                stateTools.SingleShot(state: false);
+                stateTools.GrabContinuous(state: false);
+                stateTools.Pause(state: false);
+                stateTools.ResetZoom(state: false);
+            }
+
+            if (idSelected != null)
+                if (idSelected.Equal(id))
+                    idSelected = null;
+
+            notifyCloseEvent.Invoke(idSelected);
         }
 
         /* Se necesita tener un diccionario con los formularios y acceder a su atributo pnlBorder. */
         public void SelectCamera(Id id)
         {
             if (idSelected != null)
-                camerasForm[idSelected].DisplayCamera.DeselectCamera();
+                if (camerasForm.ContainsKey(idSelected))
+                    camerasForm[idSelected].DisplayCamera.DeselectCamera();
 
             idSelected = new Id();
 
             idSelected.DevNSys = id.DevNSys;
             idSelected.DevNCam = id.DevNCam;
 
-            camerasForm[idSelected].DisplayCamera.SelectCamera();
+            if (camerasForm.ContainsKey(idSelected))
+                camerasForm[idSelected].DisplayCamera.SelectCamera();
         }
 
         /// <summary>
@@ -198,6 +270,16 @@ namespace Recording
         public void DeselectCamera(Id id)
         {
             camerasForm[id].DisplayCamera.DeselectCamera();
+        }
+
+        /// <summary>
+        /// Este método indica si una cámara se esta visualizando.
+        /// </summary>
+        /// <param name="id">Id de la cámara que se quiere comprobar.</param>
+        /// <returns>True: si se esta visualizando la cámara. False: si no se esta visualizando.</returns>
+        public bool IsShow(Id id)
+        {
+            return camerasForm.ContainsKey(id);
         }
 
         /// <summary>
@@ -222,6 +304,20 @@ namespace Recording
 
             if (!camerasForm.ContainsKey(id))
                 camerasForm.Add(id, displayCamera);
+        }
+
+        /// <summary>
+        /// Esta función elimina el pael y el formulario de los diccionarios que se controlan en esta clase para
+        /// la gestión de visualizadores de cámaras.
+        /// </summary>
+        /// <param name="id">Id del visualizador que quieres eliminar..</param>
+        private void RemovePanelToDict(Id id)
+        {
+            if (pnlCameras.ContainsKey(id))
+                pnlCameras.Remove(id);
+
+            if (camerasForm.ContainsKey(id))
+                camerasForm.Remove(id);
         }
 
         /// <summary>
@@ -278,6 +374,7 @@ namespace Recording
 
         private void BtnGrabContinuous_Click(object sender, EventArgs e)
         {
+            ShowCams(idSelected);
             camerasForm[idSelected].DisplayCamera.StartGrab();
         }
 
@@ -291,6 +388,30 @@ namespace Recording
             camerasForm[idSelected].DisplayCamera.Zoom();
         }
 
+        private void BtnRecord_Click(object sender, EventArgs e)
+        {
+            foreach (Id id in pnlCameras.Keys)
+            {
+                Dictionary<string, string> camInfo = milApp.CamInfo(id.DevNSys, id.DevNCam);
 
+                string pathFolder = System.IO.Path.Combine(@"C:\\Recording\Records",
+                    (camInfo["Vendor"] != "" ? (camInfo["Vendor"] + " -") : "") +
+                    (camInfo["Model"] != "" ? (camInfo["Model"]) : "") +
+                    (camInfo["Name"] != "" ? (" -" + camInfo["Name"]) : (id.DevNSys.ToString() + id.DevNCam.ToString())) +
+                    (camInfo["IpAddress"] != "" ? (" -" + camInfo["IpAddress"]) : "") +
+                    DateTime.Now.ToString(" (dd-MM-yyyy HH-mm-ss-fff)"));
+
+                if (!Directory.Exists(pathFolder))
+                    Directory.CreateDirectory(pathFolder);
+
+                string pathFile = System.IO.Path.Combine(pathFolder, NAME_VIDEO_FILE + EXTENSION_VIDEO);
+
+                milApp.AddVideo(id.DevNSys, id.DevNCam, NAME_VIDEO_MILLIBRARY, MIL.M_AVI_MJPG, timePretrigger: -1, timeStop: 15);
+
+                milApp.CamStartGrabInDisk(id.DevNSys, id.DevNCam, NAME_VIDEO_MILLIBRARY, pathFile);
+
+                GrabCamera(id);
+            }
+        }
     }
 }

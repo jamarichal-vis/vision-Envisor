@@ -38,12 +38,12 @@ namespace Recording
         /// Esta variable contiene todas las funciones necesarias para controlar la sección de frame rate de las cámaras.
         /// </summary>
         private FrameRateManager frameRateManager;
-        
+
         /// <summary>
         /// Esta variable contiene todas las funciones necesarias para controlar la sección de exposure time de las cámaras.
         /// </summary>
         private ExposureTimeManager exposureTimeManager;
-        
+
         /// <summary>
         /// Esta variable contiene todas las funciones necesarias para controlar la sección de secuencias de imágenes en una cámara.
         /// </summary>
@@ -58,6 +58,11 @@ namespace Recording
         /// Esta variable almacena toda la configuración para poder grabar un vídeo o una secuencia con una cámara.
         /// </summary>
         private RecordSettings recordSettings;
+
+        /// <summary>
+        /// Esta variable contiene todas las funciones para cambiar el estado de la barra de herramientas.
+        /// </summary>
+        private StateTools stateTools;
 
         /// <summary>
         /// Esta variable almacenará los datos necesarios para identificar una cámara en <see cref="MilLibrary">MilLibrary</see>/>.
@@ -82,6 +87,8 @@ namespace Recording
             InitSequenceManager();
 
             InitPanelManager();
+
+            InitStateTools();
 
             CheckCameras();
         }
@@ -137,7 +144,7 @@ namespace Recording
         public void InitCameraManager()
         {
             cameraManager = new CameraManager(ref milApp, ref devSysGigeVision, ref devSysUsb3Vision, ref treeViewCameras, ref idCam);
-            
+
             cameraManager.selectedCamEvent += new CameraManager.selectedCamDelegate(SelectedCamera);
             cameraManager.freeCamCamEvent += new CameraManager.FreeCamDelegate(FreeCamera);
 
@@ -182,9 +189,22 @@ namespace Recording
             int numCams = (int)NbcamerasInGigeVisionSystem + (int)NbcamerasInUsb3Vision;
 
             panelManager = new PanelManager(ref milApp, ref devSysGigeVision, ref devSysUsb3Vision, numCams, ref pnlCams);
-            panelManager.AddControl(ref btnContinuousShot, ref btnPause, ref btnResetZoom);
+            panelManager.AddControl(ref btnContinuousShot, ref btnPause, ref btnResetZoom, ref btnRecord);
 
             panelManager.notifyMouseDownEvent += new PanelManager.notifyMouseDownDelegate(SelectCameraInCameraManager);
+            panelManager.notifyCloseEvent += new PanelManager.notifyCloseDelegate(SelectCameraInCameraManager);
+
+        }
+
+        /// <summary>
+        /// Este método contiene todas las funciones necesarias para inicializar el objeto <see cref="stateTools">stateTools</see>/>.
+        /// </summary>
+        private void InitStateTools()
+        {
+            stateTools = new StateTools(ref btnSingleShot, ref btnContinuousShot, ref btnPause, ref btnRecord, ref btnZoomLess, ref btnZoomPlus, ref btnResetZoom);
+
+            panelManager.StateTools = stateTools;
+            cameraManager.StateTools = stateTools;
         }
 
         /// <summary>
@@ -197,7 +217,7 @@ namespace Recording
             MIL_INT NbcamerasInGigeVisionSystem = milApp.GetNCameraInSystem(devSysGigeVision);
             MIL_INT NbcamerasInUsb3Vision = milApp.GetNCameraInSystem(devSysUsb3Vision);
 
-            if(NbcamerasInGigeVisionSystem == 0 && NbcamerasInUsb3Vision == 0)
+            if (NbcamerasInGigeVisionSystem == 0 && NbcamerasInUsb3Vision == 0)
             {
                 exposureTimeManager.Disable();
                 frameRateManager.Disable();
@@ -311,7 +331,7 @@ namespace Recording
         {
             Dictionary<string, string> camInfo = milApp.CamInfo(idCam.DevNSys, idCam.DevNCam);
 
-            panelManager.ShowCams(idCam);
+            //panelManager.ShowCams(idCam);
             panelManager.SelectCamera(idCam);
 
             frameRateManager.SelectCam();
@@ -326,6 +346,23 @@ namespace Recording
                 exposureTimeManager.Enable();
                 exposureTimeManager.SelectCam();
             }
+
+            if (panelManager.IsShow(idCam))
+            {
+                /* STATE TOOLS */
+                stateTools.SingleShot();
+                stateTools.GrabContinuous(state: false);
+                stateTools.Pause();
+                stateTools.ResetZoom();
+            }
+            else
+            {
+                /* STATE TOOLS */
+                stateTools.SingleShot(state: false);
+                stateTools.GrabContinuous();
+                stateTools.Pause(state: false);
+                stateTools.ResetZoom(state: false);
+            }
         }
 
         /// <summary>
@@ -334,7 +371,10 @@ namespace Recording
         /// <param name="id">Id of the camera you want to select.</param>
         public void SelectCameraInCameraManager(Id id)
         {
-            cameraManager.SelectCamera(id);
+            if (id != null)
+                cameraManager.SelectCamera(id);
+            else
+                cameraManager.DeselectCamera();
         }
 
         public void FreeCamera()
@@ -368,7 +408,7 @@ namespace Recording
 
             Id id = new Id(devSys, devCam);
 
-            if (idCam == id)
+            if (idCam.Equal(id))
                 panelManager.SelectCamera(id);
             else
                 panelManager.DeselectCamera(id);

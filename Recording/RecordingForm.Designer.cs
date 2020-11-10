@@ -709,54 +709,63 @@
             // 
             // btnSingleShot
             // 
+            this.btnSingleShot.Enabled = false;
             this.btnSingleShot.Name = "btnSingleShot";
             this.btnSingleShot.Size = new System.Drawing.Size(75, 31);
             this.btnSingleShot.Text = "SingleShot";
             // 
             // btnContinuousShot
             // 
+            this.btnContinuousShot.Enabled = false;
             this.btnContinuousShot.Name = "btnContinuousShot";
             this.btnContinuousShot.Size = new System.Drawing.Size(108, 31);
             this.btnContinuousShot.Text = "Continuous Shot";
             // 
             // btnPause
             // 
+            this.btnPause.Enabled = false;
             this.btnPause.Name = "btnPause";
             this.btnPause.Size = new System.Drawing.Size(50, 31);
             this.btnPause.Text = "Pause";
             // 
             // btnRecord
             // 
+            this.btnRecord.Enabled = false;
             this.btnRecord.Name = "btnRecord";
             this.btnRecord.Size = new System.Drawing.Size(56, 31);
             this.btnRecord.Text = "Record";
             // 
             // btnZoomPlus
             // 
+            this.btnZoomPlus.Enabled = false;
             this.btnZoomPlus.Name = "btnZoomPlus";
             this.btnZoomPlus.Size = new System.Drawing.Size(62, 31);
             this.btnZoomPlus.Text = "Zoom +";
             // 
             // btnZoomLess
             // 
+            this.btnZoomLess.Enabled = false;
             this.btnZoomLess.Name = "btnZoomLess";
             this.btnZoomLess.Size = new System.Drawing.Size(59, 31);
             this.btnZoomLess.Text = "Zoom -";
             // 
             // btnResetZoom
             // 
+            this.btnResetZoom.Enabled = false;
             this.btnResetZoom.Name = "btnResetZoom";
             this.btnResetZoom.Size = new System.Drawing.Size(82, 31);
             this.btnResetZoom.Text = "Reset Zoom";
             // 
             // btnOneCamera
             // 
+            this.btnOneCamera.Enabled = false;
             this.btnOneCamera.Name = "btnOneCamera";
             this.btnOneCamera.Size = new System.Drawing.Size(102, 31);
             this.btnOneCamera.Text = "Pantalla Grande";
             // 
             // btnMosaic
             // 
+            this.btnMosaic.Enabled = false;
             this.btnMosaic.Name = "btnMosaic";
             this.btnMosaic.Size = new System.Drawing.Size(64, 31);
             this.btnMosaic.Text = "Mosaico";

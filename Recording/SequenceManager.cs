@@ -78,7 +78,7 @@ namespace Recording
         /// </summary>
         public void Events()
         {
-            this.btnRecord.Click += new System.EventHandler(this.btnRecord_Click);
+            //this.btnRecord.Click += new System.EventHandler(this.btnRecord_Click);
         }
 
         /// <summary>

@@ -129,6 +129,7 @@
     </Compile>
     <Compile Include="RecordSettings.cs" />
     <Compile Include="SequenceManager.cs" />
+    <Compile Include="StateTools.cs" />
     <EmbeddedResource Include="Display Cameras\Forms\DisplayCameraBaslerForm.resx">
       <DependentUpon>DisplayCameraBaslerForm.cs</DependentUpon>
     </EmbeddedResource>

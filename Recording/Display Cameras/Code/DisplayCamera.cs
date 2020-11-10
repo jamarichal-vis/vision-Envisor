@@ -41,7 +41,7 @@ namespace Recording
         /// <summary>
         /// Este objeto almacena la identificación de la cámara que esta seleccionada en el programa.
         /// </summary>
-        protected Id idCam;
+        private Id idCam;
 
         /// <summary>
         /// Esta variable contiene el panel que se utiliza para aplicar un borde a los formularios donde se visualizando las cámaras.
@@ -95,6 +95,8 @@ namespace Recording
         /// </summary>
         protected TextBox txBoxName;
 
+        public Id IdCam { get => idCam; set => idCam = value; }
+
         /// <summary>
         /// This event is used to notify which camera has been selected.
         /// </summary>
@@ -142,19 +144,19 @@ namespace Recording
         }
 
         /// <summary>
-        /// Esta función activa el hilo de la cámara seleccionada en <see cref="idCam">idCam</see>/>.
+        /// Esta función activa el hilo de la cámara seleccionada en <see cref="IdCam">idCam</see>/>.
         /// </summary>
         public void StartGrab()
         {
-            milApp.StartGrab(idCam.DevNSys, idCam.DevNCam);
+            milApp.StartGrab(IdCam.DevNSys, IdCam.DevNCam);
         }
 
         /// <summary>
-        /// Esta función detiene el hilo de la cámara seleccionada mediante <see cref="idCam">idCam</see>/>.
+        /// Esta función detiene el hilo de la cámara seleccionada mediante <see cref="IdCam">idCam</see>/>.
         /// </summary>
         public void Pause()
         {
-            milApp.StopGrab(idCam.DevNSys, idCam.DevNCam);
+            milApp.StopGrab(IdCam.DevNSys, IdCam.DevNCam);
         }
 
         /// <summary>
@@ -162,14 +164,14 @@ namespace Recording
         /// </summary>
         public void DisconnectPanel()
         {
-            milApp.AllocPanelToCam(idCam.DevNSys, idCam.DevNCam, panel: null);
+            milApp.AllocPanelToCam(IdCam.DevNSys, IdCam.DevNCam, panel: null);
         }
 
         public void ShowInfoCam()
         {
-            Dictionary<string, string> camInfo = milApp.CamInfo(idCam.DevNSys, idCam.DevNCam);
+            Dictionary<string, string> camInfo = milApp.CamInfo(IdCam.DevNSys, IdCam.DevNCam);
 
-            string model = camInfo["Vendor"] + " " + camInfo["Model"] + string.Format(" (DEV{0}", idCam.DevNCam) + ")";
+            string model = camInfo["Vendor"] + " " + camInfo["Model"] + string.Format(" (DEV{0}", IdCam.DevNCam) + ")";
             lbModel.Text = model;
 
             txBoxName.Text = camInfo["Name"];
@@ -185,7 +187,7 @@ namespace Recording
         {
             if ((int)e.KeyChar == (int)Keys.Enter)
                 if (txBoxName.Text != "")
-                    milApp.CamName(idCam.DevNSys, idCam.DevNCam, txBoxName.Text);
+                    milApp.CamName(IdCam.DevNSys, IdCam.DevNCam, txBoxName.Text);
         }
 
         /// <summary>
@@ -207,7 +209,7 @@ namespace Recording
         /// </summary>
         public void ConnectFpsEvent()
         {
-            EventDataDict eventPresentCameraInfo = (EventDataDict)milApp.CamEvent(idCam.DevNSys, idCam.DevNCam, "FPS");
+            EventDataDict eventPresentCameraInfo = (EventDataDict)milApp.CamEvent(IdCam.DevNSys, IdCam.DevNCam, "FPS");
             eventPresentCameraInfo._event += new EventDataDict._eventDelagete(Fps);
         }
 
@@ -245,7 +247,7 @@ namespace Recording
         protected void Form_MouseDown(object sender, MouseEventArgs e)
         {
             if (notifyMouseDownEvent != null)
-                notifyMouseDownEvent.Invoke(idCam);
+                notifyMouseDownEvent.Invoke(IdCam);
         }
 
         /// <summary>
@@ -281,7 +283,7 @@ namespace Recording
         /// </summary>
         public void Zoom()
         {
-            milApp.Zoom(idCam.DevNSys, idCam.DevNCam);
+            milApp.Zoom(IdCam.DevNSys, IdCam.DevNCam);
         }
 
         

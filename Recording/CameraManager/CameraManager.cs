@@ -60,6 +60,13 @@ namespace Recording
         Id idCam;
 
         /// <summary>
+        /// Esta variable contiene todas las funciones para cambiar el estado de la barra de herramientas.
+        /// </summary>
+        private StateTools stateTools;
+
+        public StateTools StateTools { get => stateTools; set => stateTools = value; }
+
+        /// <summary>
         /// Este evento es ejecutado cuando se selecciona una cámara. 
         /// Ver, <see cref="treeViewCameras_AfterSelect(object, TreeViewEventArgs)">treeViewCameras_AfterSelect(object, TreeViewEventArgs)</see>/>.
         /// </summary>
@@ -185,6 +192,14 @@ namespace Recording
             {
                 treeViewCam.SelectedNode = treeViewCam.Nodes[indexSystem].Nodes[indexCam];
             }
+        }
+
+        public void DeselectCamera()
+        {
+            DeselectCameraColor();
+            treeViewCam.SelectedNode = null;
+            treeNodeSelected = null;
+            DeselectCameraColor();
         }
 
         /// <summary>
@@ -369,8 +384,22 @@ namespace Recording
         {
             if (treeNodeSelected != null)
             {
-                treeNodeSelected.BackColor = Color.FromArgb(93, 169, 229);
-                treeNodeSelected.ForeColor = Color.White;
+                SelectCameraColor();
+            }
+        }
+
+        public void SelectCameraColor()
+        {
+            treeNodeSelected.BackColor = Color.FromArgb(93, 169, 229);
+            treeNodeSelected.ForeColor = Color.White;
+        }
+        
+        public void DeselectCameraColor()
+        {
+            if(treeNodeSelected != null)
+            {
+                treeNodeSelected.BackColor = Color.White;
+                treeNodeSelected.ForeColor = Color.Black;
             }
         }
 

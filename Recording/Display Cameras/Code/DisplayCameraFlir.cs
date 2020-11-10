@@ -61,7 +61,7 @@ namespace Recording
         {
             this.milApp = milApp;
 
-            this.idCam = id;
+            this.IdCam = id;
             this.form = form;
 
             this.pnlBorder = pnlBorder;
@@ -91,12 +91,12 @@ namespace Recording
 
         public override void AllocCamera()
         {
-            milApp.AllocPanelToCam(idCam.DevNSys, idCam.DevNCam, pnlCam);
+            milApp.AllocPanelToCam(IdCam.DevNSys, IdCam.DevNCam, pnlCam);
 
-            milApp.CamAddImage(idCam.DevNSys, idCam.DevNCam, NAME_IMAGE_LUT, band: 1, sizeX: pnlLut.Width, sizeY: pnlLut.Height, show: false);
+            milApp.CamAddImage(IdCam.DevNSys, IdCam.DevNCam, NAME_IMAGE_LUT, band: 1, sizeX: pnlLut.Width, sizeY: pnlLut.Height, show: false);
 
-            milApp.ShowPallet(idCam.DevNSys, idCam.DevNCam, NAME_IMAGE_LUT);
-            milApp.AllocPanelToCam(idCam.DevNSys, idCam.DevNCam, pnlLut, NAME_IMAGE_LUT);
+            milApp.ShowPallet(IdCam.DevNSys, IdCam.DevNCam, NAME_IMAGE_LUT);
+            milApp.AllocPanelToCam(IdCam.DevNSys, IdCam.DevNCam, pnlLut, NAME_IMAGE_LUT);
 
             /* EVENTS */
             Events();
@@ -128,11 +128,11 @@ namespace Recording
         /// </summary>
         public override void ConnectMouseEvent()
         {
-            EventMouseTemperature eventMouseTemperature = (EventMouseTemperature)milApp.CamEvent(idCam.DevNSys, idCam.DevNCam, "MouseTemperature");
+            EventMouseTemperature eventMouseTemperature = (EventMouseTemperature)milApp.CamEvent(IdCam.DevNSys, IdCam.DevNCam, "MouseTemperature");
             eventMouseTemperature._event += new EventMouseTemperature._eventDelagete(Mouse);
 
             /* Activamos el evento del mouse a la imagen "AlarmManagement". */
-            milApp.CamStartMouseMove(idCam.DevNSys, idCam.DevNCam);
+            milApp.CamStartMouseMove(IdCam.DevNSys, IdCam.DevNCam);
         }
 
         /// <summary>
@@ -141,7 +141,7 @@ namespace Recording
         /// </summary>
         private void ConnectTemperatureEvent()
         {
-            EventTemperature eventTemperature = (EventTemperature)milApp.CamEvent(idCam.DevNSys, idCam.DevNCam, "Temperature");
+            EventTemperature eventTemperature = (EventTemperature)milApp.CamEvent(IdCam.DevNSys, IdCam.DevNCam, "Temperature");
             eventTemperature._event += new EventTemperature._eventDelagete(ShowTemperature);
         }
 
@@ -192,8 +192,8 @@ namespace Recording
         /// <param name="palleta">Paleta que quieres seleccionar.</param>
         public override void ChangePalleta(string palleta)
         {
-            milApp.ChangePalletLut(idCam.DevNSys, idCam.DevNCam, palleta);
-            milApp.ShowPallet(idCam.DevNSys, idCam.DevNCam, NAME_IMAGE_LUT);
+            milApp.ChangePalletLut(IdCam.DevNSys, IdCam.DevNCam, palleta);
+            milApp.ShowPallet(IdCam.DevNSys, IdCam.DevNCam, NAME_IMAGE_LUT);
         }
 
         /// <summary>
@@ -201,14 +201,14 @@ namespace Recording
         /// </summary>
         public void numUpDownChangeLutManual_ValueChanged(object sender, EventArgs e)
         {
-            milApp.ModeLUT(idCam.DevNSys, idCam.DevNCam, mode: false);
+            milApp.ModeLUT(IdCam.DevNSys, IdCam.DevNCam, mode: false);
 
-            milApp.UpdateManualLut(idCam.DevNSys, idCam.DevNCam, (double)numericUpDownTemperatureLow.Value, (double)numericUpDownTemperatureHight.Value);
+            milApp.UpdateManualLut(IdCam.DevNSys, IdCam.DevNCam, (double)numericUpDownTemperatureLow.Value, (double)numericUpDownTemperatureHight.Value);
         }
 
         private void btnAuto_Click(object sender, EventArgs e)
         {
-            milApp.ModeLUT(idCam.DevNSys, idCam.DevNCam, mode: true);
+            milApp.ModeLUT(IdCam.DevNSys, IdCam.DevNCam, mode: true);
         }
 
         /// <summary>
@@ -217,7 +217,7 @@ namespace Recording
         public new void DisconnectPanel()
         {
             base.DisconnectPanel();
-            milApp.AllocPanelToCam(idCam.DevNSys, idCam.DevNCam, panel: null, NAME_IMAGE_LUT);
+            milApp.AllocPanelToCam(IdCam.DevNSys, IdCam.DevNCam, panel: null, NAME_IMAGE_LUT);
         }
 
         protected override void ConnectMouseDown()
