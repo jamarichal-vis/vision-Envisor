@@ -50,7 +50,25 @@ namespace Recording
         public string Type { get => type; set => type = value; }
         public string OutputFormat { get => outputFormat; set => outputFormat = value; }
         public double Fps { get => fps; set => fps = value; }
-        public double TimeStop { get => timeStop; set => timeStop = value; }
+        public double TimeStop
+        {
+            get
+            {
+                switch (UnitTimeStop)
+                {
+                    case "Segundos":
+                        return timeStop;
+                    case "Minutos":
+                        return timeStop * 60;
+                    case "Horas":
+                        return timeStop * 3600;
+                }
+
+                return timeStop;
+            }
+
+            set => timeStop = value;
+        }
         public string Root { get => root; set => root = value; }
         public string UnitTimeStop { get => unitTimeStop; set => unitTimeStop = value; }
     }

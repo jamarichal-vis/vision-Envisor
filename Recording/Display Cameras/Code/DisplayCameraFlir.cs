@@ -44,8 +44,6 @@ namespace Recording
         /// </summary>
         NumericUpDown numericUpDownTemperatureHight;
 
-        private bool firstLoop;
-
         private delegate bool FocuseDelegate(Control control);
         
         private FocuseDelegate focuseEvent;

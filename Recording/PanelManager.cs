@@ -91,7 +91,15 @@ namespace Recording
         /// </summary>
         private StateTools stateTools;
 
-        public StateTools StateTools { get => stateTools; set => stateTools = value; }
+        /// <summary>
+        /// Esta variable almacena toda la configuración para poder grabar un vídeo o una secuencia con una cámara.
+        /// </summary>
+        private RecordSettings recordSettings;
+
+        /// <summary>
+        /// Esta variable almacena el formulario principal. Es utilizado para acceder a ciertas funciones de este formulario.
+        /// </summary>
+        private RecordingForm recordingForm;
 
         /// <summary>
         /// This event is used to notify which camera has been selected.
@@ -107,7 +115,10 @@ namespace Recording
         public delegate void notifyCloseDelegate(Id id);
         public event notifyCloseDelegate notifyCloseEvent;
 
-        public PanelManager(ref MilApp milApp, ref MIL_INT devSysGigeVision, ref MIL_INT devSysUsb3Vision, int numCams, ref FlowLayoutPanel pnl)
+        public StateTools StateTools { get => stateTools; set => stateTools = value; }
+        public RecordSettings RecordSettings { get => recordSettings; set => recordSettings = value; }
+
+        public PanelManager(ref MilApp milApp, ref MIL_INT devSysGigeVision, ref MIL_INT devSysUsb3Vision, int numCams, ref FlowLayoutPanel pnl, RecordingForm recordingForm)
         {
             this.milApp = milApp;
             this.devSysGigeVision = devSysGigeVision;
@@ -119,6 +130,8 @@ namespace Recording
             camerasForm = new Dictionary<Id, DisplayCameraForm>(new IdEqualityComparer());
 
             idSelected = null;
+
+            this.recordingForm = recordingForm;
 
             //ShowCams();
         }
@@ -380,6 +393,9 @@ namespace Recording
 
         private void BtnPause_Click(object sender, EventArgs e)
         {
+            stateTools.Pause(state: false);
+            stateTools.GrabContinuous();
+
             camerasForm[idSelected].DisplayCamera.Pause();
         }
 
@@ -394,7 +410,8 @@ namespace Recording
             {
                 Dictionary<string, string> camInfo = milApp.CamInfo(id.DevNSys, id.DevNCam);
 
-                string pathFolder = System.IO.Path.Combine(@"C:\\Recording\Records",
+                string pathFolder = System.IO.Path.Combine(recordSettings.Root,
+                    recordSettings.Type + " - " + 
                     (camInfo["Vendor"] != "" ? (camInfo["Vendor"] + " -") : "") +
                     (camInfo["Model"] != "" ? (camInfo["Model"]) : "") +
                     (camInfo["Name"] != "" ? (" -" + camInfo["Name"]) : (id.DevNSys.ToString() + id.DevNCam.ToString())) +
@@ -404,11 +421,25 @@ namespace Recording
                 if (!Directory.Exists(pathFolder))
                     Directory.CreateDirectory(pathFolder);
 
-                string pathFile = System.IO.Path.Combine(pathFolder, NAME_VIDEO_FILE + EXTENSION_VIDEO);
+                switch (recordSettings.Type)
+                {
+                    case "Vídeo":
 
-                milApp.AddVideo(id.DevNSys, id.DevNCam, NAME_VIDEO_MILLIBRARY, MIL.M_AVI_MJPG, timePretrigger: -1, timeStop: 15);
+                        string pathFile = System.IO.Path.Combine(pathFolder, NAME_VIDEO_FILE + EXTENSION_VIDEO);
+                        milApp.AddVideo(id.DevNSys, id.DevNCam, NAME_VIDEO_MILLIBRARY, MIL.M_AVI_MJPG, timePretrigger: -1, timeStop: recordSettings.TimeStop);
+                        milApp.CamStartGrabInDisk(id.DevNSys, id.DevNCam, NAME_VIDEO_MILLIBRARY, pathFile);
 
-                milApp.CamStartGrabInDisk(id.DevNSys, id.DevNCam, NAME_VIDEO_MILLIBRARY, pathFile);
+                        break;
+                    case "Secuencia de imágenes":
+
+                        milApp.CamActivateSequenceImages(id.DevNSys, id.DevNCam, recordSettings.TimeStop, MIL.M_MIL /*recordSettings.OutputFormat*/);
+                        milApp.CamStartSequenceImages(id.DevNSys, id.DevNCam, pathFolder);
+
+                        EventVideo eventEndSequenceVideo = (EventVideo)milApp.CamEvent(id.DevNSys, id.DevNCam, "EndSequenceImages");
+                        eventEndSequenceVideo._event += new EventVideo._eventDelagete(recordingForm.EndVideo);
+
+                        break;
+                }
 
                 GrabCamera(id);
             }

@@ -32,7 +32,7 @@ namespace Recording
 
         private void DisplayCameraBaslerForm_MouseDown(object sender, MouseEventArgs e)
         {
-            string h = "";
+            
         }
     }
 }

@@ -171,9 +171,8 @@ namespace Recording
 
         private void InitSequenceManager()
         {
-            sequenceManager = new SequenceManager(ref milApp, ref devSysGigeVision, ref devSysUsb3Vision, ref idCam, ref btnRecord);
-
-            sequenceManager.startGrabEvent += new SequenceManager.startGrabDelegate(StartGrabVideo);
+            sequenceManager = new SequenceManager(ref idCam, ref numericUpDownTotalFrames, ref numericUpDownTrigger, ref numericUpDownPositionTrigger,
+                ref cbBoxSequence, ref trackBarSequence, ref lbMaxSequence);
 
             recordSettings = new RecordSettings();
         }
@@ -188,12 +187,12 @@ namespace Recording
 
             int numCams = (int)NbcamerasInGigeVisionSystem + (int)NbcamerasInUsb3Vision;
 
-            panelManager = new PanelManager(ref milApp, ref devSysGigeVision, ref devSysUsb3Vision, numCams, ref pnlCams);
+            panelManager = new PanelManager(ref milApp, ref devSysGigeVision, ref devSysUsb3Vision, numCams, ref pnlCams, this);
             panelManager.AddControl(ref btnContinuousShot, ref btnPause, ref btnResetZoom, ref btnRecord);
 
             panelManager.notifyMouseDownEvent += new PanelManager.notifyMouseDownDelegate(SelectCameraInCameraManager);
             panelManager.notifyCloseEvent += new PanelManager.notifyCloseDelegate(SelectCameraInCameraManager);
-
+            panelManager.RecordSettings = recordSettings;
         }
 
         /// <summary>
@@ -401,7 +400,7 @@ namespace Recording
         /// <param name="CameraIp">Ip de la cámara que ha lanzado este evento.</param>
         /// <param name="path">Path del vídeo que se ha grabado.</param>
         /// <param name="fps">Fps de la cámara.</param>
-        private void EndVideo(MIL_ID milSys, MIL_INT matroxDevDig, string CameraName, string CameraIp, string path, double fps)
+        public void EndVideo(MIL_ID milSys, MIL_INT matroxDevDig, string CameraName, string CameraIp, string path, double fps)
         {
             MIL_INT devSys = milApp.GetIndexSystemByID(milSys);
             MIL_INT devCam = milApp.GetIndexCamByDevN(devSys, matroxDevDig);

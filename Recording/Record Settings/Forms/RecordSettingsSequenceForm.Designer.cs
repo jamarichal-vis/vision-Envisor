@@ -75,7 +75,7 @@
             this.cBoxOutputFormat.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.cBoxOutputFormat.FormattingEnabled = true;
             this.cBoxOutputFormat.Items.AddRange(new object[] {
-            "AVI"});
+            "MIL"});
             this.cBoxOutputFormat.Location = new System.Drawing.Point(155, 29);
             this.cBoxOutputFormat.Name = "cBoxOutputFormat";
             this.cBoxOutputFormat.Size = new System.Drawing.Size(146, 21);

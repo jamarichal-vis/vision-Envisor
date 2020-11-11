@@ -13,64 +13,76 @@ namespace Recording
     class SequenceManager
     {
         /// <summary>
-        /// Nombre del video en la libraria <see cref="MilLibrary">MilLibrary</see>/>.
-        /// </summary>
-        private const string NAME_VIDEO_MILLIBRARY = "VIDEO";
-
-        /// <summary>
-        /// Nombre del archivo con el que se guardará el vídeo.
-        /// </summary>
-        private const string NAME_VIDEO_FILE = "video";
-
-        /// <summary>
-        /// Extensión del vídeo que se guardará.
-        /// </summary>
-        private const string EXTENSION_VIDEO = ".avi";
-
-        /// <summary>
-        /// Variable que contiene toda la estructura del control de las cámaras del sistema.
-        /// </summary>
-        private MilApp milApp;
-
-        /// <summary>
-        /// Esta variable indica que posición esta el sistema GigeVision en la lista de sistemas de MilApp.
-        /// </summary>
-        private MIL_INT devSysUsb3Vision;
-
-        /// <summary>
-        /// Esta variable indica que posición esta el sistema GigeVision en la lista de sistemas de MilApp.
-        /// </summary>
-        private MIL_INT devSysGigeVision;
-
-        /// <summary>
         /// Este objeto almacena la identificación de la cámara que esta seleccionada en el programa.
         /// </summary>
-        Id id;
+        private Id id;
 
         /// <summary>
-        /// This atribute stores the button to record.
+        /// Esta variable almacena el contorl numeriUpDown que controla el número de frames totales que se quieren grabar.
         /// </summary>
-        ToolStripMenuItem btnRecord;
+        private NumericUpDown numericUpTotalFrames;
 
         /// <summary>
-        /// Este evento es ejecutado cuando se selecciona una cámara. 
-        /// Ver, <see cref="treeViewCameras_AfterSelect(object, TreeViewEventArgs)">treeViewCameras_AfterSelect(object, TreeViewEventArgs)</see>/>.
+        /// Esta variable almacena el contorl numeriUpDown que controla el número de frames que se grabarán en pre o post trigger.
+        /// La decisión de pre o post trigger estará dirigida por 
         /// </summary>
-        /// <param name="id"></param>
-        public delegate void startGrabDelegate();
-        public event startGrabDelegate startGrabEvent;
+        private NumericUpDown numericUpTrigger;
 
-        public SequenceManager(ref MilApp milApp, ref MIL_INT devSysGigeVision, ref MIL_INT devSysUsb3Vision, ref Id id, ref ToolStripMenuItem btnRecord)
+        /// <summary>
+        /// Esta variable almacena el contorl numeriUpDown que controla el número de frames totales que se quieren grabar.
+        /// </summary>
+        private NumericUpDown numericUpPositionTrigger;
+
+        /// <summary>
+        /// Esta variable almacena el contorl comboBox que decide si el valor del control <see cref="numericUpTrigger">numericUpTrigger</see>/> es en referencia al pre o post trigger.
+        /// </summary>
+        private ComboBox cBoxTrigger;
+
+        /// <summary>
+        /// Esta variable almacena el contorl track bar que controla la posición del post trigger en función del número total de frames.
+        /// </summary>
+        private TrackBar trackBarPositionTrigger;
+
+        /// <summary>
+        /// Esta variable almacena el contorl label que indica el número de frames máximos que se van a grabar.
+        /// </summary>
+        private Label lbMaxFrames;
+
+        /// <summary>
+        /// Esta variable almacena el número total de frames.
+        /// </summary>
+        private double totalFrames;
+
+        /// <summary>
+        /// Esta variable almacena el número de frames que se guardan de pre trigger.
+        /// </summary>
+        private double preTrigger;
+
+        /// <summary>
+        /// Esta variable almacena el número de frames que se guardan de post trigger.
+        /// </summary>
+        private double postTrigger;
+
+        public SequenceManager(ref Id id, ref NumericUpDown numericUpTotalFrames, ref NumericUpDown numericUpTrigger, ref NumericUpDown numericUpPositionTrigger,
+            ref ComboBox cBoxTrigger, ref TrackBar trackBarPositionTrigger, ref Label lbMaxFrames)
         {
-            this.milApp = milApp;
-            this.devSysGigeVision = devSysGigeVision;
-            this.devSysUsb3Vision = devSysUsb3Vision;
-
             this.id = id;
 
-            this.btnRecord = btnRecord;
+            this.numericUpTotalFrames = numericUpTotalFrames;
+            this.numericUpTrigger = numericUpTrigger;
+            this.numericUpPositionTrigger = numericUpPositionTrigger;
+            this.cBoxTrigger = cBoxTrigger;
+            this.trackBarPositionTrigger = trackBarPositionTrigger;
+            this.lbMaxFrames = lbMaxFrames;
+
+            this.numericUpTrigger.Value = 100;
+            this.numericUpPositionTrigger.Value = 0;
+            this.trackBarPositionTrigger.Value = 0;
 
             Events();
+
+            this.cBoxTrigger.SelectedIndex = 1;
+            this.numericUpTotalFrames.Value = 100;
         }
 
         /// <summary>
@@ -78,67 +90,217 @@ namespace Recording
         /// </summary>
         public void Events()
         {
-            //this.btnRecord.Click += new System.EventHandler(this.btnRecord_Click);
+            ConnectNumUpDownTotalFrames();
+            ConnectNumUpDownTrigger();
+            ConnectCBoxTrigger();
+            ConnectNumUpDownPositionTrigger();
+            ConnectTrBarPositionTrigger();
         }
 
         /// <summary>
-        /// Este evento se ejecuta cuando se hace click en <see cref="btnRecord">btnRecord</see>/>.
+        /// Esta función conecta el evento ValueChanged del control <see cref="numericUpTotalFrames">numericUpTotalFrames</see>/>;
+        /// </summary>
+        private void ConnectNumUpDownTotalFrames()
+        {
+            numericUpTotalFrames.ValueChanged += new System.EventHandler(numUpDownTotalFrame_ValueChanged);
+        }
+
+        /// <summary>
+        /// Esta función desconecta el evento ValueChanged del control <see cref="numericUpTotalFrames">numericUpTotalFrames</see>/>;
+        /// </summary>
+        private void DisconnectNumUpDownTotalFrames()
+        {
+            numericUpTotalFrames.ValueChanged -= new System.EventHandler(numUpDownTotalFrame_ValueChanged);
+        }
+
+        /// <summary>
+        /// Esta función conecta el evento ValueChanged del control <see cref="numericUpTrigger">numericUpTrigger</see>/>;
+        /// </summary>
+        private void ConnectNumUpDownTrigger()
+        {
+            numericUpTrigger.ValueChanged += new System.EventHandler(numUpDownTrigger_ValueChanged);
+        }
+
+        /// <summary>
+        /// Esta función desconecta el evento ValueChanged del control <see cref="numericUpTrigger">numericUpTrigger</see>/>;
+        /// </summary>
+        private void DisconnectNumUpDownTrigger()
+        {
+            numericUpTrigger.ValueChanged -= new System.EventHandler(numUpDownTrigger_ValueChanged);
+        }
+
+        /// <summary>
+        /// Esta función conecta el evento ValueChanged del control <see cref="numericUpPositionTrigger">numericUpPositionTrigger</see>/>;
+        /// </summary>
+        private void ConnectNumUpDownPositionTrigger()
+        {
+            numericUpPositionTrigger.ValueChanged += new System.EventHandler(numUpDownPositionTrigger_ValueChanged);
+        }
+
+        /// <summary>
+        /// Esta función desconecta el evento ValueChanged del control <see cref="numericUpPositionTrigger">numericUpPositionTrigger</see>/>;
+        /// </summary>
+        private void DisconnectNumUpDownPositionTrigger()
+        {
+            numericUpPositionTrigger.ValueChanged -= new System.EventHandler(numUpDownPositionTrigger_ValueChanged);
+        }
+
+        /// <summary>
+        /// Esta función conecta el evento ValueChanged del control <see cref="cBoxTrigger">cBoxTrigger</see>/>;
+        /// </summary>
+        private void ConnectCBoxTrigger()
+        {
+            cBoxTrigger.SelectedIndexChanged += new System.EventHandler(this.CBoxTrigger_SelectedIndexChanged);
+        }
+
+        /// <summary>
+        /// Esta función desconecta el evento ValueChanged del control <see cref="cBoxTrigger">cBoxTrigger</see>/>;
+        /// </summary>
+        private void DiconnectCBoxTrigger()
+        {
+            cBoxTrigger.SelectedIndexChanged -= new System.EventHandler(this.CBoxTrigger_SelectedIndexChanged);
+        }
+
+        /// <summary>
+        /// Esta función conecta el evento ValueChanged del control <see cref="trackBarPositionTrigger">trackBarPositionTrigger</see>/>;
+        /// </summary>
+        private void ConnectTrBarPositionTrigger()
+        {
+            trackBarPositionTrigger.ValueChanged += new System.EventHandler(trackBarPositionTrigger_ValueChanged);
+        }
+
+        /// <summary>
+        /// Esta función desconecta el evento ValueChanged del control <see cref="trBarFrameRate">trBarFrameRate</see>/>;
+        /// </summary>
+        private void DisconnectTrBarPositionTrigger()
+        {
+            trackBarPositionTrigger.ValueChanged -= new System.EventHandler(trackBarPositionTrigger_ValueChanged);
+        }
+
+        /// <summary>
+        /// Este evento se ejecuta cuando se modifica el valor del control <see cref="numericUpTotalFrames">numericUpTotalFrames</see>/>.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void btnRecord_Click(object sender, EventArgs e)
+        private void numUpDownTotalFrame_ValueChanged(object sender, EventArgs e)
         {
-            //Dictionary<string, string> camInfo = milApp.CamInfo(id.DevNSys, id.DevNCam);
+            totalFrames = (double)numericUpTotalFrames.Value;
+            lbMaxFrames.Text = ((double)numericUpTotalFrames.Value).ToString();
 
-            //string pathFolder = System.IO.Path.Combine(@"C:\Recording\Records",
-            //    (camInfo["Vendor"] != "" ? (camInfo["Vendor"] + " -") : "") +
-            //    (camInfo["Model"] != "" ? (camInfo["Model"]) : "") +
-            //    (camInfo["Name"] != "" ? (" -" + camInfo["Name"]) : (id.DevNSys.ToString() + id.DevNCam.ToString())) +
-            //    (camInfo["IpAddress"] != "" ? (" -" + camInfo["IpAddress"]) : "") +
-            //    DateTime.Now.ToString(" (dd-MM-yyyy HH-mm-ss-fff)"));
+            postTrigger = totalFrames * (100 - (double)numericUpPositionTrigger.Value) / 100;
+            preTrigger = totalFrames - postTrigger;
 
-            //if (!Directory.Exists(pathFolder))
-            //    Directory.CreateDirectory(pathFolder);
+            DisconnectNumUpDownTrigger();
 
-            //string pathFile = System.IO.Path.Combine(pathFolder, NAME_VIDEO_FILE + EXTENSION_VIDEO);
+            if (cBoxTrigger.Text == "Pre-Trigger")
+                numericUpTrigger.Value = (decimal)preTrigger;
+            else if (cBoxTrigger.Text == "Post-Trigger")
+                numericUpTrigger.Value = (decimal)postTrigger;
 
-            //milApp.AddVideo(id.DevNSys, id.DevNCam, NAME_VIDEO_MILLIBRARY, MIL.M_AVI_MJPEG, timePretrigger: 15, timeStop: 15);
+            ConnectNumUpDownTrigger();
+        }
+        
+        /// <summary>
+        /// Este evento se ejecuta cuando se modifica el valor del control <see cref="numericUpTrigger">numericUpTrigger</see>/>.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void numUpDownTrigger_ValueChanged(object sender, EventArgs e)
+        {
+            double percentage = 0;
 
-            //milApp.CamStartGrabInDisk(id.DevNSys, id.DevNCam, NAME_VIDEO_MILLIBRARY, pathFile);
+            if (cBoxTrigger.Text == "Pre-Trigger")
+            {
+                preTrigger = (double)numericUpTrigger.Value;
 
-            //if (startGrabEvent != null)
-            //    startGrabEvent.Invoke();
+                if (preTrigger > totalFrames)
+                    preTrigger = totalFrames;
 
-            RecordAllCamera();
+                postTrigger = totalFrames - preTrigger;
+
+                percentage = 100 - (postTrigger * 100 / totalFrames);
+            }
+            else if (cBoxTrigger.Text == "Post-Trigger")
+            {
+                postTrigger = (double)numericUpTrigger.Value;
+
+                if (postTrigger > totalFrames)
+                    postTrigger = totalFrames;
+
+                preTrigger = totalFrames - postTrigger;
+
+                percentage = 100 - (postTrigger * 100 / totalFrames);
+            }
+                
+            DisconnectNumUpDownPositionTrigger();
+            DisconnectTrBarPositionTrigger();
+
+            numericUpPositionTrigger.Value = (decimal)percentage;
+            trackBarPositionTrigger.Value = (int)percentage;
+
+            ConnectNumUpDownPositionTrigger();
+            ConnectTrBarPositionTrigger();
         }
 
-        private void RecordAllCamera()
+        /// <summary>
+        /// Este evento se ejecuta cuando se modifica el valor del control <see cref="numericUpPositionTrigger">numericUpPositionTrigger</see>/>.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void numUpDownPositionTrigger_ValueChanged(object sender, EventArgs e)
         {
-            MIL_INT NbcamerasInUsb3Vision = milApp.GetNCameraInSystem(devSysUsb3Vision);
 
-            for (MIL_INT devDig = MIL.M_DEV0; devDig < NbcamerasInUsb3Vision; devDig++)
-            {
-                Dictionary<string, string> camInfo = milApp.CamInfo(devSysUsb3Vision, devDig);
+            postTrigger = totalFrames * (100 - (double)numericUpPositionTrigger.Value) / 100;
+            preTrigger = totalFrames - postTrigger;
 
-                string pathFolder = System.IO.Path.Combine(@"I:\\Recording\Records",
-                    (camInfo["Vendor"] != "" ? (camInfo["Vendor"] + " -") : "") +
-                    (camInfo["Model"] != "" ? (camInfo["Model"]) : "") +
-                    (camInfo["Name"] != "" ? (" -" + camInfo["Name"]) : (id.DevNSys.ToString() + devDig.ToString())) +
-                    (camInfo["IpAddress"] != "" ? (" -" + camInfo["IpAddress"]) : "") +
-                    DateTime.Now.ToString(" (dd-MM-yyyy HH-mm-ss-fff)"));
+            DisconnectNumUpDownTrigger();
+            DisconnectTrBarPositionTrigger();
 
-                if (!Directory.Exists(pathFolder))
-                    Directory.CreateDirectory(pathFolder);
+            if (cBoxTrigger.Text == "Pre-Trigger")
+                numericUpTrigger.Value = (decimal)preTrigger;
+            else if (cBoxTrigger.Text == "Post-Trigger")
+                numericUpTrigger.Value = (decimal)postTrigger;
 
-                string pathFile = System.IO.Path.Combine(pathFolder, NAME_VIDEO_FILE + EXTENSION_VIDEO);
+            trackBarPositionTrigger.Value = (int)numericUpPositionTrigger.Value;
 
-                milApp.AddVideo(devSysUsb3Vision, devDig, NAME_VIDEO_MILLIBRARY, MIL.M_AVI_MJPG, timePretrigger: -1, timeStop: 15);
+            ConnectNumUpDownTrigger();
+            ConnectTrBarPositionTrigger();
+        }
 
-                milApp.CamStartGrabInDisk(devSysUsb3Vision, devDig, NAME_VIDEO_MILLIBRARY, pathFile);
-            }
+        private void CBoxTrigger_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            DisconnectNumUpDownTrigger();
 
-            if (startGrabEvent != null)
-                startGrabEvent.Invoke();
+            if (cBoxTrigger.Text == "Pre-Trigger")
+                numericUpTrigger.Value = (decimal)preTrigger;
+            else if (cBoxTrigger.Text == "Post-Trigger")
+                numericUpTrigger.Value = (decimal)postTrigger;
+
+            ConnectNumUpDownTrigger();
+        }
+
+        /// <summary>
+        /// Este evento se ejecuta cuando se modifica el valor del control <see cref="trackBarPositionTrigger">trackBarPositionTrigger</see>/>.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void trackBarPositionTrigger_ValueChanged(object sender, EventArgs e)
+        {
+            postTrigger = totalFrames * (100 - (double)numericUpPositionTrigger.Value) / 100;
+            preTrigger = totalFrames - postTrigger;
+
+            DisconnectNumUpDownTrigger();
+            DisconnectNumUpDownPositionTrigger();
+
+            if (cBoxTrigger.Text == "Pre-Trigger")
+                numericUpTrigger.Value = (decimal)preTrigger;
+            else if (cBoxTrigger.Text == "Post-Trigger")
+                numericUpTrigger.Value = (decimal)postTrigger;
+
+            numericUpPositionTrigger.Value = (decimal)trackBarPositionTrigger.Value;
+
+            ConnectNumUpDownTrigger();
+            ConnectNumUpDownPositionTrigger();
         }
     }
 }
