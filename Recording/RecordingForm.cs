@@ -193,6 +193,8 @@ namespace Recording
             panelManager.notifyMouseDownEvent += new PanelManager.notifyMouseDownDelegate(SelectCameraInCameraManager);
             panelManager.notifyCloseEvent += new PanelManager.notifyCloseDelegate(SelectCameraInCameraManager);
             panelManager.RecordSettings = recordSettings;
+
+            cameraManager.grabContinuousCamEvent += new CameraManager.grabContinuousCamDelegate(panelManager.StartGrabContinuous);
         }
 
         /// <summary>
@@ -452,6 +454,11 @@ namespace Recording
             RecordSettingsForm recordSettingsForm = new RecordSettingsForm(ref recordSettings);
 
             recordSettingsForm.ShowDialog();
+        }
+
+        private void RecordingForm_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

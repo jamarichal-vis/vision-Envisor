@@ -68,6 +68,10 @@
             this.lbSequenceTriggerUnits = new System.Windows.Forms.Label();
             this.lbPositinTrigger = new System.Windows.Forms.Label();
             this.numericUpDownPositionTrigger = new System.Windows.Forms.NumericUpDown();
+            this.tableLayoutPanel7 = new System.Windows.Forms.TableLayoutPanel();
+            this.trackBarSequence = new System.Windows.Forms.TrackBar();
+            this.lbMinSequence = new System.Windows.Forms.Label();
+            this.lbMaxSequence = new System.Windows.Forms.Label();
             this.tableLayoutPanel6 = new System.Windows.Forms.TableLayoutPanel();
             this.lbStorage = new System.Windows.Forms.Label();
             this.cbBoxStorage = new System.Windows.Forms.ComboBox();
@@ -93,10 +97,6 @@
             this.herramientasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.grabarConfiguraciónToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ayudaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.tableLayoutPanel7 = new System.Windows.Forms.TableLayoutPanel();
-            this.lbMinSequence = new System.Windows.Forms.Label();
-            this.trackBarSequence = new System.Windows.Forms.TrackBar();
-            this.lbMaxSequence = new System.Windows.Forms.Label();
             this.tableLayoutPanel1.SuspendLayout();
             this.tbLayoutPanelMain.SuspendLayout();
             this.tbLayoutPanelSettings.SuspendLayout();
@@ -120,12 +120,12 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownTotalFrames)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownTrigger)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPositionTrigger)).BeginInit();
+            this.tableLayoutPanel7.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBarSequence)).BeginInit();
             this.tableLayoutPanel6.SuspendLayout();
             this.tbLayoutPanelVisualization.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.menuStrip2.SuspendLayout();
-            this.tableLayoutPanel7.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBarSequence)).BeginInit();
             this.SuspendLayout();
             // 
             // tableLayoutPanel1
@@ -635,6 +635,54 @@
             this.numericUpDownPositionTrigger.Size = new System.Drawing.Size(96, 20);
             this.numericUpDownPositionTrigger.TabIndex = 7;
             // 
+            // tableLayoutPanel7
+            // 
+            this.tableLayoutPanel7.ColumnCount = 3;
+            this.tableLayoutPanel7.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40F));
+            this.tableLayoutPanel7.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel7.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40F));
+            this.tableLayoutPanel7.Controls.Add(this.trackBarSequence, 1, 0);
+            this.tableLayoutPanel7.Controls.Add(this.lbMinSequence, 0, 0);
+            this.tableLayoutPanel7.Controls.Add(this.lbMaxSequence, 2, 0);
+            this.tableLayoutPanel7.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel7.Location = new System.Drawing.Point(3, 83);
+            this.tableLayoutPanel7.Name = "tableLayoutPanel7";
+            this.tableLayoutPanel7.RowCount = 1;
+            this.tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel7.Size = new System.Drawing.Size(232, 28);
+            this.tableLayoutPanel7.TabIndex = 1;
+            // 
+            // trackBarSequence
+            // 
+            this.trackBarSequence.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.trackBarSequence.Location = new System.Drawing.Point(43, 3);
+            this.trackBarSequence.Maximum = 100;
+            this.trackBarSequence.Name = "trackBarSequence";
+            this.trackBarSequence.Size = new System.Drawing.Size(146, 22);
+            this.trackBarSequence.TabIndex = 3;
+            // 
+            // lbMinSequence
+            // 
+            this.lbMinSequence.AutoSize = true;
+            this.lbMinSequence.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lbMinSequence.Location = new System.Drawing.Point(3, 0);
+            this.lbMinSequence.Name = "lbMinSequence";
+            this.lbMinSequence.Size = new System.Drawing.Size(34, 28);
+            this.lbMinSequence.TabIndex = 0;
+            this.lbMinSequence.Text = "0";
+            this.lbMinSequence.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // lbMaxSequence
+            // 
+            this.lbMaxSequence.AutoSize = true;
+            this.lbMaxSequence.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lbMaxSequence.Location = new System.Drawing.Point(195, 0);
+            this.lbMaxSequence.Name = "lbMaxSequence";
+            this.lbMaxSequence.Size = new System.Drawing.Size(34, 28);
+            this.lbMaxSequence.TabIndex = 4;
+            this.lbMaxSequence.Text = "100";
+            this.lbMaxSequence.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // tableLayoutPanel6
             // 
             this.tableLayoutPanel6.ColumnCount = 1;
@@ -809,25 +857,25 @@
             // singleShotToolStripMenuItem
             // 
             this.singleShotToolStripMenuItem.Name = "singleShotToolStripMenuItem";
-            this.singleShotToolStripMenuItem.Size = new System.Drawing.Size(176, 22);
+            this.singleShotToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.singleShotToolStripMenuItem.Text = "Single Shot";
             // 
             // grabarEnContinuoToolStripMenuItem
             // 
             this.grabarEnContinuoToolStripMenuItem.Name = "grabarEnContinuoToolStripMenuItem";
-            this.grabarEnContinuoToolStripMenuItem.Size = new System.Drawing.Size(176, 22);
+            this.grabarEnContinuoToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.grabarEnContinuoToolStripMenuItem.Text = "Grabar en continuo";
             // 
             // pausarToolStripMenuItem
             // 
             this.pausarToolStripMenuItem.Name = "pausarToolStripMenuItem";
-            this.pausarToolStripMenuItem.Size = new System.Drawing.Size(176, 22);
+            this.pausarToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.pausarToolStripMenuItem.Text = "Pausar";
             // 
             // grabarToolStripMenuItem
             // 
             this.grabarToolStripMenuItem.Name = "grabarToolStripMenuItem";
-            this.grabarToolStripMenuItem.Size = new System.Drawing.Size(176, 22);
+            this.grabarToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.grabarToolStripMenuItem.Text = "Grabar";
             // 
             // herramientasToolStripMenuItem
@@ -851,54 +899,6 @@
             this.ayudaToolStripMenuItem.Size = new System.Drawing.Size(53, 20);
             this.ayudaToolStripMenuItem.Text = "Ayuda";
             // 
-            // tableLayoutPanel7
-            // 
-            this.tableLayoutPanel7.ColumnCount = 3;
-            this.tableLayoutPanel7.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40F));
-            this.tableLayoutPanel7.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel7.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40F));
-            this.tableLayoutPanel7.Controls.Add(this.trackBarSequence, 1, 0);
-            this.tableLayoutPanel7.Controls.Add(this.lbMinSequence, 0, 0);
-            this.tableLayoutPanel7.Controls.Add(this.lbMaxSequence, 2, 0);
-            this.tableLayoutPanel7.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel7.Location = new System.Drawing.Point(3, 83);
-            this.tableLayoutPanel7.Name = "tableLayoutPanel7";
-            this.tableLayoutPanel7.RowCount = 1;
-            this.tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel7.Size = new System.Drawing.Size(232, 28);
-            this.tableLayoutPanel7.TabIndex = 1;
-            // 
-            // lbMinSequence
-            // 
-            this.lbMinSequence.AutoSize = true;
-            this.lbMinSequence.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lbMinSequence.Location = new System.Drawing.Point(3, 0);
-            this.lbMinSequence.Name = "lbMinSequence";
-            this.lbMinSequence.Size = new System.Drawing.Size(34, 28);
-            this.lbMinSequence.TabIndex = 0;
-            this.lbMinSequence.Text = "0";
-            this.lbMinSequence.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // trackBarSequence
-            // 
-            this.trackBarSequence.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.trackBarSequence.Location = new System.Drawing.Point(43, 3);
-            this.trackBarSequence.Maximum = 100;
-            this.trackBarSequence.Name = "trackBarSequence";
-            this.trackBarSequence.Size = new System.Drawing.Size(146, 22);
-            this.trackBarSequence.TabIndex = 3;
-            // 
-            // lbMaxSequence
-            // 
-            this.lbMaxSequence.AutoSize = true;
-            this.lbMaxSequence.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lbMaxSequence.Location = new System.Drawing.Point(195, 0);
-            this.lbMaxSequence.Name = "lbMaxSequence";
-            this.lbMaxSequence.Size = new System.Drawing.Size(34, 28);
-            this.lbMaxSequence.TabIndex = 4;
-            this.lbMaxSequence.Text = "100";
-            this.lbMaxSequence.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
             // RecordingForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -907,7 +907,9 @@
             this.Controls.Add(this.tableLayoutPanel1);
             this.Name = "RecordingForm";
             this.Text = "Recording";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.RecordingForm_FormClosing);
+            this.Load += new System.EventHandler(this.RecordingForm_Load);
             this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.RecordingForm_MouseDown);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
@@ -942,6 +944,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownTotalFrames)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownTrigger)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPositionTrigger)).EndInit();
+            this.tableLayoutPanel7.ResumeLayout(false);
+            this.tableLayoutPanel7.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBarSequence)).EndInit();
             this.tableLayoutPanel6.ResumeLayout(false);
             this.tableLayoutPanel6.PerformLayout();
             this.tbLayoutPanelVisualization.ResumeLayout(false);
@@ -950,9 +955,6 @@
             this.menuStrip1.PerformLayout();
             this.menuStrip2.ResumeLayout(false);
             this.menuStrip2.PerformLayout();
-            this.tableLayoutPanel7.ResumeLayout(false);
-            this.tableLayoutPanel7.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBarSequence)).EndInit();
             this.ResumeLayout(false);
 
         }

@@ -70,9 +70,16 @@ namespace Recording
         /// Este evento es ejecutado cuando se selecciona una cámara. 
         /// Ver, <see cref="treeViewCameras_AfterSelect(object, TreeViewEventArgs)">treeViewCameras_AfterSelect(object, TreeViewEventArgs)</see>/>.
         /// </summary>
-        /// <param name="id"></param>
         public delegate void selectedCamDelegate();
         public event selectedCamDelegate selectedCamEvent;
+
+        /// <summary>
+        /// Este evento es ejecutado cuando se produce el evento de doble click en un nodo. 
+        /// Ver, <see cref="TreeViewCameras_MouseDoubleClick(object, MouseEventArgs)">TreeViewCameras_MouseDoubleClick(object, MouseEventArgs)</see>/>.
+        /// </summary>
+        /// <param name="id"></param>
+        public delegate void grabContinuousCamDelegate();
+        public event grabContinuousCamDelegate grabContinuousCamEvent;
 
         /// <summary>
         /// Este evento es ejecutado cuando se libera una cámara mediante la función <see cref="btnFreeCamera_Click(object, EventArgs)">btnFreeCamera_Click(object, EventArgs)</see>/>. 
@@ -107,6 +114,7 @@ namespace Recording
         public void Events()
         {
             treeViewCam.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeViewCameras_AfterSelect);
+            treeViewCam.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.TreeViewCameras_MouseDoubleClick);
 
             treeViewCam.Leave += new System.EventHandler(this.treeViewCameras_Leave);
         }
@@ -237,6 +245,14 @@ namespace Recording
                 }
 
                 treeNodeSelected = treeViewCam.SelectedNode;
+            }
+        }
+
+        private void TreeViewCameras_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            if (!IsSystemNode())
+            {
+                grabContinuousCamEvent.Invoke();
             }
         }
 
@@ -393,10 +409,10 @@ namespace Recording
             treeNodeSelected.BackColor = Color.FromArgb(93, 169, 229);
             treeNodeSelected.ForeColor = Color.White;
         }
-        
+
         public void DeselectCameraColor()
         {
-            if(treeNodeSelected != null)
+            if (treeNodeSelected != null)
             {
                 treeNodeSelected.BackColor = Color.White;
                 treeNodeSelected.ForeColor = Color.Black;

@@ -387,6 +387,15 @@ namespace Recording
 
         private void BtnGrabContinuous_Click(object sender, EventArgs e)
         {
+            StartGrabContinuous();
+        }
+
+        /// <summary>
+        /// Esta función es creada para reaizar el mismo proceso tanto en la función <see cref="BtnGrabContinuous_Click(object, EventArgs)">BtnGrabContinuous_Click(object, EventArgs)</see>/>,
+        /// como para enlazar esta función con el evento <see cref="CameraManager.grabContinuousCamEvent">CameraManager.grabContinuousCamEvent</see>/>.
+        /// </summary>
+        public void StartGrabContinuous()
+        {
             ShowCams(idSelected);
             camerasForm[idSelected].DisplayCamera.StartGrab();
         }
