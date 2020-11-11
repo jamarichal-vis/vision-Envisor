@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -70,6 +71,14 @@ namespace Recording
         /// </summary>
         private Id idCam;
 
+        [DllImport("uxtheme.dll", ExactSpelling = true, CharSet = CharSet.Unicode)]
+        private static extern int SetWindowTheme(IntPtr hwnd, string pszSubAppName, string pszSubIdList);
+
+        public static void SetTreeViewTheme(IntPtr treeHandle)
+        {
+            SetWindowTheme(treeHandle, "explorer", null);
+        }
+
         public RecordingForm()
         {
             InitializeComponent();
@@ -91,6 +100,10 @@ namespace Recording
             InitStateTools();
 
             CheckCameras();
+
+            /* Cambio de diseño de treViewCameras. */
+            SetTreeViewTheme(treeViewCameras.Handle);
+
         }
 
         /// <summary>
@@ -452,6 +465,7 @@ namespace Recording
         private void grabarConfiguraciónToolStripMenuItem_Click(object sender, EventArgs e)
         {
             RecordSettingsForm recordSettingsForm = new RecordSettingsForm(ref recordSettings);
+            recordSettingsForm.StartPosition = FormStartPosition.CenterScreen;
 
             recordSettingsForm.ShowDialog();
         }

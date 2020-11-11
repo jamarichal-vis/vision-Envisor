@@ -141,7 +141,7 @@
             this.tableLayoutPanel1.RowCount = 2;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(1296, 712);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(1296, 773);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // tbLayoutPanelMain
@@ -156,7 +156,7 @@
             this.tbLayoutPanelMain.Name = "tbLayoutPanelMain";
             this.tbLayoutPanelMain.RowCount = 1;
             this.tbLayoutPanelMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tbLayoutPanelMain.Size = new System.Drawing.Size(1290, 676);
+            this.tbLayoutPanelMain.Size = new System.Drawing.Size(1290, 737);
             this.tbLayoutPanelMain.TabIndex = 1;
             // 
             // tbLayoutPanelSettings
@@ -172,7 +172,7 @@
             this.tbLayoutPanelSettings.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
             this.tbLayoutPanelSettings.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 30F));
             this.tbLayoutPanelSettings.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 70F));
-            this.tbLayoutPanelSettings.Size = new System.Drawing.Size(252, 670);
+            this.tbLayoutPanelSettings.Size = new System.Drawing.Size(252, 731);
             this.tbLayoutPanelSettings.TabIndex = 0;
             // 
             // tbLayoutPanelCameras
@@ -188,7 +188,7 @@
             this.tbLayoutPanelCameras.RowCount = 2;
             this.tbLayoutPanelCameras.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
             this.tbLayoutPanelCameras.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tbLayoutPanelCameras.Size = new System.Drawing.Size(246, 184);
+            this.tbLayoutPanelCameras.Size = new System.Drawing.Size(246, 202);
             this.tbLayoutPanelCameras.TabIndex = 0;
             // 
             // tbLayoutPanelTitleCamera
@@ -220,9 +220,10 @@
             // treeViewCameras
             // 
             this.treeViewCameras.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.treeViewCameras.HideSelection = false;
             this.treeViewCameras.Location = new System.Drawing.Point(4, 35);
             this.treeViewCameras.Name = "treeViewCameras";
-            this.treeViewCameras.Size = new System.Drawing.Size(238, 145);
+            this.treeViewCameras.Size = new System.Drawing.Size(238, 163);
             this.treeViewCameras.TabIndex = 1;
             // 
             // tbLayoutPanelParameter
@@ -237,7 +238,7 @@
             this.tbLayoutPanelParameter.Controls.Add(this.tbLayoutPanelSequence, 0, 4);
             this.tbLayoutPanelParameter.Controls.Add(this.tableLayoutPanel6, 0, 5);
             this.tbLayoutPanelParameter.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tbLayoutPanelParameter.Location = new System.Drawing.Point(3, 228);
+            this.tbLayoutPanelParameter.Location = new System.Drawing.Point(3, 246);
             this.tbLayoutPanelParameter.Name = "tbLayoutPanelParameter";
             this.tbLayoutPanelParameter.RowCount = 6;
             this.tbLayoutPanelParameter.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
@@ -246,7 +247,7 @@
             this.tbLayoutPanelParameter.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 80F));
             this.tbLayoutPanelParameter.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 120F));
             this.tbLayoutPanelParameter.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 100F));
-            this.tbLayoutPanelParameter.Size = new System.Drawing.Size(246, 439);
+            this.tbLayoutPanelParameter.Size = new System.Drawing.Size(246, 482);
             this.tbLayoutPanelParameter.TabIndex = 1;
             // 
             // tableLayoutPanelExposureTime
@@ -596,6 +597,7 @@
             // cbBoxSequence
             // 
             this.cbBoxSequence.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.cbBoxSequence.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cbBoxSequence.FormattingEnabled = true;
             this.cbBoxSequence.Items.AddRange(new object[] {
             "Pre-Trigger",
@@ -730,7 +732,7 @@
             this.tbLayoutPanelVisualization.RowCount = 2;
             this.tbLayoutPanelVisualization.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
             this.tbLayoutPanelVisualization.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tbLayoutPanelVisualization.Size = new System.Drawing.Size(1026, 670);
+            this.tbLayoutPanelVisualization.Size = new System.Drawing.Size(1026, 731);
             this.tbLayoutPanelVisualization.TabIndex = 1;
             // 
             // pnlCams
@@ -739,7 +741,7 @@
             this.pnlCams.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlCams.Location = new System.Drawing.Point(3, 38);
             this.pnlCams.Name = "pnlCams";
-            this.pnlCams.Size = new System.Drawing.Size(1020, 629);
+            this.pnlCams.Size = new System.Drawing.Size(1020, 690);
             this.pnlCams.TabIndex = 1;
             // 
             // menuStrip1
@@ -903,7 +905,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1296, 712);
+            this.ClientSize = new System.Drawing.Size(1296, 773);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Name = "RecordingForm";
             this.Text = "Recording";

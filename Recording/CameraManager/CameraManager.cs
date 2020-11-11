@@ -398,10 +398,10 @@ namespace Recording
 
         private void treeViewCameras_Leave(object sender, EventArgs e)
         {
-            if (treeNodeSelected != null)
-            {
-                SelectCameraColor();
-            }
+            //if (treeNodeSelected != null)
+            //{
+            //    SelectCameraColor();
+            //}
         }
 
         public void SelectCameraColor()
