@@ -47,6 +47,7 @@
             // 
             // tableLayoutPanel3
             // 
+            this.tableLayoutPanel3.BackColor = System.Drawing.Color.White;
             this.tableLayoutPanel3.ColumnCount = 3;
             this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
             this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
@@ -77,6 +78,7 @@
             // 
             this.lbOutputFormat.AutoSize = true;
             this.lbOutputFormat.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lbOutputFormat.Font = new System.Drawing.Font("Segoe UI", 9.75F);
             this.lbOutputFormat.Location = new System.Drawing.Point(3, 0);
             this.lbOutputFormat.Name = "lbOutputFormat";
             this.lbOutputFormat.Size = new System.Drawing.Size(147, 48);
@@ -87,20 +89,22 @@
             // cBoxOutputFormat
             // 
             this.cBoxOutputFormat.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.cBoxOutputFormat.Font = new System.Drawing.Font("Segoe UI", 9.75F);
             this.cBoxOutputFormat.FormattingEnabled = true;
             this.cBoxOutputFormat.Items.AddRange(new object[] {
             "M_AVI_DIB",
             "M_AVI_MIL",
             "M_AVI_MJPG"});
-            this.cBoxOutputFormat.Location = new System.Drawing.Point(156, 13);
+            this.cBoxOutputFormat.Location = new System.Drawing.Point(156, 11);
             this.cBoxOutputFormat.Name = "cBoxOutputFormat";
-            this.cBoxOutputFormat.Size = new System.Drawing.Size(147, 21);
+            this.cBoxOutputFormat.Size = new System.Drawing.Size(147, 25);
             this.cBoxOutputFormat.TabIndex = 1;
             // 
             // ckBoxFps
             // 
             this.ckBoxFps.AutoSize = true;
             this.ckBoxFps.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ckBoxFps.Font = new System.Drawing.Font("Segoe UI", 9.75F);
             this.ckBoxFps.Location = new System.Drawing.Point(3, 51);
             this.ckBoxFps.Name = "ckBoxFps";
             this.ckBoxFps.Size = new System.Drawing.Size(147, 42);
@@ -132,6 +136,7 @@
             // 
             this.ckBoxStopRecord.AutoSize = true;
             this.ckBoxStopRecord.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ckBoxStopRecord.Font = new System.Drawing.Font("Segoe UI", 9.75F);
             this.ckBoxStopRecord.Location = new System.Drawing.Point(3, 99);
             this.ckBoxStopRecord.Name = "ckBoxStopRecord";
             this.ckBoxStopRecord.Size = new System.Drawing.Size(147, 42);
@@ -151,20 +156,22 @@
             // cBoxUnitsStopRecord
             // 
             this.cBoxUnitsStopRecord.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.cBoxUnitsStopRecord.Font = new System.Drawing.Font("Segoe UI", 9.75F);
             this.cBoxUnitsStopRecord.FormattingEnabled = true;
             this.cBoxUnitsStopRecord.Items.AddRange(new object[] {
             "Segundos",
             "Minutos",
             "Horas"});
-            this.cBoxUnitsStopRecord.Location = new System.Drawing.Point(309, 109);
+            this.cBoxUnitsStopRecord.Location = new System.Drawing.Point(309, 107);
             this.cBoxUnitsStopRecord.Name = "cBoxUnitsStopRecord";
-            this.cBoxUnitsStopRecord.Size = new System.Drawing.Size(149, 21);
+            this.cBoxUnitsStopRecord.Size = new System.Drawing.Size(149, 25);
             this.cBoxUnitsStopRecord.TabIndex = 7;
             // 
             // lbRoot
             // 
             this.lbRoot.AutoSize = true;
             this.lbRoot.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lbRoot.Font = new System.Drawing.Font("Segoe UI", 9.75F);
             this.lbRoot.Location = new System.Drawing.Point(3, 144);
             this.lbRoot.Name = "lbRoot";
             this.lbRoot.Size = new System.Drawing.Size(147, 51);
@@ -175,19 +182,23 @@
             // txBoxRoot
             // 
             this.txBoxRoot.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.txBoxRoot.Location = new System.Drawing.Point(156, 159);
+            this.txBoxRoot.Font = new System.Drawing.Font("Segoe UI", 9.75F);
+            this.txBoxRoot.Location = new System.Drawing.Point(156, 157);
             this.txBoxRoot.Name = "txBoxRoot";
-            this.txBoxRoot.Size = new System.Drawing.Size(147, 20);
+            this.txBoxRoot.Size = new System.Drawing.Size(147, 25);
             this.txBoxRoot.TabIndex = 9;
             // 
             // btnRoot
             // 
-            this.btnRoot.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnRoot.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.btnRoot.BackgroundImage = global::Recording.Properties.Resources.search_folder;
+            this.btnRoot.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnRoot.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnRoot.ForeColor = System.Drawing.Color.Transparent;
             this.btnRoot.Location = new System.Drawing.Point(309, 158);
             this.btnRoot.Name = "btnRoot";
-            this.btnRoot.Size = new System.Drawing.Size(149, 23);
+            this.btnRoot.Size = new System.Drawing.Size(35, 23);
             this.btnRoot.TabIndex = 10;
-            this.btnRoot.Text = "Root";
             this.btnRoot.UseVisualStyleBackColor = true;
             this.btnRoot.Click += new System.EventHandler(this.btnRoot_Click);
             // 

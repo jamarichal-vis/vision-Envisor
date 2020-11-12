@@ -85,7 +85,6 @@
             this.archivoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cámaraToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.herramientasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.grabarConfiguraciónToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ayudaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.btnSingleShot = new System.Windows.Forms.ToolStripMenuItem();
             this.btnContinuousShot = new System.Windows.Forms.ToolStripMenuItem();
@@ -100,6 +99,7 @@
             this.pausarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.grabarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.stopGrabaciónToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.grabarConfiguraciónToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tableLayoutPanel1.SuspendLayout();
             this.tbLayoutPanelMain.SuspendLayout();
             this.tbLayoutPanelSettings.SuspendLayout();
@@ -292,7 +292,7 @@
             // 
             this.lbExposure.AutoSize = true;
             this.lbExposure.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lbExposure.Font = new System.Drawing.Font("Segoe UI", 8.25F);
+            this.lbExposure.Font = new System.Drawing.Font("Segoe UI", 9.25F);
             this.lbExposure.Location = new System.Drawing.Point(3, 0);
             this.lbExposure.Name = "lbExposure";
             this.lbExposure.Size = new System.Drawing.Size(75, 24);
@@ -312,6 +312,7 @@
             // 
             this.lbExposureUnits.AutoSize = true;
             this.lbExposureUnits.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lbExposureUnits.Font = new System.Drawing.Font("Segoe UI", 8.25F);
             this.lbExposureUnits.Location = new System.Drawing.Point(200, 0);
             this.lbExposureUnits.Name = "lbExposureUnits";
             this.lbExposureUnits.Size = new System.Drawing.Size(29, 24);
@@ -417,7 +418,7 @@
             // 
             this.lbImageFormat.AutoSize = true;
             this.lbImageFormat.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lbImageFormat.Font = new System.Drawing.Font("Segoe UI", 8.25F);
+            this.lbImageFormat.Font = new System.Drawing.Font("Segoe UI", 9.25F);
             this.lbImageFormat.Location = new System.Drawing.Point(3, 0);
             this.lbImageFormat.Name = "lbImageFormat";
             this.lbImageFormat.Size = new System.Drawing.Size(232, 20);
@@ -470,7 +471,7 @@
             // 
             this.lbFrameRate.AutoSize = true;
             this.lbFrameRate.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lbFrameRate.Font = new System.Drawing.Font("Segoe UI", 8.25F);
+            this.lbFrameRate.Font = new System.Drawing.Font("Segoe UI", 9.25F);
             this.lbFrameRate.Location = new System.Drawing.Point(3, 0);
             this.lbFrameRate.Name = "lbFrameRate";
             this.lbFrameRate.Size = new System.Drawing.Size(75, 24);
@@ -574,12 +575,12 @@
             // 
             this.lbSequence.AutoSize = true;
             this.lbSequence.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lbSequence.Font = new System.Drawing.Font("Segoe UI", 8.25F);
+            this.lbSequence.Font = new System.Drawing.Font("Segoe UI", 9.25F);
             this.lbSequence.Location = new System.Drawing.Point(3, 0);
             this.lbSequence.Name = "lbSequence";
             this.lbSequence.Size = new System.Drawing.Size(97, 25);
             this.lbSequence.TabIndex = 0;
-            this.lbSequence.Text = "Sequence";
+            this.lbSequence.Text = "Secuencia";
             this.lbSequence.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // numericUpDownTotalFrames
@@ -611,14 +612,14 @@
             // cbBoxSequence
             // 
             this.cbBoxSequence.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.cbBoxSequence.Font = new System.Drawing.Font("Segoe UI", 7.5F);
+            this.cbBoxSequence.Font = new System.Drawing.Font("Segoe UI", 8.25F);
             this.cbBoxSequence.FormattingEnabled = true;
             this.cbBoxSequence.Items.AddRange(new object[] {
             "Pre-Trigger",
             "Post-Trigger"});
             this.cbBoxSequence.Location = new System.Drawing.Point(3, 28);
             this.cbBoxSequence.Name = "cbBoxSequence";
-            this.cbBoxSequence.Size = new System.Drawing.Size(97, 20);
+            this.cbBoxSequence.Size = new System.Drawing.Size(97, 21);
             this.cbBoxSequence.TabIndex = 3;
             // 
             // lbSequenceTriggerUnits
@@ -637,7 +638,7 @@
             // 
             this.lbPositinTrigger.AutoSize = true;
             this.lbPositinTrigger.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lbPositinTrigger.Font = new System.Drawing.Font("Segoe UI", 7.5F);
+            this.lbPositinTrigger.Font = new System.Drawing.Font("Segoe UI", 8.25F);
             this.lbPositinTrigger.Location = new System.Drawing.Point(3, 50);
             this.lbPositinTrigger.Name = "lbPositinTrigger";
             this.lbPositinTrigger.Size = new System.Drawing.Size(97, 25);
@@ -722,7 +723,7 @@
             // 
             this.lbStorage.AutoSize = true;
             this.lbStorage.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lbStorage.Font = new System.Drawing.Font("Segoe UI", 8.25F);
+            this.lbStorage.Font = new System.Drawing.Font("Segoe UI", 9.25F);
             this.lbStorage.Location = new System.Drawing.Point(3, 0);
             this.lbStorage.Name = "lbStorage";
             this.lbStorage.Size = new System.Drawing.Size(232, 20);
@@ -817,7 +818,7 @@
             // archivoToolStripMenuItem
             // 
             this.archivoToolStripMenuItem.Name = "archivoToolStripMenuItem";
-            this.archivoToolStripMenuItem.Size = new System.Drawing.Size(60, 20);
+            this.archivoToolStripMenuItem.Size = new System.Drawing.Size(63, 21);
             this.archivoToolStripMenuItem.Text = "Archivo";
             // 
             // cámaraToolStripMenuItem
@@ -837,21 +838,13 @@
             this.herramientasToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.grabarConfiguraciónToolStripMenuItem});
             this.herramientasToolStripMenuItem.Name = "herramientasToolStripMenuItem";
-            this.herramientasToolStripMenuItem.Size = new System.Drawing.Size(90, 20);
+            this.herramientasToolStripMenuItem.Size = new System.Drawing.Size(98, 21);
             this.herramientasToolStripMenuItem.Text = "Herramientas";
-            // 
-            // grabarConfiguraciónToolStripMenuItem
-            // 
-            this.grabarConfiguraciónToolStripMenuItem.Image = global::Recording.Properties.Resources.ajust;
-            this.grabarConfiguraciónToolStripMenuItem.Name = "grabarConfiguraciónToolStripMenuItem";
-            this.grabarConfiguraciónToolStripMenuItem.Size = new System.Drawing.Size(223, 22);
-            this.grabarConfiguraciónToolStripMenuItem.Text = "Configuración de Grabación";
-            this.grabarConfiguraciónToolStripMenuItem.Click += new System.EventHandler(this.grabarConfiguraciónToolStripMenuItem_Click);
             // 
             // ayudaToolStripMenuItem
             // 
             this.ayudaToolStripMenuItem.Name = "ayudaToolStripMenuItem";
-            this.ayudaToolStripMenuItem.Size = new System.Drawing.Size(53, 20);
+            this.ayudaToolStripMenuItem.Size = new System.Drawing.Size(56, 21);
             this.ayudaToolStripMenuItem.Text = "Ayuda";
             // 
             // btnSingleShot
@@ -930,7 +923,7 @@
             // 
             this.pausarToolStripMenuItem.Image = global::Recording.Properties.Resources.Pause;
             this.pausarToolStripMenuItem.Name = "pausarToolStripMenuItem";
-            this.pausarToolStripMenuItem.Size = new System.Drawing.Size(176, 22);
+            this.pausarToolStripMenuItem.Size = new System.Drawing.Size(223, 22);
             this.pausarToolStripMenuItem.Text = "Pausar";
             // 
             // grabarToolStripMenuItem
@@ -946,6 +939,14 @@
             this.stopGrabaciónToolStripMenuItem.Name = "stopGrabaciónToolStripMenuItem";
             this.stopGrabaciónToolStripMenuItem.Size = new System.Drawing.Size(223, 22);
             this.stopGrabaciónToolStripMenuItem.Text = "Parar grabación en disco";
+            // 
+            // grabarConfiguraciónToolStripMenuItem
+            // 
+            this.grabarConfiguraciónToolStripMenuItem.Image = global::Recording.Properties.Resources.ajust;
+            this.grabarConfiguraciónToolStripMenuItem.Name = "grabarConfiguraciónToolStripMenuItem";
+            this.grabarConfiguraciónToolStripMenuItem.Size = new System.Drawing.Size(240, 22);
+            this.grabarConfiguraciónToolStripMenuItem.Text = "Configuración de Grabación";
+            this.grabarConfiguraciónToolStripMenuItem.Click += new System.EventHandler(this.grabarConfiguraciónToolStripMenuItem_Click);
             // 
             // RecordingForm
             // 

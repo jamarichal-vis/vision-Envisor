@@ -131,7 +131,7 @@ namespace Recording
         private void ImagesInTreeView()
         {
             ImageList imageList = new ImageList();
-            imageList.Images.Add(Properties.Resources.camera);
+            imageList.Images.Add(Properties.Resources.camera_Connect);
             imageList.Images.Add(Properties.Resources.system);
             treeViewCam.ImageList = imageList;
         }

@@ -61,7 +61,7 @@
             // tableLayoutPanel2
             // 
             this.tableLayoutPanel2.ColumnCount = 2;
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 110F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 129F));
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel2.Controls.Add(this.lbTypeRecord, 0, 0);
             this.tableLayoutPanel2.Controls.Add(this.cBoxRecordType, 1, 0);
@@ -77,9 +77,10 @@
             // 
             this.lbTypeRecord.AutoSize = true;
             this.lbTypeRecord.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lbTypeRecord.Font = new System.Drawing.Font("Segoe UI", 9.75F);
             this.lbTypeRecord.Location = new System.Drawing.Point(3, 0);
             this.lbTypeRecord.Name = "lbTypeRecord";
-            this.lbTypeRecord.Size = new System.Drawing.Size(104, 34);
+            this.lbTypeRecord.Size = new System.Drawing.Size(123, 34);
             this.lbTypeRecord.TabIndex = 0;
             this.lbTypeRecord.Text = "Tipo de Grabación:";
             this.lbTypeRecord.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -87,13 +88,14 @@
             // cBoxRecordType
             // 
             this.cBoxRecordType.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.cBoxRecordType.Font = new System.Drawing.Font("Segoe UI", 9.75F);
             this.cBoxRecordType.FormattingEnabled = true;
             this.cBoxRecordType.Items.AddRange(new object[] {
             "Vídeo",
             "Secuencia de imágenes"});
-            this.cBoxRecordType.Location = new System.Drawing.Point(113, 6);
+            this.cBoxRecordType.Location = new System.Drawing.Point(132, 6);
             this.cBoxRecordType.Name = "cBoxRecordType";
-            this.cBoxRecordType.Size = new System.Drawing.Size(399, 21);
+            this.cBoxRecordType.Size = new System.Drawing.Size(380, 25);
             this.cBoxRecordType.TabIndex = 1;
             this.cBoxRecordType.SelectedIndexChanged += new System.EventHandler(this.cBoxRecordType_SelectedIndexChanged);
             // 
@@ -124,22 +126,26 @@
             // btnCancel
             // 
             this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnCancel.Font = new System.Drawing.Font("Segoe UI", 8.25F);
             this.btnCancel.Location = new System.Drawing.Point(418, 5);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(94, 23);
             this.btnCancel.TabIndex = 1;
-            this.btnCancel.Text = "Cancelar";
+            this.btnCancel.Text = "CANCELAR";
             this.btnCancel.UseVisualStyleBackColor = true;
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
             // btnSave
             // 
             this.btnSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnSave.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSave.Font = new System.Drawing.Font("Segoe UI", 8.25F);
             this.btnSave.Location = new System.Drawing.Point(318, 5);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(94, 23);
             this.btnSave.TabIndex = 0;
-            this.btnSave.Text = "Guardar";
+            this.btnSave.Text = "GUARDAR";
             this.btnSave.UseVisualStyleBackColor = true;
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
@@ -147,10 +153,11 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(521, 244);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Name = "RecordSettingsForm";
-            this.Text = "RecordSettings";
+            this.Text = "Configuración de grabación";
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel2.ResumeLayout(false);
             this.tableLayoutPanel2.PerformLayout();
