@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(RecordingForm));
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.tbLayoutPanelMain = new System.Windows.Forms.TableLayoutPanel();
             this.tbLayoutPanelSettings = new System.Windows.Forms.TableLayoutPanel();
@@ -78,6 +79,14 @@
             this.tbLayoutPanelVisualization = new System.Windows.Forms.TableLayoutPanel();
             this.pnlCams = new System.Windows.Forms.FlowLayoutPanel();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.btnOneCamera = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnMosaic = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuStrip2 = new System.Windows.Forms.MenuStrip();
+            this.archivoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.cámaraToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.herramientasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.grabarConfiguraciónToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ayudaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.btnSingleShot = new System.Windows.Forms.ToolStripMenuItem();
             this.btnContinuousShot = new System.Windows.Forms.ToolStripMenuItem();
             this.btnPause = new System.Windows.Forms.ToolStripMenuItem();
@@ -86,18 +95,11 @@
             this.btnZoomPlus = new System.Windows.Forms.ToolStripMenuItem();
             this.btnZoomLess = new System.Windows.Forms.ToolStripMenuItem();
             this.btnResetZoom = new System.Windows.Forms.ToolStripMenuItem();
-            this.btnOneCamera = new System.Windows.Forms.ToolStripMenuItem();
-            this.btnMosaic = new System.Windows.Forms.ToolStripMenuItem();
-            this.menuStrip2 = new System.Windows.Forms.MenuStrip();
-            this.archivoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.cámaraToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.singleShotToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.grabarEnContinuoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pausarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.grabarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.herramientasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.grabarConfiguraciónToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.ayudaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.stopGrabaciónToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tableLayoutPanel1.SuspendLayout();
             this.tbLayoutPanelMain.SuspendLayout();
             this.tbLayoutPanelSettings.SuspendLayout();
@@ -164,15 +166,15 @@
             // 
             this.tbLayoutPanelSettings.ColumnCount = 1;
             this.tbLayoutPanelSettings.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tbLayoutPanelSettings.Controls.Add(this.tbLayoutPanelCameras, 0, 1);
-            this.tbLayoutPanelSettings.Controls.Add(this.tbLayoutPanelParameter, 0, 2);
+            this.tbLayoutPanelSettings.Controls.Add(this.tbLayoutPanelCameras, 0, 0);
+            this.tbLayoutPanelSettings.Controls.Add(this.tbLayoutPanelParameter, 0, 1);
             this.tbLayoutPanelSettings.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tbLayoutPanelSettings.Location = new System.Drawing.Point(3, 3);
             this.tbLayoutPanelSettings.Name = "tbLayoutPanelSettings";
-            this.tbLayoutPanelSettings.RowCount = 3;
-            this.tbLayoutPanelSettings.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
+            this.tbLayoutPanelSettings.RowCount = 2;
             this.tbLayoutPanelSettings.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 30F));
             this.tbLayoutPanelSettings.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 70F));
+            this.tbLayoutPanelSettings.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tbLayoutPanelSettings.Size = new System.Drawing.Size(252, 731);
             this.tbLayoutPanelSettings.TabIndex = 0;
             // 
@@ -184,12 +186,12 @@
             this.tbLayoutPanelCameras.Controls.Add(this.tbLayoutPanelTitleCamera, 0, 0);
             this.tbLayoutPanelCameras.Controls.Add(this.treeViewCameras, 0, 1);
             this.tbLayoutPanelCameras.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tbLayoutPanelCameras.Location = new System.Drawing.Point(3, 38);
+            this.tbLayoutPanelCameras.Location = new System.Drawing.Point(3, 3);
             this.tbLayoutPanelCameras.Name = "tbLayoutPanelCameras";
             this.tbLayoutPanelCameras.RowCount = 2;
             this.tbLayoutPanelCameras.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
             this.tbLayoutPanelCameras.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tbLayoutPanelCameras.Size = new System.Drawing.Size(246, 202);
+            this.tbLayoutPanelCameras.Size = new System.Drawing.Size(246, 213);
             this.tbLayoutPanelCameras.TabIndex = 0;
             // 
             // tbLayoutPanelTitleCamera
@@ -211,6 +213,7 @@
             // 
             this.lbCamera.AutoSize = true;
             this.lbCamera.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lbCamera.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbCamera.Location = new System.Drawing.Point(3, 0);
             this.lbCamera.Name = "lbCamera";
             this.lbCamera.Size = new System.Drawing.Size(184, 24);
@@ -221,10 +224,12 @@
             // treeViewCameras
             // 
             this.treeViewCameras.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.treeViewCameras.Font = new System.Drawing.Font("Segoe UI", 9.75F);
+            this.treeViewCameras.ForeColor = System.Drawing.Color.Black;
             this.treeViewCameras.HideSelection = false;
             this.treeViewCameras.Location = new System.Drawing.Point(4, 35);
             this.treeViewCameras.Name = "treeViewCameras";
-            this.treeViewCameras.Size = new System.Drawing.Size(238, 163);
+            this.treeViewCameras.Size = new System.Drawing.Size(238, 174);
             this.treeViewCameras.TabIndex = 1;
             // 
             // tbLayoutPanelParameter
@@ -239,7 +244,7 @@
             this.tbLayoutPanelParameter.Controls.Add(this.tbLayoutPanelSequence, 0, 4);
             this.tbLayoutPanelParameter.Controls.Add(this.tableLayoutPanel6, 0, 5);
             this.tbLayoutPanelParameter.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tbLayoutPanelParameter.Location = new System.Drawing.Point(3, 246);
+            this.tbLayoutPanelParameter.Location = new System.Drawing.Point(3, 222);
             this.tbLayoutPanelParameter.Name = "tbLayoutPanelParameter";
             this.tbLayoutPanelParameter.RowCount = 6;
             this.tbLayoutPanelParameter.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
@@ -248,7 +253,7 @@
             this.tbLayoutPanelParameter.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 80F));
             this.tbLayoutPanelParameter.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 120F));
             this.tbLayoutPanelParameter.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 100F));
-            this.tbLayoutPanelParameter.Size = new System.Drawing.Size(246, 482);
+            this.tbLayoutPanelParameter.Size = new System.Drawing.Size(246, 506);
             this.tbLayoutPanelParameter.TabIndex = 1;
             // 
             // tableLayoutPanelExposureTime
@@ -287,6 +292,7 @@
             // 
             this.lbExposure.AutoSize = true;
             this.lbExposure.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lbExposure.Font = new System.Drawing.Font("Segoe UI", 8.25F);
             this.lbExposure.Location = new System.Drawing.Point(3, 0);
             this.lbExposure.Name = "lbExposure";
             this.lbExposure.Size = new System.Drawing.Size(75, 24);
@@ -318,13 +324,14 @@
             this.trackBarExposureTime.Dock = System.Windows.Forms.DockStyle.Fill;
             this.trackBarExposureTime.Location = new System.Drawing.Point(3, 33);
             this.trackBarExposureTime.Name = "trackBarExposureTime";
-            this.trackBarExposureTime.Size = new System.Drawing.Size(232, 38);
+            this.trackBarExposureTime.Size = new System.Drawing.Size(232, 45);
             this.trackBarExposureTime.TabIndex = 1;
             // 
             // lbParameter
             // 
             this.lbParameter.AutoSize = true;
             this.lbParameter.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lbParameter.Font = new System.Drawing.Font("Segoe UI", 9.75F);
             this.lbParameter.Location = new System.Drawing.Point(4, 1);
             this.lbParameter.Name = "lbParameter";
             this.lbParameter.Size = new System.Drawing.Size(238, 30);
@@ -410,6 +417,7 @@
             // 
             this.lbImageFormat.AutoSize = true;
             this.lbImageFormat.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lbImageFormat.Font = new System.Drawing.Font("Segoe UI", 8.25F);
             this.lbImageFormat.Location = new System.Drawing.Point(3, 0);
             this.lbImageFormat.Name = "lbImageFormat";
             this.lbImageFormat.Size = new System.Drawing.Size(232, 20);
@@ -462,6 +470,7 @@
             // 
             this.lbFrameRate.AutoSize = true;
             this.lbFrameRate.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lbFrameRate.Font = new System.Drawing.Font("Segoe UI", 8.25F);
             this.lbFrameRate.Location = new System.Drawing.Point(3, 0);
             this.lbFrameRate.Name = "lbFrameRate";
             this.lbFrameRate.Size = new System.Drawing.Size(75, 24);
@@ -481,6 +490,7 @@
             // 
             this.lbFrameRateUnits.AutoSize = true;
             this.lbFrameRateUnits.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lbFrameRateUnits.Font = new System.Drawing.Font("Segoe UI", 8.25F);
             this.lbFrameRateUnits.Location = new System.Drawing.Point(200, 0);
             this.lbFrameRateUnits.Name = "lbFrameRateUnits";
             this.lbFrameRateUnits.Size = new System.Drawing.Size(29, 24);
@@ -514,9 +524,9 @@
             // tbLayoutPanelSequenceContent
             // 
             this.tbLayoutPanelSequenceContent.ColumnCount = 3;
-            this.tbLayoutPanelSequenceContent.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 44F));
-            this.tbLayoutPanelSequenceContent.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 44F));
-            this.tbLayoutPanelSequenceContent.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 12F));
+            this.tbLayoutPanelSequenceContent.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 44.59979F));
+            this.tbLayoutPanelSequenceContent.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 40.19574F));
+            this.tbLayoutPanelSequenceContent.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 15.20447F));
             this.tbLayoutPanelSequenceContent.Controls.Add(this.lbSequencePositionTriggerUnits, 2, 2);
             this.tbLayoutPanelSequenceContent.Controls.Add(this.lbSequencePreTriggerUnits, 2, 1);
             this.tbLayoutPanelSequenceContent.Controls.Add(this.lbSequence, 0, 0);
@@ -540,9 +550,10 @@
             // 
             this.lbSequencePositionTriggerUnits.AutoSize = true;
             this.lbSequencePositionTriggerUnits.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lbSequencePositionTriggerUnits.Location = new System.Drawing.Point(207, 50);
+            this.lbSequencePositionTriggerUnits.Font = new System.Drawing.Font("Segoe UI", 8.25F);
+            this.lbSequencePositionTriggerUnits.Location = new System.Drawing.Point(199, 50);
             this.lbSequencePositionTriggerUnits.Name = "lbSequencePositionTriggerUnits";
-            this.lbSequencePositionTriggerUnits.Size = new System.Drawing.Size(22, 25);
+            this.lbSequencePositionTriggerUnits.Size = new System.Drawing.Size(30, 25);
             this.lbSequencePositionTriggerUnits.TabIndex = 8;
             this.lbSequencePositionTriggerUnits.Text = "%";
             this.lbSequencePositionTriggerUnits.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -551,9 +562,10 @@
             // 
             this.lbSequencePreTriggerUnits.AutoSize = true;
             this.lbSequencePreTriggerUnits.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lbSequencePreTriggerUnits.Location = new System.Drawing.Point(207, 25);
+            this.lbSequencePreTriggerUnits.Font = new System.Drawing.Font("Segoe UI", 8.25F);
+            this.lbSequencePreTriggerUnits.Location = new System.Drawing.Point(199, 25);
             this.lbSequencePreTriggerUnits.Name = "lbSequencePreTriggerUnits";
-            this.lbSequencePreTriggerUnits.Size = new System.Drawing.Size(22, 25);
+            this.lbSequencePreTriggerUnits.Size = new System.Drawing.Size(30, 25);
             this.lbSequencePreTriggerUnits.TabIndex = 5;
             this.lbSequencePreTriggerUnits.Text = "frm";
             this.lbSequencePreTriggerUnits.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -562,9 +574,10 @@
             // 
             this.lbSequence.AutoSize = true;
             this.lbSequence.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lbSequence.Font = new System.Drawing.Font("Segoe UI", 8.25F);
             this.lbSequence.Location = new System.Drawing.Point(3, 0);
             this.lbSequence.Name = "lbSequence";
-            this.lbSequence.Size = new System.Drawing.Size(96, 25);
+            this.lbSequence.Size = new System.Drawing.Size(97, 25);
             this.lbSequence.TabIndex = 0;
             this.lbSequence.Text = "Sequence";
             this.lbSequence.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -572,49 +585,50 @@
             // numericUpDownTotalFrames
             // 
             this.numericUpDownTotalFrames.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.numericUpDownTotalFrames.Location = new System.Drawing.Point(105, 3);
+            this.numericUpDownTotalFrames.Location = new System.Drawing.Point(106, 3);
             this.numericUpDownTotalFrames.Maximum = new decimal(new int[] {
             10000,
             0,
             0,
             0});
             this.numericUpDownTotalFrames.Name = "numericUpDownTotalFrames";
-            this.numericUpDownTotalFrames.Size = new System.Drawing.Size(96, 20);
+            this.numericUpDownTotalFrames.Size = new System.Drawing.Size(87, 20);
             this.numericUpDownTotalFrames.TabIndex = 1;
             // 
             // numericUpDownTrigger
             // 
             this.numericUpDownTrigger.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.numericUpDownTrigger.Location = new System.Drawing.Point(105, 28);
+            this.numericUpDownTrigger.Location = new System.Drawing.Point(106, 28);
             this.numericUpDownTrigger.Maximum = new decimal(new int[] {
             10000,
             0,
             0,
             0});
             this.numericUpDownTrigger.Name = "numericUpDownTrigger";
-            this.numericUpDownTrigger.Size = new System.Drawing.Size(96, 20);
+            this.numericUpDownTrigger.Size = new System.Drawing.Size(87, 20);
             this.numericUpDownTrigger.TabIndex = 2;
             // 
             // cbBoxSequence
             // 
             this.cbBoxSequence.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.cbBoxSequence.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cbBoxSequence.Font = new System.Drawing.Font("Segoe UI", 7.5F);
             this.cbBoxSequence.FormattingEnabled = true;
             this.cbBoxSequence.Items.AddRange(new object[] {
             "Pre-Trigger",
             "Post-Trigger"});
             this.cbBoxSequence.Location = new System.Drawing.Point(3, 28);
             this.cbBoxSequence.Name = "cbBoxSequence";
-            this.cbBoxSequence.Size = new System.Drawing.Size(96, 21);
+            this.cbBoxSequence.Size = new System.Drawing.Size(97, 20);
             this.cbBoxSequence.TabIndex = 3;
             // 
             // lbSequenceTriggerUnits
             // 
             this.lbSequenceTriggerUnits.AutoSize = true;
             this.lbSequenceTriggerUnits.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lbSequenceTriggerUnits.Location = new System.Drawing.Point(207, 0);
+            this.lbSequenceTriggerUnits.Font = new System.Drawing.Font("Segoe UI", 8.25F);
+            this.lbSequenceTriggerUnits.Location = new System.Drawing.Point(199, 0);
             this.lbSequenceTriggerUnits.Name = "lbSequenceTriggerUnits";
-            this.lbSequenceTriggerUnits.Size = new System.Drawing.Size(22, 25);
+            this.lbSequenceTriggerUnits.Size = new System.Drawing.Size(30, 25);
             this.lbSequenceTriggerUnits.TabIndex = 4;
             this.lbSequenceTriggerUnits.Text = "frm";
             this.lbSequenceTriggerUnits.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -623,9 +637,10 @@
             // 
             this.lbPositinTrigger.AutoSize = true;
             this.lbPositinTrigger.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lbPositinTrigger.Font = new System.Drawing.Font("Segoe UI", 7.5F);
             this.lbPositinTrigger.Location = new System.Drawing.Point(3, 50);
             this.lbPositinTrigger.Name = "lbPositinTrigger";
-            this.lbPositinTrigger.Size = new System.Drawing.Size(96, 25);
+            this.lbPositinTrigger.Size = new System.Drawing.Size(97, 25);
             this.lbPositinTrigger.TabIndex = 6;
             this.lbPositinTrigger.Text = "Posición Trigger";
             this.lbPositinTrigger.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -633,9 +648,9 @@
             // numericUpDownPositionTrigger
             // 
             this.numericUpDownPositionTrigger.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.numericUpDownPositionTrigger.Location = new System.Drawing.Point(105, 53);
+            this.numericUpDownPositionTrigger.Location = new System.Drawing.Point(106, 53);
             this.numericUpDownPositionTrigger.Name = "numericUpDownPositionTrigger";
-            this.numericUpDownPositionTrigger.Size = new System.Drawing.Size(96, 20);
+            this.numericUpDownPositionTrigger.Size = new System.Drawing.Size(87, 20);
             this.numericUpDownPositionTrigger.TabIndex = 7;
             // 
             // tableLayoutPanel7
@@ -706,9 +721,11 @@
             // lbStorage
             // 
             this.lbStorage.AutoSize = true;
+            this.lbStorage.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lbStorage.Font = new System.Drawing.Font("Segoe UI", 8.25F);
             this.lbStorage.Location = new System.Drawing.Point(3, 0);
             this.lbStorage.Name = "lbStorage";
-            this.lbStorage.Size = new System.Drawing.Size(85, 13);
+            this.lbStorage.Size = new System.Drawing.Size(232, 20);
             this.lbStorage.TabIndex = 0;
             this.lbStorage.Text = "Almacenamiento";
             // 
@@ -747,6 +764,7 @@
             // 
             // menuStrip1
             // 
+            this.menuStrip1.BackColor = System.Drawing.Color.Transparent;
             this.menuStrip1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.btnSingleShot,
@@ -765,68 +783,13 @@
             this.menuStrip1.TabIndex = 2;
             this.menuStrip1.Text = "menuStrip1";
             // 
-            // btnSingleShot
-            // 
-            this.btnSingleShot.Enabled = false;
-            this.btnSingleShot.Name = "btnSingleShot";
-            this.btnSingleShot.Size = new System.Drawing.Size(75, 31);
-            this.btnSingleShot.Text = "SingleShot";
-            // 
-            // btnContinuousShot
-            // 
-            this.btnContinuousShot.Enabled = false;
-            this.btnContinuousShot.Name = "btnContinuousShot";
-            this.btnContinuousShot.Size = new System.Drawing.Size(108, 31);
-            this.btnContinuousShot.Text = "Continuous Shot";
-            // 
-            // btnPause
-            // 
-            this.btnPause.Enabled = false;
-            this.btnPause.Name = "btnPause";
-            this.btnPause.Size = new System.Drawing.Size(50, 31);
-            this.btnPause.Text = "Pause";
-            // 
-            // btnRecord
-            // 
-            this.btnRecord.Enabled = false;
-            this.btnRecord.Name = "btnRecord";
-            this.btnRecord.Size = new System.Drawing.Size(56, 31);
-            this.btnRecord.Text = "Record";
-            // 
-            // btnStopRecord
-            // 
-            this.btnStopRecord.Enabled = false;
-            this.btnStopRecord.Name = "btnStopRecord";
-            this.btnStopRecord.Size = new System.Drawing.Size(83, 31);
-            this.btnStopRecord.Text = "Stop Record";
-            // 
-            // btnZoomPlus
-            // 
-            this.btnZoomPlus.Enabled = false;
-            this.btnZoomPlus.Name = "btnZoomPlus";
-            this.btnZoomPlus.Size = new System.Drawing.Size(62, 31);
-            this.btnZoomPlus.Text = "Zoom +";
-            // 
-            // btnZoomLess
-            // 
-            this.btnZoomLess.Enabled = false;
-            this.btnZoomLess.Name = "btnZoomLess";
-            this.btnZoomLess.Size = new System.Drawing.Size(59, 31);
-            this.btnZoomLess.Text = "Zoom -";
-            // 
-            // btnResetZoom
-            // 
-            this.btnResetZoom.Enabled = false;
-            this.btnResetZoom.Name = "btnResetZoom";
-            this.btnResetZoom.Size = new System.Drawing.Size(82, 31);
-            this.btnResetZoom.Text = "Reset Zoom";
-            // 
             // btnOneCamera
             // 
             this.btnOneCamera.Enabled = false;
             this.btnOneCamera.Name = "btnOneCamera";
             this.btnOneCamera.Size = new System.Drawing.Size(102, 31);
             this.btnOneCamera.Text = "Pantalla Grande";
+            this.btnOneCamera.Visible = false;
             // 
             // btnMosaic
             // 
@@ -834,9 +797,12 @@
             this.btnMosaic.Name = "btnMosaic";
             this.btnMosaic.Size = new System.Drawing.Size(64, 31);
             this.btnMosaic.Text = "Mosaico";
+            this.btnMosaic.Visible = false;
             // 
             // menuStrip2
             // 
+            this.menuStrip2.BackColor = System.Drawing.Color.Transparent;
+            this.menuStrip2.Font = new System.Drawing.Font("Segoe UI", 9.75F);
             this.menuStrip2.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.archivoToolStripMenuItem,
             this.cámaraToolStripMenuItem,
@@ -844,7 +810,7 @@
             this.ayudaToolStripMenuItem});
             this.menuStrip2.Location = new System.Drawing.Point(0, 0);
             this.menuStrip2.Name = "menuStrip2";
-            this.menuStrip2.Size = new System.Drawing.Size(1296, 24);
+            this.menuStrip2.Size = new System.Drawing.Size(1296, 25);
             this.menuStrip2.TabIndex = 2;
             this.menuStrip2.Text = "menuStrip2";
             // 
@@ -860,34 +826,11 @@
             this.singleShotToolStripMenuItem,
             this.grabarEnContinuoToolStripMenuItem,
             this.pausarToolStripMenuItem,
-            this.grabarToolStripMenuItem});
+            this.grabarToolStripMenuItem,
+            this.stopGrabaciónToolStripMenuItem});
             this.cámaraToolStripMenuItem.Name = "cámaraToolStripMenuItem";
-            this.cámaraToolStripMenuItem.Size = new System.Drawing.Size(60, 20);
+            this.cámaraToolStripMenuItem.Size = new System.Drawing.Size(65, 21);
             this.cámaraToolStripMenuItem.Text = "Cámara";
-            // 
-            // singleShotToolStripMenuItem
-            // 
-            this.singleShotToolStripMenuItem.Name = "singleShotToolStripMenuItem";
-            this.singleShotToolStripMenuItem.Size = new System.Drawing.Size(176, 22);
-            this.singleShotToolStripMenuItem.Text = "Single Shot";
-            // 
-            // grabarEnContinuoToolStripMenuItem
-            // 
-            this.grabarEnContinuoToolStripMenuItem.Name = "grabarEnContinuoToolStripMenuItem";
-            this.grabarEnContinuoToolStripMenuItem.Size = new System.Drawing.Size(176, 22);
-            this.grabarEnContinuoToolStripMenuItem.Text = "Grabar en continuo";
-            // 
-            // pausarToolStripMenuItem
-            // 
-            this.pausarToolStripMenuItem.Name = "pausarToolStripMenuItem";
-            this.pausarToolStripMenuItem.Size = new System.Drawing.Size(176, 22);
-            this.pausarToolStripMenuItem.Text = "Pausar";
-            // 
-            // grabarToolStripMenuItem
-            // 
-            this.grabarToolStripMenuItem.Name = "grabarToolStripMenuItem";
-            this.grabarToolStripMenuItem.Size = new System.Drawing.Size(176, 22);
-            this.grabarToolStripMenuItem.Text = "Grabar";
             // 
             // herramientasToolStripMenuItem
             // 
@@ -899,9 +842,10 @@
             // 
             // grabarConfiguraciónToolStripMenuItem
             // 
+            this.grabarConfiguraciónToolStripMenuItem.Image = global::Recording.Properties.Resources.ajust;
             this.grabarConfiguraciónToolStripMenuItem.Name = "grabarConfiguraciónToolStripMenuItem";
-            this.grabarConfiguraciónToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
-            this.grabarConfiguraciónToolStripMenuItem.Text = "Grabar Configuración";
+            this.grabarConfiguraciónToolStripMenuItem.Size = new System.Drawing.Size(223, 22);
+            this.grabarConfiguraciónToolStripMenuItem.Text = "Configuración de Grabación";
             this.grabarConfiguraciónToolStripMenuItem.Click += new System.EventHandler(this.grabarConfiguraciónToolStripMenuItem_Click);
             // 
             // ayudaToolStripMenuItem
@@ -910,10 +854,104 @@
             this.ayudaToolStripMenuItem.Size = new System.Drawing.Size(53, 20);
             this.ayudaToolStripMenuItem.Text = "Ayuda";
             // 
+            // btnSingleShot
+            // 
+            this.btnSingleShot.BackColor = System.Drawing.Color.Transparent;
+            this.btnSingleShot.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnSingleShot.Enabled = false;
+            this.btnSingleShot.Image = ((System.Drawing.Image)(resources.GetObject("btnSingleShot.Image")));
+            this.btnSingleShot.Name = "btnSingleShot";
+            this.btnSingleShot.Size = new System.Drawing.Size(28, 31);
+            // 
+            // btnContinuousShot
+            // 
+            this.btnContinuousShot.Enabled = false;
+            this.btnContinuousShot.Image = global::Recording.Properties.Resources.GrabContinuous;
+            this.btnContinuousShot.Name = "btnContinuousShot";
+            this.btnContinuousShot.Size = new System.Drawing.Size(28, 31);
+            // 
+            // btnPause
+            // 
+            this.btnPause.Enabled = false;
+            this.btnPause.Image = global::Recording.Properties.Resources.Pause;
+            this.btnPause.Name = "btnPause";
+            this.btnPause.Size = new System.Drawing.Size(28, 31);
+            // 
+            // btnRecord
+            // 
+            this.btnRecord.Enabled = false;
+            this.btnRecord.Image = global::Recording.Properties.Resources.record;
+            this.btnRecord.Name = "btnRecord";
+            this.btnRecord.Size = new System.Drawing.Size(28, 31);
+            // 
+            // btnStopRecord
+            // 
+            this.btnStopRecord.Enabled = false;
+            this.btnStopRecord.Image = global::Recording.Properties.Resources.StopGrab;
+            this.btnStopRecord.Name = "btnStopRecord";
+            this.btnStopRecord.Size = new System.Drawing.Size(28, 31);
+            // 
+            // btnZoomPlus
+            // 
+            this.btnZoomPlus.Enabled = false;
+            this.btnZoomPlus.Image = global::Recording.Properties.Resources.Zoom_1;
+            this.btnZoomPlus.Name = "btnZoomPlus";
+            this.btnZoomPlus.Size = new System.Drawing.Size(28, 31);
+            // 
+            // btnZoomLess
+            // 
+            this.btnZoomLess.Enabled = false;
+            this.btnZoomLess.Image = global::Recording.Properties.Resources.Zoom_;
+            this.btnZoomLess.Name = "btnZoomLess";
+            this.btnZoomLess.Size = new System.Drawing.Size(28, 31);
+            // 
+            // btnResetZoom
+            // 
+            this.btnResetZoom.Enabled = false;
+            this.btnResetZoom.Image = global::Recording.Properties.Resources.resetZoom;
+            this.btnResetZoom.Name = "btnResetZoom";
+            this.btnResetZoom.Size = new System.Drawing.Size(28, 31);
+            // 
+            // singleShotToolStripMenuItem
+            // 
+            this.singleShotToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("singleShotToolStripMenuItem.Image")));
+            this.singleShotToolStripMenuItem.Name = "singleShotToolStripMenuItem";
+            this.singleShotToolStripMenuItem.Size = new System.Drawing.Size(223, 22);
+            this.singleShotToolStripMenuItem.Text = "Captura";
+            // 
+            // grabarEnContinuoToolStripMenuItem
+            // 
+            this.grabarEnContinuoToolStripMenuItem.Image = global::Recording.Properties.Resources.GrabContinuous;
+            this.grabarEnContinuoToolStripMenuItem.Name = "grabarEnContinuoToolStripMenuItem";
+            this.grabarEnContinuoToolStripMenuItem.Size = new System.Drawing.Size(223, 22);
+            this.grabarEnContinuoToolStripMenuItem.Text = "Grabación en continuo";
+            // 
+            // pausarToolStripMenuItem
+            // 
+            this.pausarToolStripMenuItem.Image = global::Recording.Properties.Resources.Pause;
+            this.pausarToolStripMenuItem.Name = "pausarToolStripMenuItem";
+            this.pausarToolStripMenuItem.Size = new System.Drawing.Size(176, 22);
+            this.pausarToolStripMenuItem.Text = "Pausar";
+            // 
+            // grabarToolStripMenuItem
+            // 
+            this.grabarToolStripMenuItem.Image = global::Recording.Properties.Resources.record;
+            this.grabarToolStripMenuItem.Name = "grabarToolStripMenuItem";
+            this.grabarToolStripMenuItem.Size = new System.Drawing.Size(223, 22);
+            this.grabarToolStripMenuItem.Text = "Grabar en disco";
+            // 
+            // stopGrabaciónToolStripMenuItem
+            // 
+            this.stopGrabaciónToolStripMenuItem.Image = global::Recording.Properties.Resources.StopGrab;
+            this.stopGrabaciónToolStripMenuItem.Name = "stopGrabaciónToolStripMenuItem";
+            this.stopGrabaciónToolStripMenuItem.Size = new System.Drawing.Size(223, 22);
+            this.stopGrabaciónToolStripMenuItem.Text = "Parar grabación en disco";
+            // 
             // RecordingForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(1296, 773);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Name = "RecordingForm";
@@ -1042,6 +1080,7 @@
         private System.Windows.Forms.Label lbMinSequence;
         private System.Windows.Forms.Label lbMaxSequence;
         private System.Windows.Forms.ToolStripMenuItem btnStopRecord;
+        private System.Windows.Forms.ToolStripMenuItem stopGrabaciónToolStripMenuItem;
     }
 }
 

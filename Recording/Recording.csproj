@@ -179,13 +179,46 @@
     <Folder Include="Record Settings\Code\" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\camera.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\Remove.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\GrabContinuous.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Pause.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\record.png" />
+  </ItemGroup>
+  <ItemGroup>
     <None Include="Resources\Save.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\StopGrab.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\resetZoom.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Zoom-.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Zoom+.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\SingleShot.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\camera.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\system.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\close.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ajust.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

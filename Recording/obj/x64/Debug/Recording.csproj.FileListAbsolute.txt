@@ -18,4 +18,3 @@ C:\Users\Alejandro Marichal\source\repos\Recording\Recording\bin\x64\Debug\Recor
 C:\Users\Alejandro Marichal\source\repos\Recording\Recording\obj\x64\Debug\Recording.RecordSettingsForm.resources
 C:\Users\Alejandro Marichal\source\repos\Recording\Recording\obj\x64\Debug\Recording.RecordSettingsSequenceForm.resources
 C:\Users\Alejandro Marichal\source\repos\Recording\Recording\obj\x64\Debug\Recording.RecordSettingsVideoForm.resources
-C:\Users\Alejandro Marichal\source\repos\Recording\Recording\obj\x64\Debug\Recording.csprojAssemblyReference.cache

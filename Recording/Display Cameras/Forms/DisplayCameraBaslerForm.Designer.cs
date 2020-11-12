@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
+            this.btnClose = new System.Windows.Forms.Button();
             this.pnlBorder = new System.Windows.Forms.Panel();
             this.tableLayoutPanelMain = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanelLabels = new System.Windows.Forms.TableLayoutPanel();
@@ -43,7 +44,6 @@
             this.txBoxName = new System.Windows.Forms.TextBox();
             this.lbIp = new System.Windows.Forms.Label();
             this.lbModel = new System.Windows.Forms.Label();
-            this.btnClose = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.pnlBorder.SuspendLayout();
             this.tableLayoutPanelMain.SuspendLayout();
@@ -54,6 +54,7 @@
             // 
             // panel1
             // 
+            this.panel1.BackColor = System.Drawing.Color.Transparent;
             this.panel1.Controls.Add(this.btnClose);
             this.panel1.Controls.Add(this.pnlBorder);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -62,6 +63,23 @@
             this.panel1.Padding = new System.Windows.Forms.Padding(0, 20, 0, 0);
             this.panel1.Size = new System.Drawing.Size(484, 461);
             this.panel1.TabIndex = 0;
+            // 
+            // btnClose
+            // 
+            this.btnClose.BackColor = System.Drawing.Color.Transparent;
+            this.btnClose.BackgroundImage = global::Recording.Properties.Resources.close;
+            this.btnClose.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnClose.FlatAppearance.BorderColor = System.Drawing.Color.White;
+            this.btnClose.FlatAppearance.BorderSize = 0;
+            this.btnClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnClose.ForeColor = System.Drawing.Color.Transparent;
+            this.btnClose.Location = new System.Drawing.Point(453, 0);
+            this.btnClose.Margin = new System.Windows.Forms.Padding(0);
+            this.btnClose.Name = "btnClose";
+            this.btnClose.Size = new System.Drawing.Size(31, 19);
+            this.btnClose.TabIndex = 3;
+            this.btnClose.UseVisualStyleBackColor = false;
+            this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
             // 
             // pnlBorder
             // 
@@ -117,6 +135,7 @@
             // 
             this.lbFps.AutoSize = true;
             this.lbFps.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lbFps.Font = new System.Drawing.Font("Segoe UI", 8.25F);
             this.lbFps.Location = new System.Drawing.Point(352, 1);
             this.lbFps.Name = "lbFps";
             this.lbFps.Size = new System.Drawing.Size(112, 22);
@@ -128,6 +147,7 @@
             // 
             this.lbPosY.AutoSize = true;
             this.lbPosY.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lbPosY.Font = new System.Drawing.Font("Segoe UI", 8.25F);
             this.lbPosY.Location = new System.Drawing.Point(236, 1);
             this.lbPosY.Name = "lbPosY";
             this.lbPosY.Size = new System.Drawing.Size(109, 22);
@@ -139,6 +159,7 @@
             // 
             this.lbIntensity.AutoSize = true;
             this.lbIntensity.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lbIntensity.Font = new System.Drawing.Font("Segoe UI", 8.25F);
             this.lbIntensity.Location = new System.Drawing.Point(4, 1);
             this.lbIntensity.Name = "lbIntensity";
             this.lbIntensity.Size = new System.Drawing.Size(109, 22);
@@ -150,6 +171,7 @@
             // 
             this.lbPosX.AutoSize = true;
             this.lbPosX.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lbPosX.Font = new System.Drawing.Font("Segoe UI", 8.25F);
             this.lbPosX.Location = new System.Drawing.Point(120, 1);
             this.lbPosX.Name = "lbPosX";
             this.lbPosX.Size = new System.Drawing.Size(109, 22);
@@ -167,7 +189,7 @@
             // 
             // tableLayoutPanel1
             // 
-            this.tableLayoutPanel1.BackColor = System.Drawing.Color.ForestGreen;
+            this.tableLayoutPanel1.BackColor = System.Drawing.Color.Green;
             this.tableLayoutPanel1.ColumnCount = 3;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 40F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 30F));
@@ -185,26 +207,29 @@
             // 
             // tableLayoutPanel4
             // 
+            this.tableLayoutPanel4.BackColor = System.Drawing.Color.Transparent;
             this.tableLayoutPanel4.ColumnCount = 2;
-            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 40F));
-            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 60F));
+            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 54.88722F));
+            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 45.11278F));
             this.tableLayoutPanel4.Controls.Add(this.lbName, 0, 0);
             this.tableLayoutPanel4.Controls.Add(this.txBoxName, 1, 0);
+            this.tableLayoutPanel4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel4.Location = new System.Drawing.Point(190, 3);
             this.tableLayoutPanel4.Name = "tableLayoutPanel4";
             this.tableLayoutPanel4.RowCount = 1;
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel4.Size = new System.Drawing.Size(133, 28);
+            this.tableLayoutPanel4.Size = new System.Drawing.Size(134, 28);
             this.tableLayoutPanel4.TabIndex = 4;
             // 
             // lbName
             // 
             this.lbName.AutoSize = true;
             this.lbName.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lbName.Font = new System.Drawing.Font("Segoe UI", 9.75F);
             this.lbName.ForeColor = System.Drawing.Color.White;
             this.lbName.Location = new System.Drawing.Point(3, 0);
             this.lbName.Name = "lbName";
-            this.lbName.Size = new System.Drawing.Size(47, 28);
+            this.lbName.Size = new System.Drawing.Size(67, 28);
             this.lbName.TabIndex = 0;
             this.lbName.Text = "Nombre:";
             this.lbName.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -212,18 +237,20 @@
             // txBoxName
             // 
             this.txBoxName.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.txBoxName.BackColor = System.Drawing.Color.ForestGreen;
+            this.txBoxName.BackColor = System.Drawing.Color.Green;
             this.txBoxName.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.txBoxName.ForeColor = System.Drawing.Color.White;
-            this.txBoxName.Location = new System.Drawing.Point(56, 7);
+            this.txBoxName.Location = new System.Drawing.Point(76, 7);
             this.txBoxName.Name = "txBoxName";
-            this.txBoxName.Size = new System.Drawing.Size(74, 13);
+            this.txBoxName.Size = new System.Drawing.Size(55, 13);
             this.txBoxName.TabIndex = 1;
             // 
             // lbIp
             // 
             this.lbIp.AutoSize = true;
+            this.lbIp.BackColor = System.Drawing.Color.Transparent;
             this.lbIp.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lbIp.Font = new System.Drawing.Font("Segoe UI", 9.75F);
             this.lbIp.ForeColor = System.Drawing.SystemColors.Control;
             this.lbIp.Location = new System.Drawing.Point(330, 0);
             this.lbIp.Name = "lbIp";
@@ -235,7 +262,9 @@
             // lbModel
             // 
             this.lbModel.AutoSize = true;
+            this.lbModel.BackColor = System.Drawing.Color.Green;
             this.lbModel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lbModel.Font = new System.Drawing.Font("Segoe UI", 9.75F);
             this.lbModel.ForeColor = System.Drawing.SystemColors.Control;
             this.lbModel.Location = new System.Drawing.Point(3, 0);
             this.lbModel.Name = "lbModel";
@@ -244,24 +273,11 @@
             this.lbModel.Text = "Modelo:";
             this.lbModel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // btnClose
-            // 
-            this.btnClose.BackColor = System.Drawing.Color.ForestGreen;
-            this.btnClose.FlatAppearance.BorderSize = 0;
-            this.btnClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnClose.Location = new System.Drawing.Point(453, 0);
-            this.btnClose.Margin = new System.Windows.Forms.Padding(0);
-            this.btnClose.Name = "btnClose";
-            this.btnClose.Size = new System.Drawing.Size(31, 19);
-            this.btnClose.TabIndex = 3;
-            this.btnClose.Text = "X";
-            this.btnClose.UseVisualStyleBackColor = false;
-            this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
-            // 
             // DisplayCameraBaslerForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(484, 461);
             this.Controls.Add(this.panel1);
             this.Name = "DisplayCameraBaslerForm";

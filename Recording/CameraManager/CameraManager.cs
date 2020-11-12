@@ -110,10 +110,6 @@ namespace Recording
 
             this.idCam = id;
 
-            ImageList imageList = new ImageList();
-            imageList.Images.Add(Properties.Resources.camera);
-            treeViewCam.ImageList = imageList;
-
             ImagesInTreeView();
 
             safeControlEvent += new safeControlDelegate(Enable);
@@ -136,6 +132,7 @@ namespace Recording
         {
             ImageList imageList = new ImageList();
             imageList.Images.Add(Properties.Resources.camera);
+            imageList.Images.Add(Properties.Resources.system);
             treeViewCam.ImageList = imageList;
         }
 

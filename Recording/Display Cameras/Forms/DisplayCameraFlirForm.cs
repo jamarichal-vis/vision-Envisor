@@ -86,10 +86,5 @@ namespace Recording
         {
             Invoke(safeControlEvent, new object[] { btnClose, state });
         }
-
-        private void btnClose_Click(object sender, EventArgs e)
-        {
-
-        }
     }
 }

@@ -21,12 +21,13 @@ namespace Recording
         /// <summary>
         /// Esta variable es utilizada para definir el color que se utiliza para seleccionar una cámara (Bordes del formulario).
         /// </summary>
-        protected Color colorSelected = Color.Blue;
+        protected Color colorSelected = Color.FromArgb(21, 170, 191);
 
         /// <summary>
         /// Esta variable es utilizada para definir el color que se utiliza para deseleccionar una cámara (Bordes del formulario).
         /// </summary>
-        protected Color colorDeselected = Color.ForestGreen;
+        //protected Color colorDeselected = Color.FromArgb(130, 201, 30);
+        protected Color colorDeselected = Color.Green;
 
         /// <summary>
         /// Esta variable es utilizada para definir el color que se utiliza para deseleccionar una cámara (Bordes del formulario).
