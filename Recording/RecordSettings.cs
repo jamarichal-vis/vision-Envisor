@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Matrox.MatroxImagingLibrary;
 
 namespace Recording
 {
     public class RecordSettings
     {
-
         /// <summary>
         /// Esta variable almacena el tipo de record que se quiere grabar. Vídeo o secuencia de imágenes.
         /// </summary>
@@ -17,7 +17,7 @@ namespace Recording
         /// <summary>
         /// Este atributo indica el formato de salida.
         /// </summary>
-        string outputFormat;
+        MIL_INT outputFormat;
 
         /// <summary>
         /// Este atributo almacena los fps a los que se grabará. En caso de que esta variable tenga su valor en -1, se grabará con los fps de la
@@ -30,6 +30,9 @@ namespace Recording
         /// </summary>
         double timeStop;
 
+        /// <summary>
+        /// Esta variable almacena las unidades de tiempo que se quiere 
+        /// </summary>
         string unitTimeStop;
 
         /// <summary>
@@ -37,10 +40,15 @@ namespace Recording
         /// </summary>
         string root;
 
+        /// <summary>
+        /// Esta función contiene el valor de pretrigger.
+        /// </summary>
+        double pretrigger;
+
         public RecordSettings()
         {
             Type = "Vídeo";
-            outputFormat = "AVI";
+            outputFormat = MIL.M_AVI_MIL;
             fps = 10;
             timeStop = 15;
             UnitTimeStop = "Segundos";
@@ -48,7 +56,7 @@ namespace Recording
         }
 
         public string Type { get => type; set => type = value; }
-        public string OutputFormat { get => outputFormat; set => outputFormat = value; }
+        public MIL_INT OutputFormat { get => outputFormat; set => outputFormat = value; }
         public double Fps { get => fps; set => fps = value; }
         public double TimeStop
         {
@@ -71,5 +79,6 @@ namespace Recording
         }
         public string Root { get => root; set => root = value; }
         public string UnitTimeStop { get => unitTimeStop; set => unitTimeStop = value; }
+        public double Pretrigger { get => pretrigger; set => pretrigger = value; }
     }
 }

@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Matrox.MatroxImagingLibrary;
 
 namespace Recording
 {
@@ -27,8 +28,12 @@ namespace Recording
         {
             switch (recordSettings.OutputFormat)
             {
-                case "AVI":
+                case MIL.M_MIL:
                     cBoxOutputFormat.SelectedIndex = 0;
+                    break;
+                
+                case MIL.M_PNG:
+                    cBoxOutputFormat.SelectedIndex = 1;
                     break;
             }
 
@@ -47,7 +52,19 @@ namespace Recording
 
         public void Save()
         {
-            recordSettings.OutputFormat = cBoxOutputFormat.Text;
+            MIL_INT format = MIL.M_NULL;
+
+            switch (cBoxOutputFormat.Text)
+            {
+                case "M_MIL":
+                    format = MIL.M_MIL;
+                    break;
+                case "M_PNG":
+                    format = MIL.M_PNG;
+                    break;
+            }
+
+            recordSettings.OutputFormat = format;
 
             recordSettings.Root = txBoxRoot.Text;
         }

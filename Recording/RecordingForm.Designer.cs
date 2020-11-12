@@ -97,6 +97,7 @@
             this.herramientasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.grabarConfiguraciónToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ayudaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnStopRecord = new System.Windows.Forms.ToolStripMenuItem();
             this.tableLayoutPanel1.SuspendLayout();
             this.tbLayoutPanelMain.SuspendLayout();
             this.tbLayoutPanelSettings.SuspendLayout();
@@ -752,6 +753,7 @@
             this.btnContinuousShot,
             this.btnPause,
             this.btnRecord,
+            this.btnStopRecord,
             this.btnZoomPlus,
             this.btnZoomLess,
             this.btnResetZoom,
@@ -859,25 +861,25 @@
             // singleShotToolStripMenuItem
             // 
             this.singleShotToolStripMenuItem.Name = "singleShotToolStripMenuItem";
-            this.singleShotToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.singleShotToolStripMenuItem.Size = new System.Drawing.Size(176, 22);
             this.singleShotToolStripMenuItem.Text = "Single Shot";
             // 
             // grabarEnContinuoToolStripMenuItem
             // 
             this.grabarEnContinuoToolStripMenuItem.Name = "grabarEnContinuoToolStripMenuItem";
-            this.grabarEnContinuoToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.grabarEnContinuoToolStripMenuItem.Size = new System.Drawing.Size(176, 22);
             this.grabarEnContinuoToolStripMenuItem.Text = "Grabar en continuo";
             // 
             // pausarToolStripMenuItem
             // 
             this.pausarToolStripMenuItem.Name = "pausarToolStripMenuItem";
-            this.pausarToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.pausarToolStripMenuItem.Size = new System.Drawing.Size(176, 22);
             this.pausarToolStripMenuItem.Text = "Pausar";
             // 
             // grabarToolStripMenuItem
             // 
             this.grabarToolStripMenuItem.Name = "grabarToolStripMenuItem";
-            this.grabarToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.grabarToolStripMenuItem.Size = new System.Drawing.Size(176, 22);
             this.grabarToolStripMenuItem.Text = "Grabar";
             // 
             // herramientasToolStripMenuItem
@@ -900,6 +902,13 @@
             this.ayudaToolStripMenuItem.Name = "ayudaToolStripMenuItem";
             this.ayudaToolStripMenuItem.Size = new System.Drawing.Size(53, 20);
             this.ayudaToolStripMenuItem.Text = "Ayuda";
+            // 
+            // btnStopRecord
+            // 
+            this.btnStopRecord.Enabled = false;
+            this.btnStopRecord.Name = "btnStopRecord";
+            this.btnStopRecord.Size = new System.Drawing.Size(83, 31);
+            this.btnStopRecord.Text = "Stop Record";
             // 
             // RecordingForm
             // 
@@ -1032,6 +1041,7 @@
         private System.Windows.Forms.TrackBar trackBarSequence;
         private System.Windows.Forms.Label lbMinSequence;
         private System.Windows.Forms.Label lbMaxSequence;
+        private System.Windows.Forms.ToolStripMenuItem btnStopRecord;
     }
 }
 

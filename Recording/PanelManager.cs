@@ -82,9 +82,14 @@ namespace Recording
         ToolStripMenuItem btnResetZoom;
 
         /// <summary>
-        /// Esta variable almacena el botón de grab continuo.
+        /// Esta variable almacena el botón de grabar en disco.
         /// </summary>
         ToolStripMenuItem btnRecord;
+
+        /// <summary>
+        /// Esta variable almacena el botón de parar la grabación en disco.
+        /// </summary>
+        ToolStripMenuItem btnStopRecord;
 
         /// <summary>
         /// Esta variable contiene todas las funciones para cambiar el estado de la barra de herramientas.
@@ -137,12 +142,13 @@ namespace Recording
         }
 
         public void AddControl(ref ToolStripMenuItem btnGrabContinuous, ref ToolStripMenuItem btnPause, ref ToolStripMenuItem btnResetZoom,
-            ref ToolStripMenuItem btnRecord)
+            ref ToolStripMenuItem btnRecord, ref ToolStripMenuItem btnStopRecord)
         {
             this.btnGrabContinuous = btnGrabContinuous;
             this.btnPause = btnPause;
             this.btnResetZoom = btnResetZoom;
             this.btnRecord = btnRecord;
+            this.btnStopRecord = btnStopRecord;
 
             ConnectBtns();
         }
@@ -156,6 +162,8 @@ namespace Recording
             this.btnPause.Click += new System.EventHandler(this.BtnPause_Click);
             this.btnResetZoom.Click += new System.EventHandler(this.BtnResetZoom_Click);
             this.btnRecord.Click += new System.EventHandler(this.BtnRecord_Click);
+            this.btnStopRecord.Click += new System.EventHandler(this.BtnStopRecord_Click);
+
         }
 
         /// <summary>
@@ -420,7 +428,7 @@ namespace Recording
                 Dictionary<string, string> camInfo = milApp.CamInfo(id.DevNSys, id.DevNCam);
 
                 string pathFolder = System.IO.Path.Combine(recordSettings.Root,
-                    recordSettings.Type + " - " + 
+                    recordSettings.Type + " - " +
                     (camInfo["Vendor"] != "" ? (camInfo["Vendor"] + " -") : "") +
                     (camInfo["Model"] != "" ? (camInfo["Model"]) : "") +
                     (camInfo["Name"] != "" ? (" -" + camInfo["Name"]) : (id.DevNSys.ToString() + id.DevNCam.ToString())) +
@@ -435,13 +443,14 @@ namespace Recording
                     case "Vídeo":
 
                         string pathFile = System.IO.Path.Combine(pathFolder, NAME_VIDEO_FILE + EXTENSION_VIDEO);
-                        milApp.AddVideo(id.DevNSys, id.DevNCam, NAME_VIDEO_MILLIBRARY, MIL.M_AVI_MJPG, timePretrigger: -1, timeStop: recordSettings.TimeStop);
+                        milApp.AddVideo(id.DevNSys, id.DevNCam, NAME_VIDEO_MILLIBRARY, (int)recordSettings.OutputFormat, timePretrigger: -1, timeStop: recordSettings.TimeStop);
                         milApp.CamStartGrabInDisk(id.DevNSys, id.DevNCam, NAME_VIDEO_MILLIBRARY, pathFile);
 
                         break;
+
                     case "Secuencia de imágenes":
 
-                        milApp.CamActivateSequenceImages(id.DevNSys, id.DevNCam, recordSettings.TimeStop, MIL.M_MIL /*recordSettings.OutputFormat*/);
+                        milApp.CamActivateSequenceImages(id.DevNSys, id.DevNCam, recordSettings.TimeStop, recordSettings.OutputFormat);
                         milApp.CamStartSequenceImages(id.DevNSys, id.DevNCam, pathFolder);
 
                         EventVideo eventEndSequenceVideo = (EventVideo)milApp.CamEvent(id.DevNSys, id.DevNCam, "EndSequenceImages");
@@ -452,6 +461,41 @@ namespace Recording
 
                 GrabCamera(id);
             }
+
+            if (pnlCameras.Keys.Count > 0)
+            {
+                stateTools.Record(state: false);
+                stateTools.StopRecord();
+            }
+        }
+
+        private void BtnStopRecord_Click(object sender, EventArgs e)
+        {
+            foreach (Id id in pnlCameras.Keys)
+            {
+                switch (recordSettings.Type)
+                {
+                    case "Vídeo":
+                        
+                        milApp.CamStopGrabInDisk(id.DevNSys, id.DevNCam, NAME_VIDEO_MILLIBRARY);
+
+                        break;
+
+                    case "Secuencia de imágenes":
+
+                        milApp.CamStopSequenceImages(id.DevNSys, id.DevNCam);
+
+                        break;
+                }
+
+                if (id.Equal(idSelected))
+                    SelectCamera(id);
+                else
+                    DeselectCamera(id);
+            }
+
+            stateTools.Record();
+            stateTools.StopRecord(state: false);
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Matrox.MatroxImagingLibrary;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -27,8 +28,14 @@ namespace Recording
         {
             switch (recordSettings.OutputFormat)
             {
-                case "AVI":
+                case MIL.M_AVI_DIB:
                     cBoxOutputFormat.SelectedIndex = 0;
+                    break;
+                case MIL.M_AVI_MIL:
+                    cBoxOutputFormat.SelectedIndex = 1;
+                    break;
+                case MIL.M_AVI_MJPG:
+                    cBoxOutputFormat.SelectedIndex = 2;
                     break;
             }
 
@@ -81,7 +88,22 @@ namespace Recording
 
         public void Save()
         {
-            recordSettings.OutputFormat = cBoxOutputFormat.Text;
+            MIL_INT format = MIL.M_NULL;
+
+            switch (cBoxOutputFormat.Text)
+            {
+                case "M_AVI_DIB":
+                    format = MIL.M_AVI_DIB;
+                    break;
+                case "M_AVI_MIL":
+                    format = MIL.M_AVI_MIL;
+                    break;
+                case "M_AVI_MJPG":
+                    format = MIL.M_AVI_MJPG;
+                    break;
+            }
+
+            recordSettings.OutputFormat = format;
 
             if (ckBoxFps.Checked)
                 recordSettings.Fps = (double)numericUpDownFps.Value;

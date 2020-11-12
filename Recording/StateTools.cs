@@ -16,12 +16,13 @@ namespace Recording
         ToolStripMenuItem btnGrabContinuous;
         ToolStripMenuItem btnPause;
         ToolStripMenuItem btnRecord;
+        ToolStripMenuItem btnStopRecord;
         ToolStripMenuItem btnZoomLess;
         ToolStripMenuItem btnZoomPlus;
         ToolStripMenuItem btnResetZoom;
 
         public StateTools(ref ToolStripMenuItem btnSingleShot,ref ToolStripMenuItem btnGrabContinuous, ref ToolStripMenuItem btnPause, ref ToolStripMenuItem btnRecord,
-            ref ToolStripMenuItem btnZoomLess, ref ToolStripMenuItem btnZoomPlus, ref ToolStripMenuItem btnResetZoom)
+            ref ToolStripMenuItem btnZoomLess, ref ToolStripMenuItem btnZoomPlus, ref ToolStripMenuItem btnResetZoom, ref ToolStripMenuItem btnStopRecord)
         {
             this.btnSingleShot = btnSingleShot;
             this.btnGrabContinuous = btnGrabContinuous;
@@ -30,6 +31,7 @@ namespace Recording
             this.btnZoomLess = btnZoomLess;
             this.btnZoomPlus = btnZoomPlus;
             this.btnResetZoom = btnResetZoom;
+            this.btnStopRecord = btnStopRecord;
         }
 
         /// <summary>
@@ -66,6 +68,15 @@ namespace Recording
         public void Record(bool state = true)
         {
             btnRecord.Enabled = state;
+        }
+
+        /// <summary>
+        /// Esta función modifica el estado de la variable Enable del control <see cref="btnStopRecord">btnStopRecord</see>/>.
+        /// </summary>
+        /// <param name="state">Esta que se quiere establecer.</param>
+        public void StopRecord(bool state = true)
+        {
+            btnStopRecord.Enabled = state;
         }
 
         /// <summary>

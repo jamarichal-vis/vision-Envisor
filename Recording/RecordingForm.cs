@@ -201,7 +201,7 @@ namespace Recording
             int numCams = (int)NbcamerasInGigeVisionSystem + (int)NbcamerasInUsb3Vision;
 
             panelManager = new PanelManager(ref milApp, ref devSysGigeVision, ref devSysUsb3Vision, numCams, ref pnlCams, this);
-            panelManager.AddControl(ref btnContinuousShot, ref btnPause, ref btnResetZoom, ref btnRecord);
+            panelManager.AddControl(ref btnContinuousShot, ref btnPause, ref btnResetZoom, ref btnRecord, ref btnStopRecord);
 
             panelManager.notifyMouseDownEvent += new PanelManager.notifyMouseDownDelegate(SelectCameraInCameraManager);
             panelManager.notifyCloseEvent += new PanelManager.notifyCloseDelegate(SelectCameraInCameraManager);
@@ -215,7 +215,7 @@ namespace Recording
         /// </summary>
         private void InitStateTools()
         {
-            stateTools = new StateTools(ref btnSingleShot, ref btnContinuousShot, ref btnPause, ref btnRecord, ref btnZoomLess, ref btnZoomPlus, ref btnResetZoom);
+            stateTools = new StateTools(ref btnSingleShot, ref btnContinuousShot, ref btnPause, ref btnRecord, ref btnZoomLess, ref btnZoomPlus, ref btnResetZoom, ref btnStopRecord);
 
             panelManager.StateTools = stateTools;
             cameraManager.StateTools = stateTools;
