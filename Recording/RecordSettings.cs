@@ -48,7 +48,7 @@ namespace Recording
         public RecordSettings()
         {
             Type = "Vídeo";
-            outputFormat = MIL.M_AVI_MIL;
+            outputFormat = MIL.M_AVI_MJPG;
             fps = 10;
             timeStop = 15;
             UnitTimeStop = "Segundos";

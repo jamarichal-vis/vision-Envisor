@@ -32,6 +32,8 @@ namespace Recording
         /// </summary>
         private const string NAME_USB3VISION_TREEVIEW = "Usb3Vision";
 
+        private Form form;
+
         /// <summary>
         /// Variable que contiene toda la estructura del control de las cámaras del sistema.
         /// </summary>
@@ -88,9 +90,18 @@ namespace Recording
         public delegate void FreeCamDelegate();
         public event FreeCamDelegate freeCamCamEvent;
 
+        /// <summary>
+        /// Este evento es utilizado para acceder a un control del formulario de manera segura desde otro hilo.
+        /// </summary>
+        /// <param name="toolStripMenuItem"></param>
+        /// <param name="state"></param>
+        public delegate void safeControlDelegate(Control control, bool state);
+        public safeControlDelegate safeControlEvent;
 
-        public CameraManager(ref MilApp milApp, ref MIL_INT devSysGigeVision, ref MIL_INT devSysUsb3Vision, ref TreeView treeView, ref Id id)
+        public CameraManager(Form form, ref MilApp milApp, ref MIL_INT devSysGigeVision, ref MIL_INT devSysUsb3Vision, ref TreeView treeView, ref Id id)
         {
+            this.form = form;
+
             this.milApp = milApp;
             this.devSysGigeVision = devSysGigeVision;
             this.devSysUsb3Vision = devSysUsb3Vision;
@@ -104,6 +115,8 @@ namespace Recording
             treeViewCam.ImageList = imageList;
 
             ImagesInTreeView();
+
+            safeControlEvent += new safeControlDelegate(Enable);
 
             Events();
         }
@@ -349,8 +362,9 @@ namespace Recording
         /// <returns>True: si es un sistema. False: si no es un sistema.</returns>
         private bool IsSystemNode()
         {
-            if (treeViewCam.SelectedNode.Text == NAME_GIGEVISION_TREEVIEW || treeViewCam.SelectedNode.Text == NAME_USB3VISION_TREEVIEW)
-                return true;
+            if (treeViewCam.SelectedNode != null)
+                if (treeViewCam.SelectedNode.Text == NAME_GIGEVISION_TREEVIEW || treeViewCam.SelectedNode.Text == NAME_USB3VISION_TREEVIEW)
+                    return true;
 
             return false;
         }
@@ -430,6 +444,26 @@ namespace Recording
 
             if (index != -1)
                 treeViewCam.Nodes[index].Nodes[(int)IdentifyCamera(id.DevNSys)].Remove();
+        }
+
+        /// <summary>
+        /// Esta función modifica el estado del atributo Enable del control <see cref="treeViewCam">treeViewCam</see>/>.
+        /// </summary>
+        /// <param name="button"></param>
+        /// <param name="state"></param>
+        public void EnableTreeView(bool state)
+        {
+            form.Invoke(safeControlEvent, new object[] { treeViewCam, state });
+        }
+
+        /// <summary>
+        /// Esta función modifica el atributo Enable del control que se pasa por parámetro.
+        /// </summary>
+        /// <param name="control">Control que quieres modificar.</param>
+        /// <param name="state">Estado del atributo Enable.</param>
+        private void Enable(Control control, bool state)
+        {
+            control.Enabled = state;
         }
 
         private ContextMenuStrip ContextMenuStripToCamera()

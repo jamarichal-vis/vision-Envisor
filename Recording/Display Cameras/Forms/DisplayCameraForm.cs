@@ -21,9 +21,14 @@ namespace Recording
         public delegate void notifyCloseDelegate(Id id);
         public event notifyCloseDelegate notifyCloseDownEvent;
 
+        public delegate void safeControlDelegate(Button toolStripMenuItem, bool state);
+        public safeControlDelegate safeControlEvent;
+
         public DisplayCameraForm()
         {
             InitializeComponent();
+
+            safeControlEvent += new safeControlDelegate(StateControl);
         }
 
         public DisplayCamera DisplayCamera { get => displayCamera; set => displayCamera = value; }
@@ -32,6 +37,13 @@ namespace Recording
         {
             DisplayCamera.Pause();
             notifyCloseDownEvent.Invoke(DisplayCamera.IdCam);
+        }
+
+        public virtual void EnableBtnClose(bool state) { }
+
+        protected void StateControl(Button button, bool state)
+        {
+            button.Enabled = state;
         }
     }
 }

@@ -82,6 +82,11 @@ namespace Recording
             
         }
 
+        public override void EnableBtnClose(bool state)
+        {
+            Invoke(safeControlEvent, new object[] { btnClose, state });
+        }
+
         private void btnClose_Click(object sender, EventArgs e)
         {
 

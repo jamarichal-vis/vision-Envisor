@@ -14,6 +14,8 @@ namespace Recording
         private const int VALUE_MIN_EXPOSURETIME = 0;
         private const int VALUE_MAX_EXPOSURETIME = 5000; /*us*/
 
+        private Form form;
+
         /// <summary>
         /// Variable que contiene toda la estructura del control de las cámaras del sistema.
         /// </summary>
@@ -39,8 +41,18 @@ namespace Recording
         /// </summary>
         TrackBar trBarExposureTime;
 
-        public ExposureTimeManager(ref MilApp milApp, ref TableLayoutPanel tableLayoutPanel, ref NumericUpDown numUpDown, ref TrackBar trBar, ref Id idCam)
+        /// <summary>
+        /// Este evento es utilizado para acceder de forma segura a los atributos de un control desde otro hilo.
+        /// </summary>
+        /// <param name="control"></param>
+        /// <param name="state"></param>
+        public delegate void safeControlDelegate(Control control, bool state);
+        public safeControlDelegate safeControlEvent;
+
+        public ExposureTimeManager(Form form, ref MilApp milApp, ref TableLayoutPanel tableLayoutPanel, ref NumericUpDown numUpDown, ref TrackBar trBar, ref Id idCam)
         {
+            this.form = form;
+
             this.milApp = milApp;
 
             tbLayoutPanel = tableLayoutPanel;
@@ -55,6 +67,8 @@ namespace Recording
             trBar.Minimum = VALUE_MIN_EXPOSURETIME;
             trBar.Maximum = VALUE_MAX_EXPOSURETIME;
 
+            safeControlEvent += new safeControlDelegate(Enable);
+
             Events();
         }
 
@@ -66,20 +80,27 @@ namespace Recording
             InitValue();
         }
 
+
         /// <summary>
         /// Este método habilita las funcionalidades de todos los controles de esta clase.
         /// </summary>
-        public void Enable()
+        public void Enable(bool safe = false)
         {
-            tbLayoutPanel.Enabled = true;
+            if (safe)
+                form.Invoke(safeControlEvent, new object[] { tbLayoutPanel, true });
+            else
+                tbLayoutPanel.Enabled = true;
         }
 
         /// <summary>
         /// Este método deshabilita las funcionalidades de todos los controles de esta clase.
         /// </summary>
-        public void Disable()
+        public void Disable(bool safe = false)
         {
-            tbLayoutPanel.Enabled = false;
+            if (safe)
+                form.Invoke(safeControlEvent, new object[] { tbLayoutPanel, false });
+            else
+                tbLayoutPanel.Enabled = false;
         }
 
         /// <summary>
@@ -195,6 +216,16 @@ namespace Recording
         private void DisconnecttrBarExposureTime()
         {
             trBarExposureTime.ValueChanged -= new System.EventHandler(trBarExposureTime_ValueChanged);
+        }
+
+        /// <summary>
+        /// Esta función modifica el atributo Enable del control que se pasa por parámetro.
+        /// </summary>
+        /// <param name="control">Control que quieres modificar.</param>
+        /// <param name="state">Estado del atributo Enable.</param>
+        private void Enable(Control control, bool state)
+        {
+            control.Enabled = state;
         }
 
     }

@@ -112,6 +112,20 @@ namespace Recording
         /// <param name="id">Id of the camera selected.</param>
         public delegate void notifyMouseDownDelegate(Id id);
         public event notifyMouseDownDelegate notifyMouseDownEvent;
+        
+        /// <summary>
+        /// This event is used to notify which camera has been selected.
+        /// </summary>
+        /// <param name="id">Id of the camera selected.</param>
+        public delegate void notifyGrabCameraDelegate();
+        public event notifyGrabCameraDelegate notifyGrabCameraEvent;
+        
+        /// <summary>
+        /// Este evento se ejecuta cuando la grabación en disco de las cámaras ha finalizado.
+        /// </summary>
+        /// <param name="id">Id of the camera selected.</param>
+        public delegate void notifyStopGrabCameraDelegate();
+        public event notifyStopGrabCameraDelegate notifyStopGrabCameraEvent;
 
         /// <summary>
         /// Este evento es utilizado para indicar que un formulario se va a cerrar.
@@ -372,6 +386,28 @@ namespace Recording
         }
 
         /// <summary>
+        /// Esta función conecta el evento <see cref="DisplayCamera.notifyMouseDownEvent">DisplayCamera.notifyMouseDownEvent</see>/> a la función 
+        /// <see cref="NotifyCameraSelected(Id)">NotifyCameraSelected(Id)</see>/>.
+        /// </summary>
+        public void ConnectNotifyCameraSelected()
+        {
+            foreach(DisplayCameraForm displayCameraForm in camerasForm.Values)
+                displayCameraForm.DisplayCamera.notifyMouseDownEvent += new DisplayCamera.notifyMouseDownDelegate(NotifyCameraSelected);
+
+        }
+        
+        /// <summary>
+        /// Esta función desconecta el evento <see cref="DisplayCamera.notifyMouseDownEvent">DisplayCamera.notifyMouseDownEvent</see>/> a la función 
+        /// <see cref="NotifyCameraSelected(Id)">NotifyCameraSelected(Id)</see>/>.
+        /// </summary>
+        public void DisconnectNotifyCameraSelected()
+        {
+            foreach(DisplayCameraForm displayCameraForm in camerasForm.Values)
+                displayCameraForm.DisplayCamera.notifyMouseDownEvent -= new DisplayCamera.notifyMouseDownDelegate(NotifyCameraSelected);
+
+        }
+
+        /// <summary>
         /// Función para añadir un formulario dentro de un panel
         /// </summary>
         /// <param name="fh"></param>
@@ -406,6 +442,7 @@ namespace Recording
         {
             ShowCams(idSelected);
             camerasForm[idSelected].DisplayCamera.StartGrab();
+            camerasForm[idSelected].DisplayCamera.SelectCamera();
         }
 
         private void BtnPause_Click(object sender, EventArgs e)
@@ -460,12 +497,21 @@ namespace Recording
                 }
 
                 GrabCamera(id);
+
+                notifyGrabCameraEvent.Invoke();
             }
 
             if (pnlCameras.Keys.Count > 0)
             {
                 stateTools.Record(state: false);
+                stateTools.Pause(state: false);
+                stateTools.SingleShot(state: false);
                 stateTools.StopRecord();
+
+                foreach (DisplayCameraForm displayCameraForm in camerasForm.Values)
+                    displayCameraForm.EnableBtnClose(state: false);
+
+                DisconnectNotifyCameraSelected();
             }
         }
 
@@ -495,7 +541,22 @@ namespace Recording
             }
 
             stateTools.Record();
+            stateTools.Pause();
+            stateTools.SingleShot();
             stateTools.StopRecord(state: false);
+            ConnectNotifyCameraSelected();
+
+            notifyStopGrabCameraEvent.Invoke();
+        }
+
+        /// <summary>
+        /// Esta función habilita todos los <see cref="DisplayCameraBaslerForm.btnClose">DisplayCameraBaslerForm.btnClose</see>/> y 
+        /// <see cref="DisplayCameraFlirForm.btnClose">DisplayCameraFlirForm.btnClose</see>/>.
+        /// </summary>
+        public void EnableDisplayCameraFormClose()
+        {
+            foreach (DisplayCameraForm displayCameraForm in camerasForm.Values)
+                displayCameraForm.EnableBtnClose(state: true);
         }
     }
 }

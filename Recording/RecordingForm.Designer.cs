@@ -82,6 +82,7 @@
             this.btnContinuousShot = new System.Windows.Forms.ToolStripMenuItem();
             this.btnPause = new System.Windows.Forms.ToolStripMenuItem();
             this.btnRecord = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnStopRecord = new System.Windows.Forms.ToolStripMenuItem();
             this.btnZoomPlus = new System.Windows.Forms.ToolStripMenuItem();
             this.btnZoomLess = new System.Windows.Forms.ToolStripMenuItem();
             this.btnResetZoom = new System.Windows.Forms.ToolStripMenuItem();
@@ -97,7 +98,6 @@
             this.herramientasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.grabarConfiguraciónToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ayudaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.btnStopRecord = new System.Windows.Forms.ToolStripMenuItem();
             this.tableLayoutPanel1.SuspendLayout();
             this.tbLayoutPanelMain.SuspendLayout();
             this.tbLayoutPanelSettings.SuspendLayout();
@@ -793,6 +793,13 @@
             this.btnRecord.Size = new System.Drawing.Size(56, 31);
             this.btnRecord.Text = "Record";
             // 
+            // btnStopRecord
+            // 
+            this.btnStopRecord.Enabled = false;
+            this.btnStopRecord.Name = "btnStopRecord";
+            this.btnStopRecord.Size = new System.Drawing.Size(83, 31);
+            this.btnStopRecord.Text = "Stop Record";
+            // 
             // btnZoomPlus
             // 
             this.btnZoomPlus.Enabled = false;
@@ -902,13 +909,6 @@
             this.ayudaToolStripMenuItem.Name = "ayudaToolStripMenuItem";
             this.ayudaToolStripMenuItem.Size = new System.Drawing.Size(53, 20);
             this.ayudaToolStripMenuItem.Text = "Ayuda";
-            // 
-            // btnStopRecord
-            // 
-            this.btnStopRecord.Enabled = false;
-            this.btnStopRecord.Name = "btnStopRecord";
-            this.btnStopRecord.Size = new System.Drawing.Size(83, 31);
-            this.btnStopRecord.Text = "Stop Record";
             // 
             // RecordingForm
             // 

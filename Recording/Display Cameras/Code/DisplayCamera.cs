@@ -250,6 +250,8 @@ namespace Recording
                 notifyMouseDownEvent.Invoke(IdCam);
         }
 
+        
+
         /// <summary>
         /// Esta función es utilizada para seleccionar esta cámara.
         /// Es decir, se modificará el color del borde del formulario.

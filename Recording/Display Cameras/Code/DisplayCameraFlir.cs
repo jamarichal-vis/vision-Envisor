@@ -48,7 +48,6 @@ namespace Recording
         
         private FocuseDelegate focuseEvent;
 
-
         public DisplayCameraFlir(ref MilApp milApp, Id id, Form form,
             ref Panel pnlBorder, ref Label lbModel, ref Label lbName, ref Label lbIp,
             ref Panel pnlCam, ref Panel pnlLut, 
