@@ -14,15 +14,21 @@ namespace Recording
     public class DisplayCamera
     {
         /// <summary>
+        /// This variable stores the form.
+        /// </summary>
+        protected Form form;
+
+        /// <summary>
         /// Esta variable es utilizada para definir el color que se utiliza para seleccionar una cámara (Bordes del formulario).
         /// </summary>
-        protected Color colorSelected = Color.Blue;
+        protected Color colorSelected = Color.FromArgb(21, 170, 191);
 
         /// <summary>
         /// Esta variable es utilizada para definir el color que se utiliza para deseleccionar una cámara (Bordes del formulario).
         /// </summary>
-        protected Color colorDeselected = Color.ForestGreen;
-        
+        //protected Color colorDeselected = Color.FromArgb(130, 201, 30);
+        protected Color colorDeselected = Color.Green;
+
         /// <summary>
         /// Esta variable es utilizada para definir el color que se utiliza para deseleccionar una cámara (Bordes del formulario).
         /// </summary>
@@ -36,7 +42,7 @@ namespace Recording
         /// <summary>
         /// Este objeto almacena la identificación de la cámara que esta seleccionada en el programa.
         /// </summary>
-        protected Id idCam;
+        private Id idCam;
 
         /// <summary>
         /// Esta variable contiene el panel que se utiliza para aplicar un borde a los formularios donde se visualizando las cámaras.
@@ -58,7 +64,7 @@ namespace Recording
         /// Esta variable almacena el label referido a mostrar el nombre de la cámara que se conecte a este objeto.
         /// </summary>
         protected Label lbName;
-        
+
         /// <summary>
         /// Esta variable almacena el label referido a mostrar la ip de la cámara que se conecte a este objeto.
         /// </summary>
@@ -69,7 +75,7 @@ namespace Recording
         /// En el caso de cámaras basler, mostrarán la intensidad de la imagen. En caso de una flir, mostrarán el valor de temperatura.
         /// </summary>
         protected Label lbValue;
-        
+
         /// <summary>
         /// Label donde se muestra la posición x del mouse en la imagen.
         /// </summary>
@@ -84,6 +90,20 @@ namespace Recording
         /// Label donde se muestran los fps de la cámara.
         /// </summary>
         protected Label lbFps;
+
+        /// <summary>
+        /// This atribute stores the text box of the name camera.
+        /// </summary>
+        protected TextBox txBoxName;
+
+        public Id IdCam { get => idCam; set => idCam = value; }
+
+        /// <summary>
+        /// This event is used to notify which camera has been selected.
+        /// </summary>
+        /// <param name="id">Id of the camera selected.</param>
+        public delegate void notifyMouseDownDelegate(Id id);
+        public event notifyMouseDownDelegate notifyMouseDownEvent;
 
         /// <summary>
         /// Función para cambiar los controles en threads separados de forma segura (Invoke)
@@ -124,9 +144,20 @@ namespace Recording
 
         }
 
+        /// <summary>
+        /// Esta función activa el hilo de la cámara seleccionada en <see cref="IdCam">idCam</see>/>.
+        /// </summary>
         public void StartGrab()
         {
-            milApp.StartGrab(idCam.DevNSys, idCam.DevNCam);
+            milApp.StartGrab(IdCam.DevNSys, IdCam.DevNCam);
+        }
+
+        /// <summary>
+        /// Esta función detiene el hilo de la cámara seleccionada mediante <see cref="IdCam">idCam</see>/>.
+        /// </summary>
+        public void Pause()
+        {
+            milApp.StopGrab(IdCam.DevNSys, IdCam.DevNCam);
         }
 
         /// <summary>
@@ -134,19 +165,31 @@ namespace Recording
         /// </summary>
         public void DisconnectPanel()
         {
-            milApp.AllocPanelToCam(idCam.DevNSys, idCam.DevNCam, panel: null);
+            milApp.AllocPanelToCam(IdCam.DevNSys, IdCam.DevNCam, panel: null);
         }
 
         public void ShowInfoCam()
         {
-            Dictionary<string, string> camInfo = milApp.CamInfo(idCam.DevNSys, idCam.DevNCam);
+            Dictionary<string, string> camInfo = milApp.CamInfo(IdCam.DevNSys, IdCam.DevNCam);
 
-            string model = camInfo["Vendor"] + " " + camInfo["Model"] + string.Format(" (DEV{0}", idCam.DevNCam) + ")";
+            string model = camInfo["Vendor"] + " " + camInfo["Model"] + string.Format(" (DEV{0}", IdCam.DevNCam) + ")";
             lbModel.Text = model;
 
-            lbName.Text = "Nombre: " + camInfo["Name"];
+            txBoxName.Text = camInfo["Name"];
             lbIp.Text = (camInfo["IpAddress"] != null) ? ("Ip: " + camInfo["IpAddress"]) : "";
-        } 
+        }
+
+        public void ConnectTxBoxName()
+        {
+            txBoxName.KeyPress += new System.Windows.Forms.KeyPressEventHandler(ChangeName);
+        }
+
+        public void ChangeName(object sender, KeyPressEventArgs e)
+        {
+            if ((int)e.KeyChar == (int)Keys.Enter)
+                if (txBoxName.Text != "")
+                    milApp.CamName(IdCam.DevNSys, IdCam.DevNCam, txBoxName.Text);
+        }
 
         /// <summary>
         /// Esta función actualiza la información del mouse en la imagen. Se mostrará la intensidad de la imagen en la posición del ratón y 
@@ -167,7 +210,7 @@ namespace Recording
         /// </summary>
         public void ConnectFpsEvent()
         {
-            EventDataDict eventPresentCameraInfo = (EventDataDict)milApp.CamEvent(idCam.DevNSys, idCam.DevNCam, "FPS");
+            EventDataDict eventPresentCameraInfo = (EventDataDict)milApp.CamEvent(IdCam.DevNSys, IdCam.DevNCam, "FPS");
             eventPresentCameraInfo._event += new EventDataDict._eventDelagete(Fps);
         }
 
@@ -181,6 +224,34 @@ namespace Recording
         {
             SetControlPropertyThreadSafe(lbFps, "Text", "Fps: " + Math.Truncate(data["FPS"]).ToString());
         }
+
+        protected virtual void ConnectMouseDown()
+        {
+            form.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Form_MouseDown);
+            pnlBorder.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Form_MouseDown);
+            pnlCam.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Form_MouseDown);
+            lbModel.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Form_MouseDown);
+            lbName.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Form_MouseDown);
+            lbIp.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Form_MouseDown);
+            lbValue.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Form_MouseDown);
+            lbPosX.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Form_MouseDown);
+            lbPosY.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Form_MouseDown);
+            lbFps.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Form_MouseDown);
+            txBoxName.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Form_MouseDown);
+        }
+
+        /// <summary>
+        /// This function is used to notify that the mouse it is in the <see cref="form">form</see>/>.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void Form_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (notifyMouseDownEvent != null)
+                notifyMouseDownEvent.Invoke(IdCam);
+        }
+
+        
 
         /// <summary>
         /// Esta función es utilizada para seleccionar esta cámara.
@@ -215,8 +286,10 @@ namespace Recording
         /// </summary>
         public void Zoom()
         {
-            milApp.Zoom(idCam.DevNSys, idCam.DevNCam);
+            milApp.Zoom(IdCam.DevNSys, IdCam.DevNCam);
         }
+
+        
 
         public virtual void AllocCamera() { }
 

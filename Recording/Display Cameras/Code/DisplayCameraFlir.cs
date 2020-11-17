@@ -14,8 +14,6 @@ namespace Recording
     {
         private const string NAME_IMAGE_LUT = "Lut";
 
-        Form form;
-
         /// <summary>
         /// Esta variable almacena el panel donde se visualiza el lut de la cámara.
         /// </summary>
@@ -46,23 +44,21 @@ namespace Recording
         /// </summary>
         NumericUpDown numericUpDownTemperatureHight;
 
-        private bool firstLoop;
-
         private delegate bool FocuseDelegate(Control control);
         
         private FocuseDelegate focuseEvent;
-
 
         public DisplayCameraFlir(ref MilApp milApp, Id id, Form form,
             ref Panel pnlBorder, ref Label lbModel, ref Label lbName, ref Label lbIp,
             ref Panel pnlCam, ref Panel pnlLut, 
             ref Label lbTemperature, ref Label lbMinTemperature, ref Label lbMaxTemperature, 
             ref Label lbPosX, ref Label lbPosY, ref Label lbFps,
-            ref Button btnAuto, ref NumericUpDown numericUpDownManualLutLow, ref NumericUpDown numericUpDownManualLutHight)
+            ref Button btnAuto, ref NumericUpDown numericUpDownManualLutLow, ref NumericUpDown numericUpDownManualLutHight,
+            ref TextBox textBox)
         {
             this.milApp = milApp;
 
-            this.idCam = id;
+            this.IdCam = id;
             this.form = form;
 
             this.pnlBorder = pnlBorder;
@@ -85,17 +81,19 @@ namespace Recording
             this.numericUpDownTemperatureLow = numericUpDownManualLutLow;
             this.numericUpDownTemperatureHight = numericUpDownManualLutHight;
 
+            this.txBoxName = textBox;
+
             focuseEvent = new FocuseDelegate(FocuseSafe);
         }
 
         public override void AllocCamera()
         {
-            milApp.AllocPanelToCam(idCam.DevNSys, idCam.DevNCam, pnlCam);
+            milApp.AllocPanelToCam(IdCam.DevNSys, IdCam.DevNCam, pnlCam);
 
-            milApp.CamAddImage(idCam.DevNSys, idCam.DevNCam, NAME_IMAGE_LUT, band: 1, sizeX: pnlLut.Width, sizeY: pnlLut.Height, show: false);
+            milApp.CamAddImage(IdCam.DevNSys, IdCam.DevNCam, NAME_IMAGE_LUT, band: 1, sizeX: pnlLut.Width, sizeY: pnlLut.Height, show: false);
 
-            milApp.ShowPallet(idCam.DevNSys, idCam.DevNCam, NAME_IMAGE_LUT);
-            milApp.AllocPanelToCam(idCam.DevNSys, idCam.DevNCam, pnlLut, NAME_IMAGE_LUT);
+            milApp.ShowPallet(IdCam.DevNSys, IdCam.DevNCam, NAME_IMAGE_LUT);
+            milApp.AllocPanelToCam(IdCam.DevNSys, IdCam.DevNCam, pnlLut, NAME_IMAGE_LUT);
 
             /* EVENTS */
             Events();
@@ -115,8 +113,11 @@ namespace Recording
             ConnectMouseEvent();
             ConnectTemperatureEvent();
             ConnectFpsEvent();
+            ConnectMouseDown();
 
             ConnectLut();
+
+            ConnectTxBoxName();
         }
 
         /// <summary>
@@ -124,11 +125,11 @@ namespace Recording
         /// </summary>
         public override void ConnectMouseEvent()
         {
-            EventMouseTemperature eventMouseTemperature = (EventMouseTemperature)milApp.CamEvent(idCam.DevNSys, idCam.DevNCam, "MouseTemperature");
+            EventMouseTemperature eventMouseTemperature = (EventMouseTemperature)milApp.CamEvent(IdCam.DevNSys, IdCam.DevNCam, "MouseTemperature");
             eventMouseTemperature._event += new EventMouseTemperature._eventDelagete(Mouse);
 
             /* Activamos el evento del mouse a la imagen "AlarmManagement". */
-            milApp.CamStartMouseMove(idCam.DevNSys, idCam.DevNCam);
+            milApp.CamStartMouseMove(IdCam.DevNSys, IdCam.DevNCam);
         }
 
         /// <summary>
@@ -137,7 +138,7 @@ namespace Recording
         /// </summary>
         private void ConnectTemperatureEvent()
         {
-            EventTemperature eventTemperature = (EventTemperature)milApp.CamEvent(idCam.DevNSys, idCam.DevNCam, "Temperature");
+            EventTemperature eventTemperature = (EventTemperature)milApp.CamEvent(IdCam.DevNSys, IdCam.DevNCam, "Temperature");
             eventTemperature._event += new EventTemperature._eventDelagete(ShowTemperature);
         }
 
@@ -188,8 +189,8 @@ namespace Recording
         /// <param name="palleta">Paleta que quieres seleccionar.</param>
         public override void ChangePalleta(string palleta)
         {
-            milApp.ChangePalletLut(idCam.DevNSys, idCam.DevNCam, palleta);
-            milApp.ShowPallet(idCam.DevNSys, idCam.DevNCam, NAME_IMAGE_LUT);
+            milApp.ChangePalletLut(IdCam.DevNSys, IdCam.DevNCam, palleta);
+            milApp.ShowPallet(IdCam.DevNSys, IdCam.DevNCam, NAME_IMAGE_LUT);
         }
 
         /// <summary>
@@ -197,14 +198,14 @@ namespace Recording
         /// </summary>
         public void numUpDownChangeLutManual_ValueChanged(object sender, EventArgs e)
         {
-            milApp.ModeLUT(idCam.DevNSys, idCam.DevNCam, mode: false);
+            milApp.ModeLUT(IdCam.DevNSys, IdCam.DevNCam, mode: false);
 
-            milApp.UpdateManualLut(idCam.DevNSys, idCam.DevNCam, (double)numericUpDownTemperatureLow.Value, (double)numericUpDownTemperatureHight.Value);
+            milApp.UpdateManualLut(IdCam.DevNSys, IdCam.DevNCam, (double)numericUpDownTemperatureLow.Value, (double)numericUpDownTemperatureHight.Value);
         }
 
         private void btnAuto_Click(object sender, EventArgs e)
         {
-            milApp.ModeLUT(idCam.DevNSys, idCam.DevNCam, mode: true);
+            milApp.ModeLUT(IdCam.DevNSys, IdCam.DevNCam, mode: true);
         }
 
         /// <summary>
@@ -213,7 +214,19 @@ namespace Recording
         public new void DisconnectPanel()
         {
             base.DisconnectPanel();
-            milApp.AllocPanelToCam(idCam.DevNSys, idCam.DevNCam, panel: null, NAME_IMAGE_LUT);
+            milApp.AllocPanelToCam(IdCam.DevNSys, IdCam.DevNCam, panel: null, NAME_IMAGE_LUT);
+        }
+
+        protected override void ConnectMouseDown()
+        {
+            base.ConnectMouseDown();
+
+            pnlLut.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Form_MouseDown);
+            lbMinTemperature.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Form_MouseDown);
+            lbMaxTemperature.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Form_MouseDown);
+            btnAuto.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Form_MouseDown);
+            numericUpDownTemperatureLow.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Form_MouseDown);
+            numericUpDownTemperatureHight.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Form_MouseDown);
         }
     }
 }

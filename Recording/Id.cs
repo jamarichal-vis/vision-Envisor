@@ -31,7 +31,7 @@ namespace Recording
             DevNSys = -1;
             DevNCam = -1;
         }
-        
+
         public Id(MIL_INT devSys, MIL_INT devCam)
         {
             DevNSys = devSys;
@@ -63,6 +63,19 @@ namespace Recording
         {
             DevNSys = -1;
             DevNCam = -1;
+        }
+
+        /// <summary>
+        /// Esta función indica si el objeto Id pasado por parámetro es igual al objeto actual.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public bool Equal(Id id)
+        {
+            if (DevNSys == id.DevNSys && DevNCam == id.DevNCam)
+                return true;
+
+            return false;
         }
     }
 

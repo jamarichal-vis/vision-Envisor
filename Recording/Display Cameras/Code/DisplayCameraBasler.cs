@@ -12,12 +12,19 @@ namespace Recording
 {
     class DisplayCameraBasler : DisplayCamera
     {
-        public DisplayCameraBasler(ref MilApp milApp, Id id, ref Panel pnlBorder, ref Label lbModel, ref Label lbName, ref Label lbIp,
-            ref Panel pnlCam, ref Label lbIntensity, ref Label lbPosX, ref Label lbPosY, ref Label lbFps)
+        public DisplayCameraBasler(ref MilApp milApp, Id id, 
+            Form form,
+            ref Panel pnlBorder, 
+            ref Label lbModel, ref Label lbName, ref Label lbIp,
+            ref Panel pnlCam, 
+            ref Label lbIntensity, ref Label lbPosX, ref Label lbPosY, ref Label lbFps,
+            ref TextBox textBox)
         {
             this.milApp = milApp;
 
-            this.idCam = id;
+            this.IdCam = new Id(id.DevNSys, id.DevNCam);
+
+            this.form = form;
 
             this.pnlBorder = pnlBorder;
             this.lbModel = lbModel;
@@ -31,15 +38,19 @@ namespace Recording
             this.lbPosX = lbPosX;
             this.lbPosY = lbPosY;
             this.lbFps = lbFps;
+
+            this.txBoxName = textBox;
         }
 
         public override void AllocCamera()
         {
-            milApp.AllocPanelToCam(idCam.DevNSys, idCam.DevNCam, pnlCam);
+            milApp.AllocPanelToCam(IdCam.DevNSys, IdCam.DevNCam, pnlCam);
 
             /* EVENTS */
             ConnectMouseEvent();
             ConnectFpsEvent();
+            ConnectTxBoxName();
+            ConnectMouseDown();
 
             /* Info Cam. */
             ShowInfoCam();
@@ -53,10 +64,10 @@ namespace Recording
         /// </summary>
         public override void ConnectMouseEvent()
         {
-            EventMouseTemperature eventPresentCameraInfo = (EventMouseTemperature)milApp.CamEvent(idCam.DevNSys, idCam.DevNCam, "Intensity");
+            EventMouseTemperature eventPresentCameraInfo = (EventMouseTemperature)milApp.CamEvent(IdCam.DevNSys, IdCam.DevNCam, "Intensity");
             eventPresentCameraInfo._event += new EventMouseTemperature._eventDelagete(Mouse);
 
-            milApp.CamStartMouseMove(idCam.DevNSys, idCam.DevNCam);
+            milApp.CamStartMouseMove(IdCam.DevNSys, IdCam.DevNCam);
         }
     }
 }

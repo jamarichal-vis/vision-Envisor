@@ -32,6 +32,8 @@ namespace Recording
         /// </summary>
         private const string NAME_USB3VISION_TREEVIEW = "Usb3Vision";
 
+        private Form form;
+
         /// <summary>
         /// Variable que contiene toda la estructura del control de las cámaras del sistema.
         /// </summary>
@@ -57,15 +59,29 @@ namespace Recording
         /// <summary>
         /// Este objeto almacena la identificación de la cámara que esta seleccionada en el programa.
         /// </summary>
-        Id id;
+        Id idCam;
+
+        /// <summary>
+        /// Esta variable contiene todas las funciones para cambiar el estado de la barra de herramientas.
+        /// </summary>
+        private StateTools stateTools;
+
+        public StateTools StateTools { get => stateTools; set => stateTools = value; }
 
         /// <summary>
         /// Este evento es ejecutado cuando se selecciona una cámara. 
         /// Ver, <see cref="treeViewCameras_AfterSelect(object, TreeViewEventArgs)">treeViewCameras_AfterSelect(object, TreeViewEventArgs)</see>/>.
         /// </summary>
-        /// <param name="id"></param>
         public delegate void selectedCamDelegate();
         public event selectedCamDelegate selectedCamEvent;
+
+        /// <summary>
+        /// Este evento es ejecutado cuando se produce el evento de doble click en un nodo. 
+        /// Ver, <see cref="TreeViewCameras_MouseDoubleClick(object, MouseEventArgs)">TreeViewCameras_MouseDoubleClick(object, MouseEventArgs)</see>/>.
+        /// </summary>
+        /// <param name="id"></param>
+        public delegate void grabContinuousCamDelegate();
+        public event grabContinuousCamDelegate grabContinuousCamEvent;
 
         /// <summary>
         /// Este evento es ejecutado cuando se libera una cámara mediante la función <see cref="btnFreeCamera_Click(object, EventArgs)">btnFreeCamera_Click(object, EventArgs)</see>/>. 
@@ -74,22 +90,29 @@ namespace Recording
         public delegate void FreeCamDelegate();
         public event FreeCamDelegate freeCamCamEvent;
 
+        /// <summary>
+        /// Este evento es utilizado para acceder a un control del formulario de manera segura desde otro hilo.
+        /// </summary>
+        /// <param name="toolStripMenuItem"></param>
+        /// <param name="state"></param>
+        public delegate void safeControlDelegate(Control control, bool state);
+        public safeControlDelegate safeControlEvent;
 
-        public CameraManager(ref MilApp milApp, ref MIL_INT devSysGigeVision, ref MIL_INT devSysUsb3Vision, ref TreeView treeView, ref Id id)
+        public CameraManager(Form form, ref MilApp milApp, ref MIL_INT devSysGigeVision, ref MIL_INT devSysUsb3Vision, ref TreeView treeView, ref Id id)
         {
+            this.form = form;
+
             this.milApp = milApp;
             this.devSysGigeVision = devSysGigeVision;
             this.devSysUsb3Vision = devSysUsb3Vision;
 
             treeViewCam = treeView;
 
-            this.id = id;
-
-            ImageList imageList = new ImageList();
-            imageList.Images.Add(Properties.Resources.camera);
-            treeViewCam.ImageList = imageList;
+            this.idCam = id;
 
             ImagesInTreeView();
+
+            safeControlEvent += new safeControlDelegate(Enable);
 
             Events();
         }
@@ -100,6 +123,7 @@ namespace Recording
         public void Events()
         {
             treeViewCam.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeViewCameras_AfterSelect);
+            treeViewCam.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.TreeViewCameras_MouseDoubleClick);
 
             treeViewCam.Leave += new System.EventHandler(this.treeViewCameras_Leave);
         }
@@ -107,7 +131,8 @@ namespace Recording
         private void ImagesInTreeView()
         {
             ImageList imageList = new ImageList();
-            imageList.Images.Add(Properties.Resources.camera);
+            imageList.Images.Add(Properties.Resources.camera_Connect);
+            imageList.Images.Add(Properties.Resources.system);
             treeViewCam.ImageList = imageList;
         }
 
@@ -122,7 +147,10 @@ namespace Recording
             MIL_INT NbcamerasInGigeVisionSystem = milApp.GetNCameraInSystem(devSysGigeVision);
             MIL_INT NbcamerasInUsb3Vision = milApp.GetNCameraInSystem(devSysUsb3Vision);
 
+            //if (NbcamerasInGigeVisionSystem > 0)
             ConnectSystemToTreeView(NAME_GIGEVISION_TREEVIEW, INDEX_GIGEVISION_TREEVIEW);
+
+            //if (NbcamerasInUsb3Vision > 0)
             ConnectSystemToTreeView(NAME_USB3VISION_TREEVIEW, INDEX_USB3VISION_TREEVIEW);
 
             for (MIL_INT devDig = MIL.M_DEV0; devDig < NbcamerasInGigeVisionSystem; devDig++)
@@ -165,6 +193,33 @@ namespace Recording
                 ConnectCameraToTreeView(indexSystem: INDEX_USB3VISION_TREEVIEW, name);
         }
 
+        public void SelectCamera(Id id)
+        {
+            int indexSystem = -1;
+
+            int indexCam = -1;
+
+            if (id.DevNSys == milApp.GetIndexSystemByType(MIL.M_SYSTEM_GIGE_VISION))
+                indexSystem = INDEX_GIGEVISION_TREEVIEW;
+            else if (id.DevNSys == milApp.GetIndexSystemByType(MIL.M_SYSTEM_USB3_VISION))
+                indexSystem = INDEX_USB3VISION_TREEVIEW;
+
+            indexCam = IndexCamera(treeViewCam.Nodes[indexSystem], id);
+
+            if (indexSystem != -1 && indexCam != -1)
+            {
+                treeViewCam.SelectedNode = treeViewCam.Nodes[indexSystem].Nodes[indexCam];
+            }
+        }
+
+        public void DeselectCamera()
+        {
+            DeselectCameraColor();
+            treeViewCam.SelectedNode = null;
+            treeNodeSelected = null;
+            DeselectCameraColor();
+        }
+
         /// <summary>
         /// Esta función selecciona la primera cámara que se ha conectado.
         /// </summary>
@@ -188,7 +243,7 @@ namespace Recording
                 MIL_INT devSys = IdentifySystem();
                 MIL_INT devCam = IdentifyCamera(devSys);
 
-                id.Set(devSys, devCam);
+                idCam.Set(devSys, devCam);
 
                 if (selectedCamEvent != null)
                     selectedCamEvent.Invoke();
@@ -200,6 +255,14 @@ namespace Recording
                 }
 
                 treeNodeSelected = treeViewCam.SelectedNode;
+            }
+        }
+
+        private void TreeViewCameras_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            if (!IsSystemNode())
+            {
+                grabContinuousCamEvent.Invoke();
             }
         }
 
@@ -265,13 +328,40 @@ namespace Recording
         }
 
         /// <summary>
+        /// Este método devuelve el índice de la cámara que tu has indicado a través del parámetro id y en el nodo "node".
+        /// </summary>
+        /// <param name="node">Nodo donde quieres buscar la cámara.</param>
+        /// <param name="id">Id de la cñamara que quieres seleccionar.</param>
+        /// <returns>Índice de la cámara dentro de node.</returns>
+        private int IndexCamera(TreeNode node, Id id)
+        {
+            if (node.Nodes.Count > 0)
+            {
+                for (int i = 0; i < node.Nodes.Count; i++)
+                {
+                    MIL_INT devCam = MIL.M_NULL;
+
+                    int dev = FindDev(node.Nodes[i].Text);
+
+                    devCam = milApp.GetIndexCamByDevN(id.DevNSys, dev);
+
+                    if (id.DevNCam == devCam)
+                        return i;
+                }
+            }
+
+            return -1;
+        }
+
+        /// <summary>
         /// Esta función indica si el nodo seleccionado es un sistema.
         /// </summary>
         /// <returns>True: si es un sistema. False: si no es un sistema.</returns>
         private bool IsSystemNode()
         {
-            if (treeViewCam.SelectedNode.Text == NAME_GIGEVISION_TREEVIEW || treeViewCam.SelectedNode.Text == NAME_USB3VISION_TREEVIEW)
-                return true;
+            if (treeViewCam.SelectedNode != null)
+                if (treeViewCam.SelectedNode.Text == NAME_GIGEVISION_TREEVIEW || treeViewCam.SelectedNode.Text == NAME_USB3VISION_TREEVIEW)
+                    return true;
 
             return false;
         }
@@ -319,9 +409,25 @@ namespace Recording
 
         private void treeViewCameras_Leave(object sender, EventArgs e)
         {
+            //if (treeNodeSelected != null)
+            //{
+            //    SelectCameraColor();
+            //}
+        }
+
+        public void SelectCameraColor()
+        {
             treeNodeSelected.BackColor = Color.FromArgb(93, 169, 229);
             treeNodeSelected.ForeColor = Color.White;
+        }
 
+        public void DeselectCameraColor()
+        {
+            if (treeNodeSelected != null)
+            {
+                treeNodeSelected.BackColor = Color.White;
+                treeNodeSelected.ForeColor = Color.Black;
+            }
         }
 
         public void RemoveCamera(Id id)
@@ -337,6 +443,26 @@ namespace Recording
                 treeViewCam.Nodes[index].Nodes[(int)IdentifyCamera(id.DevNSys)].Remove();
         }
 
+        /// <summary>
+        /// Esta función modifica el estado del atributo Enable del control <see cref="treeViewCam">treeViewCam</see>/>.
+        /// </summary>
+        /// <param name="button"></param>
+        /// <param name="state"></param>
+        public void EnableTreeView(bool state)
+        {
+            form.Invoke(safeControlEvent, new object[] { treeViewCam, state });
+        }
+
+        /// <summary>
+        /// Esta función modifica el atributo Enable del control que se pasa por parámetro.
+        /// </summary>
+        /// <param name="control">Control que quieres modificar.</param>
+        /// <param name="state">Estado del atributo Enable.</param>
+        private void Enable(Control control, bool state)
+        {
+            control.Enabled = state;
+        }
+
         private ContextMenuStrip ContextMenuStripToCamera()
         {
             ContextMenuStrip contextMenuStrip = new ContextMenuStrip();
@@ -348,11 +474,11 @@ namespace Recording
 
         private void btnFreeCamera_Click(object sender, EventArgs e)
         {
-            RemoveCamera(id);
+            RemoveCamera(idCam);
 
             freeCamCamEvent.Invoke();
 
-            milApp.FreeRecourse(id.DevNSys, id.DevNCam);
+            milApp.FreeRecourse(idCam.DevNSys, idCam.DevNCam);
         }
     }
 }

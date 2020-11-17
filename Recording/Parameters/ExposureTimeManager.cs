@@ -12,7 +12,9 @@ namespace Recording
     class ExposureTimeManager
     {
         private const int VALUE_MIN_EXPOSURETIME = 0;
-        private const int VALUE_MAX_EXPOSURETIME = 5000; /*ms*/
+        private const int VALUE_MAX_EXPOSURETIME = 5000; /*us*/
+
+        private Form form;
 
         /// <summary>
         /// Variable que contiene toda la estructura del control de las cámaras del sistema.
@@ -39,8 +41,18 @@ namespace Recording
         /// </summary>
         TrackBar trBarExposureTime;
 
-        public ExposureTimeManager(ref MilApp milApp, ref TableLayoutPanel tableLayoutPanel, ref NumericUpDown numUpDown, ref TrackBar trBar, ref Id idCam)
+        /// <summary>
+        /// Este evento es utilizado para acceder de forma segura a los atributos de un control desde otro hilo.
+        /// </summary>
+        /// <param name="control"></param>
+        /// <param name="state"></param>
+        public delegate void safeControlDelegate(Control control, bool state);
+        public safeControlDelegate safeControlEvent;
+
+        public ExposureTimeManager(Form form, ref MilApp milApp, ref TableLayoutPanel tableLayoutPanel, ref NumericUpDown numUpDown, ref TrackBar trBar, ref Id idCam)
         {
+            this.form = form;
+
             this.milApp = milApp;
 
             tbLayoutPanel = tableLayoutPanel;
@@ -55,6 +67,8 @@ namespace Recording
             trBar.Minimum = VALUE_MIN_EXPOSURETIME;
             trBar.Maximum = VALUE_MAX_EXPOSURETIME;
 
+            safeControlEvent += new safeControlDelegate(Enable);
+
             Events();
         }
 
@@ -66,20 +80,27 @@ namespace Recording
             InitValue();
         }
 
+
         /// <summary>
         /// Este método habilita las funcionalidades de todos los controles de esta clase.
         /// </summary>
-        public void Enable()
+        public void Enable(bool safe = false)
         {
-            tbLayoutPanel.Enabled = true;
+            if (safe)
+                form.Invoke(safeControlEvent, new object[] { tbLayoutPanel, true });
+            else
+                tbLayoutPanel.Enabled = true;
         }
 
         /// <summary>
         /// Este método deshabilita las funcionalidades de todos los controles de esta clase.
         /// </summary>
-        public void Disable()
+        public void Disable(bool safe = false)
         {
-            tbLayoutPanel.Enabled = false;
+            if (safe)
+                form.Invoke(safeControlEvent, new object[] { tbLayoutPanel, false });
+            else
+                tbLayoutPanel.Enabled = false;
         }
 
         /// <summary>
@@ -157,12 +178,55 @@ namespace Recording
             ChangeExposureTime((long)trBarExposureTime.Value);
         }
 
+        /// <summary>
+        /// Este método modifica el exposure time de la cámara.
+        /// Las unidades del parámetro value son us.
+        /// </summary>
+        /// <param name="value">Valor que quieres establecer.</param>
         private void ChangeExposureTime(long value)
         {
             if (idCam.DevNSys != -1 && idCam.DevNCam != -1)
             {
-                milApp.CamExposureTime(idCam.DevNSys, idCam.DevNCam, value < 35 ? 35 : value * 1000);
+                milApp.CamExposureTime(idCam.DevNSys, idCam.DevNCam, value < 35 ? 35 : value);
             }
+        }
+
+        public void Max(double frameRate)
+        {
+            double max = 1 / frameRate;
+            max = max * 1000 * 1000; /* us */
+
+            DisconnectnumUpDownExposureTime();
+            DisconnecttrBarExposureTime();
+
+            LimitNumericUpDown(max);
+            LimitTrBar(max);
+            
+            numUpDownExposureTime.Value = (decimal)max;
+            trBarExposureTime.Value = (int)max;
+
+            ChangeExposureTime((long)max);
+
+            ConnectnumUpDownExposureTime();
+            ConnecttrBarExposureTime();
+        }
+
+        /// <summary>
+        /// Esta función limita el límite superior del control <see cref="numUpDownExposureTime">numUpDownExposureTime</see>/>.
+        /// </summary>
+        /// <param name="value">Valor que quieres establecer.</param>
+        private void LimitNumericUpDown(double value)
+        {
+            numUpDownExposureTime.Maximum = (decimal)value;
+        }
+
+        /// <summary>
+        /// Esta función limita el límite superior del control <see cref="trBarExposureTime">trBarExposureTime</see>/>.
+        /// </summary>
+        /// <param name="value">Valor que quieres establecer.</param>
+        private void LimitTrBar(double value)
+        {
+            trBarExposureTime.Maximum = (int)value;
         }
 
         /// <summary>
@@ -195,6 +259,16 @@ namespace Recording
         private void DisconnecttrBarExposureTime()
         {
             trBarExposureTime.ValueChanged -= new System.EventHandler(trBarExposureTime_ValueChanged);
+        }
+
+        /// <summary>
+        /// Esta función modifica el atributo Enable del control que se pasa por parámetro.
+        /// </summary>
+        /// <param name="control">Control que quieres modificar.</param>
+        /// <param name="state">Estado del atributo Enable.</param>
+        private void Enable(Control control, bool state)
+        {
+            control.Enabled = state;
         }
 
     }
