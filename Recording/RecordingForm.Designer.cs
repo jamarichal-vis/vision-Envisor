@@ -53,6 +53,10 @@
             this.lbImageFormat = new System.Windows.Forms.Label();
             this.cbBoxImageFormat = new System.Windows.Forms.ComboBox();
             this.tbLayoutPanelFrameRate = new System.Windows.Forms.TableLayoutPanel();
+            this.tableLayoutPanel8 = new System.Windows.Forms.TableLayoutPanel();
+            this.trBarFrameRate = new System.Windows.Forms.TrackBar();
+            this.lbMinFrameRate = new System.Windows.Forms.Label();
+            this.lbMaxFrameRate = new System.Windows.Forms.Label();
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
             this.lbFrameRate = new System.Windows.Forms.Label();
             this.numericUpDownFrameRate = new System.Windows.Forms.NumericUpDown();
@@ -78,13 +82,6 @@
             this.tbLayoutPanelVisualization = new System.Windows.Forms.TableLayoutPanel();
             this.pnlCams = new System.Windows.Forms.FlowLayoutPanel();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-            this.btnOneCamera = new System.Windows.Forms.ToolStripMenuItem();
-            this.btnMosaic = new System.Windows.Forms.ToolStripMenuItem();
-            this.menuStrip2 = new System.Windows.Forms.MenuStrip();
-            this.archivoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.cámaraToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.herramientasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.ayudaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.btnSingleShot = new System.Windows.Forms.ToolStripMenuItem();
             this.btnContinuousShot = new System.Windows.Forms.ToolStripMenuItem();
             this.btnPause = new System.Windows.Forms.ToolStripMenuItem();
@@ -93,16 +90,19 @@
             this.btnZoomPlus = new System.Windows.Forms.ToolStripMenuItem();
             this.btnZoomLess = new System.Windows.Forms.ToolStripMenuItem();
             this.btnResetZoom = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnOneCamera = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnMosaic = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuStrip2 = new System.Windows.Forms.MenuStrip();
+            this.archivoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.cámaraToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.singleShotToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.grabarEnContinuoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pausarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.grabarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.stopGrabaciónToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.herramientasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.grabarConfiguraciónToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.tableLayoutPanel8 = new System.Windows.Forms.TableLayoutPanel();
-            this.trBarFrameRate = new System.Windows.Forms.TrackBar();
-            this.lbMinFrameRate = new System.Windows.Forms.Label();
-            this.lbMaxFrameRate = new System.Windows.Forms.Label();
+            this.ayudaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tableLayoutPanel1.SuspendLayout();
             this.tbLayoutPanelMain.SuspendLayout();
             this.tbLayoutPanelSettings.SuspendLayout();
@@ -118,6 +118,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownImageFormatPixelX)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             this.tbLayoutPanelFrameRate.SuspendLayout();
+            this.tableLayoutPanel8.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trBarFrameRate)).BeginInit();
             this.tableLayoutPanel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownFrameRate)).BeginInit();
             this.tbLayoutPanelSequence.SuspendLayout();
@@ -131,8 +133,6 @@
             this.tbLayoutPanelVisualization.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.menuStrip2.SuspendLayout();
-            this.tableLayoutPanel8.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.trBarFrameRate)).BeginInit();
             this.SuspendLayout();
             // 
             // tableLayoutPanel1
@@ -227,12 +227,16 @@
             // 
             // treeViewCameras
             // 
+            this.treeViewCameras.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.treeViewCameras.Dock = System.Windows.Forms.DockStyle.Fill;
             this.treeViewCameras.Font = new System.Drawing.Font("Segoe UI", 9.75F);
             this.treeViewCameras.ForeColor = System.Drawing.Color.Black;
             this.treeViewCameras.HideSelection = false;
+            this.treeViewCameras.LabelEdit = true;
             this.treeViewCameras.Location = new System.Drawing.Point(4, 35);
             this.treeViewCameras.Name = "treeViewCameras";
+            this.treeViewCameras.ShowLines = false;
+            this.treeViewCameras.ShowNodeToolTips = true;
             this.treeViewCameras.Size = new System.Drawing.Size(238, 174);
             this.treeViewCameras.TabIndex = 1;
             // 
@@ -330,7 +334,7 @@
             this.trackBarExposureTime.Dock = System.Windows.Forms.DockStyle.Fill;
             this.trackBarExposureTime.Location = new System.Drawing.Point(3, 33);
             this.trackBarExposureTime.Name = "trackBarExposureTime";
-            this.trackBarExposureTime.Size = new System.Drawing.Size(232, 45);
+            this.trackBarExposureTime.Size = new System.Drawing.Size(232, 38);
             this.trackBarExposureTime.TabIndex = 1;
             // 
             // lbParameter
@@ -455,6 +459,54 @@
             this.tbLayoutPanelFrameRate.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tbLayoutPanelFrameRate.Size = new System.Drawing.Size(238, 74);
             this.tbLayoutPanelFrameRate.TabIndex = 2;
+            // 
+            // tableLayoutPanel8
+            // 
+            this.tableLayoutPanel8.ColumnCount = 3;
+            this.tableLayoutPanel8.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40F));
+            this.tableLayoutPanel8.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel8.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40F));
+            this.tableLayoutPanel8.Controls.Add(this.trBarFrameRate, 1, 0);
+            this.tableLayoutPanel8.Controls.Add(this.lbMinFrameRate, 0, 0);
+            this.tableLayoutPanel8.Controls.Add(this.lbMaxFrameRate, 2, 0);
+            this.tableLayoutPanel8.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel8.Location = new System.Drawing.Point(3, 33);
+            this.tableLayoutPanel8.Name = "tableLayoutPanel8";
+            this.tableLayoutPanel8.RowCount = 1;
+            this.tableLayoutPanel8.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel8.Size = new System.Drawing.Size(232, 38);
+            this.tableLayoutPanel8.TabIndex = 2;
+            // 
+            // trBarFrameRate
+            // 
+            this.trBarFrameRate.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.trBarFrameRate.Location = new System.Drawing.Point(43, 3);
+            this.trBarFrameRate.Maximum = 100;
+            this.trBarFrameRate.Name = "trBarFrameRate";
+            this.trBarFrameRate.Size = new System.Drawing.Size(146, 32);
+            this.trBarFrameRate.TabIndex = 3;
+            // 
+            // lbMinFrameRate
+            // 
+            this.lbMinFrameRate.AutoSize = true;
+            this.lbMinFrameRate.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lbMinFrameRate.Location = new System.Drawing.Point(3, 0);
+            this.lbMinFrameRate.Name = "lbMinFrameRate";
+            this.lbMinFrameRate.Size = new System.Drawing.Size(34, 38);
+            this.lbMinFrameRate.TabIndex = 0;
+            this.lbMinFrameRate.Text = "0";
+            this.lbMinFrameRate.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // lbMaxFrameRate
+            // 
+            this.lbMaxFrameRate.AutoSize = true;
+            this.lbMaxFrameRate.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lbMaxFrameRate.Location = new System.Drawing.Point(195, 0);
+            this.lbMaxFrameRate.Name = "lbMaxFrameRate";
+            this.lbMaxFrameRate.Size = new System.Drawing.Size(34, 38);
+            this.lbMaxFrameRate.TabIndex = 4;
+            this.lbMaxFrameRate.Text = "100";
+            this.lbMaxFrameRate.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // tableLayoutPanel4
             // 
@@ -782,69 +834,6 @@
             this.menuStrip1.TabIndex = 2;
             this.menuStrip1.Text = "menuStrip1";
             // 
-            // btnOneCamera
-            // 
-            this.btnOneCamera.Enabled = false;
-            this.btnOneCamera.Name = "btnOneCamera";
-            this.btnOneCamera.Size = new System.Drawing.Size(102, 31);
-            this.btnOneCamera.Text = "Pantalla Grande";
-            this.btnOneCamera.Visible = false;
-            // 
-            // btnMosaic
-            // 
-            this.btnMosaic.Enabled = false;
-            this.btnMosaic.Name = "btnMosaic";
-            this.btnMosaic.Size = new System.Drawing.Size(64, 31);
-            this.btnMosaic.Text = "Mosaico";
-            this.btnMosaic.Visible = false;
-            // 
-            // menuStrip2
-            // 
-            this.menuStrip2.BackColor = System.Drawing.Color.Transparent;
-            this.menuStrip2.Font = new System.Drawing.Font("Segoe UI", 9.75F);
-            this.menuStrip2.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.archivoToolStripMenuItem,
-            this.cámaraToolStripMenuItem,
-            this.herramientasToolStripMenuItem,
-            this.ayudaToolStripMenuItem});
-            this.menuStrip2.Location = new System.Drawing.Point(0, 0);
-            this.menuStrip2.Name = "menuStrip2";
-            this.menuStrip2.Size = new System.Drawing.Size(1296, 25);
-            this.menuStrip2.TabIndex = 2;
-            this.menuStrip2.Text = "menuStrip2";
-            // 
-            // archivoToolStripMenuItem
-            // 
-            this.archivoToolStripMenuItem.Name = "archivoToolStripMenuItem";
-            this.archivoToolStripMenuItem.Size = new System.Drawing.Size(63, 21);
-            this.archivoToolStripMenuItem.Text = "Archivo";
-            // 
-            // cámaraToolStripMenuItem
-            // 
-            this.cámaraToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.singleShotToolStripMenuItem,
-            this.grabarEnContinuoToolStripMenuItem,
-            this.pausarToolStripMenuItem,
-            this.grabarToolStripMenuItem,
-            this.stopGrabaciónToolStripMenuItem});
-            this.cámaraToolStripMenuItem.Name = "cámaraToolStripMenuItem";
-            this.cámaraToolStripMenuItem.Size = new System.Drawing.Size(65, 21);
-            this.cámaraToolStripMenuItem.Text = "Cámara";
-            // 
-            // herramientasToolStripMenuItem
-            // 
-            this.herramientasToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.grabarConfiguraciónToolStripMenuItem});
-            this.herramientasToolStripMenuItem.Name = "herramientasToolStripMenuItem";
-            this.herramientasToolStripMenuItem.Size = new System.Drawing.Size(98, 21);
-            this.herramientasToolStripMenuItem.Text = "Herramientas";
-            // 
-            // ayudaToolStripMenuItem
-            // 
-            this.ayudaToolStripMenuItem.Name = "ayudaToolStripMenuItem";
-            this.ayudaToolStripMenuItem.Size = new System.Drawing.Size(56, 21);
-            this.ayudaToolStripMenuItem.Text = "Ayuda";
-            // 
             // btnSingleShot
             // 
             this.btnSingleShot.BackColor = System.Drawing.Color.Transparent;
@@ -903,6 +892,55 @@
             this.btnResetZoom.Name = "btnResetZoom";
             this.btnResetZoom.Size = new System.Drawing.Size(28, 31);
             // 
+            // btnOneCamera
+            // 
+            this.btnOneCamera.Enabled = false;
+            this.btnOneCamera.Name = "btnOneCamera";
+            this.btnOneCamera.Size = new System.Drawing.Size(102, 31);
+            this.btnOneCamera.Text = "Pantalla Grande";
+            this.btnOneCamera.Visible = false;
+            // 
+            // btnMosaic
+            // 
+            this.btnMosaic.Enabled = false;
+            this.btnMosaic.Name = "btnMosaic";
+            this.btnMosaic.Size = new System.Drawing.Size(64, 31);
+            this.btnMosaic.Text = "Mosaico";
+            this.btnMosaic.Visible = false;
+            // 
+            // menuStrip2
+            // 
+            this.menuStrip2.BackColor = System.Drawing.Color.Transparent;
+            this.menuStrip2.Font = new System.Drawing.Font("Segoe UI", 9.75F);
+            this.menuStrip2.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.archivoToolStripMenuItem,
+            this.cámaraToolStripMenuItem,
+            this.herramientasToolStripMenuItem,
+            this.ayudaToolStripMenuItem});
+            this.menuStrip2.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip2.Name = "menuStrip2";
+            this.menuStrip2.Size = new System.Drawing.Size(1296, 25);
+            this.menuStrip2.TabIndex = 2;
+            this.menuStrip2.Text = "menuStrip2";
+            // 
+            // archivoToolStripMenuItem
+            // 
+            this.archivoToolStripMenuItem.Name = "archivoToolStripMenuItem";
+            this.archivoToolStripMenuItem.Size = new System.Drawing.Size(63, 21);
+            this.archivoToolStripMenuItem.Text = "Archivo";
+            // 
+            // cámaraToolStripMenuItem
+            // 
+            this.cámaraToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.singleShotToolStripMenuItem,
+            this.grabarEnContinuoToolStripMenuItem,
+            this.pausarToolStripMenuItem,
+            this.grabarToolStripMenuItem,
+            this.stopGrabaciónToolStripMenuItem});
+            this.cámaraToolStripMenuItem.Name = "cámaraToolStripMenuItem";
+            this.cámaraToolStripMenuItem.Size = new System.Drawing.Size(65, 21);
+            this.cámaraToolStripMenuItem.Text = "Cámara";
+            // 
             // singleShotToolStripMenuItem
             // 
             this.singleShotToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("singleShotToolStripMenuItem.Image")));
@@ -938,6 +976,14 @@
             this.stopGrabaciónToolStripMenuItem.Size = new System.Drawing.Size(223, 22);
             this.stopGrabaciónToolStripMenuItem.Text = "Parar grabación en disco";
             // 
+            // herramientasToolStripMenuItem
+            // 
+            this.herramientasToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.grabarConfiguraciónToolStripMenuItem});
+            this.herramientasToolStripMenuItem.Name = "herramientasToolStripMenuItem";
+            this.herramientasToolStripMenuItem.Size = new System.Drawing.Size(98, 21);
+            this.herramientasToolStripMenuItem.Text = "Herramientas";
+            // 
             // grabarConfiguraciónToolStripMenuItem
             // 
             this.grabarConfiguraciónToolStripMenuItem.Image = global::Recording.Properties.Resources.ajust;
@@ -946,53 +992,11 @@
             this.grabarConfiguraciónToolStripMenuItem.Text = "Configuración de Grabación";
             this.grabarConfiguraciónToolStripMenuItem.Click += new System.EventHandler(this.grabarConfiguraciónToolStripMenuItem_Click);
             // 
-            // tableLayoutPanel8
+            // ayudaToolStripMenuItem
             // 
-            this.tableLayoutPanel8.ColumnCount = 3;
-            this.tableLayoutPanel8.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40F));
-            this.tableLayoutPanel8.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel8.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40F));
-            this.tableLayoutPanel8.Controls.Add(this.trBarFrameRate, 1, 0);
-            this.tableLayoutPanel8.Controls.Add(this.lbMinFrameRate, 0, 0);
-            this.tableLayoutPanel8.Controls.Add(this.lbMaxFrameRate, 2, 0);
-            this.tableLayoutPanel8.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel8.Location = new System.Drawing.Point(3, 33);
-            this.tableLayoutPanel8.Name = "tableLayoutPanel8";
-            this.tableLayoutPanel8.RowCount = 1;
-            this.tableLayoutPanel8.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel8.Size = new System.Drawing.Size(232, 38);
-            this.tableLayoutPanel8.TabIndex = 2;
-            // 
-            // trBarFrameRate
-            // 
-            this.trBarFrameRate.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.trBarFrameRate.Location = new System.Drawing.Point(43, 3);
-            this.trBarFrameRate.Maximum = 100;
-            this.trBarFrameRate.Name = "trBarFrameRate";
-            this.trBarFrameRate.Size = new System.Drawing.Size(146, 32);
-            this.trBarFrameRate.TabIndex = 3;
-            // 
-            // lbMinFrameRate
-            // 
-            this.lbMinFrameRate.AutoSize = true;
-            this.lbMinFrameRate.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lbMinFrameRate.Location = new System.Drawing.Point(3, 0);
-            this.lbMinFrameRate.Name = "lbMinFrameRate";
-            this.lbMinFrameRate.Size = new System.Drawing.Size(34, 38);
-            this.lbMinFrameRate.TabIndex = 0;
-            this.lbMinFrameRate.Text = "0";
-            this.lbMinFrameRate.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // lbMaxFrameRate
-            // 
-            this.lbMaxFrameRate.AutoSize = true;
-            this.lbMaxFrameRate.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lbMaxFrameRate.Location = new System.Drawing.Point(195, 0);
-            this.lbMaxFrameRate.Name = "lbMaxFrameRate";
-            this.lbMaxFrameRate.Size = new System.Drawing.Size(34, 38);
-            this.lbMaxFrameRate.TabIndex = 4;
-            this.lbMaxFrameRate.Text = "100";
-            this.lbMaxFrameRate.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.ayudaToolStripMenuItem.Name = "ayudaToolStripMenuItem";
+            this.ayudaToolStripMenuItem.Size = new System.Drawing.Size(56, 21);
+            this.ayudaToolStripMenuItem.Text = "Ayuda";
             // 
             // RecordingForm
             // 
@@ -1029,6 +1033,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownImageFormatPixelX)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
             this.tbLayoutPanelFrameRate.ResumeLayout(false);
+            this.tableLayoutPanel8.ResumeLayout(false);
+            this.tableLayoutPanel8.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trBarFrameRate)).EndInit();
             this.tableLayoutPanel4.ResumeLayout(false);
             this.tableLayoutPanel4.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownFrameRate)).EndInit();
@@ -1049,9 +1056,6 @@
             this.menuStrip1.PerformLayout();
             this.menuStrip2.ResumeLayout(false);
             this.menuStrip2.PerformLayout();
-            this.tableLayoutPanel8.ResumeLayout(false);
-            this.tableLayoutPanel8.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.trBarFrameRate)).EndInit();
             this.ResumeLayout(false);
 
         }

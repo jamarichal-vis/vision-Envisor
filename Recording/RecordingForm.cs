@@ -103,7 +103,6 @@ namespace Recording
 
             /* Cambio de diseño de treViewCameras. */
             SetTreeViewTheme(treeViewCameras.Handle);
-
         }
 
         /// <summary>
