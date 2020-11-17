@@ -178,12 +178,55 @@ namespace Recording
             ChangeExposureTime((long)trBarExposureTime.Value);
         }
 
+        /// <summary>
+        /// Este método modifica el exposure time de la cámara.
+        /// Las unidades del parámetro value son us.
+        /// </summary>
+        /// <param name="value">Valor que quieres establecer.</param>
         private void ChangeExposureTime(long value)
         {
             if (idCam.DevNSys != -1 && idCam.DevNCam != -1)
             {
-                milApp.CamExposureTime(idCam.DevNSys, idCam.DevNCam, value < 35 ? 35 : value * 1000);
+                milApp.CamExposureTime(idCam.DevNSys, idCam.DevNCam, value < 35 ? 35 : value);
             }
+        }
+
+        public void Max(double frameRate)
+        {
+            double max = 1 / frameRate;
+            max = max * 1000 * 1000; /* us */
+
+            DisconnectnumUpDownExposureTime();
+            DisconnecttrBarExposureTime();
+
+            LimitNumericUpDown(max);
+            LimitTrBar(max);
+            
+            numUpDownExposureTime.Value = (decimal)max;
+            trBarExposureTime.Value = (int)max;
+
+            ChangeExposureTime((long)max);
+
+            ConnectnumUpDownExposureTime();
+            ConnecttrBarExposureTime();
+        }
+
+        /// <summary>
+        /// Esta función limita el límite superior del control <see cref="numUpDownExposureTime">numUpDownExposureTime</see>/>.
+        /// </summary>
+        /// <param name="value">Valor que quieres establecer.</param>
+        private void LimitNumericUpDown(double value)
+        {
+            numUpDownExposureTime.Maximum = (decimal)value;
+        }
+
+        /// <summary>
+        /// Esta función limita el límite superior del control <see cref="trBarExposureTime">trBarExposureTime</see>/>.
+        /// </summary>
+        /// <param name="value">Valor que quieres establecer.</param>
+        private void LimitTrBar(double value)
+        {
+            trBarExposureTime.Maximum = (int)value;
         }
 
         /// <summary>

@@ -55,7 +55,7 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(521, 244);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(521, 280);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // tableLayoutPanel2
@@ -93,7 +93,7 @@
             this.cBoxRecordType.Items.AddRange(new object[] {
             "Vídeo",
             "Secuencia de imágenes"});
-            this.cBoxRecordType.Location = new System.Drawing.Point(132, 6);
+            this.cBoxRecordType.Location = new System.Drawing.Point(132, 4);
             this.cBoxRecordType.Name = "cBoxRecordType";
             this.cBoxRecordType.Size = new System.Drawing.Size(380, 25);
             this.cBoxRecordType.TabIndex = 1;
@@ -104,7 +104,7 @@
             this.pnl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnl.Location = new System.Drawing.Point(3, 43);
             this.pnl.Name = "pnl";
-            this.pnl.Size = new System.Drawing.Size(515, 158);
+            this.pnl.Size = new System.Drawing.Size(515, 194);
             this.pnl.TabIndex = 1;
             // 
             // tableLayoutPanel3
@@ -116,7 +116,7 @@
             this.tableLayoutPanel3.Controls.Add(this.btnCancel, 2, 0);
             this.tableLayoutPanel3.Controls.Add(this.btnSave, 1, 0);
             this.tableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel3.Location = new System.Drawing.Point(3, 207);
+            this.tableLayoutPanel3.Location = new System.Drawing.Point(3, 243);
             this.tableLayoutPanel3.Name = "tableLayoutPanel3";
             this.tableLayoutPanel3.RowCount = 1;
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
@@ -154,7 +154,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(521, 244);
+            this.ClientSize = new System.Drawing.Size(521, 280);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Name = "RecordSettingsForm";
             this.Text = "Configuración de grabación";

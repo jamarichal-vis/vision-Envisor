@@ -127,7 +127,7 @@
     <Compile Include="Record Settings\Forms\RecordSettingsVideoForm.Designer.cs">
       <DependentUpon>RecordSettingsVideoForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="RecordSettings.cs" />
+    <Compile Include="Record Settings\Code\RecordSettings.cs" />
     <Compile Include="SequenceManager.cs" />
     <Compile Include="StateTools.cs" />
     <EmbeddedResource Include="Display Cameras\Forms\DisplayCameraBaslerForm.resx">
@@ -176,7 +176,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Display Cameras\PanelManager\" />
-    <Folder Include="Record Settings\Code\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Remove.png" />

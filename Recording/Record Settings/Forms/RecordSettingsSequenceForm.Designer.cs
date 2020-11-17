@@ -43,7 +43,7 @@
             this.tableLayoutPanel3.ColumnCount = 3;
             this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 40F));
             this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 60F));
-            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 50F));
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 51F));
             this.tableLayoutPanel3.Controls.Add(this.lbOutputFormat, 0, 0);
             this.tableLayoutPanel3.Controls.Add(this.cBoxOutputFormat, 1, 0);
             this.tableLayoutPanel3.Controls.Add(this.lbRoot, 0, 1);
@@ -80,7 +80,7 @@
             "M_PNG"});
             this.cBoxOutputFormat.Location = new System.Drawing.Point(165, 29);
             this.cBoxOutputFormat.Name = "cBoxOutputFormat";
-            this.cBoxOutputFormat.Size = new System.Drawing.Size(238, 25);
+            this.cBoxOutputFormat.Size = new System.Drawing.Size(237, 25);
             this.cBoxOutputFormat.TabIndex = 1;
             // 
             // lbRoot
@@ -101,7 +101,7 @@
             this.txBoxRoot.Font = new System.Drawing.Font("Segoe UI", 9.75F);
             this.txBoxRoot.Location = new System.Drawing.Point(165, 106);
             this.txBoxRoot.Name = "txBoxRoot";
-            this.txBoxRoot.Size = new System.Drawing.Size(238, 25);
+            this.txBoxRoot.Size = new System.Drawing.Size(237, 25);
             this.txBoxRoot.TabIndex = 9;
             // 
             // btnRoot
@@ -111,7 +111,7 @@
             this.btnRoot.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.btnRoot.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnRoot.ForeColor = System.Drawing.Color.Transparent;
-            this.btnRoot.Location = new System.Drawing.Point(409, 107);
+            this.btnRoot.Location = new System.Drawing.Point(408, 107);
             this.btnRoot.Name = "btnRoot";
             this.btnRoot.Size = new System.Drawing.Size(35, 23);
             this.btnRoot.TabIndex = 10;

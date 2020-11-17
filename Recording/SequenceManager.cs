@@ -76,12 +76,12 @@ namespace Recording
             this.lbMaxFrames = lbMaxFrames;
 
             this.numericUpTrigger.Value = 100;
-            this.numericUpPositionTrigger.Value = 0;
-            this.trackBarPositionTrigger.Value = 0;
+            this.numericUpPositionTrigger.Value = 100;
+            this.trackBarPositionTrigger.Value = 100;
 
             Events();
 
-            this.cBoxTrigger.SelectedIndex = 1;
+            this.cBoxTrigger.SelectedIndex = 0;
             this.numericUpTotalFrames.Value = 100;
         }
 
@@ -187,8 +187,8 @@ namespace Recording
             totalFrames = (double)numericUpTotalFrames.Value;
             lbMaxFrames.Text = ((double)numericUpTotalFrames.Value).ToString();
 
-            postTrigger = totalFrames * (100 - (double)numericUpPositionTrigger.Value) / 100;
-            preTrigger = totalFrames - postTrigger;
+            preTrigger = totalFrames * ( double)numericUpPositionTrigger.Value / 100;
+            postTrigger = totalFrames - preTrigger;
 
             DisconnectNumUpDownTrigger();
 
@@ -209,32 +209,38 @@ namespace Recording
         {
             double percentage = 0;
 
+            DisconnectNumUpDownPositionTrigger();
+            DisconnectTrBarPositionTrigger();
+
             if (cBoxTrigger.Text == "Pre-Trigger")
             {
                 preTrigger = (double)numericUpTrigger.Value;
 
                 if (preTrigger > totalFrames)
+                {
                     preTrigger = totalFrames;
+                    numericUpTrigger.Value = (decimal)preTrigger;
+                }
 
                 postTrigger = totalFrames - preTrigger;
 
-                percentage = 100 - (postTrigger * 100 / totalFrames);
+                percentage = 100 - (preTrigger * 100 / totalFrames);
             }
             else if (cBoxTrigger.Text == "Post-Trigger")
             {
                 postTrigger = (double)numericUpTrigger.Value;
 
                 if (postTrigger > totalFrames)
+                {
                     postTrigger = totalFrames;
+                    numericUpTrigger.Value = (decimal)postTrigger;
+                }
 
                 preTrigger = totalFrames - postTrigger;
 
-                percentage = 100 - (postTrigger * 100 / totalFrames);
+                percentage = (preTrigger * 100 / totalFrames);
             }
-                
-            DisconnectNumUpDownPositionTrigger();
-            DisconnectTrBarPositionTrigger();
-
+            
             numericUpPositionTrigger.Value = (decimal)percentage;
             trackBarPositionTrigger.Value = (int)percentage;
 
@@ -249,9 +255,8 @@ namespace Recording
         /// <param name="e"></param>
         private void numUpDownPositionTrigger_ValueChanged(object sender, EventArgs e)
         {
-
-            postTrigger = totalFrames * (100 - (double)numericUpPositionTrigger.Value) / 100;
-            preTrigger = totalFrames - postTrigger;
+            preTrigger = totalFrames * (double)numericUpPositionTrigger.Value / 100;
+            postTrigger = totalFrames - preTrigger;
 
             DisconnectNumUpDownTrigger();
             DisconnectTrBarPositionTrigger();
@@ -286,8 +291,8 @@ namespace Recording
         /// <param name="e"></param>
         private void trackBarPositionTrigger_ValueChanged(object sender, EventArgs e)
         {
-            postTrigger = totalFrames * (100 - (double)numericUpPositionTrigger.Value) / 100;
-            preTrigger = totalFrames - postTrigger;
+            preTrigger = totalFrames * (double)trackBarPositionTrigger.Value / 100;
+            postTrigger = totalFrames - preTrigger;
 
             DisconnectNumUpDownTrigger();
             DisconnectNumUpDownPositionTrigger();

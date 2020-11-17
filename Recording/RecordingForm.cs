@@ -111,7 +111,7 @@ namespace Recording
         /// </summary>
         public void InitMilLibrary()
         {
-            milApp = new MilApp("Recording", isTest: true);
+            milApp = new MilApp("Recording", isTest: false);
 
             /*** SISTEMAS AÑADIDOS ***/
             milApp.AddMilSystem(MIL.M_SYSTEM_GIGE_VISION);
@@ -169,9 +169,9 @@ namespace Recording
         /// </summary>
         public void InitFrameRateManager()
         {
-            frameRateManager = new FrameRateManager(this, ref milApp, ref tbLayoutPanelFrameRate, ref numericUpDownFrameRate, ref trBarFrameRate, ref idCam);
+            frameRateManager = new FrameRateManager(this, ref milApp, ref tbLayoutPanelFrameRate, ref numericUpDownFrameRate, ref trBarFrameRate, ref lbMaxFrameRate, ref idCam);
 
-
+            frameRateManager.changeFrameRateEvent += new FrameRateManager.changeFrameRateDelegate(ChangeFrameRate);
         }
 
         /// <summary>
@@ -350,7 +350,7 @@ namespace Recording
             //panelManager.ShowCams(idCam);
             panelManager.SelectCamera(idCam);
 
-
+            frameRateManager.Enable();
             frameRateManager.SelectCam();
 
             if (camInfo["Vendor"] == "FLIR" || camInfo["Vendor"].Contains("FLIR"))
@@ -361,7 +361,6 @@ namespace Recording
             else
             {
                 exposureTimeManager.Enable();
-                exposureTimeManager.SelectCam();
             }
 
             if (panelManager.IsShow(idCam))
@@ -380,6 +379,7 @@ namespace Recording
                 stateTools.Pause(state: false);
                 stateTools.ResetZoom(state: false);
             }
+
         }
 
         /// <summary>
@@ -392,6 +392,11 @@ namespace Recording
                 cameraManager.SelectCamera(id);
             else
                 cameraManager.DeselectCamera();
+        }
+
+        public void ChangeFrameRate(double value)
+        {
+            exposureTimeManager.Max(value);
         }
 
         public void FreeCamera()

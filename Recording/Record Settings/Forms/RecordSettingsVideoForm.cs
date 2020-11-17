@@ -46,6 +46,7 @@ namespace Recording
             ckBoxStopRecord.Checked = recordSettings.TimeStop > 0;
             numericUpDownStopRecord.Enabled = recordSettings.TimeStop > 0;
             numericUpDownStopRecord.Value = (decimal)recordSettings.TimeStop;
+            cBoxUnitsStopRecord.Enabled = recordSettings.TimeStop > 0;
 
             switch (recordSettings.UnitTimeStop)
             {
@@ -74,6 +75,7 @@ namespace Recording
         {
             numericUpDownStopRecord.Enabled = ckBoxStopRecord.Checked;
             cBoxOutputFormat.Enabled = ckBoxStopRecord.Checked;
+            cBoxUnitsStopRecord.Enabled = ckBoxStopRecord.Checked;
         }
 
         private void btnRoot_Click(object sender, EventArgs e)
@@ -108,12 +110,12 @@ namespace Recording
             if (ckBoxFps.Checked)
                 recordSettings.Fps = (double)numericUpDownFps.Value;
             else
-                recordSettings.Fps = -1;
+                recordSettings.Fps = 0;
             
             if (ckBoxStopRecord.Checked)
                 recordSettings.TimeStop = (double)numericUpDownStopRecord.Value;
             else
-                recordSettings.TimeStop = -1;
+                recordSettings.TimeStop = 0;
 
             recordSettings.UnitTimeStop = cBoxUnitsStopRecord.Text;
 

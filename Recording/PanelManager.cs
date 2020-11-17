@@ -481,7 +481,7 @@ namespace Recording
 
                         string pathFile = System.IO.Path.Combine(pathFolder, NAME_VIDEO_FILE + EXTENSION_VIDEO);
                         milApp.AddVideo(id.DevNSys, id.DevNCam, NAME_VIDEO_MILLIBRARY, (int)recordSettings.OutputFormat, timePretrigger: -1, timeStop: recordSettings.TimeStop);
-                        milApp.CamStartGrabInDisk(id.DevNSys, id.DevNCam, NAME_VIDEO_MILLIBRARY, pathFile);
+                        milApp.CamStartGrabInDisk(id.DevNSys, id.DevNCam, NAME_VIDEO_MILLIBRARY, pathFile, recordSettings.Fps);
 
                         break;
 

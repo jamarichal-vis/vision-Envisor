@@ -49,8 +49,8 @@ namespace Recording
         {
             Type = "Vídeo";
             outputFormat = MIL.M_AVI_MJPG;
-            fps = 10;
-            timeStop = 15;
+            fps = 0;
+            timeStop = 0;
             UnitTimeStop = "Segundos";
             Root = @"C:\Recording\Records";
         }

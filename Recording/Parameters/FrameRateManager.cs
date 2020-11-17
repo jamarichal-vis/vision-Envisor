@@ -16,9 +16,6 @@ namespace Recording
     /// </summary>
     class FrameRateManager
     {
-        private const int VALUE_MIN_FRAMERATE = 0;
-        private const int VALUE_MAX_FRAMERATE = 100;
-
         private Form form;
 
         /// <summary>
@@ -47,14 +44,27 @@ namespace Recording
         TrackBar trBarFrameRate;
 
         /// <summary>
+        /// Este atributo almacena el label donde se muestra el número máximo de fps de la cámara.
+        /// </summary>
+        Label lbMaxFrameRate;
+
+        /// <summary>
         /// Este evento es utilizado para acceder de forma segura a los atributos de un control desde otro hilo.
         /// </summary>
         /// <param name="control"></param>
         /// <param name="state"></param>
         public delegate void safeControlDelegate(Control control, bool state);
         public safeControlDelegate safeControlEvent;
+        
+        /// <summary>
+        /// Este evento es utilizado notificar a los demás módulos que se ha modificado el frame rate.
+        /// </summary>
+        /// <param name="control"></param>
+        /// <param name="state"></param>
+        public delegate void changeFrameRateDelegate(double value);
+        public changeFrameRateDelegate changeFrameRateEvent;
 
-        public FrameRateManager(Form form, ref MilApp milApp, ref TableLayoutPanel tableLayoutPanel, ref NumericUpDown numUpDown, ref TrackBar trBar, ref Id idCam)
+        public FrameRateManager(Form form, ref MilApp milApp, ref TableLayoutPanel tableLayoutPanel, ref NumericUpDown numUpDown, ref TrackBar trBar, ref Label lbMax, ref Id idCam)
         {
             this.form = form;
 
@@ -63,14 +73,11 @@ namespace Recording
             tbLayoutPanel = tableLayoutPanel;
             numUpDownFrameRate = numUpDown;
             trBarFrameRate = trBar;
+            lbMaxFrameRate = lbMax;
+
+
 
             this.idCam = idCam;
-
-            numUpDown.Minimum = VALUE_MIN_FRAMERATE;
-            numUpDown.Maximum = VALUE_MAX_FRAMERATE;
-
-            trBar.Minimum = VALUE_MIN_FRAMERATE;
-            trBar.Maximum = VALUE_MAX_FRAMERATE;
 
             safeControlEvent += new safeControlDelegate(Enable);
 
@@ -124,16 +131,42 @@ namespace Recording
             DisconnectNumUpDownFrameRate();
             DisconnectTrBarFrameRate();
 
+            /* MAX */
+            double max = milApp.CamMaxFrameRate(idCam.DevNSys, idCam.DevNCam);
+            max = 40;
+            LimitTrBar(max);
+            lbMaxFrameRate.Text = Math.Round(max).ToString();
+
             double frameRate = milApp.CamFrameRate(idCam.DevNSys, idCam.DevNCam);
 
-            double value = VALUE_MIN_FRAMERATE > frameRate ? VALUE_MIN_FRAMERATE : frameRate;
-            value = VALUE_MAX_FRAMERATE < value ? VALUE_MAX_FRAMERATE : value;
+            if (frameRate > max)
+                frameRate = max;
 
-            numUpDownFrameRate.Value = (decimal)value;
-            trBarFrameRate.Value = (int)value;
+            numUpDownFrameRate.Value = (decimal)frameRate;
+            trBarFrameRate.Value = (int)frameRate;
+
+            changeFrameRateEvent.Invoke(frameRate);
 
             ConnectNumUpDownFrameRate();
             ConnectTrBarFrameRate();
+        }
+
+        /// <summary>
+        /// Esta función limita el límite superior del control <see cref="numUpDownFrameRate">numUpDownFrameRate</see>/>.
+        /// </summary>
+        /// <param name="value">Valor que quieres establecer.</param>
+        private void LimitNumericUpDown(double value)
+        {
+            numUpDownFrameRate.Maximum = (decimal)value;
+        }
+
+        /// <summary>
+        /// Esta función limita el límite superior del control <see cref="trBarFrameRate">trBarFrameRate</see>/>.
+        /// </summary>
+        /// <param name="value">Valor que quieres establecer.</param>
+        private void LimitTrBar(double value)
+        {
+            trBarFrameRate.Maximum = (int)value;
         }
 
         /// <summary>
@@ -148,6 +181,9 @@ namespace Recording
             trBarFrameRate.Value = (int)numUpDownFrameRate.Value;
 
             ConnectTrBarFrameRate();
+
+            if (changeFrameRateEvent != null)
+                changeFrameRateEvent.Invoke((double)trBarFrameRate.Value);
 
             ChangeFrameRate((long)numUpDownFrameRate.Value);
         }
@@ -164,6 +200,9 @@ namespace Recording
             numUpDownFrameRate.Value = trBarFrameRate.Value;
 
             ConnectNumUpDownFrameRate();
+
+            if (changeFrameRateEvent != null)
+                changeFrameRateEvent.Invoke((double)numUpDownFrameRate.Value);
 
             ChangeFrameRate((long)trBarFrameRate.Value);
         }
