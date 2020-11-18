@@ -231,8 +231,8 @@
             this.treeViewCameras.Dock = System.Windows.Forms.DockStyle.Fill;
             this.treeViewCameras.Font = new System.Drawing.Font("Segoe UI", 9.75F);
             this.treeViewCameras.ForeColor = System.Drawing.Color.Black;
+            this.treeViewCameras.FullRowSelect = true;
             this.treeViewCameras.HideSelection = false;
-            this.treeViewCameras.LabelEdit = true;
             this.treeViewCameras.Location = new System.Drawing.Point(4, 35);
             this.treeViewCameras.Name = "treeViewCameras";
             this.treeViewCameras.ShowLines = false;
