@@ -98,6 +98,7 @@
     <Compile Include="Display Cameras\Forms\DisplayCameraForm.Designer.cs">
       <DependentUpon>DisplayCameraForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Parameters\FormatManager.cs" />
     <Compile Include="PanelManager.cs" />
     <Compile Include="Parameters\ExposureTimeManager.cs" />
     <Compile Include="Parameters\FrameRateManager.cs" />

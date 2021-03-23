@@ -149,7 +149,7 @@ namespace Recording
         /// </summary>
         public void StartGrab()
         {
-            milApp.StartGrab(IdCam.DevNSys, IdCam.DevNCam);
+            //milApp.StartGrab(IdCam.DevNSys, IdCam.DevNCam);
         }
 
         /// <summary>
@@ -157,7 +157,7 @@ namespace Recording
         /// </summary>
         public void Pause()
         {
-            milApp.StopGrabByThread(IdCam.DevNSys, IdCam.DevNCam);
+            //milApp.StopGrabByThread(IdCam.DevNSys, IdCam.DevNCam);
         }
 
         /// <summary>
@@ -165,12 +165,13 @@ namespace Recording
         /// </summary>
         public void DisconnectPanel()
         {
-            milApp.AllocPanelToCam(IdCam.DevNSys, IdCam.DevNCam, panel: null);
+            //milApp.AllocPanelToCam(IdCam.DevNSys, IdCam.DevNCam, panel: null);
         }
 
         public void ShowInfoCam()
         {
-            Dictionary<string, string> camInfo = milApp.CamInfo(IdCam.DevNSys, IdCam.DevNCam);
+            //Dictionary<string, string> camInfo = milApp.CamInfo(IdCam.DevNSys, IdCam.DevNCam);
+            Dictionary<string, string> camInfo = null;
 
             string model = camInfo["Vendor"] + " " + camInfo["Model"] + string.Format(" (DEV{0}", IdCam.DevNCam) + ")";
             lbModel.Text = model;
@@ -186,9 +187,9 @@ namespace Recording
 
         public void ChangeName(object sender, KeyPressEventArgs e)
         {
-            if ((int)e.KeyChar == (int)Keys.Enter)
-                if (txBoxName.Text != "")
-                    milApp.CamName(IdCam.DevNSys, IdCam.DevNCam, txBoxName.Text);
+            //if ((int)e.KeyChar == (int)Keys.Enter)
+            //    if (txBoxName.Text != "")
+            //        milApp.CamName(IdCam.DevNSys, IdCam.DevNCam, txBoxName.Text);
         }
 
         /// <summary>
@@ -210,8 +211,8 @@ namespace Recording
         /// </summary>
         public void ConnectFpsEvent()
         {
-            EventDataDict eventPresentCameraInfo = (EventDataDict)milApp.CamEvent(IdCam.DevNSys, IdCam.DevNCam, "FPS");
-            eventPresentCameraInfo._event += new EventDataDict._eventDelagete(Fps);
+            //EventDataDict eventPresentCameraInfo = (EventDataDict)milApp.CamEvent(IdCam.DevNSys, IdCam.DevNCam, "FPS");
+            //eventPresentCameraInfo._event += new EventDataDict._eventDelagete(Fps);
         }
 
         /// <summary>
@@ -286,7 +287,7 @@ namespace Recording
         /// </summary>
         public void Zoom()
         {
-            milApp.Zoom(IdCam.DevNSys, IdCam.DevNCam);
+            //milApp.Zoom(IdCam.DevNSys, IdCam.DevNCam);
         }
 
         

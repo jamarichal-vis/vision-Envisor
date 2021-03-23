@@ -17,14 +17,10 @@ namespace Recording
         private Form form;
 
         /// <summary>
-        /// Variable que contiene toda la estructura del control de las cámaras del sistema.
+        /// This variable storages the camera select by user.
+        /// It is used to connect all modules of the program.
         /// </summary>
-        private MilApp milApp;
-
-        /// <summary>
-        /// Este objeto almacena la identificación de la cámara que esta seleccionada en el programa.
-        /// </summary>
-        Id idCam;
+        private Camera camera_selected;
 
         /// <summary>
         /// Este atributo contiene el control TableLayout que pretende controlar esta clase.
@@ -49,18 +45,14 @@ namespace Recording
         public delegate void safeControlDelegate(Control control, bool state);
         public safeControlDelegate safeControlEvent;
 
-        public ExposureTimeManager(Form form, ref MilApp milApp, ref TableLayoutPanel tableLayoutPanel, ref NumericUpDown numUpDown, ref TrackBar trBar, ref Id idCam)
+        public ExposureTimeManager(Form form, ref TableLayoutPanel tableLayoutPanel, ref NumericUpDown numUpDown, ref TrackBar trBar)
         {
             this.form = form;
-
-            this.milApp = milApp;
-
+            
             tbLayoutPanel = tableLayoutPanel;
             numUpDownExposureTime = numUpDown;
             trBarExposureTime = trBar;
-
-            this.idCam = idCam;
-
+            
             numUpDown.Minimum = VALUE_MIN_EXPOSURETIME;
             numUpDown.Maximum = VALUE_MAX_EXPOSURETIME;
 
@@ -71,16 +63,7 @@ namespace Recording
 
             Events();
         }
-
-        /// <summary>
-        /// Este evento se ejecuta cuando se selecciona una cámara.
-        /// </summary>
-        public void SelectCam()
-        {
-            InitValue();
-        }
-
-
+        
         /// <summary>
         /// Este método habilita las funcionalidades de todos los controles de esta clase.
         /// </summary>
@@ -127,6 +110,17 @@ namespace Recording
         }
 
         /// <summary>
+        /// This event is executed when the user select a camera in <see cref="CameraManager">CameraManager</see>/> or 
+        /// <see cref="PanelManager">PanelManager</see>/>.
+        /// </summary>
+        public void SelectCam(Camera camera)
+        {
+            camera_selected = camera;
+
+            InitValue();
+        }
+
+        /// <summary>
         /// Este método inicializa los valores de frame rate de la cámara que se conecta.
         /// </summary>
         private void InitValue()
@@ -134,8 +128,8 @@ namespace Recording
             DisconnectnumUpDownExposureTime();
             DisconnecttrBarExposureTime();
 
-            double exposureTime = milApp.CamExposureTime(idCam.DevNSys, idCam.DevNCam);
-            exposureTime = exposureTime / 1000;
+            double exposureTime = (camera_selected as Basler).ExposureTime();
+            //exposureTime = exposureTime / 1000;
             double value = VALUE_MIN_EXPOSURETIME > exposureTime ? VALUE_MIN_EXPOSURETIME : exposureTime;
             value = VALUE_MAX_EXPOSURETIME < value ? VALUE_MAX_EXPOSURETIME : value;
 
@@ -145,6 +139,56 @@ namespace Recording
             ConnectnumUpDownExposureTime();
             ConnecttrBarExposureTime();
         }
+
+        /******************** LIMIT VALUE CONTROLS ********************/
+        /**************************************************************/
+        /**************************************************************/
+
+        /// <summary>
+        /// Esta función limita el límite superior del control <see cref="numUpDownExposureTime">numUpDownExposureTime</see>/>.
+        /// </summary>
+        /// <param name="value">Valor que quieres establecer.</param>
+        private void LimitNumericUpDown(double value)
+        {
+            numUpDownExposureTime.Maximum = 0;/*(decimal)value;*/
+        }
+
+        /// <summary>
+        /// Esta función limita el límite superior del control <see cref="trBarExposureTime">trBarExposureTime</see>/>.
+        /// </summary>
+        /// <param name="value">Valor que quieres establecer.</param>
+        private void LimitTrBar(double value)
+        {
+            trBarExposureTime.Maximum = (int)value;
+        }
+
+        /// <summary>
+        /// This function calculate the max exposure time for a frame rate value.
+        /// </summary>
+        /// <param name="frameRate">Frame rate of the camera.</param>
+        public void Max(double frameRate)
+        {
+            double max = 1 / frameRate;
+            max = max * 1000 * 1000; /* us */
+
+            DisconnectnumUpDownExposureTime();
+            DisconnecttrBarExposureTime();
+
+            LimitNumericUpDown(max);
+            LimitTrBar(max);
+
+            numUpDownExposureTime.Value = (decimal)max;
+            trBarExposureTime.Value = (int)max;
+
+            ChangeExposureTime((long)max);
+
+            ConnectnumUpDownExposureTime();
+            ConnecttrBarExposureTime();
+        }
+
+        /******************* CHANGE VALUE CONTROLS ********************/
+        /**************************************************************/
+        /**************************************************************/
 
         /// <summary>
         /// Este evento se ejecuta cuando se modifica el valor del control <see cref="numUpDownFrameRate">numUpDownFrameRate</see>/>.
@@ -185,49 +229,13 @@ namespace Recording
         /// <param name="value">Valor que quieres establecer.</param>
         private void ChangeExposureTime(long value)
         {
-            if (idCam.DevNSys != -1 && idCam.DevNCam != -1)
-            {
-                milApp.CamExposureTime(idCam.DevNSys, idCam.DevNCam, value < 35 ? 35 : value);
-            }
+            if (camera_selected != null)
+                (camera_selected as Basler).ExposureTime((double)value);
         }
 
-        public void Max(double frameRate)
-        {
-            double max = 1 / frameRate;
-            max = max * 1000 * 1000; /* us */
-
-            DisconnectnumUpDownExposureTime();
-            DisconnecttrBarExposureTime();
-
-            LimitNumericUpDown(max);
-            LimitTrBar(max);
-
-            numUpDownExposureTime.Value = 0;/*(decimal)max;*/
-            trBarExposureTime.Value = (int)max;
-
-            ChangeExposureTime((long)max);
-
-            ConnectnumUpDownExposureTime();
-            ConnecttrBarExposureTime();
-        }
-
-        /// <summary>
-        /// Esta función limita el límite superior del control <see cref="numUpDownExposureTime">numUpDownExposureTime</see>/>.
-        /// </summary>
-        /// <param name="value">Valor que quieres establecer.</param>
-        private void LimitNumericUpDown(double value)
-        {
-            numUpDownExposureTime.Maximum = 0;/*(decimal)value;*/
-        }
-
-        /// <summary>
-        /// Esta función limita el límite superior del control <see cref="trBarExposureTime">trBarExposureTime</see>/>.
-        /// </summary>
-        /// <param name="value">Valor que quieres establecer.</param>
-        private void LimitTrBar(double value)
-        {
-            trBarExposureTime.Maximum = (int)value;
-        }
+        /**************** CONNECT AND DISCONNECT CONTROLS *************/
+        /**************************************************************/
+        /**************************************************************/
 
         /// <summary>
         /// Esta función conecta el evento ValueChanged del control <see cref="numUpDownExposureTime">numUpDownExposureTime</see>/>;

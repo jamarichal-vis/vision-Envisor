@@ -19,14 +19,10 @@ namespace Recording
         private Form form;
 
         /// <summary>
-        /// Variable que contiene toda la estructura del control de las cámaras del sistema.
+        /// This variable storages the camera select by user.
+        /// It is used to connect all modules of the program.
         /// </summary>
-        private MilApp milApp;
-
-        /// <summary>
-        /// Este objeto almacena la identificación de la cámara que esta seleccionada en el programa.
-        /// </summary>
-        Id idCam;
+        private Camera camera_selected;
 
         /// <summary>
         /// Este atributo contiene el control TableLayout que pretende controlar esta clase.
@@ -64,31 +60,28 @@ namespace Recording
         public delegate void changeFrameRateDelegate(double value);
         public changeFrameRateDelegate changeFrameRateEvent;
 
-        public FrameRateManager(Form form, ref MilApp milApp, ref TableLayoutPanel tableLayoutPanel, ref NumericUpDown numUpDown, ref TrackBar trBar, ref Label lbMax, ref Id idCam)
+        public FrameRateManager(Form form, ref TableLayoutPanel tableLayoutPanel, ref NumericUpDown numUpDown, ref TrackBar trBar, ref Label lbMax)
         {
             this.form = form;
-
-            this.milApp = milApp;
-
+            
             tbLayoutPanel = tableLayoutPanel;
             numUpDownFrameRate = numUpDown;
             trBarFrameRate = trBar;
             lbMaxFrameRate = lbMax;
-
-
-
-            this.idCam = idCam;
-
+            
             safeControlEvent += new safeControlDelegate(Enable);
 
             Events();
         }
 
         /// <summary>
-        /// Este evento se ejecuta cuando se selecciona una cámara.
+        /// This method is executed when the user select a camera in <see cref="CameraManager">CameraManager</see>/> or 
+        /// <see cref="PanelManager">PanelManager</see>/>.
         /// </summary>
-        public void SelectCam()
+        public void SelectCam(Camera camera)
         {
+            camera_selected = camera;
+
             InitValue();
         }
 
@@ -128,28 +121,36 @@ namespace Recording
         /// </summary>
         private void InitValue()
         {
-            DisconnectNumUpDownFrameRate();
-            DisconnectTrBarFrameRate();
+            if(camera_selected != null)
+            {
+                DisconnectNumUpDownFrameRate();
+                DisconnectTrBarFrameRate();
 
-            /* MAX */
-            double max = 0/*milApp.CamMaxFrameRate(idCam.DevNSys, idCam.DevNCam)*/;
-            max = 40;
-            LimitTrBar(max);
-            lbMaxFrameRate.Text = Math.Round(max).ToString();
+                /* MAX */
+                double max = 40/*milApp.CamMaxFrameRate(idCam.DevNSys, idCam.DevNCam)*/;
 
-            double frameRate = milApp.CamFrameRate(idCam.DevNSys, idCam.DevNCam);
+                LimitTrBar(max);
+                lbMaxFrameRate.Text = Math.Round(max).ToString();
+                
+                double frameRate = camera_selected.FrameRate();
+                
+                if (frameRate > max)
+                    frameRate = max;
 
-            if (frameRate > max)
-                frameRate = max;
+                numUpDownFrameRate.Value = (decimal)frameRate;
+                trBarFrameRate.Value = (int)frameRate;
 
-            numUpDownFrameRate.Value = (decimal)frameRate;
-            trBarFrameRate.Value = (int)frameRate;
+                if(changeFrameRateEvent != null)
+                changeFrameRateEvent.Invoke(frameRate);
 
-            changeFrameRateEvent.Invoke(frameRate);
-
-            ConnectNumUpDownFrameRate();
-            ConnectTrBarFrameRate();
+                ConnectNumUpDownFrameRate();
+                ConnectTrBarFrameRate();
+            }
         }
+
+        /******************** LIMIT VALUE CONTROLS ********************/
+        /**************************************************************/
+        /**************************************************************/
 
         /// <summary>
         /// Esta función limita el límite superior del control <see cref="numUpDownFrameRate">numUpDownFrameRate</see>/>.
@@ -168,6 +169,10 @@ namespace Recording
         {
             trBarFrameRate.Maximum = (int)value;
         }
+
+        /******************* CHANGE VALUE CONTROLS ********************/
+        /**************************************************************/
+        /**************************************************************/
 
         /// <summary>
         /// Este evento se ejecuta cuando se modifica el valor del control <see cref="numUpDownFrameRate">numUpDownFrameRate</see>/>.
@@ -206,18 +211,20 @@ namespace Recording
 
             ChangeFrameRate((long)trBarFrameRate.Value);
         }
-
+        
+        /// <summary>
+        /// This method change the frame rate of the <see cref="camera_selected">camera_selected</see>/>.
+        /// </summary>
+        /// <param name="value"></param>
         private void ChangeFrameRate(long value)
         {
-            if (idCam.DevNSys != -1 && idCam.DevNCam != -1)
-            {
-                //milApp.StopGrab(idCam.DevNSys, idCam.DevNCam, MIL.M_WAIT);
-
-                milApp.CamFrameRate(idCam.DevNSys, idCam.DevNCam, value);
-
-                //milApp.StartGrab(idCam.DevNSys, idCam.DevNCam);
-            }
+            if (camera_selected != null)
+                camera_selected.FrameRate(value);
         }
+
+        /**************** CONNECT AND DISCONNECT CONTROLS *************/
+        /**************************************************************/
+        /**************************************************************/
 
         /// <summary>
         /// Esta función conecta el evento ValueChanged del control <see cref="numUpDownFrameRate">numUpDownFrameRate</see>/>;

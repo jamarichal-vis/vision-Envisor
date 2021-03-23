@@ -13,11 +13,6 @@ namespace Recording
     class SequenceManager
     {
         /// <summary>
-        /// Este objeto almacena la identificación de la cámara que esta seleccionada en el programa.
-        /// </summary>
-        private Id id;
-
-        /// <summary>
         /// Esta variable almacena el contorl numeriUpDown que controla el número de frames totales que se quieren grabar.
         /// </summary>
         private NumericUpDown numericUpTotalFrames;
@@ -63,11 +58,9 @@ namespace Recording
         /// </summary>
         private double postTrigger;
 
-        public SequenceManager(ref Id id, ref NumericUpDown numericUpTotalFrames, ref NumericUpDown numericUpTrigger, ref NumericUpDown numericUpPositionTrigger,
+        public SequenceManager(ref NumericUpDown numericUpTotalFrames, ref NumericUpDown numericUpTrigger, ref NumericUpDown numericUpPositionTrigger,
             ref ComboBox cBoxTrigger, ref TrackBar trackBarPositionTrigger, ref Label lbMaxFrames)
         {
-            this.id = id;
-
             this.numericUpTotalFrames = numericUpTotalFrames;
             this.numericUpTrigger = numericUpTrigger;
             this.numericUpPositionTrigger = numericUpPositionTrigger;

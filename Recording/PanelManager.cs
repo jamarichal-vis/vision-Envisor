@@ -187,14 +187,18 @@ namespace Recording
         {
             DisplayCameraForm displayCameraForm = null;
 
-            MIL_INT NbcamerasInGigeVisionSystem = milApp.GetNCameraInSystem(devSysGigeVision);
-            MIL_INT NbcamerasInUsb3Vision = milApp.GetNCameraInSystem(devSysUsb3Vision);
+            //MIL_INT NbcamerasInGigeVisionSystem = milApp.GetNCameraInSystem(devSysGigeVision);
+            //MIL_INT NbcamerasInUsb3Vision = milApp.GetNCameraInSystem(devSysUsb3Vision);
+
+            MIL_INT NbcamerasInGigeVisionSystem = 0;
+            MIL_INT NbcamerasInUsb3Vision = 0;
 
             for (MIL_INT devDig = MIL.M_DEV0; devDig < NbcamerasInGigeVisionSystem; devDig++)
             {
                 Id id = new Id(devSysGigeVision, devDig);
 
-                Dictionary<string, string> camInfo = milApp.CamInfo(id.DevNSys, id.DevNCam);
+                //Dictionary<string, string> camInfo = milApp.CamInfo(id.DevNSys, id.DevNCam);
+                Dictionary<string, string> camInfo = null;
 
                 if (camInfo["Vendor"] == "Basler")
                     displayCameraForm = new DisplayCameraBaslerForm(ref milApp, id: id);
@@ -233,7 +237,8 @@ namespace Recording
             {
                 DisplayCameraForm displayCameraForm = null;
 
-                Dictionary<string, string> camInfo = milApp.CamInfo(id.DevNSys, id.DevNCam);
+                //Dictionary<string, string> camInfo = milApp.CamInfo(id.DevNSys, id.DevNCam);
+                Dictionary<string, string> camInfo = null;
 
                 if (camInfo["Vendor"] == "Basler")
                     displayCameraForm = new DisplayCameraBaslerForm(ref milApp, id: id);
@@ -462,7 +467,8 @@ namespace Recording
         {
             foreach (Id id in pnlCameras.Keys)
             {
-                Dictionary<string, string> camInfo = milApp.CamInfo(id.DevNSys, id.DevNCam);
+                //Dictionary<string, string> camInfo = milApp.CamInfo(id.DevNSys, id.DevNCam);
+                Dictionary<string, string> camInfo = null;
 
                 string pathFolder = System.IO.Path.Combine(recordSettings.Root,
                     recordSettings.Type + " - " +
@@ -480,18 +486,18 @@ namespace Recording
                     case "Vídeo":
 
                         string pathFile = System.IO.Path.Combine(pathFolder, NAME_VIDEO_FILE + EXTENSION_VIDEO);
-                        milApp.AddVideo(id.DevNSys, id.DevNCam, NAME_VIDEO_MILLIBRARY, (int)recordSettings.OutputFormat, timePretrigger: -1, timeStop: recordSettings.TimeStop);
-                        milApp.CamStartGrabInDisk(id.DevNSys, id.DevNCam, NAME_VIDEO_MILLIBRARY, pathFile/*, recordSettings.Fps*/);
+                        //milApp.AddVideo(id.DevNSys, id.DevNCam, NAME_VIDEO_MILLIBRARY, (int)recordSettings.OutputFormat, timePretrigger: -1, timeStop: recordSettings.TimeStop);
+                        //milApp.CamStartGrabInDisk(id.DevNSys, id.DevNCam, NAME_VIDEO_MILLIBRARY, pathFile/*, recordSettings.Fps*/);
 
                         break;
 
                     case "Secuencia de imágenes":
 
-                        milApp.CamActivateSequenceImages(id.DevNSys, id.DevNCam, recordSettings.TimeStop, recordSettings.OutputFormat);
-                        milApp.CamStartSequenceImages(id.DevNSys, id.DevNCam, pathFolder);
+                        //milApp.CamActivateSequenceImages(id.DevNSys, id.DevNCam, recordSettings.TimeStop, recordSettings.OutputFormat);
+                        //milApp.CamStartSequenceImages(id.DevNSys, id.DevNCam, pathFolder);
 
-                        EventVideo eventEndSequenceVideo = (EventVideo)milApp.CamEvent(id.DevNSys, id.DevNCam, "EndSequenceImages");
-                        eventEndSequenceVideo._event += new EventVideo._eventDelagete(recordingForm.EndVideo);
+                        //EventVideo eventEndSequenceVideo = (EventVideo)milApp.CamEvent(id.DevNSys, id.DevNCam, "EndSequenceImages");
+                        //eventEndSequenceVideo._event += new EventVideo._eventDelagete(recordingForm.EndVideo);
 
                         break;
                 }
@@ -523,13 +529,13 @@ namespace Recording
                 {
                     case "Vídeo":
                         
-                        milApp.CamStopGrabInDisk(id.DevNSys, id.DevNCam, NAME_VIDEO_MILLIBRARY);
+                        //milApp.CamStopGrabInDisk(id.DevNSys, id.DevNCam, NAME_VIDEO_MILLIBRARY);
 
                         break;
 
                     case "Secuencia de imágenes":
 
-                        milApp.CamStopSequenceImages(id.DevNSys, id.DevNCam);
+                        //milApp.CamStopSequenceImages(id.DevNSys, id.DevNCam);
 
                         break;
                 }

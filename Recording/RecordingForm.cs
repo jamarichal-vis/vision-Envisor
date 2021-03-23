@@ -16,19 +16,30 @@ namespace Recording
     public partial class RecordingForm : Form
     {
         /// <summary>
-        /// Variable que contiene toda la estructura del control de las cámaras del sistema.
+        /// This object storages the app object of MilLibrary.
         /// </summary>
         private MilApp milApp;
 
         /// <summary>
-        /// Esta variable indica que posición esta el sistema GigeVision en la lista de sistemas de MilApp.
+        /// This dictionary contains all system in this app.
         /// </summary>
-        private MIL_INT devSysUsb3Vision;
+        private Dictionary<string, MilSystem> milSystems;
 
         /// <summary>
-        /// Esta variable indica que posición esta el sistema GigeVision en la lista de sistemas de MilApp.
+        /// This dictionary contains all cameras of the gigevision system.
         /// </summary>
-        private MIL_INT devSysGigeVision;
+        private Dictionary<string, Camera> cameras_GigeVision;
+
+        /// <summary>
+        /// This dictionary contains all cameras of the usb3Vision system.
+        /// </summary>
+        private Dictionary<string, Camera> cameras_Usb3Vision;
+
+        /// <summary>
+        /// This variable storages the camera select by user.
+        /// It is used to connect all modules of the program.
+        /// </summary>
+        private Camera camera_selected;
 
         /// <summary>
         /// Esta variable contiene todas las funciones necesarias para controlar el objeto <see cref="treeViewCameras">treeViewCameras</see>/>.
@@ -44,6 +55,11 @@ namespace Recording
         /// Esta variable contiene todas las funciones necesarias para controlar la sección de exposure time de las cámaras.
         /// </summary>
         private ExposureTimeManager exposureTimeManager;
+        
+        /// <summary>
+        /// This variable storages all function related format cameras.
+        /// </summary>
+        private FormatManager formatManager;
 
         /// <summary>
         /// Esta variable contiene todas las funciones necesarias para controlar la sección de secuencias de imágenes en una cámara.
@@ -71,6 +87,15 @@ namespace Recording
         /// </summary>
         private Id idCam;
 
+        /************************** ACCESS ****************************/
+        /**************************************************************/
+        /**************************************************************/
+
+        public Dictionary<string, MilSystem> MilSystems { get => milSystems; set => milSystems = value; }
+        public Dictionary<string, Camera> Cameras_GigeVision { get => cameras_GigeVision; set => cameras_GigeVision = value; }
+        public Dictionary<string, Camera> Cameras_Usb3Vision { get => cameras_Usb3Vision; set => cameras_Usb3Vision = value; }
+        public Camera Camera_selected { get => camera_selected; set => camera_selected = value; }
+
         [DllImport("uxtheme.dll", ExactSpelling = true, CharSet = CharSet.Unicode)]
         private static extern int SetWindowTheme(IntPtr hwnd, string pszSubAppName, string pszSubIdList);
 
@@ -82,9 +107,7 @@ namespace Recording
         public RecordingForm()
         {
             InitializeComponent();
-
-            idCam = new Id();
-
+            
             InitMilLibrary();
 
             InitCameraManager();
@@ -93,13 +116,15 @@ namespace Recording
 
             InitExposureTimeManager();
 
-            InitSequenceManager();
+            InitFormatManager();
 
-            InitPanelManager();
+            //InitSequenceManager();
 
-            InitStateTools();
+            //InitPanelManager();
 
-            CheckCameras();
+            //InitStateTools();
+
+            //CheckCameras();
 
             /* Cambio de diseño de treViewCameras. */
             SetTreeViewTheme(treeViewCameras.Handle);
@@ -112,131 +137,46 @@ namespace Recording
         {
             milApp = new MilApp("Recording", isTest: false);
 
-            /*** SISTEMAS AÑADIDOS ***/
-            milApp.AddMilSystem(MIL.M_SYSTEM_GIGE_VISION);
-            milApp.AddMilSystem(MIL.M_SYSTEM_USB3_VISION);
+            /****************** ADD SYSTEMS ***********************/
+            /******************************************************/
+            /******************************************************/
+            milApp.AddMilSystem(MilApp.GIGEVISION_SYSTEM_NAME);
+            milApp.AddMilSystem(MilApp.USB3VISION_SYSTEM_NAME);
 
-            /*** DEV SISTEMAS ***/
-            devSysGigeVision = milApp.GetIndexSystemByType(MIL.M_SYSTEM_GIGE_VISION);
-            devSysUsb3Vision = milApp.GetIndexSystemByType(MIL.M_SYSTEM_USB3_VISION);
+            MilSystems = milApp.MilSystems;
 
-            /*** INSTANCIA DE CÁMARAS ***/
-            milApp.AddCameraToSystem();
-
-            /*** EVENTOS DE SISTEMAS ***/
-            EventPresentCameraInfo eventPresentCameraInfo = (EventPresentCameraInfo)milApp.SysEvent(devSysGigeVision, "ConnectedCameraInfo");
-            eventPresentCameraInfo._event += new EventPresentCameraInfo._eventDelagete(ConnectedCameraEvent);
-
-            EventPresentCameraInfo eventPresentDisconnectCameraInfo = (EventPresentCameraInfo)milApp.SysEvent(devSysGigeVision, "DisconnectedCameraInfo");
-            eventPresentDisconnectCameraInfo._event += new EventPresentCameraInfo._eventDelagete(DisconnectedCameraEvent);
-
-            /*** CONEXIÓN DE CÁMARAS ***/
-
-            /*Este for realiza la configuración inicial de todas las cámaras que se encunetran en la aplicación.
-                     * Preparamos las cámaras.
-                     * Activamos y asignamos la función de los eventos asignados a cada cámara. Este evento se ejecutar cuando se analicen los blobs de las roi de una cámara.
-                     * Indicamos el processing function que se ejecuta cuando activemos el hilo de cada cámara.
-                     * Activamos el hilo de cada cámara.*/
-            MIL_INT NbcamerasInGigeVisionSystem = milApp.GetNCameraInSystem(devSysGigeVision);
-
-            MIL_INT NbcamerasInUsb3Vision = milApp.GetNCameraInSystem(devSysUsb3Vision);
-
-            for (MIL_INT devDig = MIL.M_DEV0; devDig < NbcamerasInGigeVisionSystem; devDig++)
-                ConnectedCameraInSystem(devSysGigeVision, devDig);
-
-            for (MIL_INT devDig = MIL.M_DEV0; devDig < NbcamerasInUsb3Vision; devDig++)
-                ConnectedCameraInSystem(devSysUsb3Vision, devDig);
-
-
-        }
-
-        /// <summary>
-        /// Este método contiene todas las funciones necesarias para inicializar el objeto <see cref="cameraManager">cameraManager</see>/>.
-        /// </summary>
-        public void InitCameraManager()
-        {
-            cameraManager = new CameraManager(this, ref milApp, ref devSysGigeVision, ref devSysUsb3Vision, ref treeViewCameras, ref idCam);
-
-            cameraManager.selectedCamEvent += new CameraManager.selectedCamDelegate(SelectedCamera);
-            cameraManager.freeCamCamEvent += new CameraManager.FreeCamDelegate(FreeCamera);
-
-            cameraManager.ShowCamerasConnected();
-        }
-
-        /// <summary>
-        /// Este método contiene todas las funciones necesarias para inicializar el objeto <see cref="frameRateManager">frameRateManager</see>/>.
-        /// </summary>
-        public void InitFrameRateManager()
-        {
-            frameRateManager = new FrameRateManager(this, ref milApp, ref tbLayoutPanelFrameRate, ref numericUpDownFrameRate, ref trBarFrameRate, ref lbMaxFrameRate, ref idCam);
-
-            frameRateManager.changeFrameRateEvent += new FrameRateManager.changeFrameRateDelegate(ChangeFrameRate);
-        }
-
-        /// <summary>
-        /// Este método contiene todas las funciones necesarias para inicializar el objeto <see cref="exposureTimeManager">exposureTimeManager</see>/>.
-        /// </summary>
-        public void InitExposureTimeManager()
-        {
-            exposureTimeManager = new ExposureTimeManager(this, ref milApp, ref tableLayoutPanelExposureTime, ref numericUpDownExposureTime, ref trackBarExposureTime, ref idCam);
-        }
-
-        private void InitSequenceManager()
-        {
-            sequenceManager = new SequenceManager(ref idCam, ref numericUpDownTotalFrames, ref numericUpDownTrigger, ref numericUpDownPositionTrigger,
-                ref cbBoxSequence, ref trackBarSequence, ref lbMaxSequence);
-
-            recordSettings = new RecordSettings();
-        }
-
-        /// <summary>
-        /// Este método contiene todas las funciones necesarias para inicializar el objeto <see cref="panelManager">panelManager</see>/>.
-        /// </summary>
-        public void InitPanelManager()
-        {
-            MIL_INT NbcamerasInGigeVisionSystem = milApp.GetNCameraInSystem(devSysGigeVision);
-            MIL_INT NbcamerasInUsb3Vision = milApp.GetNCameraInSystem(devSysUsb3Vision);
-
-            int numCams = (int)NbcamerasInGigeVisionSystem + (int)NbcamerasInUsb3Vision;
-
-            panelManager = new PanelManager(ref milApp, ref devSysGigeVision, ref devSysUsb3Vision, numCams, ref pnlCams, this);
-            panelManager.AddControl(ref btnContinuousShot, ref btnPause, ref btnResetZoom, ref btnRecord, ref btnStopRecord);
-
-            panelManager.notifyMouseDownEvent += new PanelManager.notifyMouseDownDelegate(SelectCameraInCameraManager);
-            panelManager.notifyCloseEvent += new PanelManager.notifyCloseDelegate(SelectCameraInCameraManager);
-            panelManager.notifyGrabCameraEvent += new PanelManager.notifyGrabCameraDelegate(NotifyGrabCameras);
-            panelManager.notifyStopGrabCameraEvent += new PanelManager.notifyStopGrabCameraDelegate(NotifyStopGrabCameras);
-            panelManager.RecordSettings = recordSettings;
-
-            cameraManager.grabContinuousCamEvent += new CameraManager.grabContinuousCamDelegate(panelManager.StartGrabContinuous);
-        }
-
-        /// <summary>
-        /// Este método contiene todas las funciones necesarias para inicializar el objeto <see cref="stateTools">stateTools</see>/>.
-        /// </summary>
-        private void InitStateTools()
-        {
-            stateTools = new StateTools(this, ref btnSingleShot, ref btnContinuousShot, ref btnPause, ref btnRecord, ref btnZoomLess, ref btnZoomPlus, ref btnResetZoom, ref btnStopRecord);
-
-            panelManager.StateTools = stateTools;
-            cameraManager.StateTools = stateTools;
-        }
-
-        /// <summary>
-        /// Esta función se encargará de comprobar si se han conectado cámaras.
-        /// En caso de que no hayan cámaras conectadas se deshabilitarán los controles de las secciones del rpograma que requieran la conexión de
-        /// cámaras.
-        /// </summary>
-        public void CheckCameras()
-        {
-            MIL_INT NbcamerasInGigeVisionSystem = milApp.GetNCameraInSystem(devSysGigeVision);
-            MIL_INT NbcamerasInUsb3Vision = milApp.GetNCameraInSystem(devSysUsb3Vision);
-
-            if (NbcamerasInGigeVisionSystem == 0 && NbcamerasInUsb3Vision == 0)
+            /************* EVENT GIGEVISION SYSTEM ****************/
+            /******************************************************/
+            /******************************************************/
+            if (MilSystems.ContainsKey(MilApp.GIGEVISION_SYSTEM_NAME))
             {
-                exposureTimeManager.Disable();
-                frameRateManager.Disable();
+                (MilSystems[MilApp.GIGEVISION_SYSTEM_NAME] as MilSysCameras)._cameraConnectedEvent += new MilSysCameras._cameraDelagete(ConnectedCameraEvent);
+                (MilSystems[MilApp.GIGEVISION_SYSTEM_NAME] as MilSysCameras)._cameraDisconnectedEvent += new MilSysCameras._cameraDelagete(DisconnectedCameraEvent);
             }
+
+            /****************** ADD CAMERAS ***********************/
+            /******************************************************/
+            /******************************************************/
+            if (MilSystems.ContainsKey(MilApp.GIGEVISION_SYSTEM_NAME))
+            {
+                Cameras_GigeVision = (MilSystems[MilApp.GIGEVISION_SYSTEM_NAME] as MilSysCameras).Cameras;
+                (MilSystems[MilApp.GIGEVISION_SYSTEM_NAME] as MilSysCameras).AddCamera();
+            }
+
+            if (MilSystems.ContainsKey(MilApp.USB3VISION_SYSTEM_NAME))
+            {
+                Cameras_Usb3Vision = (MilSystems[MilApp.USB3VISION_SYSTEM_NAME] as MilSysCameras).Cameras;
+                (MilSystems[MilApp.USB3VISION_SYSTEM_NAME] as MilSysCameras).AddCamera();
+            }
+
+            /************** ADD CAMERAS IN PROGRAM ****************/
+            foreach (var camera in Cameras_GigeVision)
+                ConnectedCameraInSystem(camera.Value);
+
+            foreach (var camera in Cameras_Usb3Vision)
+                ConnectedCameraInSystem(camera.Value);
+
+            camera_selected = null;
         }
 
         /// <summary>
@@ -251,21 +191,17 @@ namespace Recording
         /// <param name="devMatrox">identifier that matrox has assigned to the camera that has been connected</param>
         /// <param name="name">Name of the camera that has connected.</param>
         /// <param name="ip">Ip of the camera that has connected.</param>
-        public void ConnectedCameraEvent(MIL_ID milSys, MIL_INT devMatrox, string name, string ip)
+        public void ConnectedCameraEvent(Camera camera)
         {
-            /*Obtenemos el indice del sistema en la arquitenctura de MilApp a partir del MIL_ID del sistema que ha activado este evento.*/
-            MIL_INT devSys = milApp.GetIndexSystemByID(milSys);
+            ConnectedCameraInSystem(camera);
 
-            /*Indice de la cámara en el sistema que ha ejecutado este evento.*/
-            MIL_INT devDig = milApp.GetIndexCamByDevN(devSysGigeVision, devMatrox);
+            //Id id = new Id(devSys, devDig);
 
-            Id id = new Id(devSys, devDig);
+            //ConnectedCameraInSystem(id.DevNSys, id.DevNCam);
 
-            ConnectedCameraInSystem(id.DevNSys, id.DevNCam);
+            //cameraManager.ShowCamerasConnected(id);
 
-            cameraManager.ShowCamerasConnected(id);
-
-            panelManager.ShowCams(id);
+            //panelManager.ShowCams(id);
         }
 
         /// <summary>
@@ -276,16 +212,11 @@ namespace Recording
         /// <param name="devN">Posición en MilLibrary de la cámara.</param>
         /// <param name="disconnectedCameraName">Nombre de la cámara.</param>
         /// <param name="disconnectedCameraIp">Ip de la cámara.</param>
-        public void DisconnectedCameraEvent(MIL_ID milSys, MIL_INT devN, string disconnectedCameraName, string disconnectedCameraIp)
+        public void DisconnectedCameraEvent(Camera camera)
         {
-            /*Obtenemos el indice del sistema en la arquitenctura de MilApp a partir del MIL_ID del sistema que ha activado este evento.*/
-            MIL_INT devSys = milApp.GetIndexSystemByID(milSys);
+            //panelManager.Remove(id);
 
-            Id id = new Id(devSys, devN);
-
-            panelManager.Remove(id);
-
-            cameraManager.RemoveCamera(id);
+            //cameraManager.RemoveCamera(id);
         }
 
         /// <summary>
@@ -299,29 +230,12 @@ namespace Recording
         /// Esta función es utilizada en el constructor IgniteForm y <see cref="ConnectedCameraEvent(MIL_ID, MIL_INT)">ConnectedCameraEvent(MIL_ID, MIL_INT)</see>/>
         /// </summary>
         /// <param name="devDig">Posición de la cámara en el sistema con la que quieres trabajar. En este caso el sistema es GigeVision.</param>
-        public void ConnectedCameraInSystem(MIL_INT devSys, MIL_INT devDig)
+        public void ConnectedCameraInSystem(Camera camera)
         {
-            milApp.AllocSystemRecourse(devSys, devDig);
-
-            /************************ EVENTOS ******************************/
-            /*Activamos y asignamos los evento a las funciones correspondinetes.*/
-
-            EventPresentCameraInfo eventProcessingFunction = (EventPresentCameraInfo)milApp.CamEvent(devSys, devDig, "ProcessingFunctionInformation");
-            eventProcessingFunction._event += new EventPresentCameraInfo._eventDelagete(ProcessingFunction);
-
-            /********************** VIDEO ********************/
-
-            EventVideo eventEndVideo = (EventVideo)milApp.CamEvent(devSys, devDig, "EndVideo");
-            eventEndVideo._event += new EventVideo._eventDelagete(EndVideo);
-
-            /********************* AÑADIR IMAGENES *************************/
-            /* Activamos las imagenes en la cámara devDig */
-            milApp.CamActivateImages(devSys, devDig);
-
-            /********************** PROCESSING FUNCTION ********************/
-
-            /*Indicamos el processing function que debe ejecutarse cuando se ejecute el hilo de la cámara correspondiente.*/
-            milApp.CamSetProcessingFunction(devSys, devDig, "Recording");
+            /******************** EVENT PROCESSING FUNCTION ****************/
+            /***************************************************************/
+            /***************************************************************/
+            camera._cameraEvent += new Camera._cameraDelagete(ProcessingFunction);
         }
 
         /// <summary>
@@ -331,190 +245,351 @@ namespace Recording
         /// <param name="dev">Dev de la cámara en el interior del sistema.</param>
         /// <param name="name">Nombre de la cámara.</param>
         /// <param name="ip">Ip de la cámara.</param>
-        public void ProcessingFunction(MIL_ID milSys, MIL_INT dev, string name, string ip)
+        public void ProcessingFunction(Camera camera)
         {
 
         }
 
         /// <summary>
-        /// Esta función se ejecuta cuando se selecciona una cámara en <see cref="cameraManager">cameraManager</see>/>.
-        /// Ver, <see cref="CameraManager.selectedCamEvent">CameraManager.selectedCamEvent</see>/>.
-        /// La variable <see cref="idCam">idCam</see>/> se actualiza en el interior del objeto <see cref="cameraManager"/>.
-        /// Ver, <see cref="CameraManager.treeViewCameras_AfterSelect(object, TreeViewEventArgs)">CameraManager.treeViewCameras_AfterSelect(object, TreeViewEventArgs)</see>/>.
+        /// Este método contiene todas las funciones necesarias para inicializar el objeto <see cref="cameraManager">cameraManager</see>/>.
         /// </summary>
-        public void SelectedCamera()
+        public void InitCameraManager()
         {
-            Dictionary<string, string> camInfo = milApp.CamInfo(idCam.DevNSys, idCam.DevNCam);
+            cameraManager = new CameraManager(this, ref treeViewCameras, cameras_GigeVision: ref cameras_GigeVision, cameras_Usb3Vision: ref cameras_Usb3Vision,
+                camera_selected: ref camera_selected);
 
-            //panelManager.ShowCams(idCam);
-            panelManager.SelectCamera(idCam);
+            cameraManager.selectedCamEvent += new CameraManager.selectedCamDelegate(SelectedCamera);
+            cameraManager.freeCamCamEvent += new CameraManager.FreeCamDelegate(FreeCamera);
 
-            frameRateManager.Enable();
-            frameRateManager.SelectCam();
-
-            if (camInfo["Vendor"] == "FLIR" || camInfo["Vendor"].Contains("FLIR"))
-            {
-                exposureTimeManager.Reset();
-                exposureTimeManager.Disable();
-            }
-            else
-            {
-                exposureTimeManager.Enable();
-            }
-
-            if (panelManager.IsShow(idCam))
-            {
-                /* STATE TOOLS */
-                stateTools.SingleShot();
-                stateTools.GrabContinuous(state: false);
-                stateTools.Pause();
-                stateTools.ResetZoom();
-            }
-            else
-            {
-                /* STATE TOOLS */
-                stateTools.SingleShot(state: false);
-                stateTools.GrabContinuous();
-                stateTools.Pause(state: false);
-                stateTools.ResetZoom(state: false);
-            }
-
+            cameraManager.ShowCamerasConnected();
         }
 
         /// <summary>
-        /// This function is used to select a camera in <see cref="cameraManager">cameraManager</see>/>.
+        /// This method initializer the <see cref="frameRateManager">frameRateManager</see>/> object.
         /// </summary>
-        /// <param name="id">Id of the camera you want to select.</param>
-        public void SelectCameraInCameraManager(Id id)
+        public void InitFrameRateManager()
         {
-            if (id != null)
-                cameraManager.SelectCamera(id);
-            else
-                cameraManager.DeselectCamera();
+            frameRateManager = new FrameRateManager(this, ref tbLayoutPanelFrameRate, ref numericUpDownFrameRate, ref trBarFrameRate, ref lbMaxFrameRate);
+
+            frameRateManager.changeFrameRateEvent += new FrameRateManager.changeFrameRateDelegate(ChangeFrameRate);
         }
 
+        /// <summary>
+        /// This method initializer the <see cref="frameRateManager">frameRateManager</see>/> object.
+        /// </summary>
+        public void InitExposureTimeManager()
+        {
+            exposureTimeManager = new ExposureTimeManager(this, ref tableLayoutPanelExposureTime, ref numericUpDownExposureTime, ref trackBarExposureTime);
+        }
+
+        /// <summary>
+        /// This method initializer the <see cref="formatManager">formatManager</see>/> object.
+        /// </summary>
+        public void InitFormatManager()
+        {
+            formatManager = new FormatManager(this, tableLayoutPanel: ref tableLayoutPanelFormat, numUpDownSizeX: ref numericUpDownImageFormatPixelX,
+                numUpDownSizeY: ref numericUpDownImageFormatPixelY);
+        }
+
+        private void InitSequenceManager()
+        {
+            sequenceManager = new SequenceManager(ref numericUpDownTotalFrames, ref numericUpDownTrigger, ref numericUpDownPositionTrigger,
+                ref cbBoxSequence, ref trackBarSequence, ref lbMaxSequence);
+
+            recordSettings = new RecordSettings();
+        }
+
+        ///// <summary>
+        ///// Este método contiene todas las funciones necesarias para inicializar el objeto <see cref="panelManager">panelManager</see>/>.
+        ///// </summary>
+        //public void InitPanelManager()
+        //{
+        //    MIL_INT NbcamerasInGigeVisionSystem = milApp.GetNCameraInSystem(devSysGigeVision);
+        //    MIL_INT NbcamerasInUsb3Vision = milApp.GetNCameraInSystem(devSysUsb3Vision);
+
+        //    int numCams = (int)NbcamerasInGigeVisionSystem + (int)NbcamerasInUsb3Vision;
+
+        //    panelManager = new PanelManager(ref milApp, ref devSysGigeVision, ref devSysUsb3Vision, numCams, ref pnlCams, this);
+        //    panelManager.AddControl(ref btnContinuousShot, ref btnPause, ref btnResetZoom, ref btnRecord, ref btnStopRecord);
+
+        //    panelManager.notifyMouseDownEvent += new PanelManager.notifyMouseDownDelegate(SelectCameraInCameraManager);
+        //    panelManager.notifyCloseEvent += new PanelManager.notifyCloseDelegate(SelectCameraInCameraManager);
+        //    panelManager.notifyGrabCameraEvent += new PanelManager.notifyGrabCameraDelegate(NotifyGrabCameras);
+        //    panelManager.notifyStopGrabCameraEvent += new PanelManager.notifyStopGrabCameraDelegate(NotifyStopGrabCameras);
+        //    panelManager.RecordSettings = recordSettings;
+
+        //    cameraManager.grabContinuousCamEvent += new CameraManager.grabContinuousCamDelegate(panelManager.StartGrabContinuous);
+        //}
+
+        ///// <summary>
+        ///// Este método contiene todas las funciones necesarias para inicializar el objeto <see cref="stateTools">stateTools</see>/>.
+        ///// </summary>
+        //private void InitStateTools()
+        //{
+        //    stateTools = new StateTools(this, ref btnSingleShot, ref btnContinuousShot, ref btnPause, ref btnRecord, ref btnZoomLess, ref btnZoomPlus, ref btnResetZoom, ref btnStopRecord);
+
+        //    panelManager.StateTools = stateTools;
+        //    cameraManager.StateTools = stateTools;
+        //}
+
+        ///// <summary>
+        ///// Esta función se encargará de comprobar si se han conectado cámaras.
+        ///// En caso de que no hayan cámaras conectadas se deshabilitarán los controles de las secciones del rpograma que requieran la conexión de
+        ///// cámaras.
+        ///// </summary>
+        //public void CheckCameras()
+        //{
+        //    MIL_INT NbcamerasInGigeVisionSystem = milApp.GetNCameraInSystem(devSysGigeVision);
+        //    MIL_INT NbcamerasInUsb3Vision = milApp.GetNCameraInSystem(devSysUsb3Vision);
+
+        //    if (NbcamerasInGigeVisionSystem == 0 && NbcamerasInUsb3Vision == 0)
+        //    {
+        //        exposureTimeManager.Disable();
+        //        frameRateManager.Disable();
+        //    }
+        //}
+
+        /****************** CAMERA MANAGER FUNCTION ***********************/
+        /******************************************************************/
+        /******************************************************************/
+
+        /// <summary>
+        /// This method is used to notify to this form that the user have selected a camera.
+        /// 
+        /// The camera selected is in <see cref="camera_selected">camera_selected</see>/>.
+        /// </summary>
+        private void SelectedCamera(Camera camera)
+        {
+            if(frameRateManager != null)
+            {
+                frameRateManager.Enable();
+                frameRateManager.SelectCam(camera: camera);
+            }
+
+            if(exposureTimeManager != null)
+            {
+                if (camera.GetType().ToString().Contains("Basler"))
+                {
+                    exposureTimeManager.Enable();
+                    exposureTimeManager.SelectCam(camera: camera);
+                }
+                else
+                {
+                    exposureTimeManager.Reset();
+                    exposureTimeManager.Disable();
+                }
+            }
+
+            if (formatManager != null)
+            {
+                formatManager.Enable();
+                formatManager.SelectCam(camera: camera);
+            }
+        }
+
+        /// <summary>
+        /// This method is used to notify to this form that the user have freed a camera in <see cref="CameraManager">CameraManager</see>/>.
+        /// 
+        /// See, <see cref="InitCameraManager">InitCameraManager</see>/>.
+        /// </summary>
+        private void FreeCamera()
+        {
+
+        }
+
+        /****************** FRAME RATE MANAGER FUNCTION *******************/
+        /******************************************************************/
+        /******************************************************************/
+
+        /// <summary>
+        /// This method is executed when the user modify the frame rate of a camera in <see cref="frameRateManager">frameRateManager</see>/>.
+        /// See <see cref="InitFrameRateManager">InitFrameRateManager</see>/>.
+        /// </summary>
+        /// <param name="value">Value of the frame rate modified</param>
         public void ChangeFrameRate(double value)
         {
-            exposureTimeManager.Max(value);
+            //exposureTimeManager.Max(value);
         }
 
-        public void FreeCamera()
-        {
-            panelManager.Remove(idCam);
-        }
+        ///// <summary>
+        ///// Esta función se ejecuta cuando se selecciona una cámara en <see cref="cameraManager">cameraManager</see>/>.
+        ///// Ver, <see cref="CameraManager.selectedCamEvent">CameraManager.selectedCamEvent</see>/>.
+        ///// La variable <see cref="idCam">idCam</see>/> se actualiza en el interior del objeto <see cref="cameraManager"/>.
+        ///// Ver, <see cref="CameraManager.treeViewCameras_AfterSelect(object, TreeViewEventArgs)">CameraManager.treeViewCameras_AfterSelect(object, TreeViewEventArgs)</see>/>.
+        ///// </summary>
+        //public void SelectedCamera()
+        //{
+        //    Dictionary<string, string> camInfo = milApp.CamInfo(idCam.DevNSys, idCam.DevNCam);
 
-        /// <summary>
-        /// Esta función esta conectada con el evento <see cref="SequenceManager.startGrabEvent">"SequenceManager.startGrabEvent</see>/>.
-        /// 
-        /// Se ejecutará cuando se ejecute el evento click de <see cref="btnRecord">btnRecord</see>/>, 
-        /// definido en <see cref="SequenceManager.btnRecord_Click(object, EventArgs)">SequenceManager.btnRecord_Click(object, EventArgs)</see>/>
-        /// </summary>
-        private void StartGrabVideo()
-        {
-            panelManager.GrabCamera(idCam);
-        }
+        //    //panelManager.ShowCams(idCam);
+        //    panelManager.SelectCamera(idCam);
 
-        /// <summary>
-        /// Esta función se conectará con el evento <see cref="PanelManager.notifyGrabCameraEvent">PanelManager.notifyGrabCameraEvent</see>/>.
-        /// 
-        /// Aqui, se aplicarán todas las funciones necesarias cuando se comience a grabar en <see cref="PanelManager">PanelManager</see>/>.
-        /// </summary>
-        private void NotifyGrabCameras()
-        {
-            cameraManager.EnableTreeView(state: false);
-            frameRateManager.Disable();
-            exposureTimeManager.Disable();
-        }
+        //    frameRateManager.Enable();
+        //    frameRateManager.SelectCam();
 
-        /// <summary>
-        /// Esta función se conectará con el evento <see cref="PanelManager.notifyStopGrabCameraEvent">PanelManager.notifyStopGrabCameraEvent</see>/>.
-        /// 
-        /// Aqui, se aplicarán todas las funciones necesarias cuando se termine la grabación en <see cref="PanelManager">PanelManager</see>/>.
-        /// </summary>
-        private void NotifyStopGrabCameras()
-        {
-            cameraManager.EnableTreeView(state: true);
-            frameRateManager.Enable(safe: true);
-            exposureTimeManager.Enable(safe: true);
-        }
+        //    if (camInfo["Vendor"] == "FLIR" || camInfo["Vendor"].Contains("FLIR"))
+        //    {
+        //        exposureTimeManager.Reset();
+        //        exposureTimeManager.Disable();
+        //    }
+        //    else
+        //    {
+        //        exposureTimeManager.Enable();
+        //    }
 
-        /// <summary>
-        /// Esta función se ejecuta cuando se termina la grabación de un vídeo o secuencia de imágenes.
-        /// </summary>
-        /// <param name="milSys">Dev del sistema en MilLibrary.</param>
-        /// <param name="CameraName">Nombre de la cámara que ha lanzado este evento.</param>
-        /// <param name="CameraIp">Ip de la cámara que ha lanzado este evento.</param>
-        /// <param name="path">Path del vídeo que se ha grabado.</param>
-        /// <param name="fps">Fps de la cámara.</param>
-        public void EndVideo(MIL_ID milSys, MIL_INT matroxDevDig, string CameraName, string CameraIp, string path, double fps)
-        {
-            MIL_INT devSys = milApp.GetIndexSystemByID(milSys);
-            MIL_INT devCam = milApp.GetIndexCamByDevN(devSys, matroxDevDig);
+        //    if (panelManager.IsShow(idCam))
+        //    {
+        //        /* STATE TOOLS */
+        //        stateTools.SingleShot();
+        //        stateTools.GrabContinuous(state: false);
+        //        stateTools.Pause();
+        //        stateTools.ResetZoom();
+        //    }
+        //    else
+        //    {
+        //        /* STATE TOOLS */
+        //        stateTools.SingleShot(state: false);
+        //        stateTools.GrabContinuous();
+        //        stateTools.Pause(state: false);
+        //        stateTools.ResetZoom(state: false);
+        //    }
 
-            Id id = new Id(devSys, devCam);
+        //}
 
-            if (idCam.Equal(id))
-                panelManager.SelectCamera(id);
-            else
-                panelManager.DeselectCamera(id);
+        ///// <summary>
+        ///// This function is used to select a camera in <see cref="cameraManager">cameraManager</see>/>.
+        ///// </summary>
+        ///// <param name="id">Id of the camera you want to select.</param>
+        //public void SelectCameraInCameraManager(Id id)
+        //{
+        //    if (id != null)
+        //        cameraManager.SelectCamera(id);
+        //    else
+        //        cameraManager.DeselectCamera();
+        //}
 
-            stateTools.Record();
-            stateTools.StopRecord(state: false);
-            stateTools.Pause();
-            stateTools.SingleShot();
+        //public void ChangeFrameRate(double value)
+        //{
+        //    exposureTimeManager.Max(value);
+        //}
 
-            panelManager.EnableDisplayCameraFormClose();
-            panelManager.ConnectNotifyCameraSelected();
-            cameraManager.EnableTreeView(state: true);
-            frameRateManager.Enable(safe: true);
-            exposureTimeManager.Enable(safe: true);
-        }
+        //public void FreeCamera()
+        //{
+        //    panelManager.Remove(idCam);
+        //}
 
-        /// <summary>
-        /// Función para añadir un formulario dentro de un panel
-        /// </summary>
-        /// <param name="fh"></param>
-        /// <param name="panel"></param>
-        public void AddFormInPanel(Form fh, Panel panel) /*(MetroForm fh)*/
-        {
-            if (panel.Controls.Count > 0)
-                panel.Controls.RemoveAt(0);
+        ///// <summary>
+        ///// Esta función esta conectada con el evento <see cref="SequenceManager.startGrabEvent">"SequenceManager.startGrabEvent</see>/>.
+        ///// 
+        ///// Se ejecutará cuando se ejecute el evento click de <see cref="btnRecord">btnRecord</see>/>, 
+        ///// definido en <see cref="SequenceManager.btnRecord_Click(object, EventArgs)">SequenceManager.btnRecord_Click(object, EventArgs)</see>/>
+        ///// </summary>
+        //private void StartGrabVideo()
+        //{
+        //    panelManager.GrabCamera(idCam);
+        //}
 
-            fh.TopLevel = false;
-            fh.FormBorderStyle = FormBorderStyle.None;
-            fh.ControlBox = false;
-            //fh.ShadowType = MetroFormShadowType.None;
-            fh.Dock = DockStyle.Fill;
+        ///// <summary>
+        ///// Esta función se conectará con el evento <see cref="PanelManager.notifyGrabCameraEvent">PanelManager.notifyGrabCameraEvent</see>/>.
+        ///// 
+        ///// Aqui, se aplicarán todas las funciones necesarias cuando se comience a grabar en <see cref="PanelManager">PanelManager</see>/>.
+        ///// </summary>
+        //private void NotifyGrabCameras()
+        //{
+        //    cameraManager.EnableTreeView(state: false);
+        //    frameRateManager.Disable();
+        //    exposureTimeManager.Disable();
+        //}
 
-            panel.Controls.Add(fh);
-            panel.Tag = fh;
-            panel.AutoSize = true;
-            fh.Show();
-        }
+        ///// <summary>
+        ///// Esta función se conectará con el evento <see cref="PanelManager.notifyStopGrabCameraEvent">PanelManager.notifyStopGrabCameraEvent</see>/>.
+        ///// 
+        ///// Aqui, se aplicarán todas las funciones necesarias cuando se termine la grabación en <see cref="PanelManager">PanelManager</see>/>.
+        ///// </summary>
+        //private void NotifyStopGrabCameras()
+        //{
+        //    cameraManager.EnableTreeView(state: true);
+        //    frameRateManager.Enable(safe: true);
+        //    exposureTimeManager.Enable(safe: true);
+        //}
 
-        private void RecordingForm_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            //displayCameraBaslerForm.DisconnectPanel();
+        ///// <summary>
+        ///// Esta función se ejecuta cuando se termina la grabación de un vídeo o secuencia de imágenes.
+        ///// </summary>
+        ///// <param name="milSys">Dev del sistema en MilLibrary.</param>
+        ///// <param name="CameraName">Nombre de la cámara que ha lanzado este evento.</param>
+        ///// <param name="CameraIp">Ip de la cámara que ha lanzado este evento.</param>
+        ///// <param name="path">Path del vídeo que se ha grabado.</param>
+        ///// <param name="fps">Fps de la cámara.</param>
+        //public void EndVideo(MIL_ID milSys, MIL_INT matroxDevDig, string CameraName, string CameraIp, string path, double fps)
+        //{
+        //    MIL_INT devSys = milApp.GetIndexSystemByID(milSys);
+        //    MIL_INT devCam = milApp.GetIndexCamByDevN(devSys, matroxDevDig);
 
-            milApp.FreeRecourse();
-        }
+        //    Id id = new Id(devSys, devCam);
 
-        private void RecordingForm_MouseDown(object sender, MouseEventArgs e)
-        {
+        //    if (idCam.Equal(id))
+        //        panelManager.SelectCamera(id);
+        //    else
+        //        panelManager.DeselectCamera(id);
 
-        }
+        //    stateTools.Record();
+        //    stateTools.StopRecord(state: false);
+        //    stateTools.Pause();
+        //    stateTools.SingleShot();
 
-        private void grabarConfiguraciónToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            RecordSettingsForm recordSettingsForm = new RecordSettingsForm(ref recordSettings);
-            recordSettingsForm.StartPosition = FormStartPosition.CenterScreen;
+        //    panelManager.EnableDisplayCameraFormClose();
+        //    panelManager.ConnectNotifyCameraSelected();
+        //    cameraManager.EnableTreeView(state: true);
+        //    frameRateManager.Enable(safe: true);
+        //    exposureTimeManager.Enable(safe: true);
+        //}
 
-            recordSettingsForm.ShowDialog();
-        }
+        ///// <summary>
+        ///// Función para añadir un formulario dentro de un panel
+        ///// </summary>
+        ///// <param name="fh"></param>
+        ///// <param name="panel"></param>
+        //public void AddFormInPanel(Form fh, Panel panel) /*(MetroForm fh)*/
+        //{
+        //    if (panel.Controls.Count > 0)
+        //        panel.Controls.RemoveAt(0);
 
-        private void RecordingForm_Load(object sender, EventArgs e)
-        {
+        //    fh.TopLevel = false;
+        //    fh.FormBorderStyle = FormBorderStyle.None;
+        //    fh.ControlBox = false;
+        //    //fh.ShadowType = MetroFormShadowType.None;
+        //    fh.Dock = DockStyle.Fill;
 
-        }
+        //    panel.Controls.Add(fh);
+        //    panel.Tag = fh;
+        //    panel.AutoSize = true;
+        //    fh.Show();
+        //}
+
+        //private void RecordingForm_FormClosing(object sender, FormClosingEventArgs e)
+        //{
+        //    //displayCameraBaslerForm.DisconnectPanel();
+
+        //    milApp.FreeRecourse();
+        //}
+
+        //private void RecordingForm_MouseDown(object sender, MouseEventArgs e)
+        //{
+
+        //}
+
+        //private void grabarConfiguraciónToolStripMenuItem_Click(object sender, EventArgs e)
+        //{
+        //    RecordSettingsForm recordSettingsForm = new RecordSettingsForm(ref recordSettings);
+        //    recordSettingsForm.StartPosition = FormStartPosition.CenterScreen;
+
+        //    recordSettingsForm.ShowDialog();
+        //}
+
+        //private void RecordingForm_Load(object sender, EventArgs e)
+        //{
+
+        //}
     }
 }

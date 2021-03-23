@@ -44,11 +44,11 @@
             this.lbExposureUnits = new System.Windows.Forms.Label();
             this.trackBarExposureTime = new System.Windows.Forms.TrackBar();
             this.lbParameter = new System.Windows.Forms.Label();
-            this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
+            this.tableLayoutPanelFormat = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             this.lbImageFormatX = new System.Windows.Forms.Label();
             this.numericUpDownImageFormatPixelX = new System.Windows.Forms.NumericUpDown();
-            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
+            this.numericUpDownImageFormatPixelY = new System.Windows.Forms.NumericUpDown();
             this.lbImageFormatY = new System.Windows.Forms.Label();
             this.lbImageFormat = new System.Windows.Forms.Label();
             this.cbBoxImageFormat = new System.Windows.Forms.ComboBox();
@@ -113,10 +113,10 @@
             this.tableLayoutPanel5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownExposureTime)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarExposureTime)).BeginInit();
-            this.tableLayoutPanel2.SuspendLayout();
+            this.tableLayoutPanelFormat.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownImageFormatPixelX)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownImageFormatPixelY)).BeginInit();
             this.tbLayoutPanelFrameRate.SuspendLayout();
             this.tableLayoutPanel8.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trBarFrameRate)).BeginInit();
@@ -254,7 +254,7 @@
             this.tbLayoutPanelParameter.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tbLayoutPanelParameter.Controls.Add(this.tableLayoutPanelExposureTime, 0, 3);
             this.tbLayoutPanelParameter.Controls.Add(this.lbParameter, 0, 0);
-            this.tbLayoutPanelParameter.Controls.Add(this.tableLayoutPanel2, 0, 1);
+            this.tbLayoutPanelParameter.Controls.Add(this.tableLayoutPanelFormat, 0, 1);
             this.tbLayoutPanelParameter.Controls.Add(this.tbLayoutPanelFrameRate, 0, 2);
             this.tbLayoutPanelParameter.Controls.Add(this.tbLayoutPanelSequence, 0, 4);
             this.tbLayoutPanelParameter.Controls.Add(this.tableLayoutPanel6, 0, 5);
@@ -369,23 +369,24 @@
             this.lbParameter.Text = "PARÁMETROS";
             this.lbParameter.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // tableLayoutPanel2
+            // tableLayoutPanelFormat
             // 
-            this.tableLayoutPanel2.ColumnCount = 1;
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel2.Controls.Add(this.tableLayoutPanel3, 0, 2);
-            this.tableLayoutPanel2.Controls.Add(this.lbImageFormat, 0, 0);
-            this.tableLayoutPanel2.Controls.Add(this.cbBoxImageFormat, 0, 1);
-            this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(5, 43);
-            this.tableLayoutPanel2.Margin = new System.Windows.Forms.Padding(4);
-            this.tableLayoutPanel2.Name = "tableLayoutPanel2";
-            this.tableLayoutPanel2.RowCount = 3;
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 31F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 12F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(318, 115);
-            this.tableLayoutPanel2.TabIndex = 1;
+            this.tableLayoutPanelFormat.ColumnCount = 1;
+            this.tableLayoutPanelFormat.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanelFormat.Controls.Add(this.tableLayoutPanel3, 0, 2);
+            this.tableLayoutPanelFormat.Controls.Add(this.lbImageFormat, 0, 0);
+            this.tableLayoutPanelFormat.Controls.Add(this.cbBoxImageFormat, 0, 1);
+            this.tableLayoutPanelFormat.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanelFormat.Enabled = false;
+            this.tableLayoutPanelFormat.Location = new System.Drawing.Point(5, 43);
+            this.tableLayoutPanelFormat.Margin = new System.Windows.Forms.Padding(4);
+            this.tableLayoutPanelFormat.Name = "tableLayoutPanelFormat";
+            this.tableLayoutPanelFormat.RowCount = 3;
+            this.tableLayoutPanelFormat.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
+            this.tableLayoutPanelFormat.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 31F));
+            this.tableLayoutPanelFormat.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 12F));
+            this.tableLayoutPanelFormat.Size = new System.Drawing.Size(318, 115);
+            this.tableLayoutPanelFormat.TabIndex = 1;
             // 
             // tableLayoutPanel3
             // 
@@ -396,7 +397,7 @@
             this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 10F));
             this.tableLayoutPanel3.Controls.Add(this.lbImageFormatX, 1, 0);
             this.tableLayoutPanel3.Controls.Add(this.numericUpDownImageFormatPixelX, 0, 0);
-            this.tableLayoutPanel3.Controls.Add(this.numericUpDown1, 2, 0);
+            this.tableLayoutPanel3.Controls.Add(this.numericUpDownImageFormatPixelY, 2, 0);
             this.tableLayoutPanel3.Controls.Add(this.lbImageFormatY, 3, 0);
             this.tableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel3.Location = new System.Drawing.Point(4, 60);
@@ -428,14 +429,14 @@
             this.numericUpDownImageFormatPixelX.Size = new System.Drawing.Size(116, 22);
             this.numericUpDownImageFormatPixelX.TabIndex = 1;
             // 
-            // numericUpDown1
+            // numericUpDownImageFormatPixelY
             // 
-            this.numericUpDown1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.numericUpDown1.Location = new System.Drawing.Point(159, 15);
-            this.numericUpDown1.Margin = new System.Windows.Forms.Padding(4);
-            this.numericUpDown1.Name = "numericUpDown1";
-            this.numericUpDown1.Size = new System.Drawing.Size(116, 22);
-            this.numericUpDown1.TabIndex = 2;
+            this.numericUpDownImageFormatPixelY.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.numericUpDownImageFormatPixelY.Location = new System.Drawing.Point(159, 15);
+            this.numericUpDownImageFormatPixelY.Margin = new System.Windows.Forms.Padding(4);
+            this.numericUpDownImageFormatPixelY.Name = "numericUpDownImageFormatPixelY";
+            this.numericUpDownImageFormatPixelY.Size = new System.Drawing.Size(116, 22);
+            this.numericUpDownImageFormatPixelY.TabIndex = 2;
             // 
             // lbImageFormatY
             // 
@@ -1056,7 +1057,6 @@
             this.grabarConfiguraciónToolStripMenuItem.Name = "grabarConfiguraciónToolStripMenuItem";
             this.grabarConfiguraciónToolStripMenuItem.Size = new System.Drawing.Size(300, 28);
             this.grabarConfiguraciónToolStripMenuItem.Text = "Configuración de Grabación";
-            this.grabarConfiguraciónToolStripMenuItem.Click += new System.EventHandler(this.grabarConfiguraciónToolStripMenuItem_Click);
             // 
             // ayudaToolStripMenuItem
             // 
@@ -1075,9 +1075,6 @@
             this.Name = "RecordingForm";
             this.Text = "Recording";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.RecordingForm_FormClosing);
-            this.Load += new System.EventHandler(this.RecordingForm_Load);
-            this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.RecordingForm_MouseDown);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
             this.tbLayoutPanelMain.ResumeLayout(false);
@@ -1093,12 +1090,12 @@
             this.tableLayoutPanel5.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownExposureTime)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarExposureTime)).EndInit();
-            this.tableLayoutPanel2.ResumeLayout(false);
-            this.tableLayoutPanel2.PerformLayout();
+            this.tableLayoutPanelFormat.ResumeLayout(false);
+            this.tableLayoutPanelFormat.PerformLayout();
             this.tableLayoutPanel3.ResumeLayout(false);
             this.tableLayoutPanel3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownImageFormatPixelX)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownImageFormatPixelY)).EndInit();
             this.tbLayoutPanelFrameRate.ResumeLayout(false);
             this.tableLayoutPanel8.ResumeLayout(false);
             this.tableLayoutPanel8.PerformLayout();
@@ -1144,11 +1141,11 @@
         private System.Windows.Forms.Label lbExposureUnits;
         private System.Windows.Forms.TrackBar trackBarExposureTime;
         private System.Windows.Forms.Label lbParameter;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanelFormat;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
         private System.Windows.Forms.Label lbImageFormatX;
         private System.Windows.Forms.NumericUpDown numericUpDownImageFormatPixelX;
-        private System.Windows.Forms.NumericUpDown numericUpDown1;
+        private System.Windows.Forms.NumericUpDown numericUpDownImageFormatPixelY;
         private System.Windows.Forms.Label lbImageFormatY;
         private System.Windows.Forms.Label lbImageFormat;
         private System.Windows.Forms.ComboBox cbBoxImageFormat;

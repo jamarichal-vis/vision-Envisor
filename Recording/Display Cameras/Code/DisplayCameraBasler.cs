@@ -44,7 +44,7 @@ namespace Recording
 
         public override void AllocCamera()
         {
-            milApp.AllocPanelToCam(IdCam.DevNSys, IdCam.DevNCam, pnlCam);
+            //milApp.AllocPanelToCam(IdCam.DevNSys, IdCam.DevNCam, pnlCam);
 
             /* EVENTS */
             ConnectMouseEvent();
@@ -64,10 +64,10 @@ namespace Recording
         /// </summary>
         public override void ConnectMouseEvent()
         {
-            EventMouseTemperature eventPresentCameraInfo = (EventMouseTemperature)milApp.CamEvent(IdCam.DevNSys, IdCam.DevNCam, "Intensity");
-            eventPresentCameraInfo._event += new EventMouseTemperature._eventDelagete(Mouse);
+            //EventMouseTemperature eventPresentCameraInfo = (EventMouseTemperature)milApp.CamEvent(IdCam.DevNSys, IdCam.DevNCam, "Intensity");
+            //eventPresentCameraInfo._event += new EventMouseTemperature._eventDelagete(Mouse);
 
-            milApp.CamStartMouseMove(IdCam.DevNSys, IdCam.DevNCam);
+            //milApp.CamStartMouseMove(IdCam.DevNSys, IdCam.DevNCam);
         }
     }
 }
