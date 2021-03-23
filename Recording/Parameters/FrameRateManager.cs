@@ -132,7 +132,7 @@ namespace Recording
             DisconnectTrBarFrameRate();
 
             /* MAX */
-            double max = milApp.CamMaxFrameRate(idCam.DevNSys, idCam.DevNCam);
+            double max = 0/*milApp.CamMaxFrameRate(idCam.DevNSys, idCam.DevNCam)*/;
             max = 40;
             LimitTrBar(max);
             lbMaxFrameRate.Text = Math.Round(max).ToString();

@@ -157,7 +157,7 @@ namespace Recording
         /// </summary>
         public void Pause()
         {
-            milApp.StopGrab(IdCam.DevNSys, IdCam.DevNCam);
+            milApp.StopGrabByThread(IdCam.DevNSys, IdCam.DevNCam);
         }
 
         /// <summary>

@@ -201,8 +201,8 @@ namespace Recording
 
             LimitNumericUpDown(max);
             LimitTrBar(max);
-            
-            numUpDownExposureTime.Value = (decimal)max;
+
+            numUpDownExposureTime.Value = 0;/*(decimal)max;*/
             trBarExposureTime.Value = (int)max;
 
             ChangeExposureTime((long)max);
@@ -217,7 +217,7 @@ namespace Recording
         /// <param name="value">Valor que quieres establecer.</param>
         private void LimitNumericUpDown(double value)
         {
-            numUpDownExposureTime.Maximum = (decimal)value;
+            numUpDownExposureTime.Maximum = 0;/*(decimal)value;*/
         }
 
         /// <summary>
