@@ -1057,6 +1057,7 @@
             this.grabarConfiguraciónToolStripMenuItem.Name = "grabarConfiguraciónToolStripMenuItem";
             this.grabarConfiguraciónToolStripMenuItem.Size = new System.Drawing.Size(300, 28);
             this.grabarConfiguraciónToolStripMenuItem.Text = "Configuración de Grabación";
+            this.grabarConfiguraciónToolStripMenuItem.Click += new System.EventHandler(this.grabarConfiguraciónToolStripMenuItem_Click);
             // 
             // ayudaToolStripMenuItem
             // 

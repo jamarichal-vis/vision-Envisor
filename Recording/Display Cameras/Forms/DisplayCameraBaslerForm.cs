@@ -30,10 +30,10 @@ namespace Recording
             DisplayCamera.DisconnectPanel();
         }
 
-        public override void EnableBtnClose(bool state)
-        {
-            Invoke(safeControlEvent, new object[] { btnClose, state });
-        }
+        //public override void EnableBtnClose(bool state)
+        //{
+        //    Invoke(safeControlEvent, new object[] { btnClose, state });
+        //}
 
         private void DisplayCameraBaslerForm_MouseDown(object sender, MouseEventArgs e)
         {

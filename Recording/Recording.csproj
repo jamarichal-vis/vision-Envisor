@@ -56,6 +56,12 @@
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="FormsLibrary">
+      <HintPath>..\..\FormsLibrary\FormsLibrary\bin\x64\Debug\netstandard2.0\FormsLibrary.dll</HintPath>
+    </Reference>
+    <Reference Include="FormsMilLibrary">
+      <HintPath>..\..\FormsLibrary\FormsMilLibrary\bin\x64\Debug\FormsMilLibrary.exe</HintPath>
+    </Reference>
     <Reference Include="Matrox.MatroxImagingLibrary, Version=6.1.320.0, Culture=neutral, PublicKeyToken=726f03a4652993c7, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\millibrary\MilLibrary\bin\x64\Debug\net461\Matrox.MatroxImagingLibrary.dll</HintPath>
@@ -99,7 +105,7 @@
       <DependentUpon>DisplayCameraForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Parameters\FormatManager.cs" />
-    <Compile Include="PanelManager.cs" />
+    <Compile Include="Display Cameras\PanelManager\PanelManager.cs" />
     <Compile Include="Parameters\ExposureTimeManager.cs" />
     <Compile Include="Parameters\FrameRateManager.cs" />
     <Compile Include="Id.cs" />
@@ -176,9 +182,7 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Display Cameras\PanelManager\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="Resources\Remove.png" />
   </ItemGroup>

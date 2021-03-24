@@ -55,7 +55,7 @@ namespace Recording
         /// Esta variable contiene todas las funciones necesarias para controlar la sección de exposure time de las cámaras.
         /// </summary>
         private ExposureTimeManager exposureTimeManager;
-        
+
         /// <summary>
         /// This variable storages all function related format cameras.
         /// </summary>
@@ -107,7 +107,7 @@ namespace Recording
         public RecordingForm()
         {
             InitializeComponent();
-            
+
             InitMilLibrary();
 
             InitCameraManager();
@@ -118,11 +118,11 @@ namespace Recording
 
             InitFormatManager();
 
-            //InitSequenceManager();
+            InitSequenceManager();
 
-            //InitPanelManager();
+            InitPanelManager();
 
-            //InitStateTools();
+            InitStateTools();
 
             //CheckCameras();
 
@@ -293,61 +293,40 @@ namespace Recording
 
         private void InitSequenceManager()
         {
+            recordSettings = new RecordSettings();
+
             sequenceManager = new SequenceManager(ref numericUpDownTotalFrames, ref numericUpDownTrigger, ref numericUpDownPositionTrigger,
                 ref cbBoxSequence, ref trackBarSequence, ref lbMaxSequence);
-
-            recordSettings = new RecordSettings();
         }
+        
+        /// <summary>
+        /// Este método contiene todas las funciones necesarias para inicializar el objeto <see cref="panelManager">panelManager</see>/>.
+        /// </summary>
+        public void InitPanelManager()
+        {
+            panelManager = new PanelManager(ref pnlCams, this);
+            panelManager.AddControl(ref btnContinuousShot, ref btnPause, ref btnResetZoom, ref btnRecord, ref btnStopRecord);
 
-        ///// <summary>
-        ///// Este método contiene todas las funciones necesarias para inicializar el objeto <see cref="panelManager">panelManager</see>/>.
-        ///// </summary>
-        //public void InitPanelManager()
-        //{
-        //    MIL_INT NbcamerasInGigeVisionSystem = milApp.GetNCameraInSystem(devSysGigeVision);
-        //    MIL_INT NbcamerasInUsb3Vision = milApp.GetNCameraInSystem(devSysUsb3Vision);
+            panelManager.notifyGrabContinuousCameraEvent += new PanelManager.notifyGrabContinuousCameraDelegate(NotifyCameraGrabContinuous);
+            panelManager.notifyPauseCameraEvent += new PanelManager.notifyPauseCameraDelegate(NotifyCameraPause);
+            panelManager.notifyGrabCameraEvent += new PanelManager.notifyGrabCameraDelegate(NotifyCameraGrab);
+            panelManager.notifyStopGrabCameraEvent += new PanelManager.notifyStopGrabCameraDelegate(NotifyCameraStopGrab);
 
-        //    int numCams = (int)NbcamerasInGigeVisionSystem + (int)NbcamerasInUsb3Vision;
+            panelManager.RecordSettings = recordSettings;
 
-        //    panelManager = new PanelManager(ref milApp, ref devSysGigeVision, ref devSysUsb3Vision, numCams, ref pnlCams, this);
-        //    panelManager.AddControl(ref btnContinuousShot, ref btnPause, ref btnResetZoom, ref btnRecord, ref btnStopRecord);
-
-        //    panelManager.notifyMouseDownEvent += new PanelManager.notifyMouseDownDelegate(SelectCameraInCameraManager);
-        //    panelManager.notifyCloseEvent += new PanelManager.notifyCloseDelegate(SelectCameraInCameraManager);
-        //    panelManager.notifyGrabCameraEvent += new PanelManager.notifyGrabCameraDelegate(NotifyGrabCameras);
-        //    panelManager.notifyStopGrabCameraEvent += new PanelManager.notifyStopGrabCameraDelegate(NotifyStopGrabCameras);
-        //    panelManager.RecordSettings = recordSettings;
-
-        //    cameraManager.grabContinuousCamEvent += new CameraManager.grabContinuousCamDelegate(panelManager.StartGrabContinuous);
-        //}
+            //cameraManager.grabContinuousCamEvent += new CameraManager.grabContinuousCamDelegate(panelManager.StartGrabContinuous);
+        }
 
         ///// <summary>
         ///// Este método contiene todas las funciones necesarias para inicializar el objeto <see cref="stateTools">stateTools</see>/>.
         ///// </summary>
-        //private void InitStateTools()
-        //{
-        //    stateTools = new StateTools(this, ref btnSingleShot, ref btnContinuousShot, ref btnPause, ref btnRecord, ref btnZoomLess, ref btnZoomPlus, ref btnResetZoom, ref btnStopRecord);
+        private void InitStateTools()
+        {
+            stateTools = new StateTools(this, ref btnSingleShot, ref btnContinuousShot, ref btnPause, ref btnRecord, ref btnZoomLess, ref btnZoomPlus, ref btnResetZoom, ref btnStopRecord);
 
-        //    panelManager.StateTools = stateTools;
-        //    cameraManager.StateTools = stateTools;
-        //}
-
-        ///// <summary>
-        ///// Esta función se encargará de comprobar si se han conectado cámaras.
-        ///// En caso de que no hayan cámaras conectadas se deshabilitarán los controles de las secciones del rpograma que requieran la conexión de
-        ///// cámaras.
-        ///// </summary>
-        //public void CheckCameras()
-        //{
-        //    MIL_INT NbcamerasInGigeVisionSystem = milApp.GetNCameraInSystem(devSysGigeVision);
-        //    MIL_INT NbcamerasInUsb3Vision = milApp.GetNCameraInSystem(devSysUsb3Vision);
-
-        //    if (NbcamerasInGigeVisionSystem == 0 && NbcamerasInUsb3Vision == 0)
-        //    {
-        //        exposureTimeManager.Disable();
-        //        frameRateManager.Disable();
-        //    }
-        //}
+            panelManager.StateTools = stateTools;
+            cameraManager.StateTools = stateTools;
+        }
 
         /****************** CAMERA MANAGER FUNCTION ***********************/
         /******************************************************************/
@@ -360,13 +339,22 @@ namespace Recording
         /// </summary>
         private void SelectedCamera(Camera camera)
         {
-            if(frameRateManager != null)
+            /* FORMAT */
+            if (formatManager != null)
+            {
+                formatManager.Enable();
+                formatManager.SelectCam(camera: camera);
+            }
+
+            /* FRAME RATE */
+            if (frameRateManager != null)
             {
                 frameRateManager.Enable();
                 frameRateManager.SelectCam(camera: camera);
             }
 
-            if(exposureTimeManager != null)
+            /* EXPOSURE TIME */
+            if (exposureTimeManager != null)
             {
                 if (camera.GetType().ToString().Contains("Basler"))
                 {
@@ -380,10 +368,10 @@ namespace Recording
                 }
             }
 
-            if (formatManager != null)
+            /* PANEL MANAGER */
+            if (panelManager != null)
             {
-                formatManager.Enable();
-                formatManager.SelectCam(camera: camera);
+                panelManager.SelectCamera(camera: ref camera);
             }
         }
 
@@ -395,6 +383,62 @@ namespace Recording
         private void FreeCamera()
         {
 
+        }
+
+        /******************* PANEL MANAGER FUNCTION ***********************/
+        /******************************************************************/
+        /******************************************************************/
+
+        /// <summary>
+        /// This method is executes when the user press <see cref="btnContinuousShot">btnContinuousShot</see>/>.
+        /// 
+        /// Also, this function is connect with <see cref="PanelManager.notifyGrabContinuousCameraEvent">PanelManager.notifyGrabContinuousCameraEvent</see>/>.
+        /// See, <see cref="InitPanelManager">InitPanelManager</see>/>.
+        /// </summary>
+        /// <param name="camera">Camera selected in panel manager.</param>
+        private void NotifyCameraGrabContinuous(Camera camera)
+        {
+            formatManager.Disable();
+            frameRateManager.Disable();
+            exposureTimeManager.Disable();
+        }
+
+        /// <summary>
+        /// This method is executes when the user press <see cref="btnPause">btnPause</see>/>.
+        /// 
+        /// Also, this function is connect with <see cref="PanelManager.notifyPauseCameraEvent">PanelManager.notifyPauseCameraEvent</see>/>.
+        /// See, <see cref="InitPanelManager">InitPanelManager</see>/>.
+        /// </summary>
+        /// <param name="camera">Camera selected in panel manager.</param>
+        private void NotifyCameraPause(Camera camera)
+        {
+            formatManager.Enable();
+            frameRateManager.Enable();
+            exposureTimeManager.Enable();
+        }
+
+        /// <summary>
+        /// This method is executes when the user press <see cref="btnRecord">btnRecord</see>/>.
+        /// 
+        /// Also, this function is connect with <see cref="PanelManager.notifyStopGrabCameraEvent">PanelManager.notifyStopGrabCameraEvent</see>/>.
+        /// See, <see cref="InitPanelManager">InitPanelManager</see>/>.
+        /// </summary>
+        /// <param name="camera">Camera selected in panel manager.</param>
+        private void NotifyCameraGrab(Camera camera)
+        {
+            
+        }
+
+        /// <summary>
+        /// This method is executes when the user press <see cref="btnStopRecord">btnStopRecord</see>/>.
+        /// 
+        /// Also, this function is connect with <see cref="PanelManager.notifyStopGrabCameraEvent">PanelManager.notifyStopGrabCameraEvent</see>/>.
+        /// See, <see cref="InitPanelManager">InitPanelManager</see>/>.
+        /// </summary>
+        /// <param name="camera">Camera selected in panel manager.</param>
+        private void NotifyCameraStopGrab(Camera camera)
+        {
+            
         }
 
         /****************** FRAME RATE MANAGER FUNCTION *******************/
@@ -409,6 +453,18 @@ namespace Recording
         public void ChangeFrameRate(double value)
         {
             //exposureTimeManager.Max(value);
+        }
+
+        /********************** MENU FUNCTION *****************************/
+        /******************************************************************/
+        /******************************************************************/
+
+        private void grabarConfiguraciónToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            RecordSettingsForm recordSettingsForm = new RecordSettingsForm(ref recordSettings);
+            recordSettingsForm.StartPosition = FormStartPosition.CenterScreen;
+
+            recordSettingsForm.ShowDialog();
         }
 
         ///// <summary>
@@ -577,14 +633,6 @@ namespace Recording
         //private void RecordingForm_MouseDown(object sender, MouseEventArgs e)
         //{
 
-        //}
-
-        //private void grabarConfiguraciónToolStripMenuItem_Click(object sender, EventArgs e)
-        //{
-        //    RecordSettingsForm recordSettingsForm = new RecordSettingsForm(ref recordSettings);
-        //    recordSettingsForm.StartPosition = FormStartPosition.CenterScreen;
-
-        //    recordSettingsForm.ShowDialog();
         //}
 
         //private void RecordingForm_Load(object sender, EventArgs e)

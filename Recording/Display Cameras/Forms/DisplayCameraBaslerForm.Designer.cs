@@ -79,7 +79,7 @@
             this.btnClose.Size = new System.Drawing.Size(31, 19);
             this.btnClose.TabIndex = 3;
             this.btnClose.UseVisualStyleBackColor = false;
-            this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
+            //this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
             // 
             // pnlBorder
             // 

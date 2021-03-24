@@ -50,8 +50,8 @@ namespace Recording
         /// <param name="state">Esta que se quiere establecer.</param>
         public void SingleShot(bool state = true)
         {
-            //form.Invoke(safeControlEvent, new object[] { btnSingleShot, state });
-            //btnSingleShot.Enabled = state;
+            form.Invoke(safeControlEvent, new object[] { btnSingleShot, state });
+            btnSingleShot.Enabled = state;
         }
 
         /// <summary>
@@ -69,7 +69,7 @@ namespace Recording
         /// <param name="state">Esta que se quiere establecer.</param>
         public void Pause(bool state = true)
         {
-            //form.Invoke(safeControlEvent, new object[] { btnPause, state });
+            form.Invoke(safeControlEvent, new object[] { btnPause, state });
         }
 
         /// <summary>
@@ -78,9 +78,9 @@ namespace Recording
         /// <param name="state">Esta que se quiere establecer.</param>
         public void Record(bool state = true)
         {
-            //form.Invoke(safeControlEvent, new object[] { btnRecord, state });
+            form.Invoke(safeControlEvent, new object[] { btnRecord, state });
 
-            //btnRecord.Enabled = state;
+            btnRecord.Enabled = state;
         }
 
         /// <summary>
@@ -90,8 +90,6 @@ namespace Recording
         public void StopRecord(bool state = true)
         {
             form.Invoke(safeControlEvent, new object[] { btnStopRecord, state });
-
-            //btnStopRecord.Enabled = state;
         }
 
         /// <summary>
