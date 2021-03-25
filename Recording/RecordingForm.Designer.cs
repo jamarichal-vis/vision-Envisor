@@ -103,6 +103,13 @@
             this.herramientasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.grabarConfiguraciónToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ayudaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.tableLayoutPanelInformationBar = new System.Windows.Forms.TableLayoutPanel();
+            this.lbIntensity = new System.Windows.Forms.Label();
+            this.lbPosX = new System.Windows.Forms.Label();
+            this.lbPosY = new System.Windows.Forms.Label();
+            this.lbFps = new System.Windows.Forms.Label();
+            this.lbName = new System.Windows.Forms.Label();
+            this.lbIp = new System.Windows.Forms.Label();
             this.tableLayoutPanel1.SuspendLayout();
             this.tbLayoutPanelMain.SuspendLayout();
             this.tbLayoutPanelSettings.SuspendLayout();
@@ -133,6 +140,7 @@
             this.tbLayoutPanelVisualization.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.menuStrip2.SuspendLayout();
+            this.tableLayoutPanelInformationBar.SuspendLayout();
             this.SuspendLayout();
             // 
             // tableLayoutPanel1
@@ -856,13 +864,15 @@
             this.tbLayoutPanelVisualization.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tbLayoutPanelVisualization.Controls.Add(this.pnlCams, 0, 1);
             this.tbLayoutPanelVisualization.Controls.Add(this.menuStrip1, 0, 0);
+            this.tbLayoutPanelVisualization.Controls.Add(this.tableLayoutPanelInformationBar, 0, 2);
             this.tbLayoutPanelVisualization.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tbLayoutPanelVisualization.Location = new System.Drawing.Point(348, 4);
             this.tbLayoutPanelVisualization.Margin = new System.Windows.Forms.Padding(4);
             this.tbLayoutPanelVisualization.Name = "tbLayoutPanelVisualization";
-            this.tbLayoutPanelVisualization.RowCount = 2;
+            this.tbLayoutPanelVisualization.RowCount = 3;
             this.tbLayoutPanelVisualization.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 43F));
             this.tbLayoutPanelVisualization.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tbLayoutPanelVisualization.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
             this.tbLayoutPanelVisualization.Size = new System.Drawing.Size(1368, 898);
             this.tbLayoutPanelVisualization.TabIndex = 1;
             // 
@@ -873,7 +883,7 @@
             this.pnlCams.Location = new System.Drawing.Point(4, 47);
             this.pnlCams.Margin = new System.Windows.Forms.Padding(4);
             this.pnlCams.Name = "pnlCams";
-            this.pnlCams.Size = new System.Drawing.Size(1360, 847);
+            this.pnlCams.Size = new System.Drawing.Size(1360, 807);
             this.pnlCams.TabIndex = 1;
             // 
             // menuStrip1
@@ -1065,6 +1075,115 @@
             this.ayudaToolStripMenuItem.Size = new System.Drawing.Size(70, 27);
             this.ayudaToolStripMenuItem.Text = "Ayuda";
             // 
+            // tableLayoutPanelInformationBar
+            // 
+            this.tableLayoutPanelInformationBar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(113)))), ((int)(((byte)(206)))));
+            this.tableLayoutPanelInformationBar.ColumnCount = 7;
+            this.tableLayoutPanelInformationBar.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 14.28571F));
+            this.tableLayoutPanelInformationBar.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 14.28571F));
+            this.tableLayoutPanelInformationBar.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 14.28571F));
+            this.tableLayoutPanelInformationBar.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 14.28571F));
+            this.tableLayoutPanelInformationBar.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 14.28571F));
+            this.tableLayoutPanelInformationBar.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 14.28571F));
+            this.tableLayoutPanelInformationBar.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 14.28571F));
+            this.tableLayoutPanelInformationBar.Controls.Add(this.lbIntensity, 3, 0);
+            this.tableLayoutPanelInformationBar.Controls.Add(this.lbPosX, 4, 0);
+            this.tableLayoutPanelInformationBar.Controls.Add(this.lbPosY, 5, 0);
+            this.tableLayoutPanelInformationBar.Controls.Add(this.lbFps, 6, 0);
+            this.tableLayoutPanelInformationBar.Controls.Add(this.lbName, 2, 0);
+            this.tableLayoutPanelInformationBar.Controls.Add(this.lbIp, 1, 0);
+            this.tableLayoutPanelInformationBar.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanelInformationBar.Location = new System.Drawing.Point(0, 858);
+            this.tableLayoutPanelInformationBar.Margin = new System.Windows.Forms.Padding(0);
+            this.tableLayoutPanelInformationBar.Name = "tableLayoutPanelInformationBar";
+            this.tableLayoutPanelInformationBar.RowCount = 1;
+            this.tableLayoutPanelInformationBar.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanelInformationBar.Size = new System.Drawing.Size(1368, 40);
+            this.tableLayoutPanelInformationBar.TabIndex = 3;
+            // 
+            // lbIntensity
+            // 
+            this.lbIntensity.AutoSize = true;
+            this.lbIntensity.BackColor = System.Drawing.Color.Transparent;
+            this.lbIntensity.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lbIntensity.Font = new System.Drawing.Font("Calibri", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.lbIntensity.ForeColor = System.Drawing.Color.White;
+            this.lbIntensity.Location = new System.Drawing.Point(588, 0);
+            this.lbIntensity.Name = "lbIntensity";
+            this.lbIntensity.Size = new System.Drawing.Size(189, 40);
+            this.lbIntensity.TabIndex = 0;
+            this.lbIntensity.Text = "Intensity: ";
+            this.lbIntensity.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // lbPosX
+            // 
+            this.lbPosX.AutoSize = true;
+            this.lbPosX.BackColor = System.Drawing.Color.Transparent;
+            this.lbPosX.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lbPosX.Font = new System.Drawing.Font("Calibri", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.lbPosX.ForeColor = System.Drawing.Color.White;
+            this.lbPosX.Location = new System.Drawing.Point(783, 0);
+            this.lbPosX.Name = "lbPosX";
+            this.lbPosX.Size = new System.Drawing.Size(189, 40);
+            this.lbPosX.TabIndex = 1;
+            this.lbPosX.Text = "Position X:";
+            this.lbPosX.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // lbPosY
+            // 
+            this.lbPosY.AutoSize = true;
+            this.lbPosY.BackColor = System.Drawing.Color.Transparent;
+            this.lbPosY.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lbPosY.Font = new System.Drawing.Font("Calibri", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.lbPosY.ForeColor = System.Drawing.Color.White;
+            this.lbPosY.Location = new System.Drawing.Point(978, 0);
+            this.lbPosY.Name = "lbPosY";
+            this.lbPosY.Size = new System.Drawing.Size(189, 40);
+            this.lbPosY.TabIndex = 2;
+            this.lbPosY.Text = "Position Y:";
+            this.lbPosY.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // lbFps
+            // 
+            this.lbFps.AutoSize = true;
+            this.lbFps.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lbFps.Font = new System.Drawing.Font("Calibri", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
+            this.lbFps.ForeColor = System.Drawing.Color.White;
+            this.lbFps.Location = new System.Drawing.Point(1173, 0);
+            this.lbFps.Name = "lbFps";
+            this.lbFps.Size = new System.Drawing.Size(192, 40);
+            this.lbFps.TabIndex = 3;
+            this.lbFps.Text = "Fps:";
+            this.lbFps.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // lbName
+            // 
+            this.lbName.AutoSize = true;
+            this.lbName.BackColor = System.Drawing.Color.Transparent;
+            this.lbName.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lbName.Font = new System.Drawing.Font("Calibri", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.lbName.ForeColor = System.Drawing.Color.White;
+            this.lbName.Location = new System.Drawing.Point(393, 0);
+            this.lbName.Name = "lbName";
+            this.lbName.Size = new System.Drawing.Size(189, 40);
+            this.lbName.TabIndex = 4;
+            this.lbName.Text = "Name:";
+            this.lbName.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // lbIp
+            // 
+            this.lbIp.AutoSize = true;
+            this.lbIp.BackColor = System.Drawing.Color.Transparent;
+            this.lbIp.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lbIp.Font = new System.Drawing.Font("Calibri", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.lbIp.ForeColor = System.Drawing.Color.White;
+            this.lbIp.Location = new System.Drawing.Point(198, 0);
+            this.lbIp.Name = "lbIp";
+            this.lbIp.Size = new System.Drawing.Size(189, 40);
+            this.lbIp.TabIndex = 5;
+            this.lbIp.Text = "Ip:";
+            this.lbIp.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
             // RecordingForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -1121,6 +1240,8 @@
             this.menuStrip1.PerformLayout();
             this.menuStrip2.ResumeLayout(false);
             this.menuStrip2.PerformLayout();
+            this.tableLayoutPanelInformationBar.ResumeLayout(false);
+            this.tableLayoutPanelInformationBar.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -1201,6 +1322,13 @@
         private System.Windows.Forms.TrackBar trBarFrameRate;
         private System.Windows.Forms.Label lbMinFrameRate;
         private System.Windows.Forms.Label lbMaxFrameRate;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanelInformationBar;
+        private System.Windows.Forms.Label lbIntensity;
+        private System.Windows.Forms.Label lbPosX;
+        private System.Windows.Forms.Label lbPosY;
+        private System.Windows.Forms.Label lbFps;
+        private System.Windows.Forms.Label lbName;
+        private System.Windows.Forms.Label lbIp;
     }
 }
 

@@ -42,6 +42,11 @@ namespace Recording
         private Camera camera_selected;
 
         /// <summary>
+        /// This variable contains all function about analysis of the image for this program.
+        /// </summary>
+        private Envisor_Algorithm envisor_Algorithm;
+
+        /// <summary>
         /// Esta variable contiene todas las funciones necesarias para controlar el objeto <see cref="treeViewCameras">treeViewCameras</see>/>.
         /// </summary>
         private CameraManager cameraManager;
@@ -70,6 +75,11 @@ namespace Recording
         /// Esta variable contiene todas las funciones para controlar todos los paneles que se muestren en <see cref="pnlCams">pnlCams</see>/>.
         /// </summary>
         private PanelManager panelManager;
+
+        /// <summary>
+        /// This variable storages all controls of a information bar of a basler camera.
+        /// </summary>
+        private Basler_InformatioBar_Controls basler_informationbar_controls;
 
         /// <summary>
         /// Esta variable almacena toda la configuración para poder grabar un vídeo o una secuencia con una cámara.
@@ -109,6 +119,8 @@ namespace Recording
             InitializeComponent();
 
             InitMilLibrary();
+
+            InitEnvisorAlgorithm();
 
             InitCameraManager();
 
@@ -179,6 +191,11 @@ namespace Recording
             camera_selected = null;
         }
 
+        public void InitEnvisorAlgorithm()
+        {
+            envisor_Algorithm = new Envisor_Algorithm();
+        }
+
         /// <summary>
         /// Esta función será la que este conectada con el evento "ConnectedCameraInfo".
         /// Este evento se ejecutará cuando se conecte una cámara.
@@ -247,7 +264,10 @@ namespace Recording
         /// <param name="ip">Ip de la cámara.</param>
         public void ProcessingFunction(Camera camera)
         {
-
+            if (envisor_Algorithm != null)
+            {
+                envisor_Algorithm.Record();
+            }
         }
 
         /// <summary>
@@ -298,7 +318,7 @@ namespace Recording
             sequenceManager = new SequenceManager(ref numericUpDownTotalFrames, ref numericUpDownTrigger, ref numericUpDownPositionTrigger,
                 ref cbBoxSequence, ref trackBarSequence, ref lbMaxSequence);
         }
-        
+
         /// <summary>
         /// Este método contiene todas las funciones necesarias para inicializar el objeto <see cref="panelManager">panelManager</see>/>.
         /// </summary>
@@ -309,11 +329,16 @@ namespace Recording
 
             panelManager.notifyGrabContinuousCameraEvent += new PanelManager.notifyGrabContinuousCameraDelegate(NotifyCameraGrabContinuous);
             panelManager.notifyPauseCameraEvent += new PanelManager.notifyPauseCameraDelegate(NotifyCameraPause);
-            panelManager.notifyGrabCameraEvent += new PanelManager.notifyGrabCameraDelegate(NotifyCameraGrab);
+            panelManager.notifyRecordCameraEvent += new PanelManager.notifyGrabCameraDelegate(NotifyCameraGrab);
             panelManager.notifyStopGrabCameraEvent += new PanelManager.notifyStopGrabCameraDelegate(NotifyCameraStopGrab);
 
-            panelManager.RecordSettings = recordSettings;
+            basler_informationbar_controls = new Basler_InformatioBar_Controls(lbIp: ref lbIp, lbName: ref lbName, lbIntensity: ref lbIntensity, 
+                lbPosX: ref lbPosX, lbPosY: ref lbPosY, lbFps: ref lbFps, tableLayoutPanel: ref tableLayoutPanelInformationBar);
 
+            panelManager.RecordSettings = recordSettings;
+            panelManager.Envisor_Algorithm = envisor_Algorithm;
+            panelManager.Basler_informationbar_controls = basler_informationbar_controls;
+            
             //cameraManager.grabContinuousCamEvent += new CameraManager.grabContinuousCamDelegate(panelManager.StartGrabContinuous);
         }
 
@@ -426,7 +451,7 @@ namespace Recording
         /// <param name="camera">Camera selected in panel manager.</param>
         private void NotifyCameraGrab(Camera camera)
         {
-            
+
         }
 
         /// <summary>
@@ -438,7 +463,7 @@ namespace Recording
         /// <param name="camera">Camera selected in panel manager.</param>
         private void NotifyCameraStopGrab(Camera camera)
         {
-            
+
         }
 
         /****************** FRAME RATE MANAGER FUNCTION *******************/
@@ -640,4 +665,6 @@ namespace Recording
 
         //}
     }
+
+
 }

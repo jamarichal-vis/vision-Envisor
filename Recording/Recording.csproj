@@ -82,6 +82,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Display Cameras\Basler_InformatioBar_Controls.cs" />
     <Compile Include="CameraManager\CameraManager.cs" />
     <Compile Include="Display Cameras\Forms\DisplayCameraBaslerForm.cs">
       <SubType>Form</SubType>

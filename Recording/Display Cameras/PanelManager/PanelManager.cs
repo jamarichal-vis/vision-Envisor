@@ -10,6 +10,7 @@ using Matrox.MatroxImagingLibrary;
 using MilLibrary;
 using FormsMilLibrary;
 using FormsLibrary;
+using System.Reflection;
 
 namespace Recording
 {
@@ -35,6 +36,11 @@ namespace Recording
         /// It is used to connect all modules of the program.
         /// </summary>
         private Camera camera_selected;
+
+        /// <summary>
+        /// This variable contains all function about analysis of the image for this program.
+        /// </summary>
+        private Envisor_Algorithm envisor_Algorithm;
 
         /// <summary>
         /// Este atributo almacena el panel principal que se quiere controlar.
@@ -98,6 +104,21 @@ namespace Recording
         private RecordingForm recordingForm;
 
         /// <summary>
+        /// This variable storages all controls of a information bar of a basler camera.
+        /// </summary>
+        private Basler_InformatioBar_Controls basler_informationbar_controls;
+
+        /// <summary>
+        /// This variable storages the color default for the back color of <see cref="basler_informationbar_controls">basler_informationbar_controls</see>/>.
+        /// </summary>
+        private Color color_default;
+
+        /// <summary>
+        /// This variable storages the color when the program is in record mode for the back color of <see cref="basler_informationbar_controls">basler_informationbar_controls</see>/>.
+        /// </summary>
+        private Color color_record;
+
+        /// <summary>
         /// This event is used to notify which camera has been selected.
         /// </summary>
         /// <param name="id">Id of the camera selected.</param>
@@ -123,7 +144,7 @@ namespace Recording
         /// </summary>
         /// <param name="id">Id of the camera selected.</param>
         public delegate void notifyGrabCameraDelegate(Camera camera);
-        public event notifyGrabCameraDelegate notifyGrabCameraEvent;
+        public event notifyGrabCameraDelegate notifyRecordCameraEvent;
 
         /// <summary>
         /// Este evento se ejecuta cuando la grabación en disco de las cámaras ha finalizado.
@@ -141,6 +162,8 @@ namespace Recording
 
         public StateTools StateTools { get => stateTools; set => stateTools = value; }
         public RecordSettings RecordSettings { get => recordSettings; set => recordSettings = value; }
+        public Envisor_Algorithm Envisor_Algorithm { get => envisor_Algorithm; set => envisor_Algorithm = value; }
+        internal Basler_InformatioBar_Controls Basler_informationbar_controls { get => basler_informationbar_controls; set => basler_informationbar_controls = value; }
 
         public PanelManager(ref FlowLayoutPanel pnl, RecordingForm recordingForm)
         {
@@ -150,6 +173,9 @@ namespace Recording
             camerasForm = new Dictionary<Camera, Form>();
 
             camera_selected = null;
+
+            color_default = Color.FromArgb(0, 113, 206);
+            color_record = Color.Red;
 
             this.recordingForm = recordingForm;
         }
@@ -188,7 +214,15 @@ namespace Recording
         /// <param name="camera"></param>
         public void SelectCamera(ref Camera camera)
         {
+            DisconnectMouse();
+            DisconnectFps();
+
             camera_selected = camera;
+
+            ConnectMouse();
+            ConnectFps();
+            ShowInformationCamera();
+            Color_Information_Bar(color: color_default);
 
             if (stateTools != null)
             {
@@ -326,6 +360,107 @@ namespace Recording
 
             return 0;
         }
+        /**************** INFORMATION CAMERA FUNCTION ***********/
+        /********************************************************/
+        /********************************************************/
+
+        /// <summary>
+        /// This method show the information of the <see cref="camera_selected">camera_selected</see>/> in the controls of <see cref="basler_informationbar_controls">basler_informationbar_controls</see>/>.
+        /// </summary>
+        private void ShowInformationCamera()
+        {
+            SetControlPropertyThreadSafe(basler_informationbar_controls.LbIp, "Text", camera_selected.IpAddress != "" ? ("Ip: " + camera_selected.IpAddress) : "");
+            SetControlPropertyThreadSafe(basler_informationbar_controls.LbName, "Text", "Name: " + camera_selected.Name);
+            SetControlPropertyThreadSafe(basler_informationbar_controls.LbFps, "Text", "Fps: " + camera_selected.Fps_Process);
+        }
+
+        /*************** INFORMATION BAR FUNCTION ***************/
+        /********************************************************/
+        /********************************************************/
+
+        private void Color_Information_Bar(Color color)
+        {
+            basler_informationbar_controls.LayoutPanelControls.BackColor = color;
+        }
+
+        /********************* FPS FUNCTION *********************/
+        /********************************************************/
+        /********************************************************/
+
+        /// <summary>
+        /// This method connect the <see cref="Camera._fpsEvent">Camera._fpsEvent</see>/> of <see cref="camera_selected">camera_selected</see>/>
+        /// with <see cref="ShowFps(double)">ShowFps(double)</see>/> function.
+        /// </summary>
+        private void ConnectFps()
+        {
+            if (camera_selected != null)
+                camera_selected._fpsEvent += new Camera._fpsDelagete(ShowFps);
+        }
+
+        /// <summary>
+        /// This method disconnect the <see cref="Camera._fpsEvent">Camera._fpsEvent</see>/> of <see cref="camera_selected">camera_selected</see>/>
+        /// with <see cref="ShowFps(double)">ShowFps(double)</see>/> function.
+        /// </summary>
+        private void DisconnectFps()
+        {
+            if (camera_selected != null)
+                camera_selected._fpsEvent -= new Camera._fpsDelagete(ShowFps);
+        }
+
+        /// <summary>
+        /// This method show the fps passes by parameter in <see cref="Basler_InformatioBar_Controls.lbFps">Basler_InformatioBar_Controls.lbFps</see>/>
+        /// label.
+        /// </summary>
+        /// <param name="value">Value of the fps.</param>
+        private void ShowFps(double value)
+        {
+            SetControlPropertyThreadSafe(basler_informationbar_controls.LbFps, "Text", "Fps: " + Math.Truncate(value));
+        }
+
+        /********************** MOUSE FUNCTION ******************/
+        /********************************************************/
+        /********************************************************/
+
+        /// <summary>
+        /// This method connect the mouse event of a camera with <see cref="ShowInformationMouse(Point, double)">ShowInformationMouse(Point, double)</see>/>.
+        /// </summary>
+        private void ConnectMouse()
+        {
+            if(camera_selected != null)
+            {
+                if (camera_selected.GetType().ToString().Contains("Basler"))
+                    (camera_selected as Basler)._infoMouseEvent += new Camera._infoMouseDelegate(ShowInformationMouse);
+
+                camera_selected.StartMouseMove();
+            }
+        }
+
+        /// <summary>
+        /// This method disconnect the mouse event of a camera with <see cref="ShowInformationMouse(Point, double)">ShowInformationMouse(Point, double)</see>/>.
+        /// </summary>
+        private void DisconnectMouse()
+        {
+            if(camera_selected != null)
+            {
+                camera_selected.StopMouseMove();
+
+                if (camera_selected.GetType().ToString().Contains("Basler"))
+                    (camera_selected as Basler)._infoMouseEvent -= new Camera._infoMouseDelegate(ShowInformationMouse);
+            }
+        }
+
+        /// <summary>
+        /// This method show the information of the mouse in the camera selected.
+        /// See, <see cref="SelectCamera(ref Camera)">SelectCamera(ref Camera)</see>/>.
+        /// </summary>
+        /// <param name="point">Point of the mouse in the image.</param>
+        /// <param name="intensity">Intensity of the image in the point of the mouse.</param>
+        private void ShowInformationMouse(Point point, double intensity)
+        {
+            SetControlPropertyThreadSafe(basler_informationbar_controls.LbIntensity, "Text", "Intensity: " + intensity.ToString());
+            SetControlPropertyThreadSafe(basler_informationbar_controls.LbPosX, "Text", "Position X: " + point.X);
+            SetControlPropertyThreadSafe(basler_informationbar_controls.LbPosY, "Text", "Position Y: " + point.Y);
+        }
 
         /***************** REMOVE CAMERA FUNCTION ***************/
         /********************************************************/
@@ -458,41 +593,36 @@ namespace Recording
         {
             foreach (Camera camera in pnlCameras.Keys)
             {
-                string pathFolder = System.IO.Path.Combine(recordSettings.Root,
-                    recordSettings.Type + " - " +
-                    (camera.Vendor != "" ? (camera.Vendor + " -") : "") +
-                    (camera.Model != "" ? (camera.Model) : "") +
-                    (camera.Name != "" ? (" -" + camera.Name) : (camera.SerialNumber)) +
-                    (camera.IpAddress != "" ? (" -" + camera.IpAddress) : "") +
-                    DateTime.Now.ToString(" (dd-MM-yyyy HH-mm-ss-fff)"));
+                string pathFolder = GetPathCameraToRecord(camera: camera);
 
-                if (!Directory.Exists(pathFolder))
-                    Directory.CreateDirectory(pathFolder);
+                switch (recordSettings.Type)
+                {
+                    case "Vídeo":
 
-                //switch (recordSettings.Type)
-                //{
-                //    case "Vídeo":
+                        string pathFile = System.IO.Path.Combine(pathFolder, NAME_VIDEO_FILE + EXTENSION_VIDEO);
+                        string name = NAME_VIDEO_MILLIBRARY + "-" + camera.Dev;
 
-                //        string pathFile = System.IO.Path.Combine(pathFolder, NAME_VIDEO_FILE + EXTENSION_VIDEO);
-                //        //milApp.AddVideo(id.DevNSys, id.DevNCam, NAME_VIDEO_MILLIBRARY, (int)recordSettings.OutputFormat, timePretrigger: -1, timeStop: recordSettings.TimeStop);
-                //        //milApp.CamStartGrabInDisk(id.DevNSys, id.DevNCam, NAME_VIDEO_MILLIBRARY, pathFile/*, recordSettings.Fps*/);
+                        /* ADD VIDEO */
+                        Envisor_Algorithm.Videos.Add(camera: camera_selected, name: name, format: (int)recordSettings.OutputFormat,
+                            timePretrigger: -1, timePostTrigger: recordSettings.TimeStop);
 
-                //        break;
+                        /* OPEN VIDEO */
+                        Envisor_Algorithm.Videos.GetVideo(name: name).Open(pathFile);
+                        
+                        break;
 
-                //    case "Secuencia de imágenes":
+                    case "Secuencia de imágenes":
 
-                //        //milApp.CamActivateSequenceImages(id.DevNSys, id.DevNCam, recordSettings.TimeStop, recordSettings.OutputFormat);
-                //        //milApp.CamStartSequenceImages(id.DevNSys, id.DevNCam, pathFolder);
+                        /* ADD SEQUENCE */
+                        Envisor_Algorithm.Sequences_Images.Add(camera: camera, timeStop: recordSettings.TimeStop, format: recordSettings.OutputFormat);
 
-                //        //EventVideo eventEndSequenceVideo = (EventVideo)milApp.CamEvent(id.DevNSys, id.DevNCam, "EndSequenceImages");
-                //        //eventEndSequenceVideo._event += new EventVideo._eventDelagete(recordingForm.EndVideo);
+                        /* START SEQUENCE */
+                        Envisor_Algorithm.Sequences_Images.GetSequenceImages(camera: camera).Start(pathFolder);
+                        break;
+                }
 
-                //        break;
-                //}
-
-                //GrabCamera(id);
-
-                //notifyGrabCameraEvent.Invoke();
+                if (notifyRecordCameraEvent != null)
+                    notifyRecordCameraEvent.Invoke(camera: camera_selected);
             }
 
             if (pnlCameras.Keys.Count > 0)
@@ -502,11 +632,32 @@ namespace Recording
                 stateTools.SingleShot(state: false);
                 stateTools.StopRecord();
 
-                foreach (DisplayCameraForm displayCameraForm in camerasForm.Values)
-                    displayCameraForm.EnableBtnClose(state: false);
-
-                //DisconnectNotifyCameraSelected();
+                //foreach (DisplayCameraForm displayCameraForm in camerasForm.Values)
+                //    displayCameraForm.EnableBtnClose(state: false);
             }
+
+            Color_Information_Bar(color: color_record);
+        }
+
+        /// <summary>
+        /// This method prepare the path of a camera to record.
+        /// </summary>
+        /// <param name="camera">Camera you want to select.</param>
+        /// <returns></returns>
+        private string GetPathCameraToRecord(Camera camera)
+        {
+            string pathFolder = System.IO.Path.Combine(recordSettings.Root,
+                    recordSettings.Type + " - " +
+                    (camera.Vendor != "" ? (camera.Vendor + " -") : "") +
+                    (camera.Model != "" ? (camera.Model) : "") +
+                    (camera.Name != "" ? (" -" + camera.Name) : (camera.SerialNumber)) +
+                    (camera.IpAddress != "" ? (" -" + camera.IpAddress) : "") +
+                    DateTime.Now.ToString(" (dd-MM-yyyy HH-mm-ss-fff)"));
+
+            if (!Directory.Exists(pathFolder))
+                Directory.CreateDirectory(pathFolder);
+
+            return pathFolder;
         }
 
         /// <summary>
@@ -516,36 +667,20 @@ namespace Recording
         /// <param name="e"></param>
         private void BtnStopRecord_Click(object sender, EventArgs e)
         {
-            //foreach (Id id in pnlCameras.Keys)
-            //{
-            //    switch (recordSettings.Type)
-            //    {
-            //        case "Vídeo":
+            Envisor_Algorithm.StopRecord();
 
-            //            //milApp.CamStopGrabInDisk(id.DevNSys, id.DevNCam, NAME_VIDEO_MILLIBRARY);
+            if(stateTools != null)
+            {
+                stateTools.Record();
+                stateTools.Pause();
+                stateTools.SingleShot();
+                stateTools.StopRecord(state: false);
+            }
 
-            //            break;
+            if (notifyStopGrabCameraEvent != null)
+                notifyStopGrabCameraEvent.Invoke(camera: camera_selected);
 
-            //        case "Secuencia de imágenes":
-
-            //            //milApp.CamStopSequenceImages(id.DevNSys, id.DevNCam);
-
-            //            break;
-            //    }
-
-            //    if (id.Equal(idSelected))
-            //        SelectCamera(id);
-            //    else
-            //        DeselectCamera(id);
-            //}
-
-            stateTools.Record();
-            stateTools.Pause();
-            stateTools.SingleShot();
-            stateTools.StopRecord(state: false);
-            //ConnectNotifyCameraSelected();
-
-            //notifyStopGrabCameraEvent.Invoke();
+            Color_Information_Bar(color: color_default);
         }
 
         /// <summary>
@@ -598,6 +733,44 @@ namespace Recording
             foreach (var camera in camerasForm)
                 if (camera.Key.GetType().ToString().Contains("Basler"))
                     (camera.Value as Basler_Display_Form).EnableBtnClose(state: false);
+        }
+
+        /************* SAFE MODIFY CONTROLS FUNCTION ************/
+        /********************************************************/
+        /********************************************************/
+
+        /// <summary>
+        /// Función para cambiar los controles en threads separados de forma segura (Invoke)
+        /// </summary>
+        /// <param name="control"> Control del formulario a cambiar </param>
+        /// <param name="propertyName"> Nombre de la propiedad a cambiar como STRING </param>
+        /// <param name="propertyValue"> Valor que deseamos cambiar al control </param>
+        private delegate void SetControlPropertyThreadSafeDelegate(Control control, string propertyName, object propertyValue);
+
+        public static void SetControlPropertyThreadSafe(Control control, string propertyName, object propertyValue)
+        {
+            try
+            {
+                if (control.InvokeRequired)
+                {
+                    control.Invoke(new SetControlPropertyThreadSafeDelegate
+                    (SetControlPropertyThreadSafe),
+                    new object[] { control, propertyName, propertyValue });
+                }
+                else
+                {
+                    control.GetType().InvokeMember(
+                        propertyName,
+                        BindingFlags.SetProperty,
+                        null,
+                        control,
+                        new object[] { propertyValue });
+                }
+            }
+            catch (Exception e)
+            {
+                Console.Write(e.ToString());
+            }
         }
     }
 }
