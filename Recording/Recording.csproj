@@ -199,9 +199,6 @@
     <None Include="Resources\Remove.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\GrabContinuous.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\Pause.png" />
   </ItemGroup>
   <ItemGroup>
@@ -263,6 +260,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\record-on.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\grabContinuous.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Stop.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

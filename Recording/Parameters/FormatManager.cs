@@ -36,7 +36,7 @@ namespace Recording
         /// This variable storages the control to modify the size X of a camera.
         /// </summary>
         NumericUpDown numUpDownSizeX;
-        
+
         /// <summary>
         /// This variable storages the control to modify the size X of a camera.
         /// </summary>
@@ -63,6 +63,8 @@ namespace Recording
 
             ConnectNumUpDownSizeX();
             ConnectNumUpDownSizeY();
+
+            safeControlEvent += new safeControlDelegate(Enable);
         }
 
         /// <summary>
@@ -118,7 +120,7 @@ namespace Recording
         /// </summary>
         public void InitValue()
         {
-            if(camera_selected != null)
+            if (camera_selected != null)
             {
                 DisconnectNumUpDownSizeX();
                 DisconnectNumUpDownSizeY();
@@ -132,7 +134,7 @@ namespace Recording
                 ConnectNumUpDownSizeY();
             }
         }
-        
+
         /**************** CONNECT AND DISCONNECT CONTROLS *************/
         /**************************************************************/
         /**************************************************************/
@@ -152,7 +154,7 @@ namespace Recording
         {
             numUpDownSizeY.ValueChanged += new System.EventHandler(numUpDownSizeY_ValueChanged);
         }
-        
+
         /// <summary>
         /// This method connect <see cref="numUpDownSizeX">numUpDownSizeX</see>/> control to this class.;
         /// </summary>
@@ -206,6 +208,16 @@ namespace Recording
                 if (changeResolutionEvent != null)
                     changeResolutionEvent.Invoke(camera_selected);
             }
+        }
+
+        /// <summary>
+        /// Esta función modifica el atributo Enable del control que se pasa por parámetro.
+        /// </summary>
+        /// <param name="control">Control que quieres modificar.</param>
+        /// <param name="state">Estado del atributo Enable.</param>
+        private void Enable(Control control, bool state)
+        {
+            control.Enabled = state;
         }
     }
 }

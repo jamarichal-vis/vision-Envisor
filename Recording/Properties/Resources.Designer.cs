@@ -83,9 +83,9 @@ namespace Recording.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap grabContinuous_off {
+        internal static System.Drawing.Bitmap grabContinuous {
             get {
-                object obj = ResourceManager.GetObject("grabContinuous_off", resourceCulture);
+                object obj = ResourceManager.GetObject("grabContinuous", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -136,6 +136,16 @@ namespace Recording.Properties {
         internal static System.Drawing.Bitmap ResetZoom {
             get {
                 object obj = ResourceManager.GetObject("ResetZoom", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Stop {
+            get {
+                object obj = ResourceManager.GetObject("Stop", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

@@ -136,7 +136,7 @@ namespace Recording
         /// <param name="id">Id of the camera selected.</param>
         public delegate void notifyGrabContinuousCameraDelegate(Camera camera);
         public event notifyGrabContinuousCameraDelegate notifyGrabContinuousCameraEvent;
-        
+
         /// <summary>
         /// This event is used to notify a camera is grab. Also, it indicates the camera selected.
         /// </summary>
@@ -288,6 +288,7 @@ namespace Recording
                 form = new Basler_Display_Form(ref camera);
 
                 ((form as Basler_Display_Form).Display as Basler_Display).notifyMouseDownEvent += new Basler_Display.notifyMouseDownDelegate(NotifyCameraSelected);
+                (form as Basler_Display_Form).closeEvent += new Basler_Display_Form.closeDelegate(Remove);
             }
 
             return form;
@@ -330,7 +331,7 @@ namespace Recording
 
         public void RestoreCameraSelectedToPanel()
         {
-            if(camera_selected != null)
+            if (camera_selected != null)
             {
                 if (camerasForm.ContainsKey(camera_selected))
                 {
@@ -380,6 +381,18 @@ namespace Recording
                 return pnlCameras.Count;
 
             return 0;
+        }
+
+        /// <summary>
+        /// This method return a list with the cameras connected.
+        /// </summary>
+        /// <returns></returns>
+        public List<Camera> CamerasConnected()
+        {
+            if (pnlCameras != null)
+                return pnlCameras.Keys.ToList();
+            else
+                return new List<Camera>();
         }
         /**************** INFORMATION CAMERA FUNCTION ***********/
         /********************************************************/
@@ -447,7 +460,7 @@ namespace Recording
         /// </summary>
         private void ConnectMouse()
         {
-            if(camera_selected != null)
+            if (camera_selected != null)
             {
                 if (camera_selected.GetType().ToString().Contains("Basler"))
                     (camera_selected as Basler)._infoMouseEvent += new Camera._infoMouseDelegate(ShowInformationMouse);
@@ -461,7 +474,7 @@ namespace Recording
         /// </summary>
         private void DisconnectMouse()
         {
-            if(camera_selected != null)
+            if (camera_selected != null)
             {
                 camera_selected.StopMouseMove();
 
@@ -516,7 +529,8 @@ namespace Recording
                     if (camera_selected == camera)
                         camera_selected = null;
 
-                notifyCloseEvent.Invoke(camera);
+                if (notifyCloseEvent != null)
+                    notifyCloseEvent.Invoke(camera);
             }
         }
 
@@ -530,7 +544,12 @@ namespace Recording
                 pnlCameras.Remove(camera);
 
             if (camerasForm.ContainsKey(camera))
+            {
+                if (camera.GetType().ToString().Contains("Basler"))
+                    ((camerasForm[camera] as Basler_Display_Form).Display as Basler_Display).Disconnect();
+
                 camerasForm.Remove(camera);
+            }
         }
 
         /******************* BUTTONS FUNCTION *******************/
@@ -636,7 +655,7 @@ namespace Recording
                             video._endVideoEvent += new Video._endVideoDelagete(StopGrab_Controls);
 
                         video.Start();
-                        
+
                         break;
 
                     case "Secuencia de imágenes":
@@ -693,7 +712,7 @@ namespace Recording
         /// </summary>
         /// <param name="recordSettings"></param>
         /// <returns></returns>
-        private string GetExtensition( RecordSettings recordSettings)
+        private string GetExtensition(RecordSettings recordSettings)
         {
             switch (recordSettings.OutputFormat)
             {
@@ -716,7 +735,7 @@ namespace Recording
         private void BtnStopRecord_Click(object sender, EventArgs e)
         {
             Envisor_Algorithm.StopRecord();
-            
+
             StopGrab_Controls();
 
             _record = false;
@@ -756,7 +775,7 @@ namespace Recording
             if (notifyMouseDownEvent != null)
                 notifyMouseDownEvent.Invoke(camera);
         }
-        
+
         /// <summary>
         /// This method enable all btn close of <see cref="camerasForm">camerasForm</see>/>.
         /// </summary>

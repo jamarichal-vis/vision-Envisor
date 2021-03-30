@@ -300,7 +300,7 @@ namespace Recording
         public void InitCameraManager()
         {
             cameraManager = new CameraManager(this, ref treeViewCameras, cameras_GigeVision: ref cameras_GigeVision, cameras_Usb3Vision: ref cameras_Usb3Vision,
-                camera_selected: ref camera_selected);
+                milSystemGigeVision: milSystems[MilApp.GIGEVISION_SYSTEM_NAME], milSystemUsb3Vision: milSystems[MilApp.USB3VISION_SYSTEM_NAME], camera_selected: ref camera_selected);
 
             cameraManager.selectedCamEvent += new CameraManager.selectedCamDelegate(SelectedCamera);
             cameraManager.freeCamCamEvent += new CameraManager.FreeCamDelegate(FreeCamera);
@@ -362,6 +362,8 @@ namespace Recording
             panelManager.notifyPauseCameraEvent += new PanelManager.notifyPauseCameraDelegate(NotifyCameraPause);
             panelManager.notifyRecordCameraEvent += new PanelManager.notifyGrabCameraDelegate(NotifyCameraGrab);
             panelManager.notifyStopGrabCameraEvent += new PanelManager.notifyStopGrabCameraDelegate(NotifyCameraStopGrab);
+            panelManager.notifyMouseDownEvent += new PanelManager.notifyMouseDownDelegate(NotifyMouseDown);
+            panelManager.notifyCloseEvent += new PanelManager.notifyCloseDelegate(NotifyClose);
 
             basler_informationbar_controls = new Basler_InformatioBar_Controls(lbIp: ref lbIp, lbName: ref lbName, lbIntensity: ref lbIntensity, 
                 lbPosX: ref lbPosX, lbPosY: ref lbPosY, lbFps: ref lbFps, tableLayoutPanel: ref tableLayoutPanelInformationBar);
@@ -497,6 +499,37 @@ namespace Recording
 
             frameRateManager.Enable(safe: true);
             exposureTimeManager.Enable(safe: true);
+        }
+
+        /// <summary>
+        /// This function is executed when the user click in a panel of <see cref="panelManager">panelManager</see>/>.
+        /// </summary>
+        /// <param name="cameras">Camera selected.</param>
+        private void NotifyMouseDown(Camera camera)
+        {
+            if (camera.IsGrabProcessingFunction)
+            {
+                formatManager.Disable(safe: true);
+            }
+            else
+            {
+                formatManager.Enable(safe: true);
+                frameRateManager.Enable(safe: true);
+                exposureTimeManager.Enable(safe: true);
+            }
+        }
+
+        /// <summary>
+        /// This function is executed when the user click in button close in a panel of <see cref="panelManager">panelManager</see>/>.
+        /// </summary>
+        /// <param name="cameras">Camera selected.</param>
+        private void NotifyClose(Camera camera)
+        {
+            cameraManager.Deselect(camera);
+
+            formatManager.Disable(safe: true);
+            frameRateManager.Disable(safe: true);
+            exposureTimeManager.Disable(safe: true);
         }
 
         /// <summary>

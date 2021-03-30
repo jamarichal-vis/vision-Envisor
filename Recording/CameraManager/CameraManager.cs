@@ -65,6 +65,10 @@ namespace Recording
         /// </summary>
         private Dictionary<string, Camera> cameras_Usb3Vision;
 
+        MilSystem milSysGigeVision;
+
+        MilSystem milSystemUsb3;
+
         /// <summary>
         /// This variable storages the camera select by user.
         /// It is used to connect all modules of the program.
@@ -111,9 +115,14 @@ namespace Recording
         public delegate void safeModifyIconInNodeDelegate(TreeNode node, string imageKey);
         public safeModifyIconInNodeDelegate safeModifyIconInNodeEvent;
 
-        public CameraManager(Form form, ref TreeView treeView, ref Dictionary<string, Camera> cameras_GigeVision, ref Dictionary<string, Camera> cameras_Usb3Vision, ref Camera camera_selected)
+        public CameraManager(Form form, ref TreeView treeView, ref Dictionary<string, Camera> cameras_GigeVision, ref Dictionary<string, Camera> cameras_Usb3Vision, 
+            MilSystem milSystemGigeVision, MilSystem milSystemUsb3Vision,
+            ref Camera camera_selected)
         {
             this.form = form;
+
+            this.milSysGigeVision = milSystemGigeVision;
+            this.milSystemUsb3 = milSystemUsb3Vision;
 
             this.cameras_GigeVision = cameras_GigeVision;
             this.cameras_Usb3Vision = cameras_Usb3Vision;
@@ -350,7 +359,8 @@ namespace Recording
                 node.BackColor = Color.White;
                 node.ForeColor = Color.Black;
                 node.ImageKey = "";
-                node.SelectedImageIndex = -1;
+                node.SelectedImageIndex = 10;
+                node.ImageIndex = 10;
             }
         }
 
@@ -439,6 +449,12 @@ namespace Recording
                         treeViewCam.Invoke(new safeModifyIconInNodeDelegate(ModifyIcon), new object[] { node, "Point_on" });
         }
 
+        public void RemoveIconConnect(TreeNode node)
+        {
+            node.SelectedImageIndex = 5;
+            //treeViewCam.Invoke(new safeModifyIconInNodeDelegate(ModifyIcon), new object[] { node, "a" });
+        }
+
         /// <summary>
         /// This method set the icon "Point_off" in the node related with the cameras passes by paramater.
         /// </summary>
@@ -450,7 +466,7 @@ namespace Recording
                     if(node.Name == camera.Dev.ToString())
                         node.ImageKey = "Point_off";
         }
-
+        
         /// <summary>
         /// This method is created to modify the icon in a node throught a thread.
         /// </summary>
@@ -459,6 +475,27 @@ namespace Recording
         private void ModifyIcon(TreeNode node, string imageKey)
         {
             node.ImageKey = imageKey;
+        }
+
+        public void Deselect(Camera camera)
+        {
+            if(camera.MilSystem == milSysGigeVision.IDSystem())
+            {
+                foreach (TreeNode node in nodeGigeVision.Nodes)
+                {
+                    if (node.Name == camera.Dev.ToString())
+                    {
+                        DeselectCameraNode(node);
+                    }
+                }
+                    
+            }
+            else if(camera.MilSystem == milSystemUsb3.IDSystem())
+            {
+                foreach (TreeNode node in nodeGigeVision.Nodes)
+                    if (node.Name == camera.Dev.ToString())
+                        RemoveIconConnect(node);
+            }
         }
 
         /************* SAFE MODIFY CONTROLS FUNCTION ************/
