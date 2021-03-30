@@ -107,7 +107,7 @@
             // btnRoot
             // 
             this.btnRoot.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.btnRoot.BackgroundImage = global::Recording.Properties.Resources.search_folder;
+            this.btnRoot.BackgroundImage = global::Recording.Properties.Resources.camera_on;
             this.btnRoot.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.btnRoot.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnRoot.ForeColor = System.Drawing.Color.Transparent;

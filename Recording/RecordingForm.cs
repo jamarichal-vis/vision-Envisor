@@ -45,6 +45,11 @@ namespace Recording
         /// This variable contains all function about analysis of the image for this program.
         /// </summary>
         private Envisor_Algorithm envisor_Algorithm;
+        
+        /// <summary>
+        /// This variable contains all function about visualization of the image for this program.
+        /// </summary>
+        private Envisor_Visualization envisor_Visualization;
 
         /// <summary>
         /// Esta variable contiene todas las funciones necesarias para controlar el objeto <see cref="treeViewCameras">treeViewCameras</see>/>.
@@ -136,8 +141,8 @@ namespace Recording
 
             InitStateTools();
 
+            //tableLayoutPanel2.Width = flowLayoutPanel1.Width;
             //CheckCameras();
-
             /* Cambio de diseño de treViewCameras. */
             SetTreeViewTheme(treeViewCameras.Handle);
         }
@@ -191,9 +196,20 @@ namespace Recording
             camera_selected = null;
         }
 
+        /// <summary>
+        /// This method contains all functio to initialize the <see cref="envisor_Algorithm">envisor_Algorithm</see>/>.
+        /// </summary>
         public void InitEnvisorAlgorithm()
         {
             envisor_Algorithm = new Envisor_Algorithm();
+        }
+
+        /// <summary>
+        /// This method contains all functio to initialize the <see cref="envisor_Visualization">envisor_Visualization</see>/>.
+        /// </summary>
+        public void InitEnvisorVisualization()
+        {
+            envisor_Visualization = new Envisor_Visualization(milSystem: MilSystems[MilApp.GIGEVISION_SYSTEM_NAME]);
         }
 
         /// <summary>
@@ -264,6 +280,14 @@ namespace Recording
         /// <param name="ip">Ip de la cámara.</param>
         public void ProcessingFunction(Camera camera)
         {
+            if(envisor_Visualization != null)
+            {
+                if (envisor_Visualization.IsShowData)
+                {
+                    //envisor_Visualization.DrawGraphics.Start()
+                }
+            }
+
             if (envisor_Algorithm != null)
             {
                 envisor_Algorithm.Record();
@@ -309,14 +333,21 @@ namespace Recording
         {
             formatManager = new FormatManager(this, tableLayoutPanel: ref tableLayoutPanelFormat, numUpDownSizeX: ref numericUpDownImageFormatPixelX,
                 numUpDownSizeY: ref numericUpDownImageFormatPixelY);
+
+            formatManager.changeResolutionEvent += new FormatManager.changeResolutionDelegate(RestoreCameraSelectedToPanel);
         }
 
         private void InitSequenceManager()
         {
             recordSettings = new RecordSettings();
 
-            sequenceManager = new SequenceManager(ref numericUpDownTotalFrames, ref numericUpDownTrigger, ref numericUpDownPositionTrigger,
-                ref cbBoxSequence, ref trackBarSequence, ref lbMaxSequence);
+            sequenceManager = new SequenceManager(cBoxUnits: ref cbBoxUnits, numericUpDownTotal: ref numericUpDownTotal,
+                lbTotalUnits: ref lbSequenceValueTotalUnits, cBoxTypetrigger: ref cbBoxTypeTrigger, numericUpDownTrigger: ref numericUpDownTrigger,
+                lbTriggerUnit: ref lbSequenceTriggerUnits, numericUpDownPosition: ref numericUpDownPositionTrigger,
+                trBarPosition: ref trackBarSequence, lbMaxTrBar: ref lbMaxSequence);
+
+            sequenceManager.RecordSettings = recordSettings;
+            sequenceManager.UpdateRecordingSettings();
         }
 
         /// <summary>
@@ -347,7 +378,7 @@ namespace Recording
         ///// </summary>
         private void InitStateTools()
         {
-            stateTools = new StateTools(this, ref btnSingleShot, ref btnContinuousShot, ref btnPause, ref btnRecord, ref btnZoomLess, ref btnZoomPlus, ref btnResetZoom, ref btnStopRecord);
+            stateTools = new StateTools(this, ref btnSingleShot, ref btnContinuousShot, ref btnPause, ref btnRecord, ref btnResetZoom, ref btnStopRecord);
 
             panelManager.StateTools = stateTools;
             cameraManager.StateTools = stateTools;
@@ -424,8 +455,6 @@ namespace Recording
         private void NotifyCameraGrabContinuous(Camera camera)
         {
             formatManager.Disable();
-            frameRateManager.Disable();
-            exposureTimeManager.Disable();
         }
 
         /// <summary>
@@ -438,8 +467,6 @@ namespace Recording
         private void NotifyCameraPause(Camera camera)
         {
             formatManager.Enable();
-            frameRateManager.Enable();
-            exposureTimeManager.Enable();
         }
 
         /// <summary>
@@ -448,10 +475,13 @@ namespace Recording
         /// Also, this function is connect with <see cref="PanelManager.notifyStopGrabCameraEvent">PanelManager.notifyStopGrabCameraEvent</see>/>.
         /// See, <see cref="InitPanelManager">InitPanelManager</see>/>.
         /// </summary>
-        /// <param name="camera">Camera selected in panel manager.</param>
-        private void NotifyCameraGrab(Camera camera)
+        /// <param name="cameras">Cameras connect in panel manager.</param>
+        private void NotifyCameraGrab(List<Camera> cameras)
         {
+            cameraManager.ModifyIconGrab(cameras: cameras);
 
+            frameRateManager.Disable();
+            exposureTimeManager.Disable();
         }
 
         /// <summary>
@@ -460,10 +490,24 @@ namespace Recording
         /// Also, this function is connect with <see cref="PanelManager.notifyStopGrabCameraEvent">PanelManager.notifyStopGrabCameraEvent</see>/>.
         /// See, <see cref="InitPanelManager">InitPanelManager</see>/>.
         /// </summary>
-        /// <param name="camera">Camera selected in panel manager.</param>
-        private void NotifyCameraStopGrab(Camera camera)
+        /// <param name="cameras">Cameras connect in panel manager.</param>
+        private void NotifyCameraStopGrab(List<Camera> cameras)
         {
+            cameraManager.SetIconConnect(cameras: cameras);
 
+            frameRateManager.Enable(safe: true);
+            exposureTimeManager.Enable(safe: true);
+        }
+
+        /// <summary>
+        /// This method restore the camera selected in the panel that it is showing the <see cref="PanelManager.camera_selected">PanelManager.camera_selected</see>/>.
+        /// </summary>
+        private void RestoreCameraSelectedToPanel(Camera camera)
+        {
+            if(panelManager != null)
+            {
+                panelManager.RestoreCameraSelectedToPanel();
+            }
         }
 
         /****************** FRAME RATE MANAGER FUNCTION *******************/

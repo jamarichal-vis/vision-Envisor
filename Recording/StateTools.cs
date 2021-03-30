@@ -20,15 +20,13 @@ namespace Recording
         ToolStripMenuItem btnPause;
         ToolStripMenuItem btnRecord;
         ToolStripMenuItem btnStopRecord;
-        ToolStripMenuItem btnZoomLess;
-        ToolStripMenuItem btnZoomPlus;
         ToolStripMenuItem btnResetZoom;
 
         public delegate void safeControlDelegate(ToolStripMenuItem toolStripMenuItem, bool state);
         public safeControlDelegate safeControlEvent;
 
         public StateTools(Form form, ref ToolStripMenuItem btnSingleShot,ref ToolStripMenuItem btnGrabContinuous, ref ToolStripMenuItem btnPause, ref ToolStripMenuItem btnRecord,
-            ref ToolStripMenuItem btnZoomLess, ref ToolStripMenuItem btnZoomPlus, ref ToolStripMenuItem btnResetZoom, ref ToolStripMenuItem btnStopRecord)
+         ref ToolStripMenuItem btnResetZoom, ref ToolStripMenuItem btnStopRecord)
         {
             this.form = form;
 
@@ -36,8 +34,6 @@ namespace Recording
             this.btnGrabContinuous = btnGrabContinuous;
             this.btnPause = btnPause;
             this.btnRecord = btnRecord;
-            this.btnZoomLess = btnZoomLess;
-            this.btnZoomPlus = btnZoomPlus;
             this.btnResetZoom = btnResetZoom;
             this.btnStopRecord = btnStopRecord;
 
@@ -90,24 +86,6 @@ namespace Recording
         public void StopRecord(bool state = true)
         {
             form.Invoke(safeControlEvent, new object[] { btnStopRecord, state });
-        }
-
-        /// <summary>
-        /// Esta función modifica el estado de la variable Enable del control <see cref="btnZoomLess">btnZoomLess</see>/>.
-        /// </summary>
-        /// <param name="state">Esta que se quiere establecer.</param>
-        public void ZoomLess(bool state = true)
-        {
-            btnZoomLess.Enabled = state;
-        }
-
-        /// <summary>
-        /// Esta función modifica el estado de la variable Enable del control <see cref="btnZoomPlus">btnZoomPlus</see>/>.
-        /// </summary>
-        /// <param name="state">Esta que se quiere establecer.</param>
-        public void ZoomPlus(bool state = true)
-        {
-            btnZoomPlus.Enabled = state;
         }
 
         /// <summary>

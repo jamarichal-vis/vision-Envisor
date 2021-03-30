@@ -119,6 +119,11 @@ namespace Recording
         private Color color_record;
 
         /// <summary>
+        /// This variable indicates if the cameras is recording.
+        /// </summary>
+        private bool _record;
+
+        /// <summary>
         /// This event is used to notify which camera has been selected.
         /// </summary>
         /// <param name="id">Id of the camera selected.</param>
@@ -143,14 +148,14 @@ namespace Recording
         /// This event is used to notify a camera is grab. Also, it indicates the camera selected.
         /// </summary>
         /// <param name="id">Id of the camera selected.</param>
-        public delegate void notifyGrabCameraDelegate(Camera camera);
+        public delegate void notifyGrabCameraDelegate(List<Camera> cameras);
         public event notifyGrabCameraDelegate notifyRecordCameraEvent;
 
         /// <summary>
         /// Este evento se ejecuta cuando la grabación en disco de las cámaras ha finalizado.
         /// </summary>
         /// <param name="id">Id of the camera selected.</param>
-        public delegate void notifyStopGrabCameraDelegate(Camera camera);
+        public delegate void notifyStopGrabCameraDelegate(List<Camera> cameras);
         public event notifyStopGrabCameraDelegate notifyStopGrabCameraEvent;
 
         /// <summary>
@@ -321,6 +326,22 @@ namespace Recording
 
             if (!camerasForm.ContainsKey(camera))
                 camerasForm.Add(camera, form);
+        }
+
+        public void RestoreCameraSelectedToPanel()
+        {
+            if(camera_selected != null)
+            {
+                if (camerasForm.ContainsKey(camera_selected))
+                {
+                    Form form = camerasForm[camera_selected];
+
+                    if (camera_selected.GetType().ToString().Contains("Basler"))
+                    {
+                        (form as Basler_Display_Form).Display.Connect(ref camera_selected);
+                    }
+                }
+            }
         }
 
         /// <summary>
@@ -593,28 +614,35 @@ namespace Recording
         {
             foreach (Camera camera in pnlCameras.Keys)
             {
+                _record = true;
+
                 string pathFolder = GetPathCameraToRecord(camera: camera);
 
                 switch (recordSettings.Type)
                 {
                     case "Vídeo":
 
-                        string pathFile = System.IO.Path.Combine(pathFolder, NAME_VIDEO_FILE + EXTENSION_VIDEO);
+                        string pathFile = System.IO.Path.Combine(pathFolder, NAME_VIDEO_FILE + GetExtensition(recordSettings));
                         string name = NAME_VIDEO_MILLIBRARY + "-" + camera.Dev;
 
                         /* ADD VIDEO */
-                        Envisor_Algorithm.Videos.Add(camera: camera_selected, name: name, format: (int)recordSettings.OutputFormat,
-                            timePretrigger: -1, timePostTrigger: recordSettings.TimeStop);
+                        Envisor_Algorithm.Videos.Add_Video_MSequence(camera: camera, name: name, format: (int)recordSettings.OutputFormat,
+                            path: pathFile, mode_postTrigger: recordSettings.Mode_postTrigger, timePretrigger: -1, valuePostTrigger: recordSettings.TimeStop, fps: 0);
 
-                        /* OPEN VIDEO */
-                        Envisor_Algorithm.Videos.GetVideo(name: name).Open(pathFile);
+                        /* START VIDEO */
+                        Video video = Envisor_Algorithm.Videos.GetVideo(name: name);
+
+                        if (!video.IsAssignEndEvent())
+                            video._endVideoEvent += new Video._endVideoDelagete(StopGrab_Controls);
+
+                        video.Start();
                         
                         break;
 
                     case "Secuencia de imágenes":
 
                         /* ADD SEQUENCE */
-                        Envisor_Algorithm.Sequences_Images.Add(camera: camera, timeStop: recordSettings.TimeStop, format: recordSettings.OutputFormat);
+                        Envisor_Algorithm.Sequences_Images.Add(camera: camera, modePostTrigger: recordSettings.Mode_postTrigger, timeStop: recordSettings.TimeStop, format: recordSettings.OutputFormat);
 
                         /* START SEQUENCE */
                         Envisor_Algorithm.Sequences_Images.GetSequenceImages(camera: camera).Start(pathFolder);
@@ -622,7 +650,7 @@ namespace Recording
                 }
 
                 if (notifyRecordCameraEvent != null)
-                    notifyRecordCameraEvent.Invoke(camera: camera_selected);
+                    notifyRecordCameraEvent.Invoke(cameras: pnlCameras.Keys.ToList());
             }
 
             if (pnlCameras.Keys.Count > 0)
@@ -661,6 +689,26 @@ namespace Recording
         }
 
         /// <summary>
+        /// This method return the extensition in recordingSettings.
+        /// </summary>
+        /// <param name="recordSettings"></param>
+        /// <returns></returns>
+        private string GetExtensition( RecordSettings recordSettings)
+        {
+            switch (recordSettings.OutputFormat)
+            {
+                case MIL.M_FILE_FORMAT_AVI:
+                    return ".avi";
+                case MIL.M_FILE_FORMAT_H264:
+                    return ".avi";
+                case MIL.M_FILE_FORMAT_MP4:
+                    return ".mp4";
+            }
+
+            return "";
+        }
+
+        /// <summary>
         /// This method is executes when the user press <see cref="btnStopRecord">btnStopRecord</see>/>.
         /// </summary>
         /// <param name="sender"></param>
@@ -668,19 +716,35 @@ namespace Recording
         private void BtnStopRecord_Click(object sender, EventArgs e)
         {
             Envisor_Algorithm.StopRecord();
+            
+            StopGrab_Controls();
 
-            if(stateTools != null)
+            _record = false;
+        }
+
+        /// <summary>
+        /// This method contains all function need when the record end.
+        /// </summary>
+        /// <param name="camera"></param>
+        private void StopGrab_Controls(Camera camera = null)
+        {
+            if (_record)
             {
-                stateTools.Record();
-                stateTools.Pause();
-                stateTools.SingleShot();
-                stateTools.StopRecord(state: false);
+                if (stateTools != null)
+                {
+                    stateTools.Record();
+                    stateTools.Pause();
+                    stateTools.SingleShot();
+                    stateTools.StopRecord(state: false);
+                }
+
+                if (notifyStopGrabCameraEvent != null)
+                    notifyStopGrabCameraEvent.Invoke(cameras: pnlCameras.Keys.ToList());
+
+                Color_Information_Bar(color: color_default);
+
+                _record = false;
             }
-
-            if (notifyStopGrabCameraEvent != null)
-                notifyStopGrabCameraEvent.Invoke(camera: camera_selected);
-
-            Color_Information_Bar(color: color_default);
         }
 
         /// <summary>
@@ -692,29 +756,7 @@ namespace Recording
             if (notifyMouseDownEvent != null)
                 notifyMouseDownEvent.Invoke(camera);
         }
-
-        /// <summary>
-        /// Esta función conecta el evento <see cref="DisplayCamera.notifyMouseDownEvent">DisplayCamera.notifyMouseDownEvent</see>/> a la función 
-        /// <see cref="NotifyCameraSelected(Id)">NotifyCameraSelected(Id)</see>/>.
-        /// </summary>
-        //public void ConnectNotifyCameraSelected()
-        //{
-        //    foreach(DisplayCameraForm displayCameraForm in camerasForm.Values)
-        //        displayCameraForm.DisplayCamera.notifyMouseDownEvent += new DisplayCamera.notifyMouseDownDelegate(NotifyCameraSelected);
-
-        //}
-
-        /// <summary>
-        /// Esta función desconecta el evento <see cref="DisplayCamera.notifyMouseDownEvent">DisplayCamera.notifyMouseDownEvent</see>/> a la función 
-        /// <see cref="NotifyCameraSelected(Id)">NotifyCameraSelected(Id)</see>/>.
-        /// </summary>
-        //public void DisconnectNotifyCameraSelected()
-        //{
-        //    foreach(DisplayCameraForm displayCameraForm in camerasForm.Values)
-        //        displayCameraForm.DisplayCamera.notifyMouseDownEvent -= new DisplayCamera.notifyMouseDownDelegate(NotifyCameraSelected);
-
-        //}
-
+        
         /// <summary>
         /// This method enable all btn close of <see cref="camerasForm">camerasForm</see>/>.
         /// </summary>

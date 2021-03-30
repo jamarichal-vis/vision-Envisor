@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -106,6 +107,9 @@ namespace Recording
         /// <param name="state"></param>
         public delegate void safeControlDelegate(Control control, bool state);
         public safeControlDelegate safeControlEvent;
+        
+        public delegate void safeModifyIconInNodeDelegate(TreeNode node, string imageKey);
+        public safeModifyIconInNodeDelegate safeModifyIconInNodeEvent;
 
         public CameraManager(Form form, ref TreeView treeView, ref Dictionary<string, Camera> cameras_GigeVision, ref Dictionary<string, Camera> cameras_Usb3Vision, ref Camera camera_selected)
         {
@@ -165,7 +169,7 @@ namespace Recording
             foreach (TreeNode treeNode in treeViewCam.Nodes)
                 treeNode.Expand();
 
-            SelectedFirstCam();
+            //SelectedFirstCam();
         }
 
         /// <summary>
@@ -175,7 +179,7 @@ namespace Recording
         /// <param name="index">Indice donde quieres añadir el sistema.</param>
         private void ConnectSystemToTreeView()
         {
-            nodeGigeVision = new TreeNode(NAME_GIGEVISION_TREEVIEW, 1, 1);
+            nodeGigeVision = new TreeNode(NAME_GIGEVISION_TREEVIEW, 0, 0);
             nodeUsb3Vision = new TreeNode(NAME_USB3VISION_TREEVIEW, 1, 1);
 
             treeViewCam.Nodes.Add(nodeGigeVision);
@@ -190,7 +194,7 @@ namespace Recording
         /// <param name="name">Nombre de la cámara que quieres añadir.</param>
         private void ConnectCameraToTreeView(int indexSystem, string key, string name)
         {
-            TreeNode node = new TreeNode(name, 0, 0);
+            TreeNode node = new TreeNode(name, 5, 5);
             node.Name = key;
 
             treeViewCam.Nodes[indexSystem].Nodes.Add(node);
@@ -206,8 +210,12 @@ namespace Recording
         private void ImagesInTreeView()
         {
             ImageList imageList = new ImageList();
-            imageList.Images.Add(Properties.Resources.camera_Connect);
-            imageList.Images.Add(Properties.Resources.system);
+            imageList.Images.Add("System_GigeVision", Properties.Resources.GigE_Vision_Logo);
+            imageList.Images.Add("System_Usb3Vision", Properties.Resources.USB3VisionTM);
+            imageList.Images.Add("Point_on", Properties.Resources.point_camera_on);
+            imageList.Images.Add("Point_off", Properties.Resources.point_camera_off);
+
+            imageList.ColorDepth = ColorDepth.Depth32Bit;
             treeViewCam.ImageList = imageList;
         }
 
@@ -235,20 +243,25 @@ namespace Recording
             {
                 TreeNode node = hit.Node;
 
-                string type = TypeNode(node);
+                SelectCamera(node: node);
+            }
+        }
 
-                if(type == "CAMERA_NODE")
-                {
-                    DeselectCameraNode(node: nodeCamSelected);
+        private void SelectCamera(TreeNode node)
+        {
+            string type = TypeNode(node);
 
-                    nodeCamSelected = node;
-                    SelectCameraNode(node: nodeCamSelected);
+            if (type == "CAMERA_NODE")
+            {
+                DeselectCameraNode(node: nodeCamSelected);
 
-                    camera_selected = GetCamera(nodeCamSelected);
+                nodeCamSelected = node;
+                SelectCameraNode(node: nodeCamSelected);
 
-                    if (selectedCamEvent != null)
-                        selectedCamEvent.Invoke(camera: camera_selected);
-                }
+                camera_selected = GetCamera(nodeCamSelected);
+
+                if (selectedCamEvent != null)
+                    selectedCamEvent.Invoke(camera: camera_selected);
             }
         }
 
@@ -321,6 +334,8 @@ namespace Recording
             {
                 node.BackColor = Color.FromArgb(93, 169, 229);
                 node.ForeColor = Color.White;
+                node.ImageKey = "Point_on";
+                node.SelectedImageIndex = 2;
             }
         }
         
@@ -334,6 +349,8 @@ namespace Recording
             {
                 node.BackColor = Color.White;
                 node.ForeColor = Color.Black;
+                node.ImageKey = "";
+                node.SelectedImageIndex = -1;
             }
         }
 
@@ -346,27 +363,11 @@ namespace Recording
             {
                 if(nodeGigeVision.Nodes.Count > 0)
                 {
-                    DeselectCameraNode(nodeCamSelected);
-
-                    nodeCamSelected = nodeGigeVision.Nodes[0];
-                    SelectCameraNode(nodeCamSelected);
-
-                    camera_selected = GetCamera(nodeCamSelected);
-
-                    if (selectedCamEvent != null)
-                        selectedCamEvent.Invoke(camera: camera_selected);
+                    SelectCamera(node: nodeGigeVision.Nodes[0]);
                 }
                 else if (nodeUsb3Vision.Nodes.Count > 0)
                 {
-                    DeselectCameraNode(nodeCamSelected);
-
-                    nodeCamSelected = nodeUsb3Vision.Nodes[0];
-                    SelectCameraNode(nodeCamSelected);
-
-                    camera_selected = GetCamera(nodeCamSelected);
-
-                    if (selectedCamEvent != null)
-                        selectedCamEvent.Invoke(camera: camera_selected);
+                    SelectCamera(node: nodeUsb3Vision.Nodes[0]);
                 }
             }
         }
@@ -420,6 +421,82 @@ namespace Recording
             //freeCamCamEvent.Invoke();
 
             //milApp.FreeRecourse(idCam.DevNSys, idCam.DevNCam);
+        }
+
+        /***************** MODIFY ICONS FUNCTIONS ******************/
+        /***********************************************************/
+        /***********************************************************/
+
+        /// <summary>
+        /// This method set the icon "Point_on" in the node related with the cameras passes by paramater.
+        /// </summary>
+        /// <param name="cameras">Cameras you want to change its icon in <see cref="treeViewCam">treeViewCam</see>/>.</param>
+        public void SetIconConnect(List<Camera> cameras)
+        {
+            foreach (TreeNode node in nodeGigeVision.Nodes)
+                foreach (Camera camera in cameras)
+                    if (node.Name == camera.Dev.ToString())
+                        treeViewCam.Invoke(new safeModifyIconInNodeDelegate(ModifyIcon), new object[] { node, "Point_on" });
+        }
+
+        /// <summary>
+        /// This method set the icon "Point_off" in the node related with the cameras passes by paramater.
+        /// </summary>
+        /// <param name="cameras">Cameras you want to change its icon in <see cref="treeViewCam">treeViewCam</see>/>.</param>
+        public void ModifyIconGrab(List<Camera> cameras)
+        {
+            foreach(TreeNode node in nodeGigeVision.Nodes)
+                foreach(Camera camera in cameras)
+                    if(node.Name == camera.Dev.ToString())
+                        node.ImageKey = "Point_off";
+        }
+
+        /// <summary>
+        /// This method is created to modify the icon in a node throught a thread.
+        /// </summary>
+        /// <param name="node">Node you want to change its icon.</param>
+        /// <param name="imageKey">Key of the icon.</param>
+        private void ModifyIcon(TreeNode node, string imageKey)
+        {
+            node.ImageKey = imageKey;
+        }
+
+        /************* SAFE MODIFY CONTROLS FUNCTION ************/
+        /********************************************************/
+        /********************************************************/
+
+        /// <summary>
+        /// Función para cambiar los controles en threads separados de forma segura (Invoke)
+        /// </summary>
+        /// <param name="control"> Control del formulario a cambiar </param>
+        /// <param name="propertyName"> Nombre de la propiedad a cambiar como STRING </param>
+        /// <param name="propertyValue"> Valor que deseamos cambiar al control </param>
+        private delegate void SetControlPropertyThreadSafeDelegate(Control control, string propertyName, object propertyValue);
+
+        public static void SetControlPropertyThreadSafe(Control control, string propertyName, object propertyValue)
+        {
+            try
+            {
+                if (control.InvokeRequired)
+                {
+                    control.Invoke(new SetControlPropertyThreadSafeDelegate
+                    (SetControlPropertyThreadSafe),
+                    new object[] { control, propertyName, propertyValue });
+                }
+                else
+                {
+                    control.GetType().InvokeMember(
+                        propertyName,
+                        BindingFlags.SetProperty,
+                        null,
+                        control,
+                        new object[] { propertyValue });
+                }
+            }
+            catch (Exception e)
+            {
+                Console.Write(e.ToString());
+            }
         }
     }
 }

@@ -50,6 +50,9 @@ namespace Recording
         public delegate void safeControlDelegate(Control control, bool state);
         public safeControlDelegate safeControlEvent;
 
+        public delegate void changeResolutionDelegate(Camera camera);
+        public changeResolutionDelegate changeResolutionEvent;
+
         public FormatManager(Form form, ref TableLayoutPanel tableLayoutPanel, ref NumericUpDown numUpDownSizeX, ref NumericUpDown numUpDownSizeY)
         {
             this.form = form;
@@ -197,7 +200,12 @@ namespace Recording
         private void ChangeSize()
         {
             if (camera_selected != null)
+            {
                 camera_selected.Size((MIL_INT)numUpDownSizeX.Value, (MIL_INT)numUpDownSizeY.Value);
+
+                if (changeResolutionEvent != null)
+                    changeResolutionEvent.Invoke(camera_selected);
+            }
         }
     }
 }

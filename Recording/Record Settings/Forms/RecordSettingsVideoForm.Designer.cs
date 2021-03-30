@@ -65,13 +65,14 @@
             this.tableLayoutPanel3.Controls.Add(this.btnRoot, 2, 3);
             this.tableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel3.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutPanel3.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.tableLayoutPanel3.Name = "tableLayoutPanel3";
             this.tableLayoutPanel3.RowCount = 4;
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tableLayoutPanel3.Size = new System.Drawing.Size(461, 195);
+            this.tableLayoutPanel3.Size = new System.Drawing.Size(615, 240);
             this.tableLayoutPanel3.TabIndex = 2;
             // 
             // lbOutputFormat
@@ -79,9 +80,10 @@
             this.lbOutputFormat.AutoSize = true;
             this.lbOutputFormat.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lbOutputFormat.Font = new System.Drawing.Font("Segoe UI", 9.75F);
-            this.lbOutputFormat.Location = new System.Drawing.Point(3, 0);
+            this.lbOutputFormat.Location = new System.Drawing.Point(4, 0);
+            this.lbOutputFormat.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lbOutputFormat.Name = "lbOutputFormat";
-            this.lbOutputFormat.Size = new System.Drawing.Size(147, 48);
+            this.lbOutputFormat.Size = new System.Drawing.Size(197, 60);
             this.lbOutputFormat.TabIndex = 0;
             this.lbOutputFormat.Text = "Formato de salida:";
             this.lbOutputFormat.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -92,12 +94,13 @@
             this.cBoxOutputFormat.Font = new System.Drawing.Font("Segoe UI", 9.75F);
             this.cBoxOutputFormat.FormattingEnabled = true;
             this.cBoxOutputFormat.Items.AddRange(new object[] {
-            "M_AVI_DIB",
-            "M_AVI_MIL",
-            "M_AVI_MJPG"});
-            this.cBoxOutputFormat.Location = new System.Drawing.Point(156, 11);
+            "M_FILE_FORMAT_AVI",
+            "M_FILE_FORMAT_H264",
+            "M_FILE_FORMAT_MP4"});
+            this.cBoxOutputFormat.Location = new System.Drawing.Point(209, 15);
+            this.cBoxOutputFormat.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.cBoxOutputFormat.Name = "cBoxOutputFormat";
-            this.cBoxOutputFormat.Size = new System.Drawing.Size(147, 25);
+            this.cBoxOutputFormat.Size = new System.Drawing.Size(197, 29);
             this.cBoxOutputFormat.TabIndex = 1;
             // 
             // ckBoxFps
@@ -105,9 +108,10 @@
             this.ckBoxFps.AutoSize = true;
             this.ckBoxFps.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ckBoxFps.Font = new System.Drawing.Font("Segoe UI", 9.75F);
-            this.ckBoxFps.Location = new System.Drawing.Point(3, 51);
+            this.ckBoxFps.Location = new System.Drawing.Point(4, 64);
+            this.ckBoxFps.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.ckBoxFps.Name = "ckBoxFps";
-            this.ckBoxFps.Size = new System.Drawing.Size(147, 42);
+            this.ckBoxFps.Size = new System.Drawing.Size(197, 52);
             this.ckBoxFps.TabIndex = 2;
             this.ckBoxFps.Text = "Fijar Velocidad de Grabación:";
             this.ckBoxFps.UseVisualStyleBackColor = true;
@@ -116,18 +120,20 @@
             // numericUpDownFps
             // 
             this.numericUpDownFps.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.numericUpDownFps.Location = new System.Drawing.Point(156, 62);
+            this.numericUpDownFps.Location = new System.Drawing.Point(209, 79);
+            this.numericUpDownFps.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.numericUpDownFps.Name = "numericUpDownFps";
-            this.numericUpDownFps.Size = new System.Drawing.Size(147, 20);
+            this.numericUpDownFps.Size = new System.Drawing.Size(197, 22);
             this.numericUpDownFps.TabIndex = 3;
             // 
             // lbUnitsFps
             // 
             this.lbUnitsFps.AutoSize = true;
             this.lbUnitsFps.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lbUnitsFps.Location = new System.Drawing.Point(309, 48);
+            this.lbUnitsFps.Location = new System.Drawing.Point(414, 60);
+            this.lbUnitsFps.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lbUnitsFps.Name = "lbUnitsFps";
-            this.lbUnitsFps.Size = new System.Drawing.Size(149, 48);
+            this.lbUnitsFps.Size = new System.Drawing.Size(197, 60);
             this.lbUnitsFps.TabIndex = 4;
             this.lbUnitsFps.Text = "fps";
             this.lbUnitsFps.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -137,9 +143,10 @@
             this.ckBoxStopRecord.AutoSize = true;
             this.ckBoxStopRecord.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ckBoxStopRecord.Font = new System.Drawing.Font("Segoe UI", 9.75F);
-            this.ckBoxStopRecord.Location = new System.Drawing.Point(3, 99);
+            this.ckBoxStopRecord.Location = new System.Drawing.Point(4, 124);
+            this.ckBoxStopRecord.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.ckBoxStopRecord.Name = "ckBoxStopRecord";
-            this.ckBoxStopRecord.Size = new System.Drawing.Size(147, 42);
+            this.ckBoxStopRecord.Size = new System.Drawing.Size(197, 52);
             this.ckBoxStopRecord.TabIndex = 5;
             this.ckBoxStopRecord.Text = "Parar Grabación:";
             this.ckBoxStopRecord.UseVisualStyleBackColor = true;
@@ -148,9 +155,10 @@
             // numericUpDownStopRecord
             // 
             this.numericUpDownStopRecord.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.numericUpDownStopRecord.Location = new System.Drawing.Point(156, 110);
+            this.numericUpDownStopRecord.Location = new System.Drawing.Point(209, 139);
+            this.numericUpDownStopRecord.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.numericUpDownStopRecord.Name = "numericUpDownStopRecord";
-            this.numericUpDownStopRecord.Size = new System.Drawing.Size(147, 20);
+            this.numericUpDownStopRecord.Size = new System.Drawing.Size(197, 22);
             this.numericUpDownStopRecord.TabIndex = 6;
             // 
             // cBoxUnitsStopRecord
@@ -162,9 +170,10 @@
             "Segundos",
             "Minutos",
             "Horas"});
-            this.cBoxUnitsStopRecord.Location = new System.Drawing.Point(309, 107);
+            this.cBoxUnitsStopRecord.Location = new System.Drawing.Point(414, 135);
+            this.cBoxUnitsStopRecord.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.cBoxUnitsStopRecord.Name = "cBoxUnitsStopRecord";
-            this.cBoxUnitsStopRecord.Size = new System.Drawing.Size(149, 25);
+            this.cBoxUnitsStopRecord.Size = new System.Drawing.Size(197, 29);
             this.cBoxUnitsStopRecord.TabIndex = 7;
             // 
             // lbRoot
@@ -172,9 +181,10 @@
             this.lbRoot.AutoSize = true;
             this.lbRoot.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lbRoot.Font = new System.Drawing.Font("Segoe UI", 9.75F);
-            this.lbRoot.Location = new System.Drawing.Point(3, 144);
+            this.lbRoot.Location = new System.Drawing.Point(4, 180);
+            this.lbRoot.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lbRoot.Name = "lbRoot";
-            this.lbRoot.Size = new System.Drawing.Size(147, 51);
+            this.lbRoot.Size = new System.Drawing.Size(197, 60);
             this.lbRoot.TabIndex = 8;
             this.lbRoot.Text = "Seleccionar Carpeta:";
             this.lbRoot.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -183,31 +193,34 @@
             // 
             this.txBoxRoot.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.txBoxRoot.Font = new System.Drawing.Font("Segoe UI", 9.75F);
-            this.txBoxRoot.Location = new System.Drawing.Point(156, 157);
+            this.txBoxRoot.Location = new System.Drawing.Point(209, 195);
+            this.txBoxRoot.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.txBoxRoot.Name = "txBoxRoot";
-            this.txBoxRoot.Size = new System.Drawing.Size(147, 25);
+            this.txBoxRoot.Size = new System.Drawing.Size(197, 29);
             this.txBoxRoot.TabIndex = 9;
             // 
             // btnRoot
             // 
             this.btnRoot.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.btnRoot.BackgroundImage = global::Recording.Properties.Resources.search_folder;
+            this.btnRoot.BackgroundImage = global::Recording.Properties.Resources.camera_on;
             this.btnRoot.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.btnRoot.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnRoot.ForeColor = System.Drawing.Color.Transparent;
-            this.btnRoot.Location = new System.Drawing.Point(309, 158);
+            this.btnRoot.Location = new System.Drawing.Point(414, 196);
+            this.btnRoot.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnRoot.Name = "btnRoot";
-            this.btnRoot.Size = new System.Drawing.Size(35, 23);
+            this.btnRoot.Size = new System.Drawing.Size(47, 28);
             this.btnRoot.TabIndex = 10;
             this.btnRoot.UseVisualStyleBackColor = true;
             this.btnRoot.Click += new System.EventHandler(this.btnRoot_Click);
             // 
             // RecordSettingsVideoForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(461, 195);
+            this.ClientSize = new System.Drawing.Size(615, 240);
             this.Controls.Add(this.tableLayoutPanel3);
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "RecordSettingsVideoForm";
             this.Text = "RecordSettingsVideoForm";
             this.tableLayoutPanel3.ResumeLayout(false);

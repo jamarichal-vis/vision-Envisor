@@ -94,17 +94,17 @@ namespace Recording
 
             switch (cBoxOutputFormat.Text)
             {
-                case "M_AVI_DIB":
-                    format = MIL.M_AVI_DIB;
+                case "M_FILE_FORMAT_AVI":
+                    format = MIL.M_FILE_FORMAT_AVI;
                     break;
-                case "M_AVI_MIL":
-                    format = MIL.M_AVI_MIL;
+                case "M_FILE_FORMAT_H264":
+                    format = MIL.M_FILE_FORMAT_H264;
                     break;
-                case "M_AVI_MJPG":
-                    format = MIL.M_AVI_MJPG;
+                case "M_FILE_FORMAT_MP4":
+                    format = MIL.M_FILE_FORMAT_MP4;
                     break;
             }
-
+           
             recordSettings.OutputFormat = format;
 
             if (ckBoxFps.Checked)

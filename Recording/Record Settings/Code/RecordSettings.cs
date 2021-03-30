@@ -10,6 +10,16 @@ namespace Recording
     public class RecordSettings
     {
         /// <summary>
+        /// This const storages the time mode in <see cref="mode_postTrigger">mode_postTrigger</see>/>.
+        /// </summary>
+        const string MODE_TIME = "TIME";
+
+        /// <summary>
+        /// This const storages the frame mode in <see cref="mode_postTrigger">mode_postTrigger</see>/>.
+        /// </summary>
+        const string MODE_FRAME = "FRAMES";
+
+        /// <summary>
         /// Esta variable almacena el tipo de record que se quiere grabar. Vídeo o secuencia de imágenes.
         /// </summary>
         string type;
@@ -24,11 +34,16 @@ namespace Recording
         /// cámara actual. En caso de que esta variable tenga algún valor positivo, la grabación se realizará con los fps indicados.
         /// </summary>
         double fps;
+        
+        /// <summary>
+        /// This variable storages the mode of post trigger.
+        /// </summary>
+        string mode_postTrigger;
 
         /// <summary>
         /// Esta variable indica el tiempo para la finalización de la grabación.
         /// </summary>
-        double timeStop;
+        double value_postTrigger;
 
         /// <summary>
         /// Esta variable almacena las unidades de tiempo que se quiere 
@@ -48,9 +63,9 @@ namespace Recording
         public RecordSettings()
         {
             Type = "Vídeo";
-            outputFormat = MIL.M_AVI_MJPG;
+            outputFormat = MIL.M_FILE_FORMAT_MP4;
             fps = 0;
-            timeStop = 0;
+            value_postTrigger = 0;
             UnitTimeStop = "Segundos";
             Root = @"C:\Recording\Records";
         }
@@ -62,23 +77,33 @@ namespace Recording
         {
             get
             {
-                switch (UnitTimeStop)
+                switch (Mode_postTrigger)
                 {
-                    case "Segundos":
-                        return timeStop;
-                    case "Minutos":
-                        return timeStop * 60;
-                    case "Horas":
-                        return timeStop * 3600;
-                }
+                    case MODE_FRAME:
+                        return value_postTrigger;
 
-                return timeStop;
+                    case MODE_TIME:
+
+                        switch (UnitTimeStop)
+                        {
+                            case "Segundos":
+                                return value_postTrigger;
+                            case "Minutos":
+                                return value_postTrigger * 60;
+                            case "Horas":
+                                return value_postTrigger * 3600;
+                        }
+
+                        break;
+                }
+                return 0;
             }
 
-            set => timeStop = value;
+            set => value_postTrigger = value;
         }
         public string Root { get => root; set => root = value; }
         public string UnitTimeStop { get => unitTimeStop; set => unitTimeStop = value; }
         public double Pretrigger { get => pretrigger; set => pretrigger = value; }
+        public string Mode_postTrigger { get => mode_postTrigger; set => mode_postTrigger = value; }
     }
 }
