@@ -103,6 +103,12 @@
             this.btnRecord = new System.Windows.Forms.ToolStripMenuItem();
             this.btnStopRecord = new System.Windows.Forms.ToolStripMenuItem();
             this.btnResetZoom = new System.Windows.Forms.ToolStripMenuItem();
+            this.graphicsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.puntoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.líneaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.rectanguloToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.elipToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.polígonoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.singleShotToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.grabarEnContinuoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pausarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -380,7 +386,7 @@
             this.cbBoxTypeTrigger.Items.AddRange(new object[] {
             "Pre-Trigger",
             "Post-Trigger"});
-            this.cbBoxTypeTrigger.Location = new System.Drawing.Point(4, 37);
+            this.cbBoxTypeTrigger.Location = new System.Drawing.Point(4, 38);
             this.cbBoxTypeTrigger.Margin = new System.Windows.Forms.Padding(4);
             this.cbBoxTypeTrigger.Name = "cbBoxTypeTrigger";
             this.cbBoxTypeTrigger.Size = new System.Drawing.Size(128, 22);
@@ -443,7 +449,7 @@
             this.cbBoxUnits.Items.AddRange(new object[] {
             "Nº Frames",
             "Tiempo"});
-            this.cbBoxUnits.Location = new System.Drawing.Point(3, 4);
+            this.cbBoxUnits.Location = new System.Drawing.Point(3, 3);
             this.cbBoxUnits.Name = "cbBoxUnits";
             this.cbBoxUnits.Size = new System.Drawing.Size(130, 22);
             this.cbBoxUnits.TabIndex = 12;
@@ -941,6 +947,7 @@
             this.btnRecord,
             this.btnStopRecord,
             this.btnResetZoom,
+            this.graphicsToolStripMenuItem,
             this.btnOneCamera,
             this.btnMosaic});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
@@ -1167,7 +1174,7 @@
             // 
             this.btnStopRecord.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.btnStopRecord.Enabled = false;
-            this.btnStopRecord.Image = global::Recording.Properties.Resources.record_on;
+            this.btnStopRecord.Image = global::Recording.Properties.Resources.Stop;
             this.btnStopRecord.Name = "btnStopRecord";
             this.btnStopRecord.Size = new System.Drawing.Size(32, 39);
             this.btnStopRecord.Text = "Stop Record";
@@ -1180,6 +1187,51 @@
             this.btnResetZoom.Name = "btnResetZoom";
             this.btnResetZoom.Size = new System.Drawing.Size(32, 39);
             this.btnResetZoom.Text = "Reset Zoom";
+            // 
+            // graphicsToolStripMenuItem
+            // 
+            this.graphicsToolStripMenuItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.graphicsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.puntoToolStripMenuItem,
+            this.líneaToolStripMenuItem,
+            this.rectanguloToolStripMenuItem,
+            this.elipToolStripMenuItem,
+            this.polígonoToolStripMenuItem});
+            this.graphicsToolStripMenuItem.Enabled = false;
+            this.graphicsToolStripMenuItem.Image = global::Recording.Properties.Resources.Graphics;
+            this.graphicsToolStripMenuItem.Name = "graphicsToolStripMenuItem";
+            this.graphicsToolStripMenuItem.Size = new System.Drawing.Size(32, 39);
+            this.graphicsToolStripMenuItem.Text = "Graphics";
+            // 
+            // puntoToolStripMenuItem
+            // 
+            this.puntoToolStripMenuItem.Name = "puntoToolStripMenuItem";
+            this.puntoToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
+            this.puntoToolStripMenuItem.Text = "Punto";
+            // 
+            // líneaToolStripMenuItem
+            // 
+            this.líneaToolStripMenuItem.Name = "líneaToolStripMenuItem";
+            this.líneaToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
+            this.líneaToolStripMenuItem.Text = "Línea";
+            // 
+            // rectanguloToolStripMenuItem
+            // 
+            this.rectanguloToolStripMenuItem.Name = "rectanguloToolStripMenuItem";
+            this.rectanguloToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
+            this.rectanguloToolStripMenuItem.Text = "Rectangulo";
+            // 
+            // elipToolStripMenuItem
+            // 
+            this.elipToolStripMenuItem.Name = "elipToolStripMenuItem";
+            this.elipToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
+            this.elipToolStripMenuItem.Text = "Elipse";
+            // 
+            // polígonoToolStripMenuItem
+            // 
+            this.polígonoToolStripMenuItem.Name = "polígonoToolStripMenuItem";
+            this.polígonoToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
+            this.polígonoToolStripMenuItem.Text = "Polígono";
             // 
             // singleShotToolStripMenuItem
             // 
@@ -1372,6 +1424,12 @@
         private System.Windows.Forms.Label lbImageFormat;
         private System.Windows.Forms.ComboBox cbBoxImageFormat;
         private System.Windows.Forms.Label lbParameter;
+        private System.Windows.Forms.ToolStripMenuItem graphicsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem puntoToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem líneaToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem rectanguloToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem elipToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem polígonoToolStripMenuItem;
     }
 }
 

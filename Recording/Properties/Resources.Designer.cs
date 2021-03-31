@@ -93,6 +93,16 @@ namespace Recording.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Graphics {
+            get {
+                object obj = ResourceManager.GetObject("Graphics", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap pause_on {
             get {
                 object obj = ResourceManager.GetObject("pause_on", resourceCulture);
