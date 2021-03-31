@@ -57,6 +57,8 @@ namespace Recording
             LbPosY = lbPosY;
             LbFps = lbFps;
             LayoutPanelControls = tableLayoutPanel;
+
+            Clear();
         }
 
         public Label LbIp { get => lbIp; set => lbIp = value; }
@@ -66,5 +68,15 @@ namespace Recording
         public Label LbPosY { get => lbPosY; set => lbPosY = value; }
         public Label LbFps { get => lbFps; set => lbFps = value; }
         public TableLayoutPanel LayoutPanelControls { get => layoutPanelControls; set => layoutPanelControls = value; }
+
+        public void Clear()
+        {
+            LbIp.Text = "";
+            LbName.Text = "";
+            LbIntensity.Text = "";
+            LbPosX.Text = "";
+            LbPosY.Text = "";
+            LbFps.Text = "";
+        }
     }
 }

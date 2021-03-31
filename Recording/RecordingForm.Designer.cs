@@ -386,7 +386,7 @@
             this.cbBoxTypeTrigger.Items.AddRange(new object[] {
             "Pre-Trigger",
             "Post-Trigger"});
-            this.cbBoxTypeTrigger.Location = new System.Drawing.Point(4, 38);
+            this.cbBoxTypeTrigger.Location = new System.Drawing.Point(4, 37);
             this.cbBoxTypeTrigger.Margin = new System.Windows.Forms.Padding(4);
             this.cbBoxTypeTrigger.Name = "cbBoxTypeTrigger";
             this.cbBoxTypeTrigger.Size = new System.Drawing.Size(128, 22);
@@ -449,7 +449,7 @@
             this.cbBoxUnits.Items.AddRange(new object[] {
             "Nº Frames",
             "Tiempo"});
-            this.cbBoxUnits.Location = new System.Drawing.Point(3, 3);
+            this.cbBoxUnits.Location = new System.Drawing.Point(3, 4);
             this.cbBoxUnits.Name = "cbBoxUnits";
             this.cbBoxUnits.Size = new System.Drawing.Size(130, 22);
             this.cbBoxUnits.TabIndex = 12;
@@ -1032,31 +1032,31 @@
             // btnLine
             // 
             this.btnLine.Name = "btnLine";
-            this.btnLine.Size = new System.Drawing.Size(216, 26);
+            this.btnLine.Size = new System.Drawing.Size(159, 26);
             this.btnLine.Text = "Línea";
             // 
             // btnPoint
             // 
             this.btnPoint.Name = "btnPoint";
-            this.btnPoint.Size = new System.Drawing.Size(216, 26);
+            this.btnPoint.Size = new System.Drawing.Size(159, 26);
             this.btnPoint.Text = "Punto";
             // 
             // btnRectangle
             // 
             this.btnRectangle.Name = "btnRectangle";
-            this.btnRectangle.Size = new System.Drawing.Size(216, 26);
+            this.btnRectangle.Size = new System.Drawing.Size(159, 26);
             this.btnRectangle.Text = "Rectangulo";
             // 
             // btnElipse
             // 
             this.btnElipse.Name = "btnElipse";
-            this.btnElipse.Size = new System.Drawing.Size(216, 26);
+            this.btnElipse.Size = new System.Drawing.Size(159, 26);
             this.btnElipse.Text = "Elipse";
             // 
             // btnPolygon
             // 
             this.btnPolygon.Name = "btnPolygon";
-            this.btnPolygon.Size = new System.Drawing.Size(216, 26);
+            this.btnPolygon.Size = new System.Drawing.Size(159, 26);
             this.btnPolygon.Text = "Polígono";
             // 
             // btnOneCamera

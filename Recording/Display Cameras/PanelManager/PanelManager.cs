@@ -504,11 +504,15 @@ namespace Recording
                     buttonsTools.GrabContinuous(state: false);
                     buttonsTools.Pause(state: false);
                     buttonsTools.ResetZoom(state: false);
+                    buttonsTools.Graphics(state: false);
+
+                    basler_informationbar_controls.Clear();
                 }
 
                 if (camera_selected != null)
                     if (camera_selected == camera)
                         camera_selected = null;
+                
 
                 if (notifyCloseEvent != null)
                     notifyCloseEvent.Invoke(camera);
@@ -539,7 +543,28 @@ namespace Recording
 
         private void BtnSingleShot_Click(object sender, EventArgs e)
         {
+            string path = GetPathSingleShot(camera: camera_selected);
 
+            camera_selected.SaveImageGrab(path);
+        }
+
+        private string GetPathSingleShot(Camera camera)
+        {
+            string root = @"C:\Recording\SingleShot";
+
+            string path = System.IO.Path.Combine(root,
+                    "SingleShot" + " - " +
+                    (camera.Vendor != "" ? (camera.Vendor + " -") : "") +
+                    (camera.Model != "" ? (camera.Model) : "") +
+                    (camera.Name != "" ? (" -" + camera.Name) : (camera.SerialNumber)) +
+                    (camera.IpAddress != "" ? (" -" + camera.IpAddress) : ""));
+            
+            if (!Directory.Exists(path))
+                Directory.CreateDirectory(path);
+
+            path = System.IO.Path.Combine(path, DateTime.Now.ToString(" (dd-MM-yyyy HH-mm-ss-fff)") + ".mim");
+
+            return path;
         }
 
         /// <summary>
