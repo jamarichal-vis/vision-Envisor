@@ -175,6 +175,7 @@ namespace Recording
         /// </summary>
         public void ConnectBtns()
         {
+            buttonsTools.BtnSingleShot.Click += new System.EventHandler(this.BtnSingleShot_Click);
             buttonsTools.BtnGrabContinuous.Click += new System.EventHandler(this.BtnGrabContinuous_Click);
             buttonsTools.BtnPause.Click += new System.EventHandler(this.BtnPause_Click);
             buttonsTools.BtnResetZoom.Click += new System.EventHandler(this.BtnResetZoom_Click);
@@ -535,6 +536,11 @@ namespace Recording
         /******************* BUTTONS FUNCTION *******************/
         /********************************************************/
         /********************************************************/
+
+        private void BtnSingleShot_Click(object sender, EventArgs e)
+        {
+
+        }
 
         /// <summary>
         /// This method is executed when the user press the <see cref="btnGrabContinuous">btnGrabContinuous</see>/>.
