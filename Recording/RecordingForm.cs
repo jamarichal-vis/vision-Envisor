@@ -373,8 +373,8 @@ namespace Recording
             panelManager.Envisor_Algorithm = envisor_Algorithm;
             panelManager.Envisor_Visualization = envisor_Visualization;
             panelManager.Basler_informationbar_controls = basler_informationbar_controls;
-            
-            //cameraManager.grabContinuousCamEvent += new CameraManager.grabContinuousCamDelegate(panelManager.StartGrabContinuous);
+
+            cameraManager.grabContinuousCamEvent += new CameraManager.grabContinuousCamDelegate(panelManager.StartGrabContinuous);
         }
 
         ///// <summary>

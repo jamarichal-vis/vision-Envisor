@@ -327,10 +327,8 @@ namespace Recording
         /// <param name="e"></param>
         private void TreeViewCameras_MouseDoubleClick(object sender, MouseEventArgs e)
         {
-            //if (!IsSystemNode())
-            //{
-            //    grabContinuousCamEvent.Invoke();
-            //}
+            if (grabContinuousCamEvent != null)
+                grabContinuousCamEvent.Invoke();
         }
 
         /// <summary>
