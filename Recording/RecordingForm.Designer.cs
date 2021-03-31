@@ -106,12 +106,6 @@
             this.lbIp = new System.Windows.Forms.Label();
             this.menuStrip2 = new System.Windows.Forms.MenuStrip();
             this.archivoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.cámaraToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.singleShotToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.grabarEnContinuoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.pausarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.grabarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.stopGrabaciónToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.herramientasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.grabarConfiguraciónToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ayudaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -370,7 +364,7 @@
             this.numericUpDownTrigger.Location = new System.Drawing.Point(140, 38);
             this.numericUpDownTrigger.Margin = new System.Windows.Forms.Padding(4);
             this.numericUpDownTrigger.Maximum = new decimal(new int[] {
-            10000,
+            1000000,
             0,
             0,
             0});
@@ -1191,7 +1185,6 @@
             this.menuStrip2.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.menuStrip2.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.archivoToolStripMenuItem,
-            this.cámaraToolStripMenuItem,
             this.herramientasToolStripMenuItem,
             this.ayudaToolStripMenuItem});
             this.menuStrip2.Location = new System.Drawing.Point(0, 0);
@@ -1206,53 +1199,6 @@
             this.archivoToolStripMenuItem.Name = "archivoToolStripMenuItem";
             this.archivoToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
             this.archivoToolStripMenuItem.Text = "Archivo";
-            // 
-            // cámaraToolStripMenuItem
-            // 
-            this.cámaraToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.singleShotToolStripMenuItem,
-            this.grabarEnContinuoToolStripMenuItem,
-            this.pausarToolStripMenuItem,
-            this.grabarToolStripMenuItem,
-            this.stopGrabaciónToolStripMenuItem});
-            this.cámaraToolStripMenuItem.Name = "cámaraToolStripMenuItem";
-            this.cámaraToolStripMenuItem.Size = new System.Drawing.Size(62, 20);
-            this.cámaraToolStripMenuItem.Text = "Cámara";
-            // 
-            // singleShotToolStripMenuItem
-            // 
-            this.singleShotToolStripMenuItem.Image = global::Recording.Properties.Resources.camera_on;
-            this.singleShotToolStripMenuItem.Name = "singleShotToolStripMenuItem";
-            this.singleShotToolStripMenuItem.Size = new System.Drawing.Size(219, 26);
-            this.singleShotToolStripMenuItem.Text = "Captura";
-            // 
-            // grabarEnContinuoToolStripMenuItem
-            // 
-            this.grabarEnContinuoToolStripMenuItem.Image = global::Recording.Properties.Resources.grabContinuous;
-            this.grabarEnContinuoToolStripMenuItem.Name = "grabarEnContinuoToolStripMenuItem";
-            this.grabarEnContinuoToolStripMenuItem.Size = new System.Drawing.Size(219, 26);
-            this.grabarEnContinuoToolStripMenuItem.Text = "Grabación en continuo";
-            // 
-            // pausarToolStripMenuItem
-            // 
-            this.pausarToolStripMenuItem.Image = global::Recording.Properties.Resources.pause_on;
-            this.pausarToolStripMenuItem.Name = "pausarToolStripMenuItem";
-            this.pausarToolStripMenuItem.Size = new System.Drawing.Size(219, 26);
-            this.pausarToolStripMenuItem.Text = "Pausar";
-            // 
-            // grabarToolStripMenuItem
-            // 
-            this.grabarToolStripMenuItem.Image = global::Recording.Properties.Resources.record_on;
-            this.grabarToolStripMenuItem.Name = "grabarToolStripMenuItem";
-            this.grabarToolStripMenuItem.Size = new System.Drawing.Size(219, 26);
-            this.grabarToolStripMenuItem.Text = "Grabar en disco";
-            // 
-            // stopGrabaciónToolStripMenuItem
-            // 
-            this.stopGrabaciónToolStripMenuItem.Image = global::Recording.Properties.Resources.record_on;
-            this.stopGrabaciónToolStripMenuItem.Name = "stopGrabaciónToolStripMenuItem";
-            this.stopGrabaciónToolStripMenuItem.Size = new System.Drawing.Size(219, 26);
-            this.stopGrabaciónToolStripMenuItem.Text = "Parar grabación en disco";
             // 
             // herramientasToolStripMenuItem
             // 
@@ -1362,16 +1308,10 @@
         private System.Windows.Forms.ToolStripMenuItem btnMosaic;
         private System.Windows.Forms.MenuStrip menuStrip2;
         private System.Windows.Forms.ToolStripMenuItem archivoToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem cámaraToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem singleShotToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem grabarEnContinuoToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem pausarToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem grabarToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem herramientasToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem grabarConfiguraciónToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem ayudaToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem btnStopRecord;
-        private System.Windows.Forms.ToolStripMenuItem stopGrabaciónToolStripMenuItem;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanelInformationBar;
         private System.Windows.Forms.Label lbIntensity;
         private System.Windows.Forms.Label lbPosX;

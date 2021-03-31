@@ -123,7 +123,7 @@ namespace Recording
         /// <param name="state">Esta que se quiere establecer.</param>
         public void ResetZoom(bool state = true)
         {
-            btnResetZoom.Enabled = state;
+            form.Invoke(safeControlEvent, new object[] { btnResetZoom, state });
         }
 
         /// <summary>
@@ -138,7 +138,6 @@ namespace Recording
             form.Invoke(safeControlEvent, new object[] { btnElipse, state });
             form.Invoke(safeControlEvent, new object[] { btnRectangle, state });
             form.Invoke(safeControlEvent, new object[] { btnPolygon, state });
-
         }
 
         private void StateControl(ToolStripMenuItem toolStripMenuItem, bool state)

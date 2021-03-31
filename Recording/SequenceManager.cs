@@ -102,6 +102,12 @@ namespace Recording
         /// </summary>
         private RecordSettings recordSettings;
 
+        /// <summary>
+        /// This method update the videos in all cameras of the program.
+        /// </summary>
+        public delegate void updateSequenceDelegate();
+        public updateSequenceDelegate updateSequenceEvent;
+
         public RecordSettings RecordSettings { get => recordSettings; set => recordSettings = value; }
 
         public SequenceManager(ref ComboBox cBoxUnits, ref NumericUpDown numericUpDownTotal, ref Label lbTotalUnits,
@@ -542,6 +548,9 @@ namespace Recording
                 recordSettings.Pretrigger = preTrigger;
                 recordSettings.TimeStop = postTrigger;
                 recordSettings.UnitTimeStop = "Segundos";
+
+                if (updateSequenceEvent != null)
+                    updateSequenceEvent.Invoke();
             }
         }
     }

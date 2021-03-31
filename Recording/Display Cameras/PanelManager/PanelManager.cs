@@ -145,6 +145,9 @@ namespace Recording
         public delegate void notifyCloseDelegate(Camera camera);
         public event notifyCloseDelegate notifyCloseEvent;
 
+        public delegate void safeControlDelegate(Control control, Control pnl);
+        public safeControlDelegate safeControlEvent;
+
         public ButtonsTools StateTools { get => buttonsTools; set => buttonsTools = value; }
         public RecordSettings RecordSettings { get => recordSettings; set => recordSettings = value; }
         public Envisor_Algorithm Envisor_Algorithm { get => envisor_Algorithm; set => envisor_Algorithm = value; }
@@ -168,6 +171,8 @@ namespace Recording
             this.recordingForm = recordingForm;
 
             ConnectBtns();
+
+            safeControlEvent += new safeControlDelegate(RemoveControlSafe);
         }
 
         /// <summary>
@@ -490,13 +495,17 @@ namespace Recording
         {
             if (pnlCameras.ContainsKey(camera))
             {
-                flowLayoutPanelCameras.Controls.Remove(pnlCameras[camera]);
+                recordingForm.Invoke(safeControlEvent, new object[] { flowLayoutPanelCameras, pnlCameras[camera] });
+
+                //flowLayoutPanelCameras.Controls.Remove(pnlCameras[camera]);
 
                 RemovePanelToDict(camera);
 
                 /* STATE TOOLS */
                 if (pnlCameras.Keys.Count > 0)
-                    buttonsTools.Record();
+                {
+                    SelectCamera(pnlCameras.Keys.First());
+                }
                 else
                 {
                     buttonsTools.Record(state: false);
@@ -512,11 +521,15 @@ namespace Recording
                 if (camera_selected != null)
                     if (camera_selected == camera)
                         camera_selected = null;
-                
 
                 if (notifyCloseEvent != null)
                     notifyCloseEvent.Invoke(camera);
             }
+        }
+
+        public void RemoveControlSafe(Control control, Control pnl)
+        {
+            control.Controls.Remove(pnl);
         }
 
         /// <summary>
@@ -658,7 +671,7 @@ namespace Recording
 
                         /* ADD VIDEO */
                         Envisor_Algorithm.Videos.Add_Video_MSequence(camera: camera, name: name, format: (int)recordSettings.OutputFormat,
-                            path: pathFile, mode_postTrigger: recordSettings.Mode_postTrigger, timePretrigger: -1, valuePostTrigger: recordSettings.TimeStop, fps: 0);
+                            path: pathFile, mode_postTrigger: recordSettings.Mode_postTrigger, valuePretrigger: recordSettings.Pretrigger, valuePostTrigger: recordSettings.TimeStop, fps: 0);
 
                         /* START VIDEO */
                         Video video = Envisor_Algorithm.Videos.GetVideo(name: name);

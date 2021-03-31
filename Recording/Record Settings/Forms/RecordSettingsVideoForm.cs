@@ -117,6 +117,11 @@ namespace Recording
             else
                 recordSettings.TimeStop = 0;
 
+            if (cBoxUnitsStopRecord.Text == "FRAMES")
+                recordSettings.Mode_postTrigger = "FRAMES";
+            else
+                recordSettings.Mode_postTrigger = "TIME";
+
             recordSettings.UnitTimeStop = cBoxUnitsStopRecord.Text;
 
             recordSettings.Root = txBoxRoot.Text;

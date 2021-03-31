@@ -16,6 +16,11 @@ namespace Recording
     public partial class RecordingForm : Form
     {
         /// <summary>
+        /// Nombre del video en la libraria <see cref="MilLibrary">MilLibrary</see>/>.
+        /// </summary>
+        private const string NAME_VIDEO_MILLIBRARY = "VIDEO";
+
+        /// <summary>
         /// This object storages the app object of MilLibrary.
         /// </summary>
         private MilApp milApp;
@@ -45,7 +50,7 @@ namespace Recording
         /// This variable contains all function about analysis of the image for this program.
         /// </summary>
         private Envisor_Algorithm envisor_Algorithm;
-        
+
         /// <summary>
         /// This variable contains all function about visualization of the image for this program.
         /// </summary>
@@ -125,19 +130,15 @@ namespace Recording
 
             InitMilLibrary();
 
-            InitEnvisorAlgorithm();
-
-            InitEnvisorVisualization();
-
             InitCameraManager();
+
+            InitSequenceManager();
 
             InitFrameRateManager();
 
             InitExposureTimeManager();
 
             InitFormatManager();
-
-            InitSequenceManager();
 
             InitButtonsTools();
 
@@ -164,13 +165,21 @@ namespace Recording
 
             MilSystems = milApp.MilSystems;
 
-            /************* EVENT GIGEVISION SYSTEM ****************/
+            /******************** SETTINGS SYSTEMS ****************/
             /******************************************************/
             /******************************************************/
             if (MilSystems.ContainsKey(MilApp.GIGEVISION_SYSTEM_NAME))
             {
+                (MilSystems[MilApp.GIGEVISION_SYSTEM_NAME] as MilSysCameras).ConnectCamera_type = "Dev";
+
                 (MilSystems[MilApp.GIGEVISION_SYSTEM_NAME] as MilSysCameras)._cameraConnectedEvent += new MilSysCameras._cameraDelagete(ConnectedCameraEvent);
-                (MilSystems[MilApp.GIGEVISION_SYSTEM_NAME] as MilSysCameras)._cameraDisconnectedEvent += new MilSysCameras._cameraDelagete(DisconnectedCameraEvent);
+                (MilSystems[MilApp.GIGEVISION_SYSTEM_NAME] as MilSysCameras)._cameraPreDisconnectedEvent += new MilSysCameras._cameraDelagete(PreDisconnectedCameraEvent);
+                (MilSystems[MilApp.GIGEVISION_SYSTEM_NAME] as MilSysCameras)._cameraPostDisconnectedEvent += new MilSysCameras._Delagete(PostDisconnectedCameraEvent);
+            }
+
+            if (MilSystems.ContainsKey(MilApp.USB3VISION_SYSTEM_NAME))
+            {
+                (MilSystems[MilApp.USB3VISION_SYSTEM_NAME] as MilSysCameras).ConnectCamera_type = "Dev";
             }
 
             /****************** ADD CAMERAS ***********************/
@@ -187,6 +196,10 @@ namespace Recording
                 Cameras_Usb3Vision = (MilSystems[MilApp.USB3VISION_SYSTEM_NAME] as MilSysCameras).Cameras;
                 (MilSystems[MilApp.USB3VISION_SYSTEM_NAME] as MilSysCameras).AddCamera();
             }
+
+            InitEnvisorAlgorithm();
+
+            InitEnvisorVisualization();
 
             /************** ADD CAMERAS IN PROGRAM ****************/
             foreach (var camera in Cameras_GigeVision)
@@ -230,6 +243,9 @@ namespace Recording
         {
             ConnectedCameraInSystem(camera);
 
+            /* CAMERA MANAGER */
+            cameraManager.UpdateCameras(safe: true);
+
             //Id id = new Id(devSys, devDig);
 
             //ConnectedCameraInSystem(id.DevNSys, id.DevNCam);
@@ -247,11 +263,22 @@ namespace Recording
         /// <param name="devN">Posición en MilLibrary de la cámara.</param>
         /// <param name="disconnectedCameraName">Nombre de la cámara.</param>
         /// <param name="disconnectedCameraIp">Ip de la cámara.</param>
-        public void DisconnectedCameraEvent(Camera camera)
+        public void PreDisconnectedCameraEvent(Camera camera)
         {
-            //panelManager.Remove(id);
+            panelManager.Remove(camera);
 
-            //cameraManager.RemoveCamera(id);
+            if (cameraManager.Camera_selected == camera)
+                cameraManager.Camera_selected = null;
+        }
+
+        /// <summary>
+        /// This method is executed when a camera is desconnect. This event is executed when the Library has remove the camera of its structure.
+        /// </summary>
+        /// <param name="camera"></param>
+        public void PostDisconnectedCameraEvent()
+        {
+            /* CAMERA MANAGER */
+            cameraManager.UpdateCameras(safe: true);
         }
 
         /// <summary>
@@ -267,10 +294,35 @@ namespace Recording
         /// <param name="devDig">Posición de la cámara en el sistema con la que quieres trabajar. En este caso el sistema es GigeVision.</param>
         public void ConnectedCameraInSystem(Camera camera)
         {
+            AddVideo(camera);
+
             /******************** EVENT PROCESSING FUNCTION ****************/
             /***************************************************************/
             /***************************************************************/
             camera._cameraEvent += new Camera._cameraDelagete(ProcessingFunction);
+        }
+
+        private void AddVideo(Camera camera)
+        {
+            string name = NAME_VIDEO_MILLIBRARY + "-" + camera.Dev;
+
+            /* ADD VIDEO */
+            if (envisor_Algorithm != null && recordSettings != null)
+                envisor_Algorithm.Videos.Add_Video_MSequence(camera: camera, name: name, format: 0,
+                    path: "", mode_postTrigger: recordSettings.Mode_postTrigger, valuePretrigger: recordSettings.Pretrigger, valuePostTrigger: recordSettings.TimeStop, fps: 0);
+        }
+
+        /// <summary>
+        /// This method update the data in videos of the cameras in <see cref="cameras_GigeVision">cameras_GigeVision</see>/> and 
+        /// <see cref="cameras_Usb3Vision">cameras_Usb3Vision</see>/>
+        /// </summary>
+        public void UpdateSequence()
+        {
+            foreach (var camera in cameras_GigeVision)
+                AddVideo(camera.Value);
+
+            foreach (var camera in cameras_Usb3Vision)
+                AddVideo(camera.Value);
         }
 
         /// <summary>
@@ -282,7 +334,7 @@ namespace Recording
         /// <param name="ip">Ip de la cámara.</param>
         public void ProcessingFunction(Camera camera)
         {
-            if(envisor_Visualization != null)
+            if (envisor_Visualization != null)
             {
                 if (envisor_Visualization.IsShowData)
                 {
@@ -307,7 +359,7 @@ namespace Recording
             cameraManager.selectedCamEvent += new CameraManager.selectedCamDelegate(SelectedCamera);
             cameraManager.freeCamCamEvent += new CameraManager.FreeCamDelegate(FreeCamera);
 
-            cameraManager.ShowCamerasConnected();
+            cameraManager.UpdateCameras();
         }
 
         /// <summary>
@@ -348,6 +400,8 @@ namespace Recording
                 lbTriggerUnit: ref lbSequenceTriggerUnits, numericUpDownPosition: ref numericUpDownPositionTrigger,
                 trBarPosition: ref trackBarSequence, lbMaxTrBar: ref lbMaxSequence);
 
+            sequenceManager.updateSequenceEvent += new SequenceManager.updateSequenceDelegate(UpdateSequence);
+
             sequenceManager.RecordSettings = recordSettings;
             sequenceManager.UpdateRecordingSettings();
         }
@@ -366,7 +420,7 @@ namespace Recording
             panelManager.notifyMouseDownEvent += new PanelManager.notifyMouseDownDelegate(NotifyMouseDown);
             panelManager.notifyCloseEvent += new PanelManager.notifyCloseDelegate(NotifyClose);
 
-            basler_informationbar_controls = new Basler_InformatioBar_Controls(lbIp: ref lbIp, lbName: ref lbName, lbIntensity: ref lbIntensity, 
+            basler_informationbar_controls = new Basler_InformatioBar_Controls(lbIp: ref lbIp, lbName: ref lbName, lbIntensity: ref lbIntensity,
                 lbPosX: ref lbPosX, lbPosY: ref lbPosY, lbFps: ref lbFps, tableLayoutPanel: ref tableLayoutPanelInformationBar);
 
             panelManager.RecordSettings = recordSettings;
@@ -382,7 +436,7 @@ namespace Recording
         ///// </summary>
         private void InitButtonsTools()
         {
-            buttonsTools = new ButtonsTools(this, ref btnSingleShot, ref btnContinuousShot, ref btnPause, ref btnRecord, ref btnResetZoom, 
+            buttonsTools = new ButtonsTools(this, ref btnSingleShot, ref btnContinuousShot, ref btnPause, ref btnRecord, ref btnResetZoom,
                 ref btnStopRecord, btnGraphics: ref btnGraphics, btnLine: ref btnLine, btnPoint: ref btnPoint, btnElipse: ref btnElipse, btnRectangle: ref btnRectangle,
                 btnPolygon: ref btnPolygon);
 
@@ -540,7 +594,7 @@ namespace Recording
         /// </summary>
         private void RestoreCameraSelectedToPanel(Camera camera)
         {
-            if(panelManager != null)
+            if (panelManager != null)
             {
                 panelManager.RestoreCameraSelectedToPanel();
             }
@@ -570,6 +624,8 @@ namespace Recording
             recordSettingsForm.StartPosition = FormStartPosition.CenterScreen;
 
             recordSettingsForm.ShowDialog();
+
+            UpdateSequence();
         }
 
         ///// <summary>

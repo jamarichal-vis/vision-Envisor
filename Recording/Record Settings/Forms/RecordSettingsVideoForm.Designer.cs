@@ -65,7 +65,7 @@
             this.tableLayoutPanel3.Controls.Add(this.btnRoot, 2, 3);
             this.tableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel3.Location = new System.Drawing.Point(0, 0);
-            this.tableLayoutPanel3.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tableLayoutPanel3.Margin = new System.Windows.Forms.Padding(4);
             this.tableLayoutPanel3.Name = "tableLayoutPanel3";
             this.tableLayoutPanel3.RowCount = 4;
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
@@ -97,8 +97,8 @@
             "M_FILE_FORMAT_AVI",
             "M_FILE_FORMAT_H264",
             "M_FILE_FORMAT_MP4"});
-            this.cBoxOutputFormat.Location = new System.Drawing.Point(209, 15);
-            this.cBoxOutputFormat.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.cBoxOutputFormat.Location = new System.Drawing.Point(209, 14);
+            this.cBoxOutputFormat.Margin = new System.Windows.Forms.Padding(4);
             this.cBoxOutputFormat.Name = "cBoxOutputFormat";
             this.cBoxOutputFormat.Size = new System.Drawing.Size(197, 29);
             this.cBoxOutputFormat.TabIndex = 1;
@@ -109,7 +109,7 @@
             this.ckBoxFps.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ckBoxFps.Font = new System.Drawing.Font("Segoe UI", 9.75F);
             this.ckBoxFps.Location = new System.Drawing.Point(4, 64);
-            this.ckBoxFps.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.ckBoxFps.Margin = new System.Windows.Forms.Padding(4);
             this.ckBoxFps.Name = "ckBoxFps";
             this.ckBoxFps.Size = new System.Drawing.Size(197, 52);
             this.ckBoxFps.TabIndex = 2;
@@ -121,7 +121,7 @@
             // 
             this.numericUpDownFps.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.numericUpDownFps.Location = new System.Drawing.Point(209, 79);
-            this.numericUpDownFps.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.numericUpDownFps.Margin = new System.Windows.Forms.Padding(4);
             this.numericUpDownFps.Name = "numericUpDownFps";
             this.numericUpDownFps.Size = new System.Drawing.Size(197, 22);
             this.numericUpDownFps.TabIndex = 3;
@@ -144,7 +144,7 @@
             this.ckBoxStopRecord.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ckBoxStopRecord.Font = new System.Drawing.Font("Segoe UI", 9.75F);
             this.ckBoxStopRecord.Location = new System.Drawing.Point(4, 124);
-            this.ckBoxStopRecord.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.ckBoxStopRecord.Margin = new System.Windows.Forms.Padding(4);
             this.ckBoxStopRecord.Name = "ckBoxStopRecord";
             this.ckBoxStopRecord.Size = new System.Drawing.Size(197, 52);
             this.ckBoxStopRecord.TabIndex = 5;
@@ -156,7 +156,12 @@
             // 
             this.numericUpDownStopRecord.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.numericUpDownStopRecord.Location = new System.Drawing.Point(209, 139);
-            this.numericUpDownStopRecord.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.numericUpDownStopRecord.Margin = new System.Windows.Forms.Padding(4);
+            this.numericUpDownStopRecord.Maximum = new decimal(new int[] {
+            1000000,
+            0,
+            0,
+            0});
             this.numericUpDownStopRecord.Name = "numericUpDownStopRecord";
             this.numericUpDownStopRecord.Size = new System.Drawing.Size(197, 22);
             this.numericUpDownStopRecord.TabIndex = 6;
@@ -167,11 +172,12 @@
             this.cBoxUnitsStopRecord.Font = new System.Drawing.Font("Segoe UI", 9.75F);
             this.cBoxUnitsStopRecord.FormattingEnabled = true;
             this.cBoxUnitsStopRecord.Items.AddRange(new object[] {
-            "Segundos",
-            "Minutos",
-            "Horas"});
-            this.cBoxUnitsStopRecord.Location = new System.Drawing.Point(414, 135);
-            this.cBoxUnitsStopRecord.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            "FRAMES",
+            "SEGUNDOS",
+            "MINUTOS",
+            "HORAS"});
+            this.cBoxUnitsStopRecord.Location = new System.Drawing.Point(414, 134);
+            this.cBoxUnitsStopRecord.Margin = new System.Windows.Forms.Padding(4);
             this.cBoxUnitsStopRecord.Name = "cBoxUnitsStopRecord";
             this.cBoxUnitsStopRecord.Size = new System.Drawing.Size(197, 29);
             this.cBoxUnitsStopRecord.TabIndex = 7;
@@ -194,7 +200,7 @@
             this.txBoxRoot.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.txBoxRoot.Font = new System.Drawing.Font("Segoe UI", 9.75F);
             this.txBoxRoot.Location = new System.Drawing.Point(209, 195);
-            this.txBoxRoot.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txBoxRoot.Margin = new System.Windows.Forms.Padding(4);
             this.txBoxRoot.Name = "txBoxRoot";
             this.txBoxRoot.Size = new System.Drawing.Size(197, 29);
             this.txBoxRoot.TabIndex = 9;
@@ -207,7 +213,7 @@
             this.btnRoot.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnRoot.ForeColor = System.Drawing.Color.Transparent;
             this.btnRoot.Location = new System.Drawing.Point(414, 196);
-            this.btnRoot.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnRoot.Margin = new System.Windows.Forms.Padding(4);
             this.btnRoot.Name = "btnRoot";
             this.btnRoot.Size = new System.Drawing.Size(47, 28);
             this.btnRoot.TabIndex = 10;
@@ -220,7 +226,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(615, 240);
             this.Controls.Add(this.tableLayoutPanel3);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "RecordSettingsVideoForm";
             this.Text = "RecordSettingsVideoForm";
             this.tableLayoutPanel3.ResumeLayout(false);
