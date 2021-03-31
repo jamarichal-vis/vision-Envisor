@@ -146,4 +146,3 @@ C:\Users\jamarichal\source\repos\Recording\Recording\obj\x64\Debug\Recording.pdb
 C:\Users\jamarichal\source\repos\Recording\Recording\bin\x64\Debug\FormsLibrary.dll
 C:\Users\jamarichal\source\repos\Recording\Recording\bin\x64\Debug\FormsMilLibrary.exe
 C:\Users\jamarichal\source\repos\Recording\Recording\obj\x64\Debug\Recording.Form1.resources
-C:\Users\jamarichal\source\repos\Recording\Recording\obj\x64\Debug\Recording.csprojAssemblyReference.cache

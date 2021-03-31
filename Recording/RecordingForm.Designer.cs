@@ -83,6 +83,18 @@
             this.tbLayoutPanelVisualization = new System.Windows.Forms.TableLayoutPanel();
             this.pnlCams = new System.Windows.Forms.FlowLayoutPanel();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.btnSingleShot = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnContinuousShot = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnPause = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnRecord = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnStopRecord = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnResetZoom = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnGraphics = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnLine = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnPoint = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnRectangle = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnElipse = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnPolygon = new System.Windows.Forms.ToolStripMenuItem();
             this.btnOneCamera = new System.Windows.Forms.ToolStripMenuItem();
             this.btnMosaic = new System.Windows.Forms.ToolStripMenuItem();
             this.tableLayoutPanelInformationBar = new System.Windows.Forms.TableLayoutPanel();
@@ -95,26 +107,14 @@
             this.menuStrip2 = new System.Windows.Forms.MenuStrip();
             this.archivoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cámaraToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.herramientasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.ayudaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.btnSingleShot = new System.Windows.Forms.ToolStripMenuItem();
-            this.btnContinuousShot = new System.Windows.Forms.ToolStripMenuItem();
-            this.btnPause = new System.Windows.Forms.ToolStripMenuItem();
-            this.btnRecord = new System.Windows.Forms.ToolStripMenuItem();
-            this.btnStopRecord = new System.Windows.Forms.ToolStripMenuItem();
-            this.btnResetZoom = new System.Windows.Forms.ToolStripMenuItem();
-            this.graphicsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.puntoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.líneaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.rectanguloToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.elipToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.polígonoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.singleShotToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.grabarEnContinuoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pausarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.grabarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.stopGrabaciónToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.herramientasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.grabarConfiguraciónToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ayudaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tableLayoutPanel1.SuspendLayout();
             this.tbLayoutPanelMain.SuspendLayout();
             this.tbLayoutPanelSettings.SuspendLayout();
@@ -947,7 +947,7 @@
             this.btnRecord,
             this.btnStopRecord,
             this.btnResetZoom,
-            this.graphicsToolStripMenuItem,
+            this.btnGraphics,
             this.btnOneCamera,
             this.btnMosaic});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
@@ -956,6 +956,108 @@
             this.menuStrip1.Size = new System.Drawing.Size(1367, 43);
             this.menuStrip1.TabIndex = 2;
             this.menuStrip1.Text = "menuStrip1";
+            // 
+            // btnSingleShot
+            // 
+            this.btnSingleShot.BackColor = System.Drawing.Color.Transparent;
+            this.btnSingleShot.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnSingleShot.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnSingleShot.Enabled = false;
+            this.btnSingleShot.Image = global::Recording.Properties.Resources.camera_on;
+            this.btnSingleShot.Name = "btnSingleShot";
+            this.btnSingleShot.Size = new System.Drawing.Size(32, 39);
+            this.btnSingleShot.Text = "Single Shot";
+            this.btnSingleShot.ToolTipText = "Single Shot";
+            // 
+            // btnContinuousShot
+            // 
+            this.btnContinuousShot.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnContinuousShot.Enabled = false;
+            this.btnContinuousShot.Image = global::Recording.Properties.Resources.grabContinuous;
+            this.btnContinuousShot.Name = "btnContinuousShot";
+            this.btnContinuousShot.Size = new System.Drawing.Size(32, 39);
+            this.btnContinuousShot.Text = "Continuous Shot";
+            // 
+            // btnPause
+            // 
+            this.btnPause.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnPause.Enabled = false;
+            this.btnPause.Image = global::Recording.Properties.Resources.pause_on;
+            this.btnPause.Name = "btnPause";
+            this.btnPause.Size = new System.Drawing.Size(32, 39);
+            this.btnPause.Text = "Pause";
+            // 
+            // btnRecord
+            // 
+            this.btnRecord.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnRecord.Enabled = false;
+            this.btnRecord.Image = global::Recording.Properties.Resources.record_on;
+            this.btnRecord.Name = "btnRecord";
+            this.btnRecord.Size = new System.Drawing.Size(32, 39);
+            this.btnRecord.Text = "Record";
+            // 
+            // btnStopRecord
+            // 
+            this.btnStopRecord.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnStopRecord.Enabled = false;
+            this.btnStopRecord.Image = global::Recording.Properties.Resources.Stop;
+            this.btnStopRecord.Name = "btnStopRecord";
+            this.btnStopRecord.Size = new System.Drawing.Size(32, 39);
+            this.btnStopRecord.Text = "Stop Record";
+            // 
+            // btnResetZoom
+            // 
+            this.btnResetZoom.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnResetZoom.Enabled = false;
+            this.btnResetZoom.Image = global::Recording.Properties.Resources.ResetZoom;
+            this.btnResetZoom.Name = "btnResetZoom";
+            this.btnResetZoom.Size = new System.Drawing.Size(32, 39);
+            this.btnResetZoom.Text = "Reset Zoom";
+            // 
+            // btnGraphics
+            // 
+            this.btnGraphics.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnGraphics.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.btnLine,
+            this.btnPoint,
+            this.btnRectangle,
+            this.btnElipse,
+            this.btnPolygon});
+            this.btnGraphics.Enabled = false;
+            this.btnGraphics.Image = global::Recording.Properties.Resources.Graphics;
+            this.btnGraphics.Name = "btnGraphics";
+            this.btnGraphics.Size = new System.Drawing.Size(32, 39);
+            this.btnGraphics.Text = "Graphics";
+            // 
+            // btnLine
+            // 
+            this.btnLine.Name = "btnLine";
+            this.btnLine.Size = new System.Drawing.Size(216, 26);
+            this.btnLine.Text = "Línea";
+            // 
+            // btnPoint
+            // 
+            this.btnPoint.Name = "btnPoint";
+            this.btnPoint.Size = new System.Drawing.Size(216, 26);
+            this.btnPoint.Text = "Punto";
+            // 
+            // btnRectangle
+            // 
+            this.btnRectangle.Name = "btnRectangle";
+            this.btnRectangle.Size = new System.Drawing.Size(216, 26);
+            this.btnRectangle.Text = "Rectangulo";
+            // 
+            // btnElipse
+            // 
+            this.btnElipse.Name = "btnElipse";
+            this.btnElipse.Size = new System.Drawing.Size(216, 26);
+            this.btnElipse.Text = "Elipse";
+            // 
+            // btnPolygon
+            // 
+            this.btnPolygon.Name = "btnPolygon";
+            this.btnPolygon.Size = new System.Drawing.Size(216, 26);
+            this.btnPolygon.Text = "Polígono";
             // 
             // btnOneCamera
             // 
@@ -1117,122 +1219,6 @@
             this.cámaraToolStripMenuItem.Size = new System.Drawing.Size(62, 20);
             this.cámaraToolStripMenuItem.Text = "Cámara";
             // 
-            // herramientasToolStripMenuItem
-            // 
-            this.herramientasToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.grabarConfiguraciónToolStripMenuItem});
-            this.herramientasToolStripMenuItem.Name = "herramientasToolStripMenuItem";
-            this.herramientasToolStripMenuItem.Size = new System.Drawing.Size(94, 20);
-            this.herramientasToolStripMenuItem.Text = "Herramientas";
-            // 
-            // ayudaToolStripMenuItem
-            // 
-            this.ayudaToolStripMenuItem.Name = "ayudaToolStripMenuItem";
-            this.ayudaToolStripMenuItem.Size = new System.Drawing.Size(53, 20);
-            this.ayudaToolStripMenuItem.Text = "Ayuda";
-            // 
-            // btnSingleShot
-            // 
-            this.btnSingleShot.BackColor = System.Drawing.Color.Transparent;
-            this.btnSingleShot.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnSingleShot.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnSingleShot.Enabled = false;
-            this.btnSingleShot.Image = global::Recording.Properties.Resources.camera_on;
-            this.btnSingleShot.Name = "btnSingleShot";
-            this.btnSingleShot.Size = new System.Drawing.Size(32, 39);
-            this.btnSingleShot.Text = "Single Shot";
-            this.btnSingleShot.ToolTipText = "Single Shot";
-            // 
-            // btnContinuousShot
-            // 
-            this.btnContinuousShot.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnContinuousShot.Enabled = false;
-            this.btnContinuousShot.Image = global::Recording.Properties.Resources.grabContinuous;
-            this.btnContinuousShot.Name = "btnContinuousShot";
-            this.btnContinuousShot.Size = new System.Drawing.Size(32, 39);
-            this.btnContinuousShot.Text = "Continuous Shot";
-            // 
-            // btnPause
-            // 
-            this.btnPause.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnPause.Enabled = false;
-            this.btnPause.Image = global::Recording.Properties.Resources.pause_on;
-            this.btnPause.Name = "btnPause";
-            this.btnPause.Size = new System.Drawing.Size(32, 39);
-            this.btnPause.Text = "Pause";
-            // 
-            // btnRecord
-            // 
-            this.btnRecord.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnRecord.Enabled = false;
-            this.btnRecord.Image = global::Recording.Properties.Resources.record_on;
-            this.btnRecord.Name = "btnRecord";
-            this.btnRecord.Size = new System.Drawing.Size(32, 39);
-            this.btnRecord.Text = "Record";
-            // 
-            // btnStopRecord
-            // 
-            this.btnStopRecord.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnStopRecord.Enabled = false;
-            this.btnStopRecord.Image = global::Recording.Properties.Resources.Stop;
-            this.btnStopRecord.Name = "btnStopRecord";
-            this.btnStopRecord.Size = new System.Drawing.Size(32, 39);
-            this.btnStopRecord.Text = "Stop Record";
-            // 
-            // btnResetZoom
-            // 
-            this.btnResetZoom.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnResetZoom.Enabled = false;
-            this.btnResetZoom.Image = global::Recording.Properties.Resources.ResetZoom;
-            this.btnResetZoom.Name = "btnResetZoom";
-            this.btnResetZoom.Size = new System.Drawing.Size(32, 39);
-            this.btnResetZoom.Text = "Reset Zoom";
-            // 
-            // graphicsToolStripMenuItem
-            // 
-            this.graphicsToolStripMenuItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.graphicsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.puntoToolStripMenuItem,
-            this.líneaToolStripMenuItem,
-            this.rectanguloToolStripMenuItem,
-            this.elipToolStripMenuItem,
-            this.polígonoToolStripMenuItem});
-            this.graphicsToolStripMenuItem.Enabled = false;
-            this.graphicsToolStripMenuItem.Image = global::Recording.Properties.Resources.Graphics;
-            this.graphicsToolStripMenuItem.Name = "graphicsToolStripMenuItem";
-            this.graphicsToolStripMenuItem.Size = new System.Drawing.Size(32, 39);
-            this.graphicsToolStripMenuItem.Text = "Graphics";
-            // 
-            // puntoToolStripMenuItem
-            // 
-            this.puntoToolStripMenuItem.Name = "puntoToolStripMenuItem";
-            this.puntoToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
-            this.puntoToolStripMenuItem.Text = "Punto";
-            // 
-            // líneaToolStripMenuItem
-            // 
-            this.líneaToolStripMenuItem.Name = "líneaToolStripMenuItem";
-            this.líneaToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
-            this.líneaToolStripMenuItem.Text = "Línea";
-            // 
-            // rectanguloToolStripMenuItem
-            // 
-            this.rectanguloToolStripMenuItem.Name = "rectanguloToolStripMenuItem";
-            this.rectanguloToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
-            this.rectanguloToolStripMenuItem.Text = "Rectangulo";
-            // 
-            // elipToolStripMenuItem
-            // 
-            this.elipToolStripMenuItem.Name = "elipToolStripMenuItem";
-            this.elipToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
-            this.elipToolStripMenuItem.Text = "Elipse";
-            // 
-            // polígonoToolStripMenuItem
-            // 
-            this.polígonoToolStripMenuItem.Name = "polígonoToolStripMenuItem";
-            this.polígonoToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
-            this.polígonoToolStripMenuItem.Text = "Polígono";
-            // 
             // singleShotToolStripMenuItem
             // 
             this.singleShotToolStripMenuItem.Image = global::Recording.Properties.Resources.camera_on;
@@ -1268,6 +1254,14 @@
             this.stopGrabaciónToolStripMenuItem.Size = new System.Drawing.Size(219, 26);
             this.stopGrabaciónToolStripMenuItem.Text = "Parar grabación en disco";
             // 
+            // herramientasToolStripMenuItem
+            // 
+            this.herramientasToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.grabarConfiguraciónToolStripMenuItem});
+            this.herramientasToolStripMenuItem.Name = "herramientasToolStripMenuItem";
+            this.herramientasToolStripMenuItem.Size = new System.Drawing.Size(94, 20);
+            this.herramientasToolStripMenuItem.Text = "Herramientas";
+            // 
             // grabarConfiguraciónToolStripMenuItem
             // 
             this.grabarConfiguraciónToolStripMenuItem.Image = global::Recording.Properties.Resources.camera_on;
@@ -1275,6 +1269,12 @@
             this.grabarConfiguraciónToolStripMenuItem.Size = new System.Drawing.Size(234, 26);
             this.grabarConfiguraciónToolStripMenuItem.Text = "Configuración de Grabación";
             this.grabarConfiguraciónToolStripMenuItem.Click += new System.EventHandler(this.grabarConfiguraciónToolStripMenuItem_Click);
+            // 
+            // ayudaToolStripMenuItem
+            // 
+            this.ayudaToolStripMenuItem.Name = "ayudaToolStripMenuItem";
+            this.ayudaToolStripMenuItem.Size = new System.Drawing.Size(53, 20);
+            this.ayudaToolStripMenuItem.Text = "Ayuda";
             // 
             // RecordingForm
             // 
@@ -1424,12 +1424,12 @@
         private System.Windows.Forms.Label lbImageFormat;
         private System.Windows.Forms.ComboBox cbBoxImageFormat;
         private System.Windows.Forms.Label lbParameter;
-        private System.Windows.Forms.ToolStripMenuItem graphicsToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem puntoToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem líneaToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem rectanguloToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem elipToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem polígonoToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem btnGraphics;
+        private System.Windows.Forms.ToolStripMenuItem btnPoint;
+        private System.Windows.Forms.ToolStripMenuItem btnLine;
+        private System.Windows.Forms.ToolStripMenuItem btnRectangle;
+        private System.Windows.Forms.ToolStripMenuItem btnElipse;
+        private System.Windows.Forms.ToolStripMenuItem btnPolygon;
     }
 }
 

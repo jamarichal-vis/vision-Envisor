@@ -43,6 +43,11 @@ namespace Recording
         private Envisor_Algorithm envisor_Algorithm;
 
         /// <summary>
+        /// This variable contains all function about visualization of the image for this program.
+        /// </summary>
+        private Envisor_Visualization envisor_Visualization;
+
+        /// <summary>
         /// Este atributo almacena el panel principal que se quiere controlar.
         /// </summary>
         FlowLayoutPanel flowLayoutPanelCameras;
@@ -64,34 +69,9 @@ namespace Recording
         Dictionary<Camera, Form> camerasForm;
 
         /// <summary>
-        /// Esta variable almacena el botón de pause.
-        /// </summary>
-        ToolStripMenuItem btnPause;
-
-        /// <summary>
-        /// Esta variable almacena el botón de grab continuo.
-        /// </summary>
-        ToolStripMenuItem btnGrabContinuous;
-
-        /// <summary>
-        /// Esta variable almacena el botón de reset zoom.
-        /// </summary>
-        ToolStripMenuItem btnResetZoom;
-
-        /// <summary>
-        /// Esta variable almacena el botón de grabar en disco.
-        /// </summary>
-        ToolStripMenuItem btnRecord;
-
-        /// <summary>
-        /// Esta variable almacena el botón de parar la grabación en disco.
-        /// </summary>
-        ToolStripMenuItem btnStopRecord;
-
-        /// <summary>
         /// Esta variable contiene todas las funciones para cambiar el estado de la barra de herramientas.
         /// </summary>
-        private StateTools stateTools;
+        private ButtonsTools buttonsTools;
 
         /// <summary>
         /// Esta variable almacena toda la configuración para poder grabar un vídeo o una secuencia con una cámara.
@@ -165,14 +145,17 @@ namespace Recording
         public delegate void notifyCloseDelegate(Camera camera);
         public event notifyCloseDelegate notifyCloseEvent;
 
-        public StateTools StateTools { get => stateTools; set => stateTools = value; }
+        public ButtonsTools StateTools { get => buttonsTools; set => buttonsTools = value; }
         public RecordSettings RecordSettings { get => recordSettings; set => recordSettings = value; }
         public Envisor_Algorithm Envisor_Algorithm { get => envisor_Algorithm; set => envisor_Algorithm = value; }
+        public Envisor_Visualization Envisor_Visualization { get => envisor_Visualization; set => envisor_Visualization = value; }
         internal Basler_InformatioBar_Controls Basler_informationbar_controls { get => basler_informationbar_controls; set => basler_informationbar_controls = value; }
 
-        public PanelManager(ref FlowLayoutPanel pnl, RecordingForm recordingForm)
+        public PanelManager(ref FlowLayoutPanel pnl, ref ButtonsTools buttonsTools, RecordingForm recordingForm)
         {
             flowLayoutPanelCameras = pnl;
+
+            this.buttonsTools = buttonsTools;
 
             pnlCameras = new Dictionary<Camera, Panel>();
             camerasForm = new Dictionary<Camera, Form>();
@@ -183,16 +166,6 @@ namespace Recording
             color_record = Color.Red;
 
             this.recordingForm = recordingForm;
-        }
-
-        public void AddControl(ref ToolStripMenuItem btnGrabContinuous, ref ToolStripMenuItem btnPause, ref ToolStripMenuItem btnResetZoom,
-            ref ToolStripMenuItem btnRecord, ref ToolStripMenuItem btnStopRecord)
-        {
-            this.btnGrabContinuous = btnGrabContinuous;
-            this.btnPause = btnPause;
-            this.btnResetZoom = btnResetZoom;
-            this.btnRecord = btnRecord;
-            this.btnStopRecord = btnStopRecord;
 
             ConnectBtns();
         }
@@ -202,11 +175,16 @@ namespace Recording
         /// </summary>
         public void ConnectBtns()
         {
-            this.btnGrabContinuous.Click += new System.EventHandler(this.BtnGrabContinuous_Click);
-            this.btnPause.Click += new System.EventHandler(this.BtnPause_Click);
-            this.btnResetZoom.Click += new System.EventHandler(this.BtnResetZoom_Click);
-            this.btnRecord.Click += new System.EventHandler(this.BtnRecord_Click);
-            this.btnStopRecord.Click += new System.EventHandler(this.BtnStopRecord_Click);
+            buttonsTools.BtnGrabContinuous.Click += new System.EventHandler(this.BtnGrabContinuous_Click);
+            buttonsTools.BtnPause.Click += new System.EventHandler(this.BtnPause_Click);
+            buttonsTools.BtnResetZoom.Click += new System.EventHandler(this.BtnResetZoom_Click);
+            buttonsTools.BtnRecord.Click += new System.EventHandler(this.BtnRecord_Click);
+            buttonsTools.BtnStopRecord.Click += new System.EventHandler(this.BtnStopRecord_Click);
+            buttonsTools.BtnLine.Click += new System.EventHandler(this.BtnLine_Click);
+            buttonsTools.BtnPoint.Click += new System.EventHandler(this.BtnPoint_Click);
+            buttonsTools.BtnRectangle.Click += new System.EventHandler(this.BtnRectangle_Click);
+            buttonsTools.BtnElipse.Click += new System.EventHandler(this.BtnElipse_Click);
+            buttonsTools.BtnPolygon.Click += new System.EventHandler(this.BtnPolygon_Click);
         }
 
         /***************** SHOW CAMERA FUNCTION *****************/
@@ -222,30 +200,30 @@ namespace Recording
             DisconnectMouse();
             DisconnectFps();
 
-            camera_selected = camera;
+            SelectCamera(camera: camera);
 
             ConnectMouse();
             ConnectFps();
             ShowInformationCamera();
             Color_Information_Bar(color: color_default);
 
-            if (stateTools != null)
+            if (buttonsTools != null)
             {
                 if (Count_Cameras_Connected() > 0)
                 {
                     /* STATE TOOLS */
-                    stateTools.SingleShot();
-                    stateTools.GrabContinuous(state: false);
-                    stateTools.Pause();
-                    stateTools.ResetZoom();
+                    buttonsTools.SingleShot();
+                    buttonsTools.GrabContinuous(state: false);
+                    buttonsTools.Pause();
+                    buttonsTools.ResetZoom();
                 }
                 else
                 {
                     /* STATE TOOLS */
-                    stateTools.SingleShot(state: false);
-                    stateTools.GrabContinuous();
-                    stateTools.Pause(state: false);
-                    stateTools.ResetZoom(state: false);
+                    buttonsTools.SingleShot(state: false);
+                    buttonsTools.GrabContinuous();
+                    buttonsTools.Pause(state: false);
+                    buttonsTools.ResetZoom(state: false);
                 }
             }
         }
@@ -261,16 +239,18 @@ namespace Recording
                 Form form = GetDisplayForm(ref camera_selected);
 
                 AddPanel(ref camera_selected, form);
+
+                SelectBorder(camera: camera_selected);
             }
 
             /* STATE TOOLS */
-            if (stateTools != null)
+            if (buttonsTools != null)
             {
-                stateTools.SingleShot();
-                stateTools.GrabContinuous(state: false);
-                stateTools.Record();
-                stateTools.Pause();
-                stateTools.ResetZoom();
+                buttonsTools.SingleShot();
+                buttonsTools.GrabContinuous(state: false);
+                buttonsTools.Record();
+                buttonsTools.Pause();
+                buttonsTools.ResetZoom();
             }
         }
 
@@ -515,14 +495,14 @@ namespace Recording
 
                 /* STATE TOOLS */
                 if (pnlCameras.Keys.Count > 0)
-                    stateTools.Record();
+                    buttonsTools.Record();
                 else
                 {
-                    stateTools.Record(state: false);
-                    stateTools.SingleShot(state: false);
-                    stateTools.GrabContinuous(state: false);
-                    stateTools.Pause(state: false);
-                    stateTools.ResetZoom(state: false);
+                    buttonsTools.Record(state: false);
+                    buttonsTools.SingleShot(state: false);
+                    buttonsTools.GrabContinuous(state: false);
+                    buttonsTools.Pause(state: false);
+                    buttonsTools.ResetZoom(state: false);
                 }
 
                 if (camera_selected != null)
@@ -580,13 +560,14 @@ namespace Recording
                     if (camera_selected.GetType().ToString().Contains("Basler"))
                         ((camerasForm[camera_selected] as Basler_Display_Form).Display as Basler_Display).Start();
 
-                if (stateTools != null)
+                if (buttonsTools != null)
                 {
                     /* STATE TOOLS */
-                    stateTools.SingleShot();
-                    stateTools.GrabContinuous(state: false);
-                    stateTools.Pause();
-                    stateTools.ResetZoom();
+                    buttonsTools.SingleShot();
+                    buttonsTools.GrabContinuous(state: false);
+                    buttonsTools.Pause();
+                    buttonsTools.ResetZoom();
+                    buttonsTools.Graphics();
                 }
 
                 if (notifyGrabContinuousCameraEvent != null)
@@ -601,8 +582,8 @@ namespace Recording
         /// <param name="e"></param>
         private void BtnPause_Click(object sender, EventArgs e)
         {
-            stateTools.Pause(state: false);
-            stateTools.GrabContinuous();
+            buttonsTools.Pause(state: false);
+            buttonsTools.GrabContinuous();
 
             if (camerasForm.ContainsKey(camera_selected))
                 if (camera_selected.GetType().ToString().Contains("Basler"))
@@ -674,10 +655,11 @@ namespace Recording
 
             if (pnlCameras.Keys.Count > 0)
             {
-                stateTools.Record(state: false);
-                stateTools.Pause(state: false);
-                stateTools.SingleShot(state: false);
-                stateTools.StopRecord();
+                buttonsTools.Record(state: false);
+                buttonsTools.Pause(state: false);
+                buttonsTools.SingleShot(state: false);
+                buttonsTools.StopRecord();
+                buttonsTools.Graphics(state: false);
 
                 //foreach (DisplayCameraForm displayCameraForm in camerasForm.Values)
                 //    displayCameraForm.EnableBtnClose(state: false);
@@ -749,12 +731,17 @@ namespace Recording
         {
             if (_record)
             {
-                if (stateTools != null)
+                if (buttonsTools != null)
                 {
-                    stateTools.Record();
-                    stateTools.Pause();
-                    stateTools.SingleShot();
-                    stateTools.StopRecord(state: false);
+                    buttonsTools.Record();
+                    buttonsTools.Pause();
+                    buttonsTools.SingleShot();
+                    buttonsTools.StopRecord(state: false);
+
+                    if (camera_selected != null)
+                    {
+                        buttonsTools.Graphics();
+                    }
                 }
 
                 if (notifyStopGrabCameraEvent != null)
@@ -766,14 +753,66 @@ namespace Recording
             }
         }
 
+        /****************** GRAPHICS FUNCTION *******************/
+        /********************************************************/
+        /********************************************************/
+
+        private void BtnLine_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void BtnPoint_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void BtnRectangle_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void BtnElipse_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void BtnPolygon_Click(object sender, EventArgs e)
+        {
+            envisor_Visualization.DrawGraphics.Start(camera_selected.MilDisplay, MIL.M_GRAPHIC_TYPE_POLYGON);
+        }
+
         /// <summary>
-        /// Esta función notifica la cámara que quieres seleccionar.
+        /// This method is executed when the user press right click in a panel of <see cref="flowLayoutPanelCameras">flowLayoutPanelCameras</see>/>.
         /// </summary>
-        /// <param name="id">El id de la cñamara que quieres seleccionar.</param>
+        /// <param name="camera">Camera selected.</param>
         public void NotifyCameraSelected(Camera camera)
         {
+            SelectCamera(camera: camera);
+
             if (notifyMouseDownEvent != null)
                 notifyMouseDownEvent.Invoke(camera);
+        }
+
+        public void SelectCamera(Camera camera)
+        {
+            camera_selected = camera;
+
+            SelectBorder(camera: camera);
+        }
+
+        private void SelectBorder(Camera camera)
+        {
+            foreach (var camera_pnl in camerasForm)
+            {
+                if (camera_pnl.Key.GetType().ToString().Contains("Basler"))
+                {
+                    if (camera_pnl.Key == camera)
+                        ((camera_pnl.Value as Basler_Display_Form).Display as Basler_Display).ChangeColorEdge(color: color_default);
+                    else
+                        ((camera_pnl.Value as Basler_Display_Form).Display as Basler_Display).ChangeColorEdge(color: Color.FromArgb(228,228,228));
+                }
+            }
         }
 
         /// <summary>

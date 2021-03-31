@@ -94,7 +94,7 @@ namespace Recording
         /// <summary>
         /// Esta variable contiene todas las funciones para cambiar el estado de la barra de herramientas.
         /// </summary>
-        private StateTools stateTools;
+        private ButtonsTools buttonsTools;
 
         /// <summary>
         /// Esta variable almacenará los datos necesarios para identificar una cámara en <see cref="MilLibrary">MilLibrary</see>/>.
@@ -127,6 +127,8 @@ namespace Recording
 
             InitEnvisorAlgorithm();
 
+            InitEnvisorVisualization();
+
             InitCameraManager();
 
             InitFrameRateManager();
@@ -137,9 +139,9 @@ namespace Recording
 
             InitSequenceManager();
 
-            InitPanelManager();
+            InitButtonsTools();
 
-            InitStateTools();
+            InitPanelManager();
 
             //tableLayoutPanel2.Width = flowLayoutPanel1.Width;
             //CheckCameras();
@@ -355,8 +357,7 @@ namespace Recording
         /// </summary>
         public void InitPanelManager()
         {
-            panelManager = new PanelManager(ref pnlCams, this);
-            panelManager.AddControl(ref btnContinuousShot, ref btnPause, ref btnResetZoom, ref btnRecord, ref btnStopRecord);
+            panelManager = new PanelManager(pnl: ref pnlCams, buttonsTools: ref buttonsTools, recordingForm: this);
 
             panelManager.notifyGrabContinuousCameraEvent += new PanelManager.notifyGrabContinuousCameraDelegate(NotifyCameraGrabContinuous);
             panelManager.notifyPauseCameraEvent += new PanelManager.notifyPauseCameraDelegate(NotifyCameraPause);
@@ -370,6 +371,7 @@ namespace Recording
 
             panelManager.RecordSettings = recordSettings;
             panelManager.Envisor_Algorithm = envisor_Algorithm;
+            panelManager.Envisor_Visualization = envisor_Visualization;
             panelManager.Basler_informationbar_controls = basler_informationbar_controls;
             
             //cameraManager.grabContinuousCamEvent += new CameraManager.grabContinuousCamDelegate(panelManager.StartGrabContinuous);
@@ -378,12 +380,13 @@ namespace Recording
         ///// <summary>
         ///// Este método contiene todas las funciones necesarias para inicializar el objeto <see cref="stateTools">stateTools</see>/>.
         ///// </summary>
-        private void InitStateTools()
+        private void InitButtonsTools()
         {
-            stateTools = new StateTools(this, ref btnSingleShot, ref btnContinuousShot, ref btnPause, ref btnRecord, ref btnResetZoom, ref btnStopRecord);
+            buttonsTools = new ButtonsTools(this, ref btnSingleShot, ref btnContinuousShot, ref btnPause, ref btnRecord, ref btnResetZoom, 
+                ref btnStopRecord, btnGraphics: ref btnGraphics, btnLine: ref btnLine, btnPoint: ref btnPoint, btnElipse: ref btnElipse, btnRectangle: ref btnRectangle,
+                btnPolygon: ref btnPolygon);
 
-            panelManager.StateTools = stateTools;
-            cameraManager.StateTools = stateTools;
+            cameraManager.StateTools = buttonsTools;
         }
 
         /****************** CAMERA MANAGER FUNCTION ***********************/

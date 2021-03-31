@@ -78,9 +78,9 @@ namespace Recording
         /// <summary>
         /// Esta variable contiene todas las funciones para cambiar el estado de la barra de herramientas.
         /// </summary>
-        private StateTools stateTools;
+        private ButtonsTools stateTools;
 
-        public StateTools StateTools { get => stateTools; set => stateTools = value; }
+        public ButtonsTools StateTools { get => stateTools; set => stateTools = value; }
 
         /// <summary>
         /// Este evento es ejecutado cuando se selecciona una cámara. 

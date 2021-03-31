@@ -11,7 +11,7 @@ namespace Recording
     /// <summary>
     /// Esta clase esta diseñada para modificar el estado de los botones.
     /// </summary>
-    class StateTools
+    class ButtonsTools
     {
         Form form;
 
@@ -22,11 +22,33 @@ namespace Recording
         ToolStripMenuItem btnStopRecord;
         ToolStripMenuItem btnResetZoom;
 
+        ToolStripMenuItem btnGraphics;
+        ToolStripMenuItem btnLine;
+        ToolStripMenuItem btnPoint;
+        ToolStripMenuItem btnElipse;
+        ToolStripMenuItem btnRectangle;
+        ToolStripMenuItem btnPolygon;
+
         public delegate void safeControlDelegate(ToolStripMenuItem toolStripMenuItem, bool state);
         public safeControlDelegate safeControlEvent;
 
-        public StateTools(Form form, ref ToolStripMenuItem btnSingleShot,ref ToolStripMenuItem btnGrabContinuous, ref ToolStripMenuItem btnPause, ref ToolStripMenuItem btnRecord,
-         ref ToolStripMenuItem btnResetZoom, ref ToolStripMenuItem btnStopRecord)
+        public ToolStripMenuItem BtnSingleShot { get => btnSingleShot; set => btnSingleShot = value; }
+        public ToolStripMenuItem BtnGrabContinuous { get => btnGrabContinuous; set => btnGrabContinuous = value; }
+        public ToolStripMenuItem BtnPause { get => btnPause; set => btnPause = value; }
+        public ToolStripMenuItem BtnRecord { get => btnRecord; set => btnRecord = value; }
+        public ToolStripMenuItem BtnStopRecord { get => btnStopRecord; set => btnStopRecord = value; }
+        public ToolStripMenuItem BtnResetZoom { get => btnResetZoom; set => btnResetZoom = value; }
+        public ToolStripMenuItem BtnLine { get => btnLine; set => btnLine = value; }
+        public ToolStripMenuItem BtnPoint { get => btnPoint; set => btnPoint = value; }
+        public ToolStripMenuItem BtnElipse { get => btnElipse; set => btnElipse = value; }
+        public ToolStripMenuItem BtnRectangle { get => btnRectangle; set => btnRectangle = value; }
+        public ToolStripMenuItem BtnPolygon { get => btnPolygon; set => btnPolygon = value; }
+        public ToolStripMenuItem BtnGraphics { get => btnGraphics; set => btnGraphics = value; }
+
+        public ButtonsTools(Form form, ref ToolStripMenuItem btnSingleShot,ref ToolStripMenuItem btnGrabContinuous, ref ToolStripMenuItem btnPause, ref ToolStripMenuItem btnRecord,
+         ref ToolStripMenuItem btnResetZoom, ref ToolStripMenuItem btnStopRecord,
+         ref ToolStripMenuItem btnGraphics, ref ToolStripMenuItem btnLine, ref ToolStripMenuItem btnPoint, ref ToolStripMenuItem btnElipse, ref ToolStripMenuItem btnRectangle, 
+         ref ToolStripMenuItem btnPolygon)
         {
             this.form = form;
 
@@ -36,6 +58,13 @@ namespace Recording
             this.btnRecord = btnRecord;
             this.btnResetZoom = btnResetZoom;
             this.btnStopRecord = btnStopRecord;
+
+            this.btnGraphics = btnGraphics;
+            this.btnLine = btnLine;
+            this.btnPoint = btnPoint;
+            this.btnElipse = btnElipse;
+            this.btnRectangle = btnRectangle;
+            this.btnPolygon = btnPolygon;
 
             safeControlEvent += new safeControlDelegate(StateControl);
         }
@@ -95,6 +124,21 @@ namespace Recording
         public void ResetZoom(bool state = true)
         {
             btnResetZoom.Enabled = state;
+        }
+
+        /// <summary>
+        /// This method set the property Enable of the graphics buttons.
+        /// </summary>
+        /// <param name="state"></param>
+        public void Graphics(bool state = true)
+        {
+            form.Invoke(safeControlEvent, new object[] { btnGraphics, state });
+            form.Invoke(safeControlEvent, new object[] { btnLine, state });
+            form.Invoke(safeControlEvent, new object[] { btnPoint, state });
+            form.Invoke(safeControlEvent, new object[] { btnElipse, state });
+            form.Invoke(safeControlEvent, new object[] { btnRectangle, state });
+            form.Invoke(safeControlEvent, new object[] { btnPolygon, state });
+
         }
 
         private void StateControl(ToolStripMenuItem toolStripMenuItem, bool state)
