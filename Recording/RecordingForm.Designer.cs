@@ -34,6 +34,7 @@
             this.tbLayoutPanelCameras = new System.Windows.Forms.TableLayoutPanel();
             this.tbLayoutPanelTitleCamera = new System.Windows.Forms.TableLayoutPanel();
             this.lbCamera = new System.Windows.Forms.Label();
+            this.btnUpdateCameras = new System.Windows.Forms.Button();
             this.treeViewCameras = new System.Windows.Forms.TreeView();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel11 = new System.Windows.Forms.TableLayoutPanel();
@@ -216,6 +217,7 @@
             this.tbLayoutPanelTitleCamera.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 80F));
             this.tbLayoutPanelTitleCamera.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
             this.tbLayoutPanelTitleCamera.Controls.Add(this.lbCamera, 0, 0);
+            this.tbLayoutPanelTitleCamera.Controls.Add(this.btnUpdateCameras, 1, 0);
             this.tbLayoutPanelTitleCamera.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tbLayoutPanelTitleCamera.Location = new System.Drawing.Point(5, 5);
             this.tbLayoutPanelTitleCamera.Margin = new System.Windows.Forms.Padding(4);
@@ -238,6 +240,20 @@
             this.lbCamera.TabIndex = 0;
             this.lbCamera.Text = "CÁMARAS";
             this.lbCamera.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // btnUpdateCameras
+            // 
+            this.btnUpdateCameras.BackColor = System.Drawing.Color.Transparent;
+            this.btnUpdateCameras.BackgroundImage = global::Recording.Properties.Resources.update;
+            this.btnUpdateCameras.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.btnUpdateCameras.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnUpdateCameras.FlatAppearance.BorderSize = 0;
+            this.btnUpdateCameras.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnUpdateCameras.Location = new System.Drawing.Point(258, 3);
+            this.btnUpdateCameras.Name = "btnUpdateCameras";
+            this.btnUpdateCameras.Size = new System.Drawing.Size(58, 23);
+            this.btnUpdateCameras.TabIndex = 1;
+            this.btnUpdateCameras.UseVisualStyleBackColor = false;
             // 
             // treeViewCameras
             // 
@@ -1370,6 +1386,7 @@
         private System.Windows.Forms.ToolStripMenuItem btnRectangle;
         private System.Windows.Forms.ToolStripMenuItem btnElipse;
         private System.Windows.Forms.ToolStripMenuItem btnPolygon;
+        private System.Windows.Forms.Button btnUpdateCameras;
     }
 }
 

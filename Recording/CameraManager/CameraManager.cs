@@ -41,6 +41,11 @@ namespace Recording
         TreeView treeViewCam;
 
         /// <summary>
+        /// This variable storages the button to update the cameras in <see cref="treeViewCam">treeViewCam</see>/>.
+        /// </summary>
+        Button btnUpdate;
+
+        /// <summary>
         /// This variable storages the gigeVision Node.
         /// </summary>
         TreeNode nodeGigeVision;
@@ -82,6 +87,7 @@ namespace Recording
 
         public ButtonsTools StateTools { get => stateTools; set => stateTools = value; }
         public Camera Camera_selected { get => camera_selected; set => camera_selected = value; }
+        public Button BtnUpdate { get => btnUpdate; set => btnUpdate = value; }
 
         /// <summary>
         /// Este evento es ejecutado cuando se selecciona una cámara. 
@@ -154,7 +160,7 @@ namespace Recording
         public delegate void FreeCameraDelegate(Camera camera);
         public FreeCameraDelegate FreeCameraEvent;
 
-        public CameraManager(Form form, ref TreeView treeView, ref Dictionary<string, Camera> cameras_GigeVision, ref Dictionary<string, Camera> cameras_Usb3Vision,
+        public CameraManager(Form form, ref TreeView treeView, ref Button btnUpdate, ref Dictionary<string, Camera> cameras_GigeVision, ref Dictionary<string, Camera> cameras_Usb3Vision,
             MilSystem milSystemGigeVision, MilSystem milSystemUsb3Vision,
             ref Camera camera_selected)
         {
@@ -168,6 +174,7 @@ namespace Recording
             this.camera_selected = camera_selected;
 
             InitTreeView(ref treeView);
+            InitBtnUpdate(ref btnUpdate);
 
             safeControlEvent += new safeControlDelegate(Enable);
             selectNodeSafeEvent += new selectNodeSafeDelegate(SelectNodeSafe);
@@ -186,6 +193,22 @@ namespace Recording
             treeViewCam = treeView;
 
             ImagesInTreeView();
+
+            treeViewCam.BeforeSelect += new TreeViewCancelEventHandler(TreeViewCam_BeforeSelect);
+            treeViewCam.MouseDown += new MouseEventHandler(TreeViewCam_MouseDown);
+            treeViewCam.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.TreeViewCameras_MouseDoubleClick);
+        }
+        
+        /// <summary>
+        /// This method initializer the <see cref="treeViewCam">treeViewCam</see>/> control.
+        /// </summary>
+        /// <param name="treeView">Treeview control you want to assign to <see cref="treeViewCam">treeViewCam</see>/>.</param>
+        private void InitBtnUpdate(ref Button btnUpdate)
+        {
+            BtnUpdate = btnUpdate;
+
+            BtnUpdate.Click += new System.EventHandler(btnUpdate_Click);
+
 
             treeViewCam.BeforeSelect += new TreeViewCancelEventHandler(TreeViewCam_BeforeSelect);
             treeViewCam.MouseDown += new MouseEventHandler(TreeViewCam_MouseDown);
@@ -372,6 +395,18 @@ namespace Recording
                 if (selectedCamEvent != null)
                     selectedCamEvent.Invoke(camera: camera_selected);
             }
+        }
+
+        /****************** BTN UPDATE FUNCTIONS *******************/
+        /***********************************************************/
+        /***********************************************************/
+
+        private void btnUpdate_Click(object sender, EventArgs e)
+        {
+            (milSysGigeVision as MilSysCameras).AddCamera();
+            (milSystemUsb3 as MilSysCameras).AddCamera();
+
+            UpdateCameras(safe: true);
         }
 
         /// <summary>

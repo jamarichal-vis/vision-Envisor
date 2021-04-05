@@ -345,7 +345,7 @@ namespace Recording
         /// </summary>
         public void InitCameraManager()
         {
-            cameraManager = new CameraManager(this, ref treeViewCameras, cameras_GigeVision: ref cameras_GigeVision, cameras_Usb3Vision: ref cameras_Usb3Vision,
+            cameraManager = new CameraManager(this, ref treeViewCameras, ref btnUpdateCameras, cameras_GigeVision: ref cameras_GigeVision, cameras_Usb3Vision: ref cameras_Usb3Vision,
                 milSystemGigeVision: milSystems[MilApp.GIGEVISION_SYSTEM_NAME], milSystemUsb3Vision: milSystems[MilApp.USB3VISION_SYSTEM_NAME], camera_selected: ref camera_selected);
 
             cameraManager.selectedCamEvent += new CameraManager.selectedCamDelegate(SelectedCamera);

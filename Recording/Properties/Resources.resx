@@ -124,11 +124,14 @@
   <data name="USB3VisionTM" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\USB3VisionTM.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="record_on" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\record-on.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="ResetZoom" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\ResetZoom.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="point_camera_off" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\point-camera-off.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Graphics" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Graphics.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="pause_on" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\pause-on.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -145,10 +148,10 @@
   <data name="point_camera_on" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\point-camera-on.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="point_camera_off" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\point-camera-off.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="record_on" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\record-on.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Graphics" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Graphics.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="update" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\update.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>
