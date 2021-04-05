@@ -232,7 +232,7 @@
             // 
             this.lbCamera.AutoSize = true;
             this.lbCamera.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lbCamera.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.lbCamera.Font = new System.Drawing.Font("Calibri", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.lbCamera.Location = new System.Drawing.Point(4, 0);
             this.lbCamera.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lbCamera.Name = "lbCamera";
