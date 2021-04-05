@@ -518,6 +518,8 @@ namespace Recording
                     basler_informationbar_controls.Clear();
                 }
 
+                camera.StopGrab();
+
                 if (camera_selected != null)
                     if (camera_selected == camera)
                         camera_selected = null;

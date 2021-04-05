@@ -245,14 +245,6 @@ namespace Recording
 
             /* CAMERA MANAGER */
             cameraManager.UpdateCameras(safe: true);
-
-            //Id id = new Id(devSys, devDig);
-
-            //ConnectedCameraInSystem(id.DevNSys, id.DevNCam);
-
-            //cameraManager.ShowCamerasConnected(id);
-
-            //panelManager.ShowCams(id);
         }
 
         /// <summary>
@@ -357,7 +349,7 @@ namespace Recording
                 milSystemGigeVision: milSystems[MilApp.GIGEVISION_SYSTEM_NAME], milSystemUsb3Vision: milSystems[MilApp.USB3VISION_SYSTEM_NAME], camera_selected: ref camera_selected);
 
             cameraManager.selectedCamEvent += new CameraManager.selectedCamDelegate(SelectedCamera);
-            cameraManager.freeCamCamEvent += new CameraManager.FreeCamDelegate(FreeCamera);
+            cameraManager.FreeCameraEvent += new CameraManager.FreeCameraDelegate(PreDisconnectedCameraEvent);
 
             cameraManager.UpdateCameras();
         }

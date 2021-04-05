@@ -99,13 +99,6 @@ namespace Recording
         public event grabContinuousCamDelegate grabContinuousCamEvent;
 
         /// <summary>
-        /// Este evento es ejecutado cuando se libera una cámara mediante la función <see cref="btnFreeCamera_Click(object, EventArgs)">btnFreeCamera_Click(object, EventArgs)</see>/>. 
-        /// </summary>
-        /// <param name="id">Id de la cámara que se ha liberado.</param>
-        public delegate void FreeCamDelegate();
-        public event FreeCamDelegate freeCamCamEvent;
-
-        /// <summary>
         /// Este evento es utilizado para acceder a un control del formulario de manera segura desde otro hilo.
         /// </summary>
         /// <param name="toolStripMenuItem"></param>
@@ -153,6 +146,13 @@ namespace Recording
 
         public delegate void safeModifyIconInNodeDelegate(TreeNode node, string imageKey);
         public safeModifyIconInNodeDelegate safeModifyIconInNodeEvent;
+
+        /// <summary>
+        /// This event is used to notify to <see cref="RecordingForm">RecordingForm</see>/> that a camera will be free.
+        /// </summary>
+        /// <param name="camera"></param>
+        public delegate void FreeCameraDelegate(Camera camera);
+        public FreeCameraDelegate FreeCameraEvent;
 
         public CameraManager(Form form, ref TreeView treeView, ref Dictionary<string, Camera> cameras_GigeVision, ref Dictionary<string, Camera> cameras_Usb3Vision,
             MilSystem milSystemGigeVision, MilSystem milSystemUsb3Vision,
@@ -364,8 +364,10 @@ namespace Recording
 
                 nodeCamSelected = node;
                 SelectCameraNode(node: nodeCamSelected);
-
+                
                 camera_selected = GetCamera(nodeCamSelected);
+
+                nodeCamSelected.ContextMenuStrip = ContextMenuStripToCamera(enableFree: !camera_selected.IsGrabProcessingFunction);
 
                 if (selectedCamEvent != null)
                     selectedCamEvent.Invoke(camera: camera_selected);
@@ -546,22 +548,27 @@ namespace Recording
             control.Enabled = state;
         }
 
-        private ContextMenuStrip ContextMenuStripToCamera()
+        private ContextMenuStrip ContextMenuStripToCamera(bool enableFree)
         {
             ContextMenuStrip contextMenuStrip = new ContextMenuStrip();
 
             contextMenuStrip.Items.Add("Free", null, btnFreeCamera_Click);
+
+            contextMenuStrip.Items[0].Enabled = enableFree;
 
             return contextMenuStrip;
         }
 
         private void btnFreeCamera_Click(object sender, EventArgs e)
         {
-            //RemoveCamera(idCam);
+            Camera camera = GetCamera(nodeCamSelected);
 
-            //freeCamCamEvent.Invoke();
+            if (FreeCameraEvent != null)
+                FreeCameraEvent.Invoke(camera: camera);
 
-            //milApp.FreeRecourse(idCam.DevNSys, idCam.DevNCam);
+            (milSysGigeVision as MilSysCameras).FreeRecourse(camera.Dev.ToString());
+
+            UpdateCameras(safe: true);
         }
 
         /***************** MODIFY ICONS FUNCTIONS ******************/
