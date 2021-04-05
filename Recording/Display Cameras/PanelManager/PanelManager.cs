@@ -432,9 +432,10 @@ namespace Recording
         /// label.
         /// </summary>
         /// <param name="value">Value of the fps.</param>
-        private void ShowFps(double value)
+        private void ShowFps(double value, double bitRate)
         {
-            SetControlPropertyThreadSafe(basler_informationbar_controls.LbFps, "Text", "Fps: " + Math.Truncate(value));
+            SetControlPropertyThreadSafe(basler_informationbar_controls.LbFps, "Text", "Fps: " + Math.Truncate(value) +
+                "(" + Math.Truncate(bitRate/1000000) + " MB/s)");
         }
 
         /********************** MOUSE FUNCTION ******************/
